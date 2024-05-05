@@ -8,18 +8,8 @@ from flask_jwt_extended import JWTManager, jwt_required
 
 auth_ns = Namespace('auth', description='User Authentication APIs namespace')
 
-api.add_namespace(auth_ns)
 
 ########################## MODELS #############
-# User Model Serializer
-user_model = api.model('User', {
-    'id': fields.Integer(description='The user ID'),
-    'username': fields.String(required=True, description='The user username'),
-    'email': fields.String(required=True, description='The user email'),
-    'password': fields.String(description='The user password'),
-    'preferences': fields.Raw(description='User specific preferences in JSON format')
-})
-
 login_model = auth_ns.model('Login', {
     'email': fields.String(required=True, description='The user email'),
     'password': fields.String(description='The user password'),
@@ -53,8 +43,8 @@ reset_password_confirmation_model = auth_ns.model('ResetPasswordConfirmation', {
 @auth_ns.route('/signup')
 class SignUp(Resource):
 
-    @api.marshal_with(login_model) # adds swagger documentation ability
-    @api.expect(login_model)
+    @auth_ns.marshal_with(login_model) # adds swagger documentation ability
+    @auth_ns.expect(login_model)
     def post(self):
         data = request.get_json()
         app.logger.debug("Received data: %s", data)
@@ -83,8 +73,8 @@ class SignUp(Resource):
 
 @auth_ns.route('/signup_resend_code')
 class SignupResendCode(Resource):
-    @api.marshal_with(reset_password_request_model) # adds swagger documentation ability
-    @api.expect(reset_password_request_model)
+    @auth_ns.marshal_with(reset_password_request_model) # adds swagger documentation ability
+    @auth_ns.expect(reset_password_request_model)
     def post(self):
         data = request.get_json()
         app.logger.debug("Received data: %s", data)
@@ -102,8 +92,8 @@ class SignupResendCode(Resource):
 
 @auth_ns.route('/signup_confirmation')
 class SignupConfirmation(Resource):
-    @api.marshal_with(signup_confirmation_model) # adds swagger documentation ability
-    @api.expect(signup_confirmation_model)
+    @auth_ns.marshal_with(signup_confirmation_model) # adds swagger documentation ability
+    @auth_ns.expect(signup_confirmation_model)
     def post(self):
         data = request.get_json()
         app.logger.debug("Received data: %s", data)
@@ -131,8 +121,8 @@ class SignupConfirmation(Resource):
 @auth_ns.route('/login')
 class Login(Resource):
     
-    @api.marshal_with(login_model)
-    @api.expect(login_model)
+    @auth_ns.marshal_with(login_model)
+    @auth_ns.expect(login_model)
     def post(self):
         data = request.get_json()
         email = data.get('email')
@@ -171,8 +161,8 @@ class Login(Resource):
 @auth_ns.route('/reset_forgotten_password_request')
 class ResetForgottenPasswordRequest(Resource):
 
-    @api.marshal_with(reset_password_request_model)
-    @api.expect(reset_password_request_model)
+    @auth_ns.marshal_with(reset_password_request_model)
+    @auth_ns.expect(reset_password_request_model)
     def post(self):
         data = request.get_json()
         email = data.get('email')
@@ -193,8 +183,8 @@ class ResetForgottenPasswordRequest(Resource):
 @auth_ns.route('/reset_forgotten_password_Conformation')
 class ResetForgottenPasswordConfirmation(Resource):
 
-    @api.marshal_with(reset_password_confirmation_model)
-    @api.expect(reset_password_confirmation_model)
+    @auth_ns.marshal_with(reset_password_confirmation_model)
+    @auth_ns.expect(reset_password_confirmation_model)
     def post(self):
         data = request.get_json()
         email= data.get('email')
