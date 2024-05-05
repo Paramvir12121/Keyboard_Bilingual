@@ -5,7 +5,6 @@ from flask_restx import Api, Resource, Namespace
 
 from models import User
 from exts import db
-from config import DevConfig
 
 from flask_migrate import Migrate
 
@@ -44,41 +43,3 @@ def create_app(config_to_use):
         }
     return app
 
-
-
-# Initialize the Cognito client
-
-
-
-
-
-
-
-
-
-###################### ROUTES #########################
-# @api.route('/')
-# class HelloResource(Resource):
-#     def get(self):
-#         return {'hello': 'world'}
-    
-
-# @api.route('/protected')
-# class ProtectedTest(Resource):
-#     @cognito_auth_required
-#     def get(self):
-#         """TO test if cognito auth is working"""
-#         return jsonify({'message': 'You have access to this endpoint!'})
-
-
-        
-
-
-
-
-
-
-
-
-# if __name__ == "__main__":
-#     app.run(debug=True,host='localhost', port=5000)
