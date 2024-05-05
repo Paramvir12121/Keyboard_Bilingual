@@ -20,7 +20,7 @@ class DevConfig(Config):
     SQLALCHEMY_ECHO = config('SQLALCHEMY_ECHO', cast=bool, default=True)
     COGNITO_REGION = config('COGNITO_REGION')
     COGNITO_USERPOOL_ID = config('USER_POOL_ID')
-    COGNITO_CLIENT_ID = config('APP_CLIENT_ID')
+    COGNITO_CLIENT_ID = config('COGNITO_CLIENT_ID')
     COGNITO_DOMAIN = config('COGNITO_DOMAIN')
 
 

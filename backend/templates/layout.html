@@ -1,0 +1,17 @@
+<!-- templates/layout.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Admin Panel{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</head>
+<body>
+    <nav>
+        <!-- Navigation links -->
+    </nav>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
