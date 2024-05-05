@@ -5,7 +5,7 @@ This is repository for Learn colemak (name not finalized) web app that uses reac
 ## Schedule
 Week 1 (May 4 - May 10):
 
-[x] May 4: Finalize Cognito authentication setup and test integration.
+- [x] May 4: Finalize Cognito authentication setup and test integration.
 1. Backend Feature Development:
 - [ ] May 5-6: Implement core features:
 2. Develop APIs for practice modes and user progress tracking.
