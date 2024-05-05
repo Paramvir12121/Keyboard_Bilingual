@@ -1,7 +1,9 @@
 from flask_restx import Api, Resource, Namespace, fields
 from flask import Flask, jsonify, render_template, request
 from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jwt
-from ..models import User
+# from ..models import User
+
+
 
 lessons_ns = Namespace('lessons', description='Lessons API namespace.')
 

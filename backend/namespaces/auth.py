@@ -54,7 +54,7 @@ class SignUp(Resource):
         password = str(data.get('password'))
         email = str(data.get('email'))
 
-        client = boto3.client('cognito-idp', region_name=config_imported.COGNITO_REGION)
+        client = boto3.client('cognito-idp', region_name=config_imconfig_to_useported.COGNITO_REGION)
         try:
             response = client.sign_up(
                 ClientId=config_imported.COGNITO_CLIENT_ID,

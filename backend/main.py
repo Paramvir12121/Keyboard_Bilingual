@@ -11,11 +11,10 @@ from flask_migrate import Migrate
 
 from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jwt
 from namespaces.auth import auth_ns
-
-
+from namespaces.lessons import lessons_ns
 
 ###################### Settings ###########################
-config_imported=DevConfig
+
 
 
 ###################### APP ############################
@@ -31,11 +30,12 @@ def create_app(config_to_use):
 
     api = Api(app, doc='/docs')
     api.add_namespace(auth_ns)
+    api.add_namespace(lessons_ns)
     migrate = Migrate(app,db)
     # JWTManager(app)
 
     cognito = CognitoAuth(app)
-    
+    cognito_client = boto3.client('cognito-idp', region_name=config_to_use.COGNITO_REGION)
     @app.shell_context_processor
     def make_shell_context():
         return {
@@ -47,7 +47,7 @@ def create_app(config_to_use):
 
 
 # Initialize the Cognito client
-cognito_client = boto3.client('cognito-idp', region_name=config_imported.COGNITO_REGION)
+
 
 
 
