@@ -235,12 +235,14 @@ class Logout(Resource):
     def post(self):
         client = get_cognito_client()
         auth_header = request.headers.get('Authorization')
+        print(auth_header)
         if not auth_header:
             return {'message': 'Authorization header missing'}, 401
 
+        try:  
             # Use the global sign-out API to revoke the refresh token for the current user
             client.global_sign_out(
-                AccessToken=access_token
+                AccessToken=auth_header
             )
             return jsonify({'message': 'Sucessfully logged out'})
         except client.exceptions.ClientError as error:
