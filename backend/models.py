@@ -34,7 +34,7 @@ class Lesson(db.Model):
 class UserLesson(db.Model):
     __tablename__ = 'user_lessons'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     lesson_id = db.Column(db.Integer, db.ForeignKey('lessons.id'), nullable=False)
     completed = db.Column(db.Boolean, default=False)
     score = db.Column(db.Integer)
@@ -45,11 +45,15 @@ class UserLesson(db.Model):
 
     def __repr__(self):
         return f"<{self.username} : lesson {self.title} >"
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
 class Setting(db.Model):
     __tablename__ = 'settings'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     setting_name = db.Column(db.String(50), nullable=False)
     setting_value = db.Column(db.String(200), nullable=False)
 
@@ -58,7 +62,7 @@ class Setting(db.Model):
 class Payment(db.Model):
     __tablename__ = 'payments'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     amount = db.Column(db.Float, nullable=False)
     currency = db.Column(db.String(10), nullable=False)
     payment_date = db.Column(db.DateTime, default=datetime.utcnow)

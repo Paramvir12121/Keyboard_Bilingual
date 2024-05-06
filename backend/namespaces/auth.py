@@ -3,7 +3,7 @@ from models import User
 import boto3
 from flask import jsonify, request, current_app
 from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jwt
-
+from exts import db
 
 
 auth_ns = Namespace('auth', description='User Authentication APIs namespace')
@@ -85,6 +85,7 @@ class SignUp(Resource):
                 ],
             )
             print("Signup Response: ", response)
+
             return response, 200
         except client.exceptions.ClientError as error:
             return handle_cognito_error(error)
@@ -106,6 +107,7 @@ class SignupResendCode(Resource):
                     ClientId=current_app.config['COGNITO_CLIENT_ID'],
                     Username=email,
                     )
+            print("Response: ", response)
             return response, 200
         except client.exceptions.ClientError as error:
             return handle_cognito_error(error)
@@ -118,7 +120,7 @@ class SignupConfirmation(Resource):
     @auth_ns.expect(signup_confirmation_model)
     def post(self):
         data = request.get_json()
-        app.logger.debug("Received data: %s", data)
+        # app.logger.debug("Received data: %s", data)
         print("Received data:", data)  # Log the received data
         if not data:
             return jsonify({"error": "No data provided"}), 400
