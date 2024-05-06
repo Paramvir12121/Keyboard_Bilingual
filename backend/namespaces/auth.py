@@ -51,6 +51,12 @@ reset_password_confirmation_model = auth_ns.model('ResetPasswordConfirmation', {
     'verification_code': fields.String(required=True, description='Verification code sent to email')
 })
 
+logout_model = auth_ns.model('Logout', {
+    'access_token': fields.String(required=True, description='User access code'),
+})
+
+# access_token = None
+
 ######################### APIs #############################
 
 @auth_ns.route('/signup')
@@ -89,7 +95,7 @@ class SignupResendCode(Resource):
     @auth_ns.expect(reset_password_request_model)
     def post(self):
         data = request.get_json()
-        app.logger.debug("Received data: %s", data)
+        # app.logger.debug("Received data: %s", data)
         print("Received data:", data)  # Log the received data
         if not data:
             return jsonify({"error": "No data provided"}), 400
@@ -112,7 +118,7 @@ class SignupConfirmation(Resource):
     @auth_ns.expect(signup_confirmation_model)
     def post(self):
         data = request.get_json()
-        app.logger.debug("Received data: %s", data)
+        # app.logger.debug("Received data: %s", data)
         print("Received data:", data)  # Log the received data
         if not data:
             return jsonify({"error": "No data provided"}), 400
@@ -156,8 +162,8 @@ class Login(Resource):
             )
             # print(response)
             # If the login is successful, Cognito responds with tokens
-            # access_token=response['AuthenticationResult']['AccessToken']
-            
+            access_token=response['AuthenticationResult']['AccessToken']
+            print(access_token)
             # refresh_token=response['AuthenticationResult']['RefreshToken']
             return jsonify({
                 'message': 'Login successful',
@@ -221,19 +227,21 @@ class ResetForgottenPasswordConfirmation(Resource):
 @auth_ns.route('/logout')
 class Logout(Resource):
 
+    # @auth_ns.marshal_with(logout_model)
+    # @auth_ns.expect(logout_model)
+    @cognito_auth_required
     def post(self):
-        client = get_cognito_client()
-        auth_header = request.headers.get('Authorization')
-        if not auth_header:
-            return {'message': 'Authorization header missing'}, 401
-
-        access_token = auth_header.split()[1]  # 'Bearer <token>'
-
         try:
-            response = client.global_sign_out(
-            AccessToken=access_token  
+            # Revoke the refresh token
+            access_token = current_cognito_jwt.access_token
+            client = get_cognito_client()
+
+            # Use the global sign-out API to revoke the refresh token for the current user
+            client.global_sign_out(
+                AccessToken=access_token
             )
-            return jsonify({'message': 'Sucessfully logged out'})
+            return jsonify({'message': 'Logout successful'}), 200
+
         except client.exceptions.ClientError as error:
             return handle_cognito_error(error)
         except Exception as e:
