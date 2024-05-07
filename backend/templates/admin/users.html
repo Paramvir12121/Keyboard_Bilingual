@@ -6,7 +6,7 @@
 <section class="section">
     <div class="container">
         <h1 class="title">All Users</h1>
-        <table class="table">
+        <table class="table is-fullwidth is-striped is-hoverable">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -22,7 +22,10 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>
-                        <!-- Add edit/delete buttons -->
+                        <a href="{{ url_for('admin.edit_user', user_id=user.id) }}" class="button is-small is-info">Edit</a>
+                        <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="POST" style="display: inline;">
+                            <button type="submit" class="button is-small is-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 {% endfor %}

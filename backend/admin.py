@@ -1,5 +1,5 @@
 # admin.py
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, redirect, url_for
 from exts import db
 from models import User, Lesson, UserLesson, Setting, Payment
 
@@ -27,6 +27,24 @@ def add_user():
     # return render_template('admin/add_user.html')
     pass
 
+@admin_bp.route('/edit_user/<int:user_id>', methods=['GET', 'POST'])
+def edit_user(user_id):
+    user = User.query.get_or_404(user_id)
+    if request.method == 'POST':
+        user.username = request.form['username']
+        user.email = request.form['email']
+        db.session.commit()
+        return redirect(url_for('admin.view_users'))
+    return render_template('admin/edit_user.html', user=user)
+
+@admin_bp.route('/delete_user/<int:user_id>', methods=['POST'])
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+    return redirect(url_for('admin.view_users'))
+
 
 @admin_bp.route('/lessons')
 def view_lessons():
@@ -34,3 +52,29 @@ def view_lessons():
     return render_template('admin/lessons.html', lessons=lessons)
 
 
+def view_lessons():
+    lessons = Lesson.query.all()
+    return render_template('admin/lessons.html', lessons=lessons)
+
+# Add a new lesson
+@admin_bp.route('/add_lesson', methods=['GET', 'POST'])
+def add_lesson():
+    if request.method == 'POST':
+        title = request.form['title']
+        description = request.form['description']
+        content = request.form['content']
+        new_lesson = Lesson(title=title, description=description, content=content)
+        db.session.add(new_lesson)
+        db.session.commit()
+        return redirect(url_for('admin.view_lessons'))
+    return render_template('admin/add_lesson.html')
+
+# Delete a lesson
+@admin_bp.route('/delete_lesson/<int:id>', methods=['POST'])
+def delete_lesson(id):
+    # lesson = Lesson.query.get(id)
+    # if lesson:
+    #     db.session.delete(lesson)
+    #     db.session.commit()
+    # return redirect(url_for('admin.view_lessons'))
+    pass
