@@ -51,11 +51,6 @@ def view_lessons():
     lessons = Lesson.query.all()
     return render_template('admin/lessons.html', lessons=lessons)
 
-
-def view_lessons():
-    lessons = Lesson.query.all()
-    return render_template('admin/lessons.html', lessons=lessons)
-
 # Add a new lesson
 @admin_bp.route('/add_lesson', methods=['GET', 'POST'])
 def add_lesson():
@@ -70,11 +65,8 @@ def add_lesson():
     return render_template('admin/add_lesson.html')
 
 # Delete a lesson
-@admin_bp.route('/delete_lesson/<int:id>', methods=['POST'])
-def delete_lesson(id):
-    # lesson = Lesson.query.get(id)
-    # if lesson:
-    #     db.session.delete(lesson)
-    #     db.session.commit()
-    # return redirect(url_for('admin.view_lessons'))
-    pass
+def delete_lesson(lesson_id):
+    lesson = Lesson.query.get_or_404(lesson_id)
+    db.session.delete(lesson)
+    db.session.commit()
+    return redirect(url_for('admin.view_lessons'))

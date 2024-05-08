@@ -1,0 +1,5 @@
+.btn-inline {
+    display: inline-block;  /* Ensures buttons are in a line */
+    margin-right: 10px;    /* Adds some space between the buttons */
+    background-color: blue;
+}
