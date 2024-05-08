@@ -1,8 +1,36 @@
 <!-- templates/admin/users.html -->
 {% extends 'layout.html' %}
-{% block title %}Manage Users{% endblock %}
+{% block title %}Users{% endblock %}
 
 {% block content %}
-<h1>Manage Users</h1>
-<!-- Add a table or form to manage users -->
+<section class="section">
+    <div class="container">
+        <h1 class="title">All Users</h1>
+        <table class="table is-fullwidth is-striped is-hoverable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <a href="{{ url_for('admin.edit_user', user_id=user.id) }}" class="button is-small is-info">Edit</a>
+                        <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="POST" style="display: inline;">
+                            <button type="submit" class="button is-small is-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
 {% endblock %}
