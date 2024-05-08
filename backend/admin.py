@@ -61,7 +61,7 @@ def view_lessons():
 def add_lesson():
     if request.method == 'POST':
         title = request.form['title']
-        description = request.form['description']
+        description = request.form.get('description', '')  # Optional field
         content = request.form['content']
         new_lesson = Lesson(title=title, description=description, content=content)
         db.session.add(new_lesson)
