@@ -3,6 +3,12 @@ from models import User
 import boto3
 from flask import jsonify, request, current_app
 from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jwt
+from flask_jwt_extended import (
+    JWTManager,
+    set_access_cookies,
+    verify_jwt_in_request,
+    get_jwt_identity,
+)
 from exts import db
 
 
@@ -55,9 +61,10 @@ logout_model = auth_ns.model('Logout', {
     'access_token': fields.String(required=True, description='User access code'),
 })
 
-# access_token = None
-
 ######################### APIs #############################
+
+access_token=None
+refresh_token=None
 
 @auth_ns.route('/signup')
 class SignUp(Resource):
@@ -164,9 +171,9 @@ class Login(Resource):
             )
             print(response['AuthenticationResult']['AccessToken'])
             # If the login is successful, Cognito responds with tokens
-            # access_token=response['AuthenticationResult']['AccessToken']
+            access_token=response['AuthenticationResult']['AccessToken']
+            refresh_token=response['AuthenticationResult']['RefreshToken']
             
-            # refresh_token=response['AuthenticationResult']['RefreshToken']
             return jsonify({
                 'message': 'Login successful',
                 'access_token': response['AuthenticationResult']['AccessToken'],
@@ -224,7 +231,13 @@ class ResetForgottenPasswordConfirmation(Resource):
         except client.exceptions.ClientError as e:
             return {'message': f'Unexpected error occurred: {e.response["Error"]["Message"]}'}, 500
         
-
+@auth_ns.route('/refresh')
+class RefreshResource(Resource):
+    @cognito_auth_required
+    def post(self):
+        # current_user = 
+        # new_access_token = 
+        pass
 
         
 
@@ -252,3 +265,26 @@ class Logout(Resource):
         except Exception as e:
             return {'message': f'Error during logout: {str(e)}'}, 500
         
+
+
+        
+@auth_ns.route('/protected')
+class Protected(Resource):
+
+    # @auth_ns.marshal_with(logout_model)
+    # @auth_ns.expect(logout_model)
+    @cognito_auth_required
+    def post(self):
+        claims = current_cognito_jwt
+        try:
+            claims = current_cognito_jwt
+            print("Claims: ", claims)
+            user_id = claims.get('sub')
+            if not user_id:
+                return jsonify({'message': 'User ID not found in token'}), 400
+            return jsonify({
+                'claims': claims,
+                'user_id': user_id
+            }), 200
+        except Exception as e:
+            return jsonify({'message': 'Error processing request', 'error': str(e)}), 500

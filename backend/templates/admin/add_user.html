@@ -1,0 +1,38 @@
+<!-- templates/admin/add_user.html -->
+{% extends 'layout.html' %}
+{% block title %}Add User{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="title">Add New User</h1>
+        <form action="{{ url_for('admin.add_user') }}" method="POST">
+            <div class="field">
+                <label class="label" for="username">Username</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="text" name="username" id="username" placeholder="Enter username" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label" for="email">Email</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="email" name="email" id="email" placeholder="Enter email address" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <button type="submit" class="button is-link">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
