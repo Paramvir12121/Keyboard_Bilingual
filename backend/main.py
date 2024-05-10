@@ -3,7 +3,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_restx import Api, Resource, Namespace
 
-from models import User
+from models import User, Lesson, UserLesson
 from exts import db
 
 from flask_migrate import Migrate
@@ -25,7 +25,7 @@ def create_app(config_to_use):
 
     app.config.from_object(config_to_use)
 
-    cors = CORS(app, origins='*')
+    cors = CORS(app, supports_credentials=True, origins="*")
     db.init_app(app)
 
     api = Api(app, doc='/docs')
@@ -42,6 +42,7 @@ def create_app(config_to_use):
         return {
             "db": db,
             "User": User,
+            "lessons": Lesson,
         }
     return app
 
