@@ -37,3 +37,7 @@ Week 4 (May 25 - May 31):
 - [ ] May 25-26: Conduct thorough testing, both manual and automated.
 - [ ] May 27-28: Fix bugs and optimize the application.
 - [ ] May 29-31: Finalize and deploy the application.
+
+
+Frontend 
+- use https://www.creative-tim.com/product/argon-design-system-react as react template
