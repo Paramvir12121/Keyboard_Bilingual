@@ -2,6 +2,7 @@ import boto3
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_restx import Api, Resource, Namespace
+from flask_jwt_extended import JWTManager
 
 from models import User, Lesson, UserLesson
 from exts import db
@@ -33,7 +34,7 @@ def create_app(config_to_use):
     api.add_namespace(lessons_ns)
     app.register_blueprint(admin_bp)
     migrate = Migrate(app,db)
-    # JWTManager(app)
+    JWTManager(app)
 
     cognito = CognitoAuth(app)
     cognito_client = boto3.client('cognito-idp', region_name=config_to_use.COGNITO_REGION)
