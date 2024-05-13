@@ -1,7 +1,7 @@
 from flask_restx import Api, Resource, Namespace, fields
 from models import User
 import boto3
-from flask import jsonify, request, current_app, session
+from flask import jsonify, request, current_app, make_response
 from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jwt
 from exts import db
 
@@ -247,11 +247,10 @@ class Logout(Resource):
 
     # @auth_ns.marshal_with(logout_model)
     # @auth_ns.expect(logout_model)
-    @cognito_auth_required
+    @jwt_required()
     def post(self):
         client = get_cognito_client()
         auth_header = request.headers.get('Authorization')
-        print(auth_header)
         if not auth_header:
             return {'message': 'Authorization header missing'}, 401
 
@@ -272,9 +271,9 @@ class Logout(Resource):
 @auth_ns.route('/protected')
 class Protected(Resource):
 
-    # @auth_ns.marshal_with(logout_model)
-    # @auth_ns.expect(logout_model)
-    @jwt_required
+    @jwt_required()
     def post(self):
         print("Authorized!!!")
-        return jsonify({"authorized": "Autherized"}), 200
+        response = {"authorized": "Authorized"}
+        print(f"Response to be returned: {response}")
+        return make_response(jsonify(response), 201)

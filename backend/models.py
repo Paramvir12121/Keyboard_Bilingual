@@ -10,6 +10,8 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    access_token = db.Column(db.String)
+    refresh_token = db.Column(db.String)
 
     def __repr__(self):
         return f"<User {self.username} >"
@@ -17,6 +19,13 @@ class User(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
+    
+    def update_access(self, access_token, refresh_token):
+        self.access_token = access_token
+        self.refresh_token = refresh_token
+        db.session.commit()
+
+
 
 
 class Lesson(db.Model):
