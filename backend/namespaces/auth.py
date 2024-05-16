@@ -129,7 +129,10 @@ class Login(Resource):
         data = request.get_json()
         email = data.get('email')
         password = data.get('password')
+        print(f"Received login request for email: {email}")
+
         client = get_cognito_client()
+
         try:
             response = client.initiate_auth(
                 ClientId=current_app.config['COGNITO_CLIENT_ID'],
@@ -139,12 +142,16 @@ class Login(Resource):
                     'PASSWORD': password
                 }
             )
-            id_token = response['AuthenticationResult']['IdToken']
-            access_token = response['AuthenticationResult']['AccessToken']
-            refresh_token = response['AuthenticationResult']['RefreshToken']
-            print("Access Token: ", access_token)
-            print("ID toekn: ",id_token)
-            
+            print("AWS Cognito Response:", response)
+
+            auth_result = response.get('AuthenticationResult', {})
+            id_token = auth_result.get('IdToken')
+            access_token = auth_result.get('AccessToken')
+            refresh_token = auth_result.get('RefreshToken')
+
+            if not id_token or not access_token or not refresh_token:
+                return {'message': 'Failed to retrieve tokens from Cognito'}, 500
+
             # Save the user to the local DB if they don't exist
             db_user = User.query.filter_by(email=email).first()
             if not db_user:
@@ -157,7 +164,13 @@ class Login(Resource):
                 "refresh_token": refresh_token,
             }), 200
         except client.exceptions.ClientError as error:
+            print("AWS Cognito ClientError:", error)
             return handle_cognito_error(error)
+        except Exception as e:
+            print("Unexpected error:", e)
+            return {'message': 'An unexpected error occurred'}, 500
+
+
 
 @auth_ns.route('/reset_forgotten_password_request')
 class ResetForgottenPasswordRequest(Resource):
