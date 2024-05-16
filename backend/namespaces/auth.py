@@ -1,9 +1,10 @@
-from flask_restx import Api, Resource, Namespace, fields
+from flask_restx import Api, Resource, Namespace, fields, marshal
 from models import User
 import boto3
 from flask import jsonify, request, current_app, make_response
 from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jwt
 from exts import db
+from main import CORS
 
 auth_ns = Namespace('auth', description='User Authentication APIs namespace')
 
@@ -24,6 +25,9 @@ def handle_cognito_error(error):
 login_model = auth_ns.model('Login', {
     'email': fields.String(required=True, description='The user email'),
     'password': fields.String(description='The user password'),
+    "id_token": fields.String(description='The user password'),
+    "access_token": fields.String(description='The user password'),
+    "refresh_token": fields.String(description='The user password'),
 })
 
 signup_confirmation_model = auth_ns.model('Signup_Confirmation', {
@@ -121,12 +125,23 @@ class SignupConfirmation(Resource):
         except client.exceptions.ClientError as error:
             return handle_cognito_error(error)
 
+
 @auth_ns.route('/login')
 class Login(Resource):
-    @auth_ns.marshal_with(login_model)
     @auth_ns.expect(login_model)
     def post(self):
+        print(f"Content-Type: {request.content_type}")  # Debugging line
+        print(f"Request Data: {request.data}")  # Debugging line
+
+        if request.content_type != 'application/json':
+            return {'message': "Did not attempt to load JSON data because the request Content-Type was not 'application/json'."}, 400
+
         data = request.get_json()
+        print(f"Parsed JSON Data: {data}")  # Debugging line
+
+        if not data:
+            return {'message': 'No data provided'}, 400
+
         email = data.get('email')
         password = data.get('password')
         print(f"Received login request for email: {email}")
@@ -158,19 +173,17 @@ class Login(Resource):
                 db_user = User(email=email)
                 db_user.save()
 
-            return jsonify({
+            return {
                 "id_token": id_token,
                 "access_token": access_token,
                 "refresh_token": refresh_token,
-            }), 200
+            }, 200
         except client.exceptions.ClientError as error:
             print("AWS Cognito ClientError:", error)
             return handle_cognito_error(error)
         except Exception as e:
             print("Unexpected error:", e)
             return {'message': 'An unexpected error occurred'}, 500
-
-
 
 @auth_ns.route('/reset_forgotten_password_request')
 class ResetForgottenPasswordRequest(Resource):

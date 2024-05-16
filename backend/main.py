@@ -26,7 +26,7 @@ def create_app(config_to_use):
 
     app.config.from_object(config_to_use)
 
-    cors = CORS(app, supports_credentials=True, origins="*")
+    CORS(app, supports_credentials=True, origins="*")
     db.init_app(app)
 
     api = Api(app, doc='/docs')
