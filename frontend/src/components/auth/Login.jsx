@@ -8,24 +8,32 @@ const Login = () => {
     const [error, setError] = useState(''); // Optional: manage error state
 
     
-    const handleLogin = async (event) => {
-        event.preventDefault(); // Prevent the form from submitting naturally
-    
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setError(null);
+
         try {
-            const response = await axios.post('http://localhost:5000/auth/login/', {
-                email: email,
-                password: password,
-            }, {
-                withCredentials: true  // Important if you're dealing with credentials
+            const response = await axios.post('http://localhost:5000/auth/login', {
+                email,
+                password,
             });
-    
-            const { key } = response.data;
-            localStorage.setItem('token', key); // Store the token in local storage
-            console.log('Login successful'); // Or navigate to another page/dashboard
-            // window.location.href = '/dashboard'; // Redirect the user after login
+
+            console.log('Login successful:', response.data);
+
+            // Check if the response contains the tokens
+            if (response.data.id_token && response.data.access_token && response.data.refresh_token) {
+                // Save tokens to localStorage
+                localStorage.setItem('id_token', response.data.id_token);
+                localStorage.setItem('access_token', response.data.access_token);
+                localStorage.setItem('refresh_token', response.data.refresh_token);
+
+                // Redirect or perform other actions after successful login
+            } else {
+                setError('Login response did not contain tokens');
+            }
         } catch (error) {
-            console.error('Login failed:', error);
-            setError('Failed to log in. Please check your credentials.'); // Update error state to display message
+            console.error('Login error:', error);
+            setError(error.response ? error.response.data.message : 'An error occurred');
         }
     };
     
