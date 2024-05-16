@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import LogoutButton from '../auth/LogoutButton';
 
 const ProtectedData = () => {
     const [data, setData] = useState(null);
@@ -36,6 +37,7 @@ const ProtectedData = () => {
     return (
         <div>
             <h2>Protected Data</h2>
+            <LogoutButton />
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {data ? (
                 <div>

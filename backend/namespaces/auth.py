@@ -240,7 +240,7 @@ class Logout(Resource):
 
         try:
             access_token = auth_header.split(" ")[1]  # Extract token from header
-            response= client.global_sign_out(
+            response = client.global_sign_out(
                 AccessToken=access_token
             )
             if response['ResponseMetadata']['HTTPStatusCode'] == 200:
@@ -252,8 +252,10 @@ class Logout(Resource):
         except Exception as e:
             return {'message': f'Error during logout: {str(e)}'}, 500
 
+
 @auth_ns.route('/protected')
 class Protected(Resource):
     @cognito_auth_required
     def post(self):
+        print("protected area accessed!!")
         return make_response(jsonify({"message": "Authorized"}), 200)
