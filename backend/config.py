@@ -22,6 +22,7 @@ class DevConfig(Config):
     COGNITO_USERPOOL_ID = config('USER_POOL_ID')
     COGNITO_CLIENT_ID = config('COGNITO_CLIENT_ID')
     COGNITO_DOMAIN = config('COGNITO_DOMAIN')
+    
 
 
 
