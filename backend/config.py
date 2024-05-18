@@ -13,6 +13,7 @@ BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 class Config:
     SECRET_KEY = config('SECRET_KEY', default='secret')
     SQLALCHEMY_TRACK_MODIFICATIONS = config('SQLALCHEMY_TRACK_MODIFICATIONS', cast=bool, default=False)
+    STRIPE_API_KEY = config('STRIPE_API_KEY')
 
 class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI = config('DATABASE_URI', default="sqlite:///dev.db")

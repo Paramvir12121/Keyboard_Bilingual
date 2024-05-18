@@ -5,31 +5,24 @@ from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jw
 
 import stripe
 
-stripe.api_key ="Y"
+import stripe
+from flask import current_app
+from flask_restx import Namespace, Resource
 
-payment_ns = Namespace('pay', description='Payment APIs namespace')
+payment_ns = Namespace('payment', description='Payment related operations')
 
-def create_checkout_session():
-    try:
-        session = stripe.checkout.Session.create(
-            ui_mode = 'embedded',
-            line_items=[
-                {
-                    # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-                    'price': '{{PRICE_ID}}',
-                    'quantity': 1,
-                },
-            ],
-            mode='payment',
-            return_url=YOUR_DOMAIN + '/return.html?session_id={CHECKOUT_SESSION_ID}',
-        )
-    except Exception as e:
-        return str(e)
-
-    return jsonify(clientSecret=session.client_secret)
-
-@app.route('/session-status', methods=['GET'])
-def session_status():
-  session = stripe.checkout.Session.retrieve(request.args.get('session_id'))
-
-  return jsonify(status=session.status, customer_email=session.customer_details.email)
+@payment_ns.route('/process')
+class PaymentProcess(Resource):
+    def post(self):
+        stripe.api_key = current_app.config['STRIPE_API_KEY']
+        # Example Stripe charge
+        try:
+            charge = stripe.Charge.create(
+                amount=1000,  # Amount in cents
+                currency='usd',
+                source='tok_visa',  # Use an appropriate source or customer
+                description='Example charge'
+            )
+            return {"status": "success", "charge": charge}
+        except stripe.error.StripeError as e:
+            return {"status": "error", "message": str(e)}, 400
