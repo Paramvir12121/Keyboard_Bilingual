@@ -25,9 +25,9 @@ def handle_cognito_error(error):
 login_model = auth_ns.model('Login', {
     'email': fields.String(required=True, description='The user email'),
     'password': fields.String(description='The user password'),
-    "id_token": fields.String(description='The user password'),
-    "access_token": fields.String(description='The user password'),
-    "refresh_token": fields.String(description='The user password'),
+    # "id_token": fields.String(description='The user password'),
+    # "access_token": fields.String(description='The user password'),
+    # "refresh_token": fields.String(description='The user password'),
 })
 
 signup_confirmation_model = auth_ns.model('Signup_Confirmation', {

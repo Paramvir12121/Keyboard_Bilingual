@@ -3,6 +3,7 @@ from flask import Flask, jsonify, render_template, request
 from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jwt
 from models import User, Lesson, UserLesson
 from exts import db
+from functools import wraps
 
 
 
@@ -17,16 +18,6 @@ user_model = lessons_ns.model('User_stats', {
     'password': fields.String(description='The user password'),
     'preferences': fields.Raw(description='User specific preferences in JSON format')
 })
-######################### APIs ###############################
-
-
-@lessons_ns.route('/dashboard')
-class Dashboard(Resource):
-
-    @lessons_ns.marshal_with(user_model)
-    @lessons_ns.expect(user_model)
-    def get(self):
-        pass
 
 # Models for API documentation
 lesson_model = lessons_ns.model('Lesson', {
@@ -45,6 +36,33 @@ user_lesson_model = lessons_ns.model('UserLesson', {
     'score': fields.Integer(description='The score'),
     'completed_at': fields.DateTime(description='Completion time'),
 })
+
+########################### Functions ################################
+
+def payment_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        user_id = current_cognito_jwt['sub']  # Assuming 'sub' is the user ID in JWT
+        user = User.query.filter_by(cognito_id=user_id).first()
+
+        if user and user.has_paid:
+            return f(*args, **kwargs)
+        return jsonify({"message": "Payment required to access this resource."}), 402
+
+    return decorated_function
+
+######################### APIs ###############################
+
+
+@lessons_ns.route('/dashboard')
+class Dashboard(Resource):
+
+    @lessons_ns.marshal_with(user_model)
+    @lessons_ns.expect(user_model)
+    def get(self):
+        pass
+
+
 
 # API endpoints
 @lessons_ns.route('/')
@@ -68,6 +86,7 @@ class LessonDetail(Resource):
 class UserLessonCreate(Resource):
     @lessons_ns.expect(user_lesson_model)
     @cognito_auth_required
+    # @payment_required
     def post(self):
         """Create a new user lesson"""
         data = request.get_json()
