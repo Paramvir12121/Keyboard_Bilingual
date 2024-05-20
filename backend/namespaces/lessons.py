@@ -21,20 +21,23 @@ user_model = lessons_ns.model('User_stats', {
 
 # Models for API documentation
 lesson_model = lessons_ns.model('Lesson', {
-    'id': fields.Integer(readonly=True),
-    'title': fields.String(required=True, description='The lesson title'),
-    'description': fields.String(description='The lesson description'),
-    'content': fields.String(required=True, description='The lesson content'),
-    'created_at': fields.DateTime,
-    'updated_at': fields.DateTime,
+    'id': fields.Integer,
+    'title': fields.String,
+    'description': fields.String,
+    'keys': fields.String,
+    'words': fields.String,
+    'difficulty': fields.String,
+    'average_time': fields.Float,
+    'success_rate': fields.Float
 })
 
-user_lesson_model = lessons_ns.model('UserLesson', {
-    'user_id': fields.Integer(required=True, description='The user ID'),
+lesson_completion_model = lessons_ns.model('LessonCompletion', {
     'lesson_id': fields.Integer(required=True, description='The lesson ID'),
-    'completed': fields.Boolean(description='Completion status'),
-    'score': fields.Integer(description='The score'),
-    'completed_at': fields.DateTime(description='Completion time'),
+    'score': fields.Integer(required=True, description='The score'),
+    'completion_time': fields.Float(required=True, description='Time taken to complete the lesson'),
+    'accuracy': fields.Float(required=True, description='Accuracy percentage'),
+    'attempts': fields.Integer(required=True, description='Number of attempts'),
+    'errors': fields.Integer(required=True, description='Number of errors')
 })
 
 ########################### Functions ################################
@@ -84,7 +87,7 @@ class LessonDetail(Resource):
 
 @lessons_ns.route('/user_lesson')
 class UserLessonCreate(Resource):
-    @lessons_ns.expect(user_lesson_model)
+    @lessons_ns.expect(lesson_completion_model)
     @cognito_auth_required
     # @payment_required
     def post(self):
