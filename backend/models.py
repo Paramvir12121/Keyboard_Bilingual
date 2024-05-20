@@ -34,7 +34,9 @@ class Lesson(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text)
-    content = db.Column(db.Text, nullable=False)
+    keys = db.Column(db.String(50), nullable=False)  # Keys to be practiced (e.g., 'a s d')
+    words = db.Column(db.Text, nullable=False)  # Words or phrases using the keys
+    difficulty = db.Column(db.String(20), nullable=False, default='easy')  # Difficulty level
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -48,13 +50,17 @@ class UserLesson(db.Model):
     lesson_id = db.Column(db.Integer, db.ForeignKey('lessons.id'), nullable=False)
     completed = db.Column(db.Boolean, default=False)
     score = db.Column(db.Integer)
+    completion_time = db.Column(db.Float)  # Time taken to complete the lesson in seconds
+    accuracy = db.Column(db.Float)  # Accuracy percentage (e.g., 0.95 for 95%)
+    attempts = db.Column(db.Integer, default=0)  # Number of attempts
+    errors = db.Column(db.Integer, default=0)  # Number of errors
     completed_at = db.Column(db.DateTime)
 
     user = db.relationship('User', backref='user_lessons')
     lesson = db.relationship('Lesson', backref='user_lessons')
 
     def __repr__(self):
-        return f"<{self.username} : lesson {self.title} >"
+        return f"<UserLesson {self.user_id} - Lesson {self.lesson_id}>"
     
     def save(self):
         db.session.add(self)
