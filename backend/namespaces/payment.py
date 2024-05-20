@@ -36,6 +36,20 @@ class PaymentProcess(Resource):
             )
             payment.save()
 
+            # If Chearge.is_paid then 
+            # Remove user from "Basic" group
+        #     client.admin_remove_user_from_group(
+        #         UserPoolId=current_app.config['COGNITO_USER_POOL_ID'],
+        #         Username=email,
+        #         GroupName='Basic'
+        #     )
+        #     # Add user to "Premium Users" group
+        #     client.admin_add_user_to_group(
+        #         UserPoolId=current_app.config['COGNITO_USER_POOL_ID'],
+        #         Username=email,
+        #         GroupName='Premium Users'
+        #       )
+
             # Update user's payment status
             user.has_paid = True
             user.save()

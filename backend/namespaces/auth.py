@@ -79,6 +79,11 @@ class SignUp(Resource):
                     {'Name': 'email', 'Value': email},
                 ],
             )
+            client.admin_add_user_to_group(
+                UserPoolId=current_app.config['COGNITO_USER_POOL_ID'],
+                Username=email,
+                GroupName='Basic'
+            )
             return response, 200
         except client.exceptions.ClientError as error:
             return handle_cognito_error(error)
