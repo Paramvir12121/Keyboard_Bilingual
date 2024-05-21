@@ -28,7 +28,8 @@ lesson_model = lessons_ns.model('Lesson', {
     'words': fields.String,
     'difficulty': fields.String,
     'average_time': fields.Float,
-    'success_rate': fields.Float
+    'success_rate': fields.Float,
+    'content': fields.String
 })
 
 lesson_completion_model = lessons_ns.model('LessonCompletion', {
@@ -68,14 +69,13 @@ class Dashboard(Resource):
 
 
 # API endpoints
-@lessons_ns.route('/')
+@lessons_ns.route('/all')
 class LessonList(Resource):
     @lessons_ns.marshal_list_with(lesson_model)
     def get(self):
         """Get all lessons"""
-        # lessons = Lesson.query.all()
-        # return lessons
-        pass
+        lessons = Lesson.query.all()
+        return lessons
 
 @lessons_ns.route('/<int:id>')
 class LessonDetail(Resource):
