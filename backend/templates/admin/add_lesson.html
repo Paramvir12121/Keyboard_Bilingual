@@ -5,21 +5,36 @@
 {% block content %}
 <div class="container">
     <h1 class="mb-4">Add Lesson</h1>
-    <form action="{{ url_for('admin.add_lesson') }}" method="POST">
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" name="title" required>
-        </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="content">Content</label>
-            <textarea class="form-control" id="content" name="content" required></textarea>
-        </div>
-        <br/>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <div class="container mt-5">
+        <h1>Add New Lesson</h1>
+        <form action="{{ url_for('admin.add_lesson') }}" method="post">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="keys">Keys</label>
+                <input type="text" class="form-control" id="keys" name="keys" required>
+            </div>
+            <div class="form-group">
+                <label for="words">Words</label>
+                <textarea class="form-control" id="words" name="words" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="difficulty">Difficulty</label>
+                <select class="form-control" id="difficulty" name="difficulty" required>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Add Lesson</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

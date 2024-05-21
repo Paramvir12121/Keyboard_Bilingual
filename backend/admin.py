@@ -57,16 +57,47 @@ def add_lesson():
     if request.method == 'POST':
         title = request.form['title']
         description = request.form.get('description', '')  # Optional field
-        content = request.form['content']
-        new_lesson = Lesson(title=title, description=description, content=content)
+        keys = request.form['keys']
+        words = request.form['words']
+        difficulty = request.form['difficulty']
+        # average_time = request.form.get('average_time', 0.0)
+        # success_rate = request.form.get('success_rate', 0.0)
+
+        new_lesson = Lesson(
+            title=title,
+            description=description,
+            keys=keys,
+            words=words,
+            difficulty=difficulty,
+            # average_time=average_time,
+            # success_rate=success_rate
+        )
         db.session.add(new_lesson)
         db.session.commit()
         return redirect(url_for('admin.view_lessons'))
+
     return render_template('admin/add_lesson.html')
 
 # Delete a lesson
+@admin_bp.route('/delete_lesson/<int:lesson_id>', methods=['POST'])
 def delete_lesson(lesson_id):
     lesson = Lesson.query.get_or_404(lesson_id)
     db.session.delete(lesson)
     db.session.commit()
     return redirect(url_for('admin.view_lessons'))
+
+
+@admin_bp.route('/update_lesson/<int:lesson_id>', methods=['GET', 'POST'])
+def update_lesson(lesson_id):
+    lesson = Lesson.query.get_or_404(lesson_id)
+    if request.method == 'POST':
+        lesson.title = request.form['title']
+        lesson.description = request.form.get('description', '')  # Optional field
+        lesson.keys = request.form['keys']
+        lesson.words = request.form['words']
+        lesson.difficulty = request.form['difficulty']
+        lesson.average_time = request.form.get('average_time', 0.0)
+        lesson.success_rate = request.form.get('success_rate', 0.0)
+        db.session.commit()
+        return redirect(url_for('admin.view_lessons'))
+    return render_template('admin/update_lesson.html', lesson=lesson)
