@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import "./Login.css"
-import axios from 'axios';
+import "./Login.css";
+import baseApi from '../Api/BaseApi';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(''); // Optional: manage error state
 
-    
     const handleLogin = async (e) => {
         e.preventDefault();
         setError(null);
 
         try {
-            const response = await axios.post('http://localhost:5000/auth/login', {
+            const response = await baseApi.post('/auth/login', {
                 email,
                 password,
             });
@@ -36,10 +35,6 @@ const Login = () => {
             setError(error.response ? error.response.data.message : 'An error occurred');
         }
     };
-    
-    
-
-
 
     return (
         <div className="container-fluid">
@@ -72,6 +67,7 @@ const Login = () => {
                             </div>
                             <button type="submit" onClick={handleLogin} className="btn btn-primary">Login</button>
                         </form>
+                        {error && <p style={{ color: 'red' }}>{error}</p>}
                     </div>
                 </div>
                 <div className="col-md-6 d-none d-lg-block order-md-2" id='svg'>

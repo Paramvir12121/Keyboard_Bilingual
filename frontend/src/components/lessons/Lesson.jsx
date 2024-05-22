@@ -47,6 +47,8 @@ function Lesson() {
               <h2>{lesson.title}</h2>
               <p>{lesson.description}</p>
               <p>{lesson.content}</p>
+              <p>{lesson.keys}</p>
+              <p>{lesson.difficulty}</p>
               {/* Render other lesson fields as necessary */}
             </div>
           ))}
