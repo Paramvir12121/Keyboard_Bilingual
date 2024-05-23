@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import baseApi from '../Api/BaseApi';
+import Card from 'react-bootstrap/Card';
 
 function Lesson() {
   const [data, setData] = useState('');
@@ -42,16 +43,22 @@ function Lesson() {
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {data ? (
         <div>
+          
           {data.map((lesson, index) => (
+            <Card>
             <div key={index}>
-              <h2>{lesson.title}</h2>
+            <Card.Body>
+              <Card.Title>{lesson.title}</Card.Title>
               <p>{lesson.description}</p>
               <p>{lesson.content}</p>
               <p>{lesson.keys}</p>
               <p>{lesson.difficulty}</p>
               {/* Render other lesson fields as necessary */}
+              </Card.Body>
             </div>
+            </Card>
           ))}
+          
         </div>
       ) : (
         !error && <p>Loading...</p>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "./Login.css";
 import baseApi from '../Api/BaseApi';
+import { Outlet, Link } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -67,6 +68,9 @@ const Login = () => {
                             </div>
                             <button type="submit" onClick={handleLogin} className="btn btn-primary">Login</button>
                         </form>
+                        <div>
+                            Not a user yet? <Link to="/signup">Signup here</Link>
+                        </div>
                         {error && <p style={{ color: 'red' }}>{error}</p>}
                     </div>
                 </div>

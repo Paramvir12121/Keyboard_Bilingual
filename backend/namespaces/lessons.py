@@ -1,9 +1,10 @@
 from flask_restx import Api, Resource, Namespace, fields
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, g
 from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jwt
 from models import User, Lesson, UserLesson
 from exts import db
 from functools import wraps
+from datetime import datetime
 
 
 
@@ -85,25 +86,24 @@ class LessonDetail(Resource):
         lesson = Lesson.query.get_or_404(id)
         return lesson
 
-@lessons_ns.route('/user_lesson')
+@lessons_ns.route('/user_lesson/<int:lesson_id>')
 class UserLessonCreate(Resource):
     @lessons_ns.expect(lesson_completion_model)
     @cognito_auth_required
-    # @payment_required
-    def post(self):
+    def post(self, lesson_id):
         """Create a new user lesson"""
         data = request.get_json()
-        user_id = data.get('user_id')
-        lesson_id = data.get('lesson_id')
         completed = data.get('completed', False)
         score = data.get('score', 0)
-        completed_at = data.get('completed_at')
+        completed_at = data.get('completed_at', datetime.utcnow())
 
-        user = User.query.get_or_404(user_id)
+        # Assuming `cognito_auth_required` sets `g.current_user` to the authenticated user
+        user_id = g.current_user.id
+
         lesson = Lesson.query.get_or_404(lesson_id)
 
         user_lesson = UserLesson(
-            user_id=user.id,
+            user_id=user_id,
             lesson_id=lesson.id,
             completed=completed,
             score=score,
@@ -113,5 +113,4 @@ class UserLessonCreate(Resource):
         db.session.commit()
 
         return {'message': 'User lesson created successfully'}, 201
-
 
