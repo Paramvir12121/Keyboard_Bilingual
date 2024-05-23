@@ -31,7 +31,7 @@ def get_secret_hash(username, client_id, client_secret):
 
 ########################## MODELS #############
 login_model = auth_ns.model('Login', {
-    'email': fields.String(required=True, description='The user email'),
+    # 'email': fields.String(required=True, description='The user email'),
     'password': fields.String(description='The user password'),
     'username': fields.String(required=True, description='The user username'),
 })
@@ -183,19 +183,25 @@ class Login(Resource):
         if not data:
             return {'message': 'No data provided'}, 400
 
-        email = data.get('email')
+        username = data.get('username')
         password = data.get('password')
-        print(f"Received login request for email: {email}")
+        email = data.get('email')
+        print(f"Received login request for username: {username}")
 
         client = get_cognito_client()
+        client_id = current_app.config['COGNITO_CLIENT_ID']
+        client_secret = current_app.config['COGNITO_CLIENT_SECRET']
+        secret_hash = get_secret_hash(username, client_id, client_secret)
 
         try:
             response = client.initiate_auth(
                 ClientId=current_app.config['COGNITO_CLIENT_ID'],
                 AuthFlow='USER_PASSWORD_AUTH',
+                # SecretHash=secret_hash,
                 AuthParameters={
-                    'USERNAME': email,
-                    'PASSWORD': password
+                    'USERNAME': username,
+                    'PASSWORD': password,
+                    'SECRET_HASH': secret_hash,
                 }
             )
             print("AWS Cognito Response:", response)
@@ -204,16 +210,15 @@ class Login(Resource):
             id_token = auth_result.get('IdToken')
             access_token = auth_result.get('AccessToken')
             refresh_token = auth_result.get('RefreshToken')
-
+            print("auth_result: ",auth_result)
             if not id_token or not access_token or not refresh_token:
                 return {'message': 'Failed to retrieve tokens from Cognito'}, 500
 
             # Save the user to the local DB if they don't exist
-            db_user = User.query.filter_by(email=email).first()
+            db_user = User.query.filter_by(username=username).first()
             if not db_user:
-                db_user = User(email=email)
+                db_user = User(username=username,email=email)
                 db_user.save()
-
             return {
                 "id_token": id_token,
                 "access_token": access_token,
