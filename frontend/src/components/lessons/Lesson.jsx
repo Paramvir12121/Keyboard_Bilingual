@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import baseApi from '../Api/BaseApi';
-import Card from 'react-bootstrap/Card';
+import LessonCard from './LessonCard';
+
 
 function Lesson() {
-  const [data, setData] = useState('');
+  const [data, setData] = useState([]);
   const [error, setError] = useState('');
 
   const fetchLessonData = async () => {
@@ -14,16 +15,13 @@ function Lesson() {
         return;
       }
 
-      const response = await baseApi.get('/lessons/all', {}, {
+      const response = await baseApi.get('/lessons/all', {
         headers: {
           Authorization: `Bearer ${token}`
-          
         }
-        
       });
       console.log("All Lessons: ", response.data);
       setData(response.data);
-
     } catch (error) {
       if (error.response && error.response.status === 401) {
         setError('Unauthorized. Please log in again.');
@@ -37,28 +35,37 @@ function Lesson() {
     fetchLessonData();
   }, []);
 
+  // const startLesson = async (lessonId) => {
+  //   try {
+  //     const token = localStorage.getItem('access_token');
+  //     if (!token) {
+  //       console.error('No access token found. Please log in.');
+  //       return;
+  //     }
+
+  //     const response = await baseApi.post(`/user_lesson/${lessonId}`, {
+  //       completed: false,
+  //       score: 0
+  //     }, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`
+  //       }
+  //     });
+
+  //     console.log('User lesson started successfully:', response.data);
+  //   } catch (error) {
+  //     console.error('Error starting lesson:', error.response ? error.response.data.message : error.message);
+  //   }
+  // };
+
   return (
     <div>
       <h1>Lessons</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      {data ? (
+      {data.length > 0 ? (
         <div>
-          
-          {data.map((lesson, index) => (
-            <Card>
-            <div key={index}>
-            <Card.Body>
-              <Card.Title>{lesson.title}</Card.Title>
-              <p>{lesson.description}</p>
-              <p>{lesson.content}</p>
-              <p>{lesson.keys}</p>
-              <p>{lesson.difficulty}</p>
-              {/* Render other lesson fields as necessary */}
-              </Card.Body>
-            </div>
-            </Card>
-          ))}
-          
+            <LessonCard lesson={data[0]} />
+            <LessonCard lesson={data[1]} />
         </div>
       ) : (
         !error && <p>Loading...</p>
