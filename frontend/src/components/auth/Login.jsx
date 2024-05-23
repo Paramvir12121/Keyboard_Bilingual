@@ -4,7 +4,7 @@ import baseApi from '../Api/BaseApi';
 import { Outlet, Link } from "react-router-dom";
 
 const Login = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(''); // Optional: manage error state
 
@@ -14,7 +14,7 @@ const Login = () => {
 
         try {
             const response = await baseApi.post('/auth/login', {
-                email,
+                username,
                 password,
             });
 
@@ -45,13 +45,13 @@ const Login = () => {
                         <h2>Login</h2>
                         <form onSubmit={handleLogin} className="col-md-8 mt-4">
                             <div className="mb-3">
-                                <label htmlFor="username" className="form-label col-12">Email</label>
+                                <label htmlFor="username" className="form-label col-12">username</label>
                                 <input
                                     className="form-control"
-                                    type="email"
-                                    value={email}
-                                    onChange={e => setEmail(e.target.value)}
-                                    placeholder="Enter email"
+                                    type="username"
+                                    value={username}
+                                    onChange={e => setUsername(e.target.value)}
+                                    placeholder="Enter username"
                                 />
                             </div>
                             <div className="mb-3">

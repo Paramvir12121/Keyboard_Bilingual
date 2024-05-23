@@ -237,12 +237,16 @@ class ResetForgottenPasswordRequest(Resource):
     @auth_ns.expect(reset_password_request_model)
     def post(self):
         data = request.get_json()
-        email = data.get('email')
+        username = data.get('username')
         client = get_cognito_client()
+        client_id = current_app.config['COGNITO_CLIENT_ID']
+        client_secret = current_app.config['COGNITO_CLIENT_SECRET']
+        secret_hash = get_secret_hash(username, client_id, client_secret)
         try:
             response = client.forgot_password(
                 ClientId=current_app.config['COGNITO_CLIENT_ID'],
-                Username=email,
+                SecretHash=secret_hash,
+                Username=username,
             )
             return response, 201
         except client.exceptions.ClientError as error:
@@ -254,14 +258,18 @@ class ResetForgottenPasswordConfirmation(Resource):
     @auth_ns.expect(reset_password_confirmation_model)
     def post(self):
         data = request.get_json()
-        email = data.get('email')
+        username = data.get('username')
         password = data.get('password')
         verification_code = str(data.get('verification_code'))
         client = get_cognito_client()
+        client_id = current_app.config['COGNITO_CLIENT_ID']
+        client_secret = current_app.config['COGNITO_CLIENT_SECRET']
+        secret_hash = get_secret_hash(username, client_id, client_secret)
         try:
             response = client.confirm_forgot_password(
                 ClientId=current_app.config['COGNITO_CLIENT_ID'],
-                Username=email,
+                Username=username,
+                SecretHash=secret_hash,
                 ConfirmationCode=verification_code,
                 Password=password,
             )
@@ -278,12 +286,12 @@ class ResetForgottenPasswordConfirmation(Resource):
 @auth_ns.route('/logout')
 class Logout(Resource):
     @cognito_auth_required
+    # @auth_ns.expect(logout_model)
     def post(self):
         client = get_cognito_client()
         auth_header = request.headers.get('Authorization')
         if not auth_header:
             return {'message': 'Authorization header missing'}, 401
-
         try:
             access_token = auth_header.split(" ")[1]  # Extract token from header
             response = client.global_sign_out(
