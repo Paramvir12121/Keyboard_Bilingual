@@ -92,18 +92,21 @@ class UserLessonCreate(Resource):
     @cognito_auth_required
     def post(self, lesson_id):
         """Create a new user lesson"""
+        cognito_username= current_cognito_jwt['username']
+        print("cognito_username: ", cognito_username)
         data = request.get_json()
         completed = data.get('completed', False)
         score = data.get('score', 0)
         completed_at = data.get('completed_at', datetime.utcnow())
 
         # Assuming `cognito_auth_required` sets `g.current_user` to the authenticated user
-        user_id = g.current_user.id
+        # user_id = g.current_user.id
+        # print("User Id: ",user_id)
 
         lesson = Lesson.query.get_or_404(lesson_id)
 
         user_lesson = UserLesson(
-            user_id=user_id,
+            user_id=cognito_username,
             lesson_id=lesson.id,
             completed=completed,
             score=score,
@@ -111,6 +114,5 @@ class UserLessonCreate(Resource):
         )
         db.session.add(user_lesson)
         db.session.commit()
-
         return {'message': 'User lesson created successfully'}, 201
 

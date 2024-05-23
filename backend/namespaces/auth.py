@@ -5,7 +5,9 @@ from flask import jsonify, request, current_app, make_response
 from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jwt
 from exts import db
 from main import CORS
-
+import hmac
+import hashlib
+import base64
 auth_ns = Namespace('auth', description='User Authentication APIs namespace')
 
 # Function to get a Cognito client
@@ -21,20 +23,29 @@ def handle_cognito_error(error):
     else:
         return {'message': str(error)}, 400
 
+#get secret hash
+def get_secret_hash(username, client_id, client_secret):
+    message = username + client_id
+    dig = hmac.new(client_secret.encode('utf-8'), msg=message.encode('utf-8'), digestmod=hashlib.sha256).digest()
+    return base64.b64encode(dig).decode()
+
 ########################## MODELS #############
 login_model = auth_ns.model('Login', {
     'email': fields.String(required=True, description='The user email'),
     'password': fields.String(description='The user password'),
-    # "id_token": fields.String(description='The user password'),
-    # "access_token": fields.String(description='The user password'),
-    # "refresh_token": fields.String(description='The user password'),
+    'username': fields.String(required=True, description='The user username'),
 })
-
+signup_model = auth_ns.model('Signup', {
+    'email': fields.String(required=True, description='The user email'),
+    'password': fields.String(description='The user password'),
+    'username': fields.String(required=True, description='The user username'),
+    
+})
 signup_confirmation_model = auth_ns.model('Signup_Confirmation', {
+    'username': fields.String(required=True, description='The user username'),
     'email': fields.String(required=True, description='The user email'),
     'verification_code': fields.String(description='The verification string'),
 })
-
 auth_model = auth_ns.model('Auth', {
     'username': fields.String(required=True, description='The user username'),
     'email': fields.String(required=True, description='The user email'),
@@ -43,10 +54,12 @@ auth_model = auth_ns.model('Auth', {
 })
 
 reset_password_request_model = auth_ns.model('ResetPasswordRequest', {
-    'email': fields.String(required=True, description='The user email')
+    # 'email': fields.String(required=True, description='The user email'),
+    'username': fields.String(required=True, description='The user username'),
 })
 
 reset_password_confirmation_model = auth_ns.model('ResetPasswordConfirmation', {
+    'username': fields.String(required=True, description='The user username'),
     'email': fields.String(required=True, description='The user email'),
     'password': fields.String(required=True, description='New password'),
     'verification_code': fields.String(required=True, description='Verification code sent to email')
@@ -60,32 +73,44 @@ logout_model = auth_ns.model('Logout', {
 
 @auth_ns.route('/signup')
 class SignUp(Resource):
-    @auth_ns.marshal_with(login_model)
-    @auth_ns.expect(login_model)
+    @auth_ns.marshal_with(signup_model)
+    @auth_ns.expect(signup_model)
     def post(self):
         data = request.get_json()
         if not data:
             return jsonify({"error": "No data provided"}), 400
         password = str(data.get('password'))
         email = str(data.get('email'))
-
+        username = data.get('username')
         client = get_cognito_client()
+        client_id = current_app.config['COGNITO_CLIENT_ID']
+        client_secret = current_app.config['COGNITO_CLIENT_SECRET']
+        secret_hash = get_secret_hash(username, client_id, client_secret)
+        print(f"Client ID: {client_id}")
+        print(f"Email ID: {email}")
+        print(f"Client Secret: {client_secret}")
+        print(f"Secret Hash: {secret_hash}")
         try:
             response = client.sign_up(
                 ClientId=current_app.config['COGNITO_CLIENT_ID'],
-                Username=email,  # Using email as the username
+                SecretHash=secret_hash,
+                Username=username,  # Using email as the username
                 Password=password,
                 UserAttributes=[
                     {'Name': 'email', 'Value': email},
+                    {'Name': 'preferred_username', 'Value': username},
                 ],
             )
-            client.admin_add_user_to_group(
-                UserPoolId=current_app.config['COGNITO_USER_POOL_ID'],
-                Username=email,
-                GroupName='Basic'
-            )
+            
+            # client.admin_add_user_to_group(
+            #     UserPoolId=current_app.config['COGNITO_USER_POOL_ID'],
+            #     Username=email,
+            #     GroupName='Basic'
+            # )
+            print(response)
             return response, 200
         except client.exceptions.ClientError as error:
+            print(error)
             return handle_cognito_error(error)
 
 @auth_ns.route('/signup_resend_code')
@@ -94,14 +119,19 @@ class SignupResendCode(Resource):
     @auth_ns.expect(reset_password_request_model)
     def post(self):
         data = request.get_json()
+        
         if not data:
             return jsonify({"error": "No data provided"}), 400
-        email = str(data.get('email'))
+        username = str(data.get('username'))
         client = get_cognito_client()
+        client_id = current_app.config['COGNITO_CLIENT_ID']
+        client_secret = current_app.config['COGNITO_CLIENT_SECRET']
+        secret_hash = get_secret_hash(username, client_id, client_secret)
         try:
             response = client.resend_confirmation_code(
                 ClientId=current_app.config['COGNITO_CLIENT_ID'],
-                Username=email,
+                SecretHash=secret_hash,
+                Username=username,
             )
             return response, 200
         except client.exceptions.ClientError as error:
@@ -115,19 +145,25 @@ class SignupConfirmation(Resource):
         data = request.get_json()
         if not data:
             return jsonify({"error": "No data provided"}), 400
-        email = str(data.get('email'))
+        username = data.get('username')
+        email = data.get('email')
         verification_code = str(data.get('verification_code'))
         client = get_cognito_client()
+        client_id = current_app.config['COGNITO_CLIENT_ID']
+        client_secret = current_app.config['COGNITO_CLIENT_SECRET']
+        secret_hash = get_secret_hash(username, client_id, client_secret)
         try:
             client.confirm_sign_up(
                 ClientId=current_app.config['COGNITO_CLIENT_ID'],
-                Username=email,
+                Username=username,
+                SecretHash=secret_hash,
                 ConfirmationCode=verification_code,
             )
-            user = User(email=email)
+            user = User(username=username, email=email)
             user.save()
             return {'message': 'Email confirmed and user saved.'}, 200
         except client.exceptions.ClientError as error:
+            print(error)
             return handle_cognito_error(error)
 
 
