@@ -1,4 +1,5 @@
 from decouple import config
+from exts import db
 import os
 from datetime import timedelta
 
@@ -17,6 +18,8 @@ class Config:
 
 class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI = config('DATABASE_URI', default="sqlite:///dev.db")
+    SESSION_TYPE = 'sqlalchemy'
+    SESSION_SQLALCHEMY = db
     DEBUG = config('DEBUG', cast=bool, default=True)
     SQLALCHEMY_ECHO = config('SQLALCHEMY_ECHO', cast=bool, default=False)
     COGNITO_CLIENT_SECRET=config('COGNITO_CLIENT_SECRET')

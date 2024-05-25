@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_restx import Api, Resource, Namespace
 from flask_jwt_extended import JWTManager
+from flask_session import Session
 
 from models import User, Lesson, UserLesson
 from exts import db
@@ -29,6 +30,7 @@ def create_app(config_to_use):
 
     CORS(app, supports_credentials=True, origins="*")
     db.init_app(app)
+    Session(app)
 
     api = Api(app, doc='/docs')
     api.add_namespace(auth_ns)

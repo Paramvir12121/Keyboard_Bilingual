@@ -1,13 +1,18 @@
 from flask_restx import Api, Resource, Namespace, fields, marshal
 from models import User
 import boto3
-from flask import jsonify, request, current_app, make_response
+from flask import jsonify, request, current_app, make_response, session
+from flask_session import Session
 from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jwt
 from exts import db
 from main import CORS
 import hmac
 import hashlib
 import base64
+import jwt
+
+
+
 auth_ns = Namespace('auth', description='User Authentication APIs namespace')
 
 # Function to get a Cognito client
@@ -32,8 +37,8 @@ def get_secret_hash(username, client_id, client_secret):
 ########################## MODELS #############
 login_model = auth_ns.model('Login', {
     # 'email': fields.String(required=True, description='The user email'),
-    'password': fields.String(description='The user password'),
     'username': fields.String(required=True, description='The user username'),
+     'password': fields.String(description='The user password'),
 })
 signup_model = auth_ns.model('Signup', {
     'email': fields.String(required=True, description='The user email'),
@@ -211,19 +216,23 @@ class Login(Resource):
             access_token = auth_result.get('AccessToken')
             refresh_token = auth_result.get('RefreshToken')
             print("auth_result: ",auth_result)
+            
             if not id_token or not access_token or not refresh_token:
                 return {'message': 'Failed to retrieve tokens from Cognito'}, 500
+            
+            # Save session data in SQLAlchemy session
+            session['username'] = username
+            session['access_token'] = access_token
+            session['refresh_token'] = refresh_token
 
             # Save the user to the local DB if they don't exist
             db_user = User.query.filter_by(username=username).first()
             if not db_user:
-                db_user = User(username=username,email=email)
+                #decode id_token to get email
+                decoded = jwt.decode(id_token, options={"verify_signature": False})
+                db_user = User(username=username,email=decoded["email"])
                 db_user.save()
-            return {
-                "id_token": id_token,
-                "access_token": access_token,
-                "refresh_token": refresh_token,
-            }, 200
+            return {'message': 'Login successful'}, 200
         except client.exceptions.ClientError as error:
             print("AWS Cognito ClientError:", error)
             return handle_cognito_error(error)
