@@ -190,7 +190,6 @@ class Login(Resource):
 
         username = data.get('username')
         password = data.get('password')
-        email = data.get('email')
         print(f"Received login request for username: {username}")
 
         client = get_cognito_client()
@@ -209,13 +208,13 @@ class Login(Resource):
                     'SECRET_HASH': secret_hash,
                 }
             )
-            print("AWS Cognito Response:", response)
+            
 
             auth_result = response.get('AuthenticationResult', {})
             id_token = auth_result.get('IdToken')
             access_token = auth_result.get('AccessToken')
             refresh_token = auth_result.get('RefreshToken')
-            print("auth_result: ",auth_result)
+            # print("auth_result: ",auth_result)
             
             if not id_token or not access_token or not refresh_token:
                 return {'message': 'Failed to retrieve tokens from Cognito'}, 500
@@ -224,6 +223,8 @@ class Login(Resource):
             session['username'] = username
             session['access_token'] = access_token
             session['refresh_token'] = refresh_token
+            # session_id = request.cookies.get(session)
+            print("session",session)
 
             # Save the user to the local DB if they don't exist
             db_user = User.query.filter_by(username=username).first()
@@ -232,13 +233,17 @@ class Login(Resource):
                 decoded = jwt.decode(id_token, options={"verify_signature": False})
                 db_user = User(username=username,email=decoded["email"])
                 db_user.save()
-            return {'message': 'Login successful'}, 200
+                #just sending session for now, check later if not proper
+            return {'message': 'Login successful', "session":session}, 200
         except client.exceptions.ClientError as error:
             print("AWS Cognito ClientError:", error)
             return handle_cognito_error(error)
         except Exception as e:
             print("Unexpected error:", e)
-            return {'message': 'An unexpected error occurred'}, 500
+            return {'message': 'An unexpected error occurred' }, 500
+
+
+
 
 @auth_ns.route('/reset_forgotten_password_request')
 class ResetForgottenPasswordRequest(Resource):

@@ -1,12 +1,23 @@
-import React from 'react'
-import ProductDisplay from './payments/ProductDisplay'
+import React, { useState, useEffect } from 'react'
+import { Outlet, Link } from "react-router-dom";
+import ProtectedData from './auth/ProtectedData'
+import ProtectedRoute from './auth/ProtectedRoutes';
 
 const Home = () => {
+    const [username,setUsername] = useState('')
+    
+    useEffect(() => {
+      setUsername(sessionStorage.getItem('username'));
+  }, []);
+
   return (
     <>
     Home 
     {/* Just test code */}
-    <ProductDisplay />
+    <ProtectedData>
+      You are logged in as: {username}
+    </ProtectedData>
+    
 
     </>
   )

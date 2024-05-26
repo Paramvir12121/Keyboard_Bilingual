@@ -4,7 +4,7 @@ import baseApi from '../Api/BaseApi';
 import { jwtDecode } from "jwt-decode";
 
 
-const ProtectedData = () => {
+const Protected = () => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [userName, setUserName] = useState('');
@@ -74,4 +74,4 @@ const ProtectedData = () => {
     );
 };
 
-export default ProtectedData;
+export default Protected;
