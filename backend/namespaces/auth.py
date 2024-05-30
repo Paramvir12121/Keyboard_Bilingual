@@ -224,7 +224,7 @@ class Login(Resource):
             session['user_id']=db_user.id
             session['email']=email
             session['access_token'] = access_token
-            session['refresh_token'] = refresh_token
+            session['id_token'] = id_token
             print("session",session)
             return {'message': 'Login successful'}, 200
         except client.exceptions.ClientError as error:
@@ -319,3 +319,16 @@ class Protected(Resource):
     def post(self):
         print("protected area accessed!!")
         return make_response(jsonify({"message": "Authorized"}), 200)
+
+@auth_ns.route('/checklogin')
+class CheckLogin(Resource):
+    def get(self):
+        session_token = request.cookies.get(current_app.session_cookie_name)
+        if not session_token:
+            return {"message":"Unauthorized"}, 401
+        user_id = session.get('user_id')
+        id_token = session.get('id_token')
+        if not user_id:
+            return jsonify({"message": "Invalid session token. Not logged in."}), 401
+        return jsonify({"message": "User is logged in.", "user_id": user_id, "id_token": id_token}), 200
+

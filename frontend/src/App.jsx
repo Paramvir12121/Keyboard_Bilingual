@@ -8,6 +8,8 @@ import Settings from './components/windows/Settings'
 import TestLogin from './components/auth/TestLogin'
 import Protected from './components/tests/Protected'
 import Lesson from './components/lessons/Lesson'
+import LessonList from './components/lessons/LessonList'
+
 function App() {
   
 
@@ -22,6 +24,7 @@ function App() {
       <Route path="/testlogin" element={<TestLogin />} />
       <Route path="/protected" element={<Protected />} />
       <Route path="/all_lessons" element={<Lesson />} />
+      <Route path="/lessonlist" element={<LessonList />} />
     
 
 

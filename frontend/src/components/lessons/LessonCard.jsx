@@ -5,8 +5,7 @@ import baseApi from '../Api/BaseApi';
 
 
 const LessonCard = ({ lesson }) => {
-        const keys = JSON.parse(lesson.keys).keys;
-        const words = JSON.parse(lesson.words);
+        
 
         const startLesson = async (lessonId) => {
             try {

@@ -31,7 +31,7 @@ lesson_model = lessons_ns.model('Lesson', {
     'difficulty': fields.String,
     'average_time': fields.Float,
     'success_rate': fields.Float,
-    'content': fields.String
+    # 'content': fields.String
 })
 
 lesson_completion_model = lessons_ns.model('LessonCompletion', {
@@ -63,24 +63,24 @@ def handle_errors(f):
     def decorated_function(*args, **kwargs):
         try:
             return f(*args, **kwargs)
-        except DecodeError:
-            return jsonify({"message": "Invalid token. Please log in again."}), 401
-        except ExpiredSignatureError:
-            return jsonify({"message": "Token has expired. Please log in again."}), 401
+        # except DecodeError:
+        #     return jsonify({"message": "Invalid token. Please log in again."}), 401
+        # except ExpiredSignatureError:
+        #     return jsonify({"message": "Token has expired. Please log in again."}), 401
         except Unauthorized:
-            return jsonify({"message": "Unauthorized access."}), 401
+            return {"message": "Unauthorized access."}, 401
         except Forbidden:
-            return jsonify({"message": "Forbidden access."}), 403
+            return {"message": "Forbidden access."}, 403
         except NotFound:
-            return jsonify({"message": "Resource not found."}), 404
+            return {"message": "Resource not found."}, 404
         except BadRequest as e:
-            return jsonify({"message": str(e)}), 400
+            return {"message": str(e)}, 400
         except InternalServerError:
-            return jsonify({"message": "Internal server error."}), 500
+            return {"message": "Internal server error."}, 500
         except HTTPException as e:
-            return jsonify({"message": e.description}), e.code
+            return {"message": e.description}, e.code
         except Exception as e:
-            return jsonify({"message": "An unexpected error occurred: " + str(e)}), 500
+            return {"message": "An unexpected error occurred: " + str(e)}, 500
     return decorated_function
 
 ######################### APIs ###############################
@@ -99,14 +99,14 @@ class Dashboard(Resource):
 # API endpoints
 @lessons_ns.route('/all')
 class LessonList(Resource):
-    # @lessons_ns.marshal_list_with(lesson_model)
+    @lessons_ns.marshal_list_with(lesson_model)
     @handle_errors
     def get(self):
         """Get all lessons"""
         user_id = session.get("user_id")
         if not user_id:
             print("User Id: ",user_id)
-            return {"message":"Not Authorized"},401
+            return {"message":"Unauthorized"},401
         else:
             print(user_id)
             lessons = Lesson.query.all()
@@ -114,16 +114,18 @@ class LessonList(Resource):
 
 @lessons_ns.route('/<int:id>')
 class LessonDetail(Resource):
-    # @lessons_ns.marshal_with(lesson_model)
+    @lessons_ns.marshal_with(lesson_model)
     def get(self, id):
         """Get a lesson by its ID"""
         lesson = Lesson.query.get_or_404(id)
+        print(lesson)
         return lesson
 
 @lessons_ns.route('/user_lesson/<int:lesson_id>')
 class UserLessonCreate(Resource):
     @lessons_ns.expect(lesson_completion_model)
     @cognito_auth_required
+    @handle_errors
     def post(self, lesson_id):
         """Create a new user lesson"""
         cognito_username= current_cognito_jwt['username']
