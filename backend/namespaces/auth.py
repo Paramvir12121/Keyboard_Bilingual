@@ -91,10 +91,7 @@ class SignUp(Resource):
         client_id = current_app.config['COGNITO_CLIENT_ID']
         client_secret = current_app.config['COGNITO_CLIENT_SECRET']
         secret_hash = get_secret_hash(username, client_id, client_secret)
-        print(f"Client ID: {client_id}")
-        print(f"Email ID: {email}")
-        print(f"Client Secret: {client_secret}")
-        print(f"Secret Hash: {secret_hash}")
+        
         try:
             response = client.sign_up(
                 ClientId=current_app.config['COGNITO_CLIENT_ID'],
@@ -107,11 +104,6 @@ class SignUp(Resource):
                 ],
             )
             
-            # client.admin_add_user_to_group(
-            #     UserPoolId=current_app.config['COGNITO_USER_POOL_ID'],
-            #     Username=email,
-            #     GroupName='Basic'
-            # )
             print(response)
             return response, 200
         except client.exceptions.ClientError as error:
@@ -219,22 +211,22 @@ class Login(Resource):
             if not id_token or not access_token or not refresh_token:
                 return {'message': 'Failed to retrieve tokens from Cognito'}, 500
             
-            # Save session data in SQLAlchemy session
-            session['username'] = username
-            session['access_token'] = access_token
-            session['refresh_token'] = refresh_token
-            # session_id = request.cookies.get(session)
-            print("session",session)
-
+            decoded = jwt.decode(id_token, options={"verify_signature": False})
+            email=decoded["email"]
             # Save the user to the local DB if they don't exist
+            #decode id_token to get email
             db_user = User.query.filter_by(username=username).first()
             if not db_user:
-                #decode id_token to get email
-                decoded = jwt.decode(id_token, options={"verify_signature": False})
-                db_user = User(username=username,email=decoded["email"])
+                db_user = User(username=username,email=email)
                 db_user.save()
-                #just sending session for now, check later if not proper
-            return {'message': 'Login successful', "session":session}, 200
+             # Save session data in SQLAlchemy session
+            session['username'] = username
+            session['user_id']=db_user.id
+            session['email']=email
+            session['access_token'] = access_token
+            session['refresh_token'] = refresh_token
+            print("session",session)
+            return {'message': 'Login successful'}, 200
         except client.exceptions.ClientError as error:
             print("AWS Cognito ClientError:", error)
             return handle_cognito_error(error)

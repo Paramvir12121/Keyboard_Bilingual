@@ -1,11 +1,12 @@
 from flask_restx import Api, Resource, Namespace, fields
-from flask import Flask, jsonify, render_template, request, g
+from flask import Flask, jsonify, render_template, request,session
+from flask_session import Session
 from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jwt
 from models import User, Lesson, UserLesson
 from exts import db
 from functools import wraps
 from datetime import datetime
-
+from werkzeug.exceptions import HTTPException, NotFound, Unauthorized, Forbidden, BadRequest, InternalServerError
 
 
 
@@ -56,6 +57,32 @@ def payment_required(f):
 
     return decorated_function
 
+
+def handle_errors(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        try:
+            return f(*args, **kwargs)
+        except DecodeError:
+            return jsonify({"message": "Invalid token. Please log in again."}), 401
+        except ExpiredSignatureError:
+            return jsonify({"message": "Token has expired. Please log in again."}), 401
+        except Unauthorized:
+            return jsonify({"message": "Unauthorized access."}), 401
+        except Forbidden:
+            return jsonify({"message": "Forbidden access."}), 403
+        except NotFound:
+            return jsonify({"message": "Resource not found."}), 404
+        except BadRequest as e:
+            return jsonify({"message": str(e)}), 400
+        except InternalServerError:
+            return jsonify({"message": "Internal server error."}), 500
+        except HTTPException as e:
+            return jsonify({"message": e.description}), e.code
+        except Exception as e:
+            return jsonify({"message": "An unexpected error occurred: " + str(e)}), 500
+    return decorated_function
+
 ######################### APIs ###############################
 
 
@@ -72,15 +99,22 @@ class Dashboard(Resource):
 # API endpoints
 @lessons_ns.route('/all')
 class LessonList(Resource):
-    @lessons_ns.marshal_list_with(lesson_model)
+    # @lessons_ns.marshal_list_with(lesson_model)
+    @handle_errors
     def get(self):
         """Get all lessons"""
-        lessons = Lesson.query.all()
-        return lessons
+        user_id = session.get("user_id")
+        if not user_id:
+            print("User Id: ",user_id)
+            return {"message":"Not Authorized"},401
+        else:
+            print(user_id)
+            lessons = Lesson.query.all()
+            return lessons
 
 @lessons_ns.route('/<int:id>')
 class LessonDetail(Resource):
-    @lessons_ns.marshal_with(lesson_model)
+    # @lessons_ns.marshal_with(lesson_model)
     def get(self, id):
         """Get a lesson by its ID"""
         lesson = Lesson.query.get_or_404(id)
@@ -98,10 +132,6 @@ class UserLessonCreate(Resource):
         completed = data.get('completed', False)
         score = data.get('score', 0)
         completed_at = data.get('completed_at', datetime.utcnow())
-
-        # Assuming `cognito_auth_required` sets `g.current_user` to the authenticated user
-        # user_id = g.current_user.id
-        # print("User Id: ",user_id)
 
         lesson = Lesson.query.get_or_404(lesson_id)
 
