@@ -1,56 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import baseApi from '../Api/BaseApi';
-import LessonCard from './LessonCard';
+import { useNavigate } from 'react-router-dom';
+import useAuth from '../auth/useAuth';
 
+const Lessons = () => {
+    const [lessons, setLessons] = useState([]);
+    const { isLoggedIn } = useAuth();
+    const navigate = useNavigate();
 
-function Lesson() {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState('');
-
-  const fetchLessonData = async () => {
-    try {
-      const token = localStorage.getItem('access_token');
-      if (!token) {
-        setError('No access token found. Please log in.');
-        return;
-      }
-
-      const response = await baseApi.get('/lessons/all', {
-        headers: {
-          Authorization: `Bearer ${token}`
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/login');
+            return;
         }
-      });
-      console.log("All Lessons: ", response.data);
-      setData(response.data);
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setError('Unauthorized. Please log in again.');
-      } else {
-        setError('An error occurred while fetching the data.');
-      }
+
+        const fetchLessons = async () => {
+            try {
+                const response = await baseApi.get('/lessons/all',{}, {
+                    withCredentials: true
+                });
+                setLessons(response.data);
+                print("lessons data:", response.data)
+            } catch (error) {
+                console.error('Error fetching lessons:', error);
+            }
+        };
+
+        fetchLessons();
+    }, [isLoggedIn, navigate]);
+
+    if (!isLoggedIn) {
+        return <p>Redirecting to login...</p>;
     }
-  };
 
-  useEffect(() => {
-    fetchLessonData();
-  }, []);
-
-  
-
-  return (
-    <div>
-      <h1>Lessons</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {data.length > 0 ? (
+    return (
         <div>
-            <LessonCard lesson={data[0]} />
-            <LessonCard lesson={data[1]} />
+            <h1>Lessons</h1>
+            <ul>
+                {lessons.map((lesson) => (
+                    <li key={lesson.id}>{lesson.title}</li>
+                ))}
+            </ul>
         </div>
-      ) : (
-        !error && <p>Loading...</p>
-      )}
-    </div>
-  );
-}
+    );
+};
 
-export default Lesson;
+export default Lessons;

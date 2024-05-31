@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import baseApi from '../Api/BaseApi';
 import useAuth from '../auth/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const LessonList = () => {
     const [lessons, setLessons] = useState([]);
     const [error, setError] = useState('');
-    const [useAuth, setUseAuth] = useAuth()
+    const {isLoggedIn, userId, idToken, username } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
+        console.log("Is logged in: ",isLoggedIn, username )
+        // if (!isLoggedIn) {
+        //     navigate('/login');
+        //     return;
+        // }
         const fetchLessons = async () => {
             try {
                 const response = await baseApi.get('/lessons/all');
@@ -16,7 +23,6 @@ const LessonList = () => {
                 setError(error.response ? error.response.data.message : 'An error occurred');
             }
         };
-        console.log(useAuth)
         fetchLessons();
     }, []);
 

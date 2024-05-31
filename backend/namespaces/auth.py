@@ -295,22 +295,28 @@ class ResetForgottenPasswordConfirmation(Resource):
 
 @auth_ns.route('/logout')
 class Logout(Resource):
-    @cognito_auth_required
-    # @auth_ns.expect(logout_model)
     def post(self):
         client = get_cognito_client()
-        auth_header = request.headers.get('Authorization')
-        if not auth_header:
+        session_token = request.cookies.get('session')
+        if not session_token:
+            return {"message":"Unauthorized"}, 401
+        access_token = session.get('access_token')
+        if not access_token:
             return {'message': 'Authorization header missing'}, 401
         try:
-            access_token = auth_header.split(" ")[1]  # Extract token from header
+              # Extract token from header
             response = client.global_sign_out(
                 AccessToken=access_token
             )
             if response['ResponseMetadata']['HTTPStatusCode'] == 200:
-                return jsonify({'message': 'Successfully logged out'})
+                # Clear session data
+                session.clear()
+                # Create a proper Flask Response object
+                resp = make_response({'message': 'Successfully logged out'})
+                resp.set_cookie(current_app.config['SESSION_COOKIE_NAME'], '', expires=0)
+                return resp
             else:
-                return jsonify({'message': 'Logout request was sent but received unexpected status code'}), response['ResponseMetadata']['HTTPStatusCode']
+                return {'message': 'Logout request was sent but received unexpected status code'}, response['ResponseMetadata']['HTTPStatusCode']
         except client.exceptions.ClientError as error:
             return handle_cognito_error(error)
         except Exception as e:
@@ -326,6 +332,7 @@ class Protected(Resource):
 
 @auth_ns.route('/checklogin')
 class CheckLogin(Resource):
+    @cognito_auth_required
     def get(self):
         session_token = request.cookies.get('session')
         print("session cookie: ",request.cookies.get('session'))

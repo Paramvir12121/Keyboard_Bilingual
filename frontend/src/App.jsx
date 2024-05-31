@@ -9,25 +9,29 @@ import TestLogin from './components/auth/TestLogin'
 import Protected from './components/tests/Protected'
 import Lesson from './components/lessons/Lesson'
 import LessonList from './components/lessons/LessonList'
+import RequestPasswordReset from './components/auth/RequestPasswordReset'
+import ConfirmPasswordReset from './components/auth/ConfirmPasswordReset'
+import AuthTests from './components/tests/AuthTests'
 
 function App() {
   
 
   return (
     <>
-    <Routes>
-      <Route path="" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/testlogin" element={<TestLogin />} />
-      <Route path="/protected" element={<Protected />} />
-      <Route path="/all_lessons" element={<Lesson />} />
-      <Route path="/lessonlist" element={<LessonList />} />
-    
-
-
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/testlogin" element={<TestLogin />} />
+        <Route path="/protected" element={<Protected />} />
+        <Route path="/all_lessons" element={<Lesson />} />
+        <Route path="/lessonlist" element={<LessonList />} />
+        <Route path="/authtests/*" >
+          <Route path="requestpasswordreset" element={<RequestPasswordReset />} />
+          <Route path="confirmpasswordreset" element={<ConfirmPasswordReset />} />
+        </Route>
       </Routes>
     </>
   )

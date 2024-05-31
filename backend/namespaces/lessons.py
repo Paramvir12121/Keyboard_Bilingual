@@ -57,6 +57,14 @@ def payment_required(f):
 
     return decorated_function
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        user_id = session.get('user_id')
+        if not user_id:
+            return jsonify({"message": "Unauthorized"}), 401
+        return f(*args, **kwargs)
+    return decorated_function
 
 def handle_errors(f):
     @wraps(f)
@@ -99,6 +107,7 @@ class Dashboard(Resource):
 # API endpoints
 @lessons_ns.route('/all')
 class LessonList(Resource):
+    # @login_required
     @lessons_ns.marshal_list_with(lesson_model)
     @handle_errors
     def get(self):

@@ -12,7 +12,7 @@ const useAuth = () => {
             try {
                 const response = await baseApi.get('/auth/checklogin', {
                     withCredentials: true, // Ensure cookies are sent with the request
-                    // headers: {'session': 'XMLHttpRequest'},
+                    
                 });
                 if (response.data.message === 'User is logged in.') {
                     setIsLoggedIn(true);

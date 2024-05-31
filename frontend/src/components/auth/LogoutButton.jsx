@@ -1,38 +1,29 @@
-// LogoutButton.jsx
-import React from 'react'; 
+import React from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import baseApi from '../Api/BaseApi';
 
 const LogoutButton = () => {
-    // const history = useHistory();
+    const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
-            const accessToken = localStorage.getItem('access_token');
-
-            const response = await baseApi.post('/auth/logout', {}, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
+            const response = await baseApi.post('/auth/logout', {
+                withCredentials: true
             });
-
-            if (response.status === 200) {
-                console.log('Logout successful:', response.data);
-
-                // Clear session
-              
-                
-            } else {
-                console.error('Logout failed:', response.data);
-            }
+            console.log('Logout successful:', response.data);
+            print(response.data)
+            // Clear session storage or local storage
+            sessionStorage.clear();
+            // Redirect to login page
+            navigate('/login');
         } catch (error) {
             console.error('Logout error:', error);
         }
     };
 
     return (
-        <button onClick={handleLogout}>
-            Logout
-        </button>
+        <button onClick={handleLogout}>Logout</button>
     );
 };
 
