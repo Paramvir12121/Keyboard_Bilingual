@@ -115,23 +115,19 @@ auth_model = auth_ns.model('Auth', {
     'password': fields.String(description='The user password'),
     'verification_code': fields.String(description='The verification string'),
 })
-
 reset_password_request_model = auth_ns.model('ResetPasswordRequest', {
     # 'email': fields.String(required=True, description='The user email'),
     'username': fields.String(required=True, description='The user username'),
 })
-
 reset_password_confirmation_model = auth_ns.model('ResetPasswordConfirmation', {
     'username': fields.String(required=True, description='The user username'),
     'email': fields.String(required=True, description='The user email'),
     'password': fields.String(required=True, description='New password'),
     'verification_code': fields.String(required=True, description='Verification code sent to email')
 })
-
 logout_model = auth_ns.model('Logout', {
     'access_token': fields.String(required=True, description='User access code'),
 })
-
 ######################### APIs #############################
 
 
