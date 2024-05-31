@@ -23,13 +23,15 @@ const useAuth = () => {
             } catch (error) {
                 setIsLoggedIn(false);
                 setUserId(null);
+                setEmail(null);
+                setUsername(null);
             }
         };
 
         checkLoginStatus();
     }, []);
 
-    return { isLoggedIn, userId };
+    return { isLoggedIn, userId, email, username };
 };
 
 export default useAuth;

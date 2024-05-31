@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import baseApi from '../Api/BaseApi';
+import useAuth from '../auth/useAuth';
 
 const LessonList = () => {
     const [lessons, setLessons] = useState([]);
     const [error, setError] = useState('');
+    const [useAuth, setUseAuth] = useAuth()
 
     useEffect(() => {
         const fetchLessons = async () => {
@@ -14,9 +16,10 @@ const LessonList = () => {
                 setError(error.response ? error.response.data.message : 'An error occurred');
             }
         };
-
+        console.log(useAuth)
         fetchLessons();
     }, []);
+
 
     return (
         <div>

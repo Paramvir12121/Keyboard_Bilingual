@@ -225,8 +225,12 @@ class Login(Resource):
             session['email']=email
             session['access_token'] = access_token
             session['id_token'] = id_token
-            print("session",session)
-            return {'message': 'Login successful'}, 200
+            # print("session",session)
+            resp = jsonify({'message': 'Login successful'})
+            # print("current app session: ",session['_id'])
+            resp.set_cookie('session', session.sid, httponly=True)
+            print("current id of session: ",session.sid)
+            return resp
         except client.exceptions.ClientError as error:
             print("AWS Cognito ClientError:", error)
             return handle_cognito_error(error)
