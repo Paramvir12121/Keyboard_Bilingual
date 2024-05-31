@@ -36,47 +36,6 @@ def get_secret_hash(username, client_id, client_secret):
     dig = hmac.new(client_secret.encode('utf-8'), msg=message.encode('utf-8'), digestmod=hashlib.sha256).digest()
     return base64.b64encode(dig).decode()
 
-########################## MODELS #############
-login_model = auth_ns.model('Login', {
-    # 'email': fields.String(required=True, description='The user email'),
-    'username': fields.String(required=True, description='The user username'),
-     'password': fields.String(description='The user password'),
-})
-signup_model = auth_ns.model('Signup', {
-    'email': fields.String(required=True, description='The user email'),
-    'password': fields.String(description='The user password'),
-    'username': fields.String(required=True, description='The user username'),
-    
-})
-signup_confirmation_model = auth_ns.model('Signup_Confirmation', {
-    'username': fields.String(required=True, description='The user username'),
-    'email': fields.String(required=True, description='The user email'),
-    'verification_code': fields.String(description='The verification string'),
-})
-auth_model = auth_ns.model('Auth', {
-    'username': fields.String(required=True, description='The user username'),
-    'email': fields.String(required=True, description='The user email'),
-    'password': fields.String(description='The user password'),
-    'verification_code': fields.String(description='The verification string'),
-})
-
-reset_password_request_model = auth_ns.model('ResetPasswordRequest', {
-    # 'email': fields.String(required=True, description='The user email'),
-    'username': fields.String(required=True, description='The user username'),
-})
-
-reset_password_confirmation_model = auth_ns.model('ResetPasswordConfirmation', {
-    'username': fields.String(required=True, description='The user username'),
-    'email': fields.String(required=True, description='The user email'),
-    'password': fields.String(required=True, description='New password'),
-    'verification_code': fields.String(required=True, description='Verification code sent to email')
-})
-
-logout_model = auth_ns.model('Logout', {
-    'access_token': fields.String(required=True, description='User access code'),
-})
-
-######################### APIs #############################
 def refresh_token_if_needed(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -122,6 +81,58 @@ def refresh_token_if_needed(f):
 
         return f(*args, **kwargs)
     return decorated_function
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        print("User checked")
+        if 'user_id' not in session:
+            return jsonify({"message": "Unauthorized"}), 401
+        return f(*args, **kwargs)
+    return decorated_function
+
+########################## MODELS #############
+login_model = auth_ns.model('Login', {
+    # 'email': fields.String(required=True, description='The user email'),
+    'username': fields.String(required=True, description='The user username'),
+     'password': fields.String(description='The user password'),
+})
+signup_model = auth_ns.model('Signup', {
+    'email': fields.String(required=True, description='The user email'),
+    'password': fields.String(description='The user password'),
+    'username': fields.String(required=True, description='The user username'),
+    
+})
+signup_confirmation_model = auth_ns.model('Signup_Confirmation', {
+    'username': fields.String(required=True, description='The user username'),
+    'email': fields.String(required=True, description='The user email'),
+    'verification_code': fields.String(description='The verification string'),
+})
+auth_model = auth_ns.model('Auth', {
+    'username': fields.String(required=True, description='The user username'),
+    'email': fields.String(required=True, description='The user email'),
+    'password': fields.String(description='The user password'),
+    'verification_code': fields.String(description='The verification string'),
+})
+
+reset_password_request_model = auth_ns.model('ResetPasswordRequest', {
+    # 'email': fields.String(required=True, description='The user email'),
+    'username': fields.String(required=True, description='The user username'),
+})
+
+reset_password_confirmation_model = auth_ns.model('ResetPasswordConfirmation', {
+    'username': fields.String(required=True, description='The user username'),
+    'email': fields.String(required=True, description='The user email'),
+    'password': fields.String(required=True, description='New password'),
+    'verification_code': fields.String(required=True, description='Verification code sent to email')
+})
+
+logout_model = auth_ns.model('Logout', {
+    'access_token': fields.String(required=True, description='User access code'),
+})
+
+######################### APIs #############################
+
 
 @auth_ns.route('/signup')
 class SignUp(Resource):
@@ -380,6 +391,7 @@ class Protected(Resource):
 
 @auth_ns.route('/checklogin')
 class CheckLogin(Resource):
+    @login_required
     # @cognito_auth_required
     @refresh_token_if_needed
     def get(self):
