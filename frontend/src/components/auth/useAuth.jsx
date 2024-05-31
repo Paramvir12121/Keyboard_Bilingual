@@ -4,9 +4,8 @@ import axios from 'axios';
 const useAuth = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userId, setUserId] = useState(null);
-    const [email,setEmail] =useState(null);
-    const [username,setUsername] =useState(null);
-
+    const [idToken, setIdToken] = useState(null);
+    const [username, setUsername] = useState(null);
 
     useEffect(() => {
         const checkLoginStatus = async () => {
@@ -17,13 +16,13 @@ const useAuth = () => {
                 if (response.data.message === 'User is logged in.') {
                     setIsLoggedIn(true);
                     setUserId(response.data.user_id);
-                    setEmail(response.data.email);
-                    setUsername(response.data.username)
+                    setIdToken(response.data.id_token);
+                    setUsername(response.data.username);
                 }
             } catch (error) {
                 setIsLoggedIn(false);
                 setUserId(null);
-                setEmail(null);
+                setIdToken(null);
                 setUsername(null);
             }
         };
@@ -31,7 +30,7 @@ const useAuth = () => {
         checkLoginStatus();
     }, []);
 
-    return { isLoggedIn, userId, email, username };
+    return { isLoggedIn, userId, idToken, username };
 };
 
 export default useAuth;

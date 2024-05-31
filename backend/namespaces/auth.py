@@ -327,12 +327,14 @@ class Protected(Resource):
 @auth_ns.route('/checklogin')
 class CheckLogin(Resource):
     def get(self):
-        session_token = request.cookies.get(current_app.session_cookie_name)
+        session_token = request.cookies.get('session')
+        print("session cookie: ",request.cookies.get('session'))
         if not session_token:
             return {"message":"Unauthorized"}, 401
         user_id = session.get('user_id')
+        username = session.get('username')
         id_token = session.get('id_token')
         if not user_id:
-            return jsonify({"message": "Invalid session token. Not logged in."}), 401
-        return jsonify({"message": "User is logged in.", "user_id": user_id, "id_token": id_token}), 200
+            return {"message": "Invalid session token. Not logged in."}, 401
+        return {"message": "User is logged in.", "user_id": user_id,"username":username, "id_token": id_token}, 200
 
