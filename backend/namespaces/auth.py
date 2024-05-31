@@ -87,7 +87,8 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         print("User checked")
         if 'user_id' not in session:
-            return jsonify({"message": "Unauthorized"}), 401
+            print("User Unauthorized")
+            return {"message": "Unauthorized"}, 401
         return f(*args, **kwargs)
     return decorated_function
 
@@ -384,6 +385,7 @@ class Logout(Resource):
 
 @auth_ns.route('/protected')
 class Protected(Resource):
+    @login_required
     @refresh_token_if_needed
     def get(self):
         print("protected area accessed!!")

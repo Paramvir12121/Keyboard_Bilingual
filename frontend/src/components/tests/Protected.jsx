@@ -9,7 +9,7 @@ const Protected = () => {
     const [msg, setMsg] = useState('')
 
     const getData =  async() => {
-        const response = await baseApi.post('/auth/protected', {
+        const response = await baseApi.get('/auth/protected', {
             withCredentials: true, // Ensure cookies are sent with the request
             
         });
