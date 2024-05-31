@@ -48,7 +48,7 @@ const SignupConfirmation = () => {
         <div>
             <h2>Confirm Signup</h2>
             <form onSubmit={handleConfirmSignup}>
-                <div>
+                {/* <div>
                     <label>Username:</label>
                     <input
                         type="text"
@@ -63,7 +63,7 @@ const SignupConfirmation = () => {
                         value={email}
                         readOnly
                     />
-                </div>
+                </div> */}
                 <div>
                     <label>Verification Code:</label>
                     <input

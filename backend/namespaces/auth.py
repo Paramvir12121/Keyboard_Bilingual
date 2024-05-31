@@ -10,6 +10,8 @@ import hmac
 import hashlib
 import base64
 import jwt
+from functools import wraps
+import datetime
 
 
 
@@ -75,6 +77,51 @@ logout_model = auth_ns.model('Logout', {
 })
 
 ######################### APIs #############################
+def refresh_token_if_needed(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        access_token = session.get('access_token')
+        refresh_token = session.get('refresh_token')
+        username = session.get('username')
+
+        if not access_token or not refresh_token or not username:
+            return jsonify({"message": "Unauthorized"}), 401
+
+        try:
+            # Decode the token to check its expiration
+            decoded_token = jwt.decode(access_token, options={"verify_signature": False})
+            exp = decoded_token.get('exp')
+            print("exp: ", exp)
+            print("Need new token: ",datetime.datetime.fromtimestamp(exp) < datetime.datetime.now() )
+            if exp and datetime.datetime.fromtimestamp(exp) < datetime.datetime.now():
+                print("Creating new Refresh Token")
+                # Token is expired, use the refresh token to get a new access token
+                client = get_cognito_client()
+                client_id = current_app.config['COGNITO_CLIENT_ID']
+                client_secret = current_app.config['COGNITO_CLIENT_SECRET']
+                secret_hash = get_secret_hash(username, client_id, client_secret)
+                response = client.initiate_auth(
+                    ClientId=client_id,
+                    AuthFlow='REFRESH_TOKEN_AUTH',
+                    AuthParameters={
+                        'REFRESH_TOKEN': refresh_token,
+                        'SECRET_HASH': secret_hash
+                    }
+                )
+                auth_result = response['AuthenticationResult']
+                new_access_token = auth_result.get('AccessToken')
+                new_id_token = auth_result.get('IdToken')
+
+                # Update session tokens
+                session['access_token'] = new_access_token
+                session['id_token'] = new_id_token
+        except jwt.ExpiredSignatureError:
+            return {"message": "Token expired"}, 401
+        except Exception as e:
+            return {"message": f"An error occurred: {str(e)}"}, 500
+
+        return f(*args, **kwargs)
+    return decorated_function
 
 @auth_ns.route('/signup')
 class SignUp(Resource):
@@ -223,6 +270,7 @@ class Login(Resource):
             session['username'] = username
             session['user_id']=db_user.id
             session['email']=email
+            session['refresh_token']=refresh_token
             session['access_token'] = access_token
             session['id_token'] = id_token
             # print("session",session)
@@ -325,14 +373,15 @@ class Logout(Resource):
 
 @auth_ns.route('/protected')
 class Protected(Resource):
-    @cognito_auth_required
-    def post(self):
+    @refresh_token_if_needed
+    def get(self):
         print("protected area accessed!!")
-        return make_response(jsonify({"message": "Authorized"}), 200)
+        return {"message": "Authorized"}, 200
 
 @auth_ns.route('/checklogin')
 class CheckLogin(Resource):
-    @cognito_auth_required
+    # @cognito_auth_required
+    @refresh_token_if_needed
     def get(self):
         session_token = request.cookies.get('session')
         print("session cookie: ",request.cookies.get('session'))

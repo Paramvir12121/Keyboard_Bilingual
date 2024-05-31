@@ -6,11 +6,21 @@ import useAuth from '../auth/useAuth';
 
 
 const Protected = () => {
-    
+    const [msg, setMsg] = useState('')
+
+    const getData =  async() => {
+        const response = await baseApi.post('/auth/protected', {
+            withCredentials: true, // Ensure cookies are sent with the request
+            
+        });
+        console.log("response:", response.data)
+    }
+
     return (
         <div>
             <h2>Protected Data</h2>
             <LogoutButton />
+            <button onClick={getData}>Get Data</button>
             {/* {error && <p style={{ color: 'red' }}>{error}</p>}
             {data ? (
                 <div>
