@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import baseApi from './Api/BaseApi';
 
 const Home = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -10,7 +10,7 @@ const Home = () => {
     useEffect(() => {
         const checkLoginStatus = async () => {
             try {
-                const response = await axios.get('/auth/checklogin', {
+                const response = await baseApi.get('/auth/checklogin', {
                     withCredentials: true // Ensure cookies are sent with the request
                 });
                 console.log("response:", response.data)
