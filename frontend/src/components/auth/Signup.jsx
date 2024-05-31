@@ -1,105 +1,119 @@
 import React, { useState } from 'react';
-import './Signup.css'
-import axios from 'axios';
+import './Signup.css';
+import baseApi from '../Api/BaseApi';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-    const [userData, setUserData] = useState({
-        username: '',
-        email: '',
-        password1: '',
-        password2: '',
-    });
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+
 
     const handleChange = (e) => {
-        setUserData({ ...userData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        if (name === 'username') setUsername(value);
+        if (name === 'email') setEmail(value);
+        if (name === 'password') setPassword(value);
+        if (name === 'confirmPassword') setConfirmPassword(value);
+        
     };
 
-    const handleSubmit = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:8000/dj-rest-auth/registration/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userData),
-        });
-        const data = await response.json();
-        if (response.ok) {
-            console.log('Signup successful:', data);
-            // Redirect to login or other action
-        } else {
-            console.error('Signup failed:', data);
+        if (password !== confirmPassword) {
+            setError('Passwords do not match');
+            return;
+        }
+        try {
+            const response = await baseApi.post('/auth/signup', {
+                username,
+                email,
+                password,
+            });
+            if (response.status === 200) {
+                console.log('Signup successful:', response.data);
+                navigate('/signupconfirmation', { state: { username, email } }); // Redirect to login after successful signup
+            } else {
+                console.error('Signup failed:', response.data);
+                setError('Signup failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Signup error:', error);
+            setError(error.response ? error.response.data.message : 'An error occurred');
         }
     };
-    
+
+
     return (
         <div className="container-fluid">
             <div className="row">
-            <div className="col-md-4 d-none d-lg-block order-md-1" id='svg'>
+                <div className="col-md-4 d-none d-lg-block order-md-1" id="svg"></div>
+                <div className="col-md-8 order-md-2 d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+                    <div className="p-4 w-100">
+                        <h2>Sign Up</h2>
+                        <form onSubmit={handleSignup} className="col-md-8 mt-4">
+                            <div className="mb-3">
+                                <label htmlFor="username" className="form-label">Username</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="username"
+                                    name="username"
+                                    placeholder="Username"
+                                    value={username}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="email" className="form-label">Email Address</label>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    value={email}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="password" className="form-label">Password</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    placeholder="Confirm Password"
+                                    value={confirmPassword}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            {error && <p style={{ color: 'red' }}>{error}</p>}
+                            <button type="submit" className="btn btn-primary">Sign Up</button>
+                        </form>
+                    </div>
                 </div>
-            <div className="col-md-8 order-md-2 d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
-    <div className="p-4  w-100"> {/* Add w-100 to ensure the padding affects the content correctly */}
-        <h2>Sign Up</h2>
-        
-            <form onSubmit={handleSubmit} className="col-md-8 mt-4">
-                <div className="mb-3">
-                    <label htmlFor="username" className="form-label">Username</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="username"
-                        name="username"
-                        placeholder="Username"
-                        value={userData.username}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email Address</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        placeholder="Email"
-                        value={userData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="password1" className="form-label">Password</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        id="password1"
-                        name="password1"
-                        placeholder="Password"
-                        value={userData.password1}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="password2" className="form-label">Confirm Password</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        id="password2"
-                        name="password2"
-                        placeholder="Confirm Password"
-                        value={userData.password2}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">Sign Up</button>
-            </form>
-          
-        </div>
-    </div>
-</div>
             </div>
-        
+        </div>
     );
 };
 

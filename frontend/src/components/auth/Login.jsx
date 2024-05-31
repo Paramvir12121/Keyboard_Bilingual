@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import "./Login.css";
 import baseApi from '../Api/BaseApi';
-import {Navigate, Outlet, Link } from "react-router-dom";
+import {Navigate, Outlet, Link, useNavigate} from "react-router-dom";
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -22,7 +23,7 @@ const Login = () => {
             sessionStorage.setItem('session', response.data.session);
             
             // Redirect or perform other actions after successful login
-            // navigate('/protected');
+            navigate('/')
         } catch (error) {
             console.error('Login error:', error);
             setError(error.response ? error.response.data.message : 'An error occurred');

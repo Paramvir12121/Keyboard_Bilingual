@@ -11,7 +11,7 @@ import Lesson from './components/lessons/Lesson'
 import LessonList from './components/lessons/LessonList'
 import RequestPasswordReset from './components/auth/RequestPasswordReset'
 import ConfirmPasswordReset from './components/auth/ConfirmPasswordReset'
-import AuthTests from './components/tests/AuthTests'
+import SignupConfirmation from './components/auth/SignupConfirmation'
 
 function App() {
   
@@ -28,6 +28,7 @@ function App() {
         <Route path="/protected" element={<Protected />} />
         <Route path="/all_lessons" element={<Lesson />} />
         <Route path="/lessonlist" element={<LessonList />} />
+        <Route path="/signupconfirmation" element={<SignupConfirmation />} />
         <Route path="/authtests/*" >
           <Route path="requestpasswordreset" element={<RequestPasswordReset />} />
           <Route path="confirmpasswordreset" element={<ConfirmPasswordReset />} />

@@ -12,7 +12,7 @@ const LogoutButton = () => {
                 withCredentials: true
             });
             console.log('Logout successful:', response.data);
-            print(response.data)
+            console.log(response.data)
             // Clear session storage or local storage
             sessionStorage.clear();
             // Redirect to login page
