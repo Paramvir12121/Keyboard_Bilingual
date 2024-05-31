@@ -142,6 +142,12 @@ class SignUp(Resource):
         password = str(data.get('password'))
         email = str(data.get('email'))
         username = data.get('username')
+        existing_user_by_email = User.query.filter_by(email=email).first()
+        existing_user_by_username = User.query.filter_by(username=username).first()
+        if existing_user_by_email:
+            return {'message': 'Email already exists.'}, 400
+        if existing_user_by_username:
+            return {'message': 'Username already exists.'}, 400
         client = get_cognito_client()
         client_id = current_app.config['COGNITO_CLIENT_ID']
         client_secret = current_app.config['COGNITO_CLIENT_SECRET']
@@ -173,7 +179,7 @@ class SignupResendCode(Resource):
         data = request.get_json()
         
         if not data:
-            return jsonify({"error": "No data provided"}), 400
+            return {"error": "No data provided"}, 400
         username = str(data.get('username'))
         client = get_cognito_client()
         client_id = current_app.config['COGNITO_CLIENT_ID']
@@ -197,6 +203,7 @@ class SignupConfirmation(Resource):
         data = request.get_json()
         if not data:
             return jsonify({"error": "No data provided"}), 400
+        print("data",data)
         username = data.get('username')
         email = data.get('email')
         verification_code = str(data.get('verification_code'))
@@ -211,6 +218,7 @@ class SignupConfirmation(Resource):
                 SecretHash=secret_hash,
                 ConfirmationCode=verification_code,
             )
+
             user = User(username=username, email=email)
             user.save()
             return {'message': 'Email confirmed and user saved.'}, 200
