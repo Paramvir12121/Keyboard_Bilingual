@@ -51,22 +51,6 @@ const SignupConfirmation = () => {
         <div>
             <h2>Confirm Signup</h2>
             <form onSubmit={handleConfirmSignup}>
-                {/* <div>
-                    <label>Username:</label>
-                    <input
-                        type="text"
-                        value={username}
-                        readOnly
-                    />
-                </div>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        readOnly
-                    />
-                </div> */}
                 <div>
                     <label>Verification Code:</label>
                     <input

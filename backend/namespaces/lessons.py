@@ -7,7 +7,7 @@ from exts import db
 from functools import wraps
 from datetime import datetime
 from werkzeug.exceptions import HTTPException, NotFound, Unauthorized, Forbidden, BadRequest, InternalServerError
-
+from namespaces.auth import login_required
 
 
 lessons_ns = Namespace('lessons', description='Lessons API namespace.')
@@ -57,14 +57,14 @@ def payment_required(f):
 
     return decorated_function
 
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        user_id = session.get('user_id')
-        if not user_id:
-            return jsonify({"message": "Unauthorized"}), 401
-        return f(*args, **kwargs)
-    return decorated_function
+# def login_required(f):
+#     @wraps(f)
+#     def decorated_function(*args, **kwargs):
+#         user_id = session.get('user_id')
+#         if not user_id:
+#             return jsonify({"message": "Unauthorized"}), 401
+#         return f(*args, **kwargs)
+#     return decorated_function
 
 def handle_errors(f):
     @wraps(f)
@@ -107,22 +107,24 @@ class Dashboard(Resource):
 # API endpoints
 @lessons_ns.route('/all')
 class LessonList(Resource):
-    # @login_required
+    @login_required
     @lessons_ns.marshal_list_with(lesson_model)
     @handle_errors
     def get(self):
         """Get all lessons"""
-        user_id = session.get("user_id")
-        if not user_id:
-            print("User Id: ",user_id)
-            return {"message":"Unauthorized"},401
-        else:
-            print(user_id)
-            lessons = Lesson.query.all()
-            return lessons
+        # user_id = session.get("user_id")
+        # if not user_id:
+        #     print("User Id: ",user_id)
+        #     return {"message":"Unauthorized"},401
+        # else:
+        # print(user_id)
+        lessons = Lesson.query.all()
+        return lessons
 
 @lessons_ns.route('/<int:id>')
 class LessonDetail(Resource):
+    @login_required
+    @handle_errors
     @lessons_ns.marshal_with(lesson_model)
     def get(self, id):
         """Get a lesson by its ID"""
@@ -133,7 +135,7 @@ class LessonDetail(Resource):
 @lessons_ns.route('/user_lesson/<int:lesson_id>')
 class UserLessonCreate(Resource):
     @lessons_ns.expect(lesson_completion_model)
-    @cognito_auth_required
+    @login_required
     @handle_errors
     def post(self, lesson_id):
         """Create a new user lesson"""

@@ -12,12 +12,15 @@ import LessonList from './components/lessons/LessonList'
 import RequestPasswordReset from './components/auth/RequestPasswordReset'
 import ConfirmPasswordReset from './components/auth/ConfirmPasswordReset'
 import SignupConfirmation from './components/auth/SignupConfirmation'
+import TopBar from './components/navbar/TopBar'
+
 
 function App() {
   
 
   return (
     <>
+      <TopBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
