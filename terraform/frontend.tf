@@ -1,21 +1,22 @@
 resource "google_cloud_run_service" "frontend" {
   name     = "frontend"
-  location = "YOUR_REGION"
+  location = var.region
 
   template {
     spec {
       containers {
-        image = "gcr.io/YOUR_PROJECT_ID/frontend:latest"
+        image = var.frontend_image
+
+        env {
+          name  = "REACT_APP_API_URL"
+          value = google_cloud_run_service.backend.status[0].url
+        }
 
         resources {
           limits = {
             memory = "512Mi"
             cpu    = "1"
           }
-        }
-        env {
-          name  = "REACT_APP_API_URL"
-          value = "https://backend-YOUR_REGION.run.app"
         }
       }
     }

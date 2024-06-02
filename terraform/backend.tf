@@ -1,21 +1,32 @@
 resource "google_cloud_run_service" "backend" {
   name     = "backend"
-  location =  var.region
+  location = var.region
 
   template {
     spec {
       containers {
-        image = "gcr.io/YOUR_PROJECT_ID/backend:latest"
+        image = var.backend_image
+
+        env {
+          name  = "FLASK_ENV"
+          value = "production"
+        }
+
+        env {
+          name  = "DATABASE_URL"
+          value = "postgresql+psycopg2://${var.db_user}:${var.db_password}@/${var.db_name}?host=/cloudsql/${google_sql_database_instance.main.connection_name}"
+        }
+
+        env {
+          name  = "SECRET_KEY"
+          value = "your_secret_key"
+        }
 
         resources {
           limits = {
             memory = "512Mi"
             cpu    = "1"
           }
-        }
-        env {
-          name  = "FLASK_ENV"
-          value = "production"
         }
       }
     }
