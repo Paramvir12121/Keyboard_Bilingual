@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import LogoutButton from '../auth/LogoutButton';
-import baseApi from '../Api/BaseApi';
+
+import baseApi from '../hooks/BaseApi';
 import { jwtDecode } from "jwt-decode";
-import useAuth from '../auth/useAuth';
+import useAuth from '../hooks/useAuth';
 
 
 const Protected = () => {
@@ -19,7 +19,7 @@ const Protected = () => {
     return (
         <div>
             <h2>Protected Data</h2>
-            <LogoutButton />
+            
             <button onClick={getData}>Get Data</button>
             {/* {error && <p style={{ color: 'red' }}>{error}</p>}
             {data ? (

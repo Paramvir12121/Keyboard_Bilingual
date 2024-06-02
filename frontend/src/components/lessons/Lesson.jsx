@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import baseApi from '../Api/BaseApi';
+import baseApi from '../hooks/BaseApi';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../auth/useAuth';
+import useAuth from '../hooks/useAuth';
 
 const Lessons = () => {
     const [lessons, setLessons] = useState([]);

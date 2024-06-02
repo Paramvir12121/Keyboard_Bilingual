@@ -1,5 +1,5 @@
 import React,{ useState, useEffect } from 'react';
-import baseApi from '../Api/BaseApi';
+import baseApi from './BaseApi';
 
 const useAuth = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import baseApi from '../Api/BaseApi';
-import useAuth from '../auth/useAuth';
+import baseApi from '../hooks/BaseApi';
+import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 const LessonList = () => {

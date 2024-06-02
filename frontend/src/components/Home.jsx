@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import baseApi from './Api/BaseApi';
-import useAuth from './auth/useAuth';
+import baseApi from './hooks/BaseApi';
+import useAuth from './hooks/useAuth';
 
 const Home = () => {
     const { isLoggedIn, userId,idToken, username } = useAuth();
@@ -8,7 +8,7 @@ const Home = () => {
 
     return (
         <>
-        
+
             Home
             {isLoggedIn ? (
                 <p>You are logged in as: {username}</p>

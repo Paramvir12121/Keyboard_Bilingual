@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button'
-import LogoutButton from '../auth/LogoutButton'
-import useAuth from '../auth/useAuth';
+import useAuth from '../hooks/useAuth';
 import { Link } from 'react-router-dom';
+import LogoutHandler from '../auth/LogoutHandler';
 
 const TopBar = () => {
     const { isLoggedIn, username } = useAuth();
+    const [loggedIn, setLoggedIn]=useState(false)
+    
+    const handleLogout = LogoutHandler();
+
   return (
     <>
     <Navbar>
@@ -15,7 +19,7 @@ const TopBar = () => {
         {isLoggedIn ? (
                 <div>
                     Logged in as: {username}
-                    <LogoutButton />
+                    <Button onClick={handleLogout} className="btn btn-danger">Logout</Button>
                 </div>
             ) : (
                 <>
