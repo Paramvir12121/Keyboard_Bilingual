@@ -100,4 +100,4 @@ def update_lesson(lesson_id):
         lesson.success_rate = request.form.get('success_rate', 0.0)
         db.session.commit()
         return redirect(url_for('admin.view_lessons'))
-    return render_template('admin/update_lesson.html', lesson=lesson)
+    return render_template('admin/add_lesson.html', lesson=lesson)

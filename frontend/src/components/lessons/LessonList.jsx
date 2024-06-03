@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import baseApi from '../hooks/BaseApi';
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import LessonCard from './LessonCard';
 
 const LessonList = () => {
     const [lessons, setLessons] = useState([]);
@@ -11,10 +12,6 @@ const LessonList = () => {
 
     useEffect(() => {
         console.log("Is logged in: ",isLoggedIn, username )
-        // if (!isLoggedIn) {
-        //     navigate('/login');
-        //     return;
-        // }
         const fetchLessons = async () => {
             try {
                 const response = await baseApi.get('/lessons/all');
@@ -31,13 +28,12 @@ const LessonList = () => {
         <div>
             <h2>Lessons</h2>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            <ul>
+            
                 {lessons.map(lesson => (
-                    <li key={lesson.id}>
-                        {lesson.title} - {lesson.description}
-                    </li>
+                        <LessonCard props={lesson}  key={lesson.id}/>
+                    
                 ))}
-            </ul>
+            
         </div>
     );
 };

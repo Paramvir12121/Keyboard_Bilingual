@@ -6,7 +6,6 @@ import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import Settings from './components/windows/Settings';
 import Protected from './components/tests/Protected';
-import Lesson from './components/lessons/Lesson';
 import LessonList from './components/lessons/LessonList';
 import RequestPasswordReset from './components/auth/RequestPasswordReset';
 import ConfirmPasswordReset from './components/auth/ConfirmPasswordReset';
@@ -24,7 +23,6 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/protected" element={<Protected />} />
-                <Route path="/all_lessons" element={<Lesson />} />
                 <Route path="/lessonlist" element={<LessonList />} />
                 <Route path="/signupconfirmation" element={<SignupConfirmation />} />
                 <Route path="/authtests/*" element={<AuthTests />} />
