@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - frontend_build:/usr/share/nginx/html
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/app
+    expose:
+      - "8000"
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+    run:
+      - npm run build
+    volumes:
+      - frontend_build:/app/build
+
+volumes:
+  frontend_build:
