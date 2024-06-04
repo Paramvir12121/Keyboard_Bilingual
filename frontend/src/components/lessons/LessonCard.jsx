@@ -2,10 +2,16 @@ import React from 'react'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import baseApi from '../hooks/BaseApi';
+import { useNavigate } from 'react-router-dom';
 
 
 const LessonCard = ( {props} ) => {
-        
+  const navigate = useNavigate();
+
+      function clickHandler () {
+          console.log("Clicked", props.id)
+          navigate("")
+      }  
             
       
         return (
@@ -16,7 +22,7 @@ const LessonCard = ( {props} ) => {
               <Card.Text>Difficulty: {props.difficulty}</Card.Text>
               <Card.Text>Keys: {props.keys}</Card.Text>
               <Card.Text>Words: {props.words}</Card.Text>
-                <Button>Start Lesson</Button>
+                <Button onClick={clickHandler}>Start Lesson</Button>
             </Card.Body>
           </Card>
         );

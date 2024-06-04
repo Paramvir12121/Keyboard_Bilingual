@@ -11,6 +11,7 @@ import RequestPasswordReset from './components/auth/RequestPasswordReset';
 import ConfirmPasswordReset from './components/auth/ConfirmPasswordReset';
 import SignupConfirmation from './components/auth/SignupConfirmation';
 import TopBar from './components/navbar/TopBar';
+import UserLesson from './components/lessons/UserLesson';
 
 function App() {
     return (
@@ -24,12 +25,21 @@ function App() {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/protected" element={<Protected />} />
                 <Route path="/lessonlist" element={<LessonList />} />
+                <Route path="/userlesson" element={<UserLesson />} />
                 <Route path="/signupconfirmation" element={<SignupConfirmation />} />
-                <Route path="/authtests/*" element={<AuthTests />} />
+                <Route path="/auth/*" element={<AuthTests />} />
+                {/* <Route path="/lesson/*" element={<Lessons />} /> */}
             </Routes>
         </>
     );
 }
+
+// const Lessons = () => {
+//     <Routes>
+//         <Route path="list" element={<LessonList />} />
+//     </Routes>
+
+// }
 
 const AuthTests = () => (
     <Routes>
