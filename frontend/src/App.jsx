@@ -25,7 +25,7 @@ function App() {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/protected" element={<Protected />} />
                 <Route path="/lessonlist" element={<LessonList />} />
-                <Route path="/userlesson" element={<UserLesson />} />
+                <Route path="/lessons/:lessonId" element={<UserLesson />} />
                 <Route path="/signupconfirmation" element={<SignupConfirmation />} />
                 <Route path="/auth/*" element={<AuthTests />} />
                 {/* <Route path="/lesson/*" element={<Lessons />} /> */}
