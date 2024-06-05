@@ -8,10 +8,9 @@ import { useNavigate } from 'react-router-dom';
 const LessonCard = ( {props} ) => {
   const navigate = useNavigate();
 
-      function clickHandler () {
-          console.log("Clicked", props.id)
-          navigate("")
-      }  
+  const handleStartLesson = () => {
+    navigate(`/lessons/${props.id}`);
+}; 
             
       
         return (
@@ -22,7 +21,7 @@ const LessonCard = ( {props} ) => {
               <Card.Text>Difficulty: {props.difficulty}</Card.Text>
               <Card.Text>Keys: {props.keys}</Card.Text>
               <Card.Text>Words: {props.words}</Card.Text>
-                <Button onClick={clickHandler}>Start Lesson</Button>
+                <Button onClick={handleStartLesson}>Start Lesson</Button>
             </Card.Body>
           </Card>
         );
