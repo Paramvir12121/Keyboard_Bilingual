@@ -4,6 +4,8 @@ __pycache__
 __pycache__*
 *vars.tf
 
+dev.db
+
 
 # Terraform 
 # Local .terraform directories
