@@ -6,38 +6,27 @@ const qwertyToColemak = {
   'z': 'z', 'x': 'x', 'c': 'c', 'v': 'v', 'b': 'b', 'n': 'k', 'm': 'm', ',': ',', '.': '.', '/': '/'
 };
 
-const keyMap = {
-  'q': 'keyQ', 'w': 'keyW', 'e': 'keyE', 'r': 'keyR', 't': 'keyT', 'y': 'keyY', 'u': 'keyU', 'i': 'keyI', 'o': 'keyO', 'p': 'keyP',
-  'a': 'keyA', 's': 'keyS', 'd': 'keyD', 'f': 'keyF', 'g': 'keyG', 'h': 'keyH', 'j': 'keyJ', 'k': 'keyK', 'l': 'keyL', ';': 'keySemicolon',
-  'z': 'keyZ', 'x': 'keyX', 'c': 'keyC', 'v': 'keyV', 'b': 'keyB', 'n': 'keyN', 'm': 'keyM', ',': 'keyComma', '.': 'keyPeriod', '/': 'keySlash',
+const colemakKeyMap = {
+  'q': 'keyQ', 'w': 'keyW', 'f': 'keyE', 'p': 'keyR', 'g': 'keyT', 'j': 'keyY', 'l': 'keyU', 'u': 'keyI', 'y': 'keyO', ';': 'keyP',
+  'a': 'keyA', 'r': 'keyS', 's': 'keyD', 't': 'keyF', 'd': 'keyG', 'h': 'keyH', 'n': 'keyJ', 'e': 'keyK', 'i': 'keyL', 'o': 'keySemicolon',
+  'z': 'keyZ', 'x': 'keyX', 'c': 'keyC', 'v': 'keyV', 'b': 'keyB', 'k': 'keyN', 'm': 'keyM', ',': 'keyComma', '.': 'keyPeriod', '/': 'keySlash',
 };
 
 const ColemakKeyboard = () => {
   const [pressedKey, setPressedKey] = useState(null);
-  const [colemakKey, setColemakKey] = useState(null);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
       const qwertyKey = e.key.toLowerCase();
-        console.log("qwertyKey :", qwertyKey)
+      if (qwertyToColemak[qwertyKey]) {
         const colemakChar = qwertyToColemak[qwertyKey];
-        console.log("colemakChar: ", colemakChar)
-        console.log("Pressed key: ", pressedKey)
-        if (colemakChar) {
-          setPressedKey(keyMap[colemakChar]);
-          setColemakKey(colemakChar);
-        }
-        
-
+        const colemakKey = colemakKeyMap[colemakChar];
+        setPressedKey(colemakKey);
+      }
     };
 
     const handleKeyUp = (e) => {
-      const qwertyKey = e.key.toLowerCase();
-    
-        setPressedKey(null);
-        setColemakKey(null);
-      
-        
+      setPressedKey(null);
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -107,7 +96,7 @@ const ColemakKeyboard = () => {
       <rect id="keyO" x="570" y="10" width="60" height="60" className={`key ${pressedKey === 'keyO' ? 'key-pressed' : ''}`} />
       <text x="600" y="50" className="key-text">Y</text>
 
-      <rect id="keySemicolon" x="640" y="10" width="60" height="60" className={`key ${pressedKey === 'keySemicolon' ? 'key-pressed' : ''}`} />
+      <rect id="keyP" x="640" y="10" width="60" height="60" className={`key ${pressedKey === 'keyP' ? 'key-pressed' : ''}`} />
       <text x="670" y="50" className="key-text">;</text>
 
       <rect x="710" y="10" width="80" height="60" className="key" />
@@ -117,31 +106,31 @@ const ColemakKeyboard = () => {
       <rect id="keyA" x="25" y="80" width="60" height="60" className={`key ${pressedKey === 'keyA' ? 'key-pressed' : ''}`} />
       <text x="55" y="120" className="key-text">A</text>
 
-      <rect id="keyR" x="95" y="80" width="60" height="60" className={`key ${pressedKey === 'keyR' ? 'key-pressed' : ''}`} />
+      <rect id="keyS" x="95" y="80" width="60" height="60" className={`key ${pressedKey === 'keyS' ? 'key-pressed' : ''}`} />
       <text x="125" y="120" className="key-text">R</text>
 
-      <rect id="keyS" x="165" y="80" width="60" height="60" className={`key ${pressedKey === 'keyS' ? 'key-pressed' : ''}`} />
+      <rect id="keyD" x="165" y="80" width="60" height="60" className={`key ${pressedKey === 'keyD' ? 'key-pressed' : ''}`} />
       <text x="195" y="120" className="key-text">S</text>
 
-      <rect id="keyT" x="235" y="80" width="60" height="60" className={`key ${pressedKey === 'keyT' ? 'key-pressed' : ''}`} />
+      <rect id="keyF" x="235" y="80" width="60" height="60" className={`key ${pressedKey === 'keyF' ? 'key-pressed' : ''}`} />
       <text x="265" y="120" className="key-text">T</text>
 
-      <rect id="keyD" x="305" y="80" width="60" height="60" className={`key ${pressedKey === 'keyD' ? 'key-pressed' : ''}`} />
+      <rect id="keyG" x="305" y="80" width="60" height="60" className={`key ${pressedKey === 'keyG' ? 'key-pressed' : ''}`} />
       <text x="335" y="120" className="key-text">D</text>
 
       <rect id="keyH" x="375" y="80" width="60" height="60" className={`key ${pressedKey === 'keyH' ? 'key-pressed' : ''}`} />
       <text x="405" y="120" className="key-text">H</text>
 
-      <rect id="keyN" x="445" y="80" width="60" height="60" className={`key ${pressedKey === 'keyN' ? 'key-pressed' : ''}`} />
+      <rect id="keyJ" x="445" y="80" width="60" height="60" className={`key ${pressedKey === 'keyJ' ? 'key-pressed' : ''}`} />
       <text x="475" y="120" className="key-text">N</text>
 
-      <rect id="keyE" x="515" y="80" width="60" height="60" className={`key ${pressedKey === 'keyE' ? 'key-pressed' : ''}`} />
+      <rect id="keyK" x="515" y="80" width="60" height="60" className={`key ${pressedKey === 'keyK' ? 'key-pressed' : ''}`} />
       <text x="545" y="120" className="key-text">E</text>
 
-      <rect id="keyI" x="585" y="80" width="60" height="60" className={`key ${pressedKey === 'keyI' ? 'key-pressed' : ''}`} />
+      <rect id="keyL" x="585" y="80" width="60" height="60" className={`key ${pressedKey === 'keyL' ? 'key-pressed' : ''}`} />
       <text x="615" y="120" className="key-text">I</text>
 
-      <rect id="keyO" x="655" y="80" width="60" height="60" className={`key ${pressedKey === 'keyO' ? 'key-pressed' : ''}`} />
+      <rect id="keySemicolon" x="655" y="80" width="60" height="60" className={`key ${pressedKey === 'keySemicolon' ? 'key-pressed' : ''}`} />
       <text x="685" y="120" className="key-text">O</text>
 
       <rect x="725" y="80" width="65" height="60" className="key" />
@@ -166,7 +155,7 @@ const ColemakKeyboard = () => {
       <rect id="keyB" x="410" y="150" width="60" height="60" className={`key ${pressedKey === 'keyB' ? 'key-pressed' : ''}`} />
       <text x="440" y="190" className="key-text">B</text>
 
-      <rect id="keyK" x="480" y="150" width="60" height="60" className={`key ${pressedKey === 'keyK' ? 'key-pressed' : ''}`} />
+      <rect id="keyN" x="480" y="150" width="60" height="60" className={`key ${pressedKey === 'keyN' ? 'key-pressed' : ''}`} />
       <text x="510" y="190" className="key-text">K</text>
 
       <rect id="keyM" x="550" y="150" width="60" height="60" className={`key ${pressedKey === 'keyM' ? 'key-pressed' : ''}`} />
