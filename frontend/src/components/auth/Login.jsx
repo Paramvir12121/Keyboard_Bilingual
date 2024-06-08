@@ -3,7 +3,7 @@ import "./Login.css";
 import baseApi from '../hooks/BaseApi';
 import {Navigate, Outlet, Link, useNavigate} from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setIsUserLoggedIn }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -21,6 +21,7 @@ const Login = () => {
 
             console.log('Login successful:', response.data);
             sessionStorage.setItem('session', response.data.session);
+            setIsUserLoggedIn(true)
             
             // Redirect or perform other actions after successful login
             navigate('/')

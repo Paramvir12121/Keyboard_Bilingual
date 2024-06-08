@@ -6,17 +6,19 @@ import useAuth from '../hooks/useAuth';
 import { Link } from 'react-router-dom';
 import LogoutHandler from '../auth/LogoutHandler';
 
-const TopBar = () => {
+const TopBar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
     const { isLoggedIn, username } = useAuth();
     const [loggedIn, setLoggedIn]=useState(false)
     
-    const handleLogout = LogoutHandler();
+    
+    const handleLogout = LogoutHandler({ setIsUserLoggedIn });
+      
 
   return (
     <>
     <Navbar>
         <Navbar.Brand >Learn Colemak</Navbar.Brand>
-        {isLoggedIn ? (
+        {isUserLoggedIn ? (
                 <div>
                     Logged in as: {username}
                     <Button onClick={handleLogout} className="btn btn-danger">Logout</Button>

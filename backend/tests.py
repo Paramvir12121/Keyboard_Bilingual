@@ -1,8 +1,28 @@
-import jwt
-# key='super-secret'
-payload={"id":"1","email":"myemail@gmail.com" }
-token = "eyJraWQiOiJSb0VwVFJ2a2lsUXBMV1pEcFhxNmdvOGlTRHdTM29KaWd2akQ2cjRHSHNnPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIzNDQ4ZjQ5OC02MGMxLTcwYWYtZGZlYy0zZGEzOTM3Y2IyMmMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVktacHVCb2U2IiwiY29nbml0bzp1c2VybmFtZSI6InBhcmFtIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiUGFyYW0iLCJvcmlnaW5fanRpIjoiZDU1MzhkMTUtOTBkZi00ZTQ3LWFlYTMtZmE0NDg0OTUzYTI3IiwiYXVkIjoiNmxrMnU0YzJqN2xhaG5ocHVldWVmM2trYWUiLCJldmVudF9pZCI6IjYwMWU4YzVlLWJmNGUtNDgzOS1hZjhjLTRkYTNiYWRiYTNlYSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzE2NjMyODE3LCJleHAiOjE3MTY2MzY0MTcsImlhdCI6MTcxNjYzMjgxNywianRpIjoiYTBhNWM4MjUtZDEzMi00ZWQzLThkNGEtOWI2NmRjM2NhYTAzIiwiZW1haWwiOiJwYXJhbXZpcjEyMTIxQGdtYWlsLmNvbSJ9.T049JfADlr9QIasO3APRygln8I34tA54j_W_HCXgsvLNBB3ePhUWaMTXCoRB5vuouyNZSCu-bWC6e5oyKAhJuJj1WBMhi8tTPP87xHm3p9_cF6nwtwlrORUSQwQooLbCPWAB4Xkj0MPKcnDSKoV2N4lsyAg_v3DKb_nM99qjvYKkd5tlji4sNE6LJagMwBTdgb_Kwo0cC8FO2tnBYXnkIVhMYkyS7_xOZsuOqUchXN6063jGsiqiQUVm1TGDQe9k1PY9OqhrVBNLwMWY7K76qbcbNO_6L_xfNrWdGuVPJ2Hhj4wSPE7zp8CZ0lreQ69P73tlZYzey2Fmde_kq2FidA"
-# print (token)
-decoded = jwt.decode(token, options={"verify_signature": False}) # works in PyJWT >= v2.0
-# print (decoded)
-print (decoded["email"])
+# Save this code as create_heatmap_svg.py and run it
+
+import svgwrite
+
+def create_heatmap(data, filename):
+    dwg = svgwrite.Drawing(filename, profile='tiny', size=(200, 110))
+    colors = ['#ebedf0', '#c6e48b', '#7bc96f', '#239a3b', '#196127']
+
+    # Creating a 7x5 grid for the heatmap
+    for row in range(5):
+        for col in range(7):
+            color_index = data[row][col]
+            rect = dwg.rect(insert=(col*20, row*20), size=(18, 18), rx=3, ry=3, fill=colors[color_index])
+            dwg.add(rect)
+
+    dwg.save()
+
+# Example data: 5 weeks (rows) and 7 days (columns)
+# 0 - no activity, 4 - max activity
+example_data = [
+    [0, 1, 2, 3, 4, 0, 1],
+    [1, 2, 3, 4, 0, 1, 2],
+    [2, 3, 4, 0, 1, 2, 3],
+    [3, 4, 0, 1, 2, 3, 4],
+    [4, 0, 1, 2, 3, 4, 0]
+]
+
+create_heatmap(example_data, 'heatmap.svg')
