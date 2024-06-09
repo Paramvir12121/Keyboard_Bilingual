@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
 import './App.css';
 import Home from './components/Home';
 import About from './components/About';
@@ -15,15 +14,13 @@ import TopBar from './components/navbar/TopBar';
 import UserLesson from './components/lessons/UserLesson';
 
 function App() {
-    const [isUserLoggedIn, setIsUserLoggedIn] = useState();
-
     return (
         <>
-            <TopBar setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} />
+            <TopBar />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/login"  element={<Login setIsUserLoggedIn={setIsUserLoggedIn}/>} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/protected" element={<Protected />} />
