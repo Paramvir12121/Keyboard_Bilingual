@@ -11,7 +11,11 @@ const qwertyToColemak = {
   };
   
 const UserLesson = () => {
-  const { lessonId } = useParams();
+  const { lessonId } = useParams(); <form className="form">
+        <input type="text" placeholder="Username" />
+        <input type="password" placeholder="Password" />
+        <button type="submit">Login</button>
+      </form>
   const [lesson, setLesson] = useState(null);
   const [userInput, setUserInput] = useState('');
   const [mappedInput, setMappedInput] = useState('');
