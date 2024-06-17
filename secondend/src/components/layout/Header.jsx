@@ -1,18 +1,24 @@
 import React from 'react';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button';
+
+
+
 
 const Header = ({ isLoggedIn }) => {
     return (
-        <header>
-            <h1>My App</h1>
+        <Navbar>
+            <Nav>My App</Nav>
             {isLoggedIn ? (
                 <p>Welcome, User!</p>
             ) : (
                 <div>
-                    <button>Login</button>
-                    <button>Signup</button>
+                    <Button>Login</Button>
+                    <Button>Signup</Button>
                 </div>
             )}
-        </header>
+        </Navbar>
     );
 };
 

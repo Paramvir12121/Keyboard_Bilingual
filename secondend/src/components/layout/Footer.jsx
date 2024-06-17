@@ -10,13 +10,13 @@ const Footer = () => {
         bottom: 0,
         width: '100%',
         textAlign: 'center', // Center the text
-        backgroundColor: '#f0f0f0', // Background color for the footer
-        padding: '10px 0', // Add some padding
+        // backgroundColor: '#f0f0f0', // Background color for the footer
+        padding: '5px 0', // Add some padding
     };
 
     return (
         <footer style={footerStyle}>
-            <p>&copy; {currentYear} Your Company Name. All rights reserved.</p>
+            <p>&copy; {currentYear} Arch. All rights reserved.</p>
         </footer>
     );
 };
