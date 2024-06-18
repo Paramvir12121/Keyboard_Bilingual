@@ -407,8 +407,9 @@ class CheckLogin(Resource):
             return {"message":"Unauthorized"}, 401
         user_id = session.get('user_id')
         username = session.get('username')
-        id_token = session.get('id_token')
+        email = session.get('email')
+        # id_token = session.get('id_token')
         if not user_id:
             return {"message": "Invalid session token. Not logged in."}, 401
-        return {"message": "User is logged in.", "user_id": user_id,"username":username, "id_token": id_token}, 200
+        return {"message": "User is logged in.", "user_id": user_id,"username":username, "email": email}, 200
 

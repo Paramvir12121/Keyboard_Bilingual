@@ -1,5 +1,4 @@
-/* Import Bootstrap styles */
-@import '~bootstrap/dist/css/bootstrap.min.css';
+
 
 /* Your custom styles */
 body {
@@ -23,4 +22,4 @@ body {
     border-color: #0062cc;
 }
 
-/* Add more custom styles as needed */
+/* Add more custom styles as needed
