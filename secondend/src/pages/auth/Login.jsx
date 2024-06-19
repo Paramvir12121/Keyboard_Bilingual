@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import baseApi from "../../hooks/baseApi";
+import FormInput from "../../components/common/FormInput";
+import ErrorMessage from "../../components/common/ErrorMessage";
 
 
 const Login = () => {
@@ -27,18 +29,12 @@ const Login = () => {
         <div>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="username">Username</label>
-                    <input type="username" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </div>
-                <button type="submit">Login</button>
-                {error}
-                {message}
-            </form>
+                  <FormInput label="Username" type="username" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                  <FormInput label="Password" type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                  <ErrorMessage message={error} />
+                  <button type="submit">Login</button>
+                  {message}
+              </form>
         </div>
     )
 }
