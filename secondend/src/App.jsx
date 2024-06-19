@@ -1,6 +1,7 @@
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-import Login from "./pages/auth/Login";
+import { Outlet } from 'react-router-dom'; // Import Outlet
+
 
 function App() {
   
@@ -9,7 +10,7 @@ function App() {
     <>
       <Header />
       App
-      <Login />
+      <Outlet /> 
       <Footer />
     </>
   )
