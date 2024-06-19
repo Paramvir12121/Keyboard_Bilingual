@@ -1,5 +1,5 @@
 const ErrorMessage = ({ message }) => (
-    message ? <div>{message}</div> : null
+    message ? <div className="alert alert-danger" role="alert">{message}</div> : null
   );
   
 

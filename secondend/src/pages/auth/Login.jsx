@@ -15,13 +15,14 @@ const Login = () => {
         try {
             const api = baseApi();
             const response = await api.post('/auth/login', {username, password}, {withCredentials: true});
+            console.log(response.data);
             if (response.data) {
                 console.log(response.data);
                 setMessage('Login successful');
             }
         } catch (error) {
-            console.error(error);
-            setError('Invalid email or password');
+            console.error("Error: ",error.response.data.message);
+            setError(error.response.data.message);
         }
     }
 
