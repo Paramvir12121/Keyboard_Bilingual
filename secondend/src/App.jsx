@@ -1,5 +1,6 @@
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
+import Login from "./pages/auth/Login";
 
 function App() {
   
@@ -8,6 +9,7 @@ function App() {
     <>
       <Header />
       App
+      <Login />
       <Footer />
     </>
   )
