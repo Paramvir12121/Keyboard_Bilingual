@@ -12,12 +12,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from "./pages/auth/Login";
 import App from "./App";
 import NotFoundPage from './pages/errors/NotFoundPage';
+import Dashboard from './pages/dashboard/Dashboard';
 
 const router = createBrowserRouter([
   { path: '/', 
     element: <App />,
     children: [
       { path: "/login", element: <Login /> },
+      {path: '/dashboard', element: <Dashboard />}
       // Define other paths as needed
     ],
     errorElement: <NotFoundPage />

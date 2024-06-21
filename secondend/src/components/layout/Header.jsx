@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
+import {Link} from 'react-router-dom';
 
 
 
@@ -15,7 +16,7 @@ const Header = ({ isLoggedIn }) => {
             ) : (
                 <div>
                     <Button>Login</Button>
-                    <Button>Signup</Button>
+                     <Button>Signup</Button>
                 </div>
             )}
         </Navbar>

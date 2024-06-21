@@ -3,6 +3,8 @@ import baseApi from "../../hooks/baseApi";
 import FormInput from "../../components/common/FormInput";
 import ErrorMessage from "../../components/common/ErrorMessage";
 import SucessMessage from "../../components/common/SuccessMessage";
+import { Navigate } from "react-router-dom";
+
 
 
 const Login = () => {
@@ -36,6 +38,7 @@ const Login = () => {
                   <button type="submit">Login</button>
                   {error ? <ErrorMessage message={error} /> : message ? <SuccessMessage message={message} /> : null}
               </form>
+              <Navigate to="/" />
         </div>
     )
 }
