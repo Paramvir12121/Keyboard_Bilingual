@@ -3,7 +3,7 @@ import baseApi from "../../hooks/baseApi";
 import FormInput from "../../components/common/FormInput";
 import ErrorMessage from "../../components/common/ErrorMessage";
 import SucessMessage from "../../components/common/SuccessMessage";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -12,6 +12,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const [message, setMessage] = useState(null);
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,6 +24,7 @@ const Login = () => {
             if (response.data) {
                 console.log(response.data);
                 setMessage('Login successful');
+                setTimeout(() => navigate('/dashboard'), 500);
             }
         } catch (error) {
             console.error("Error: ",error.response.data.message);
@@ -38,7 +41,7 @@ const Login = () => {
                   <button type="submit">Login</button>
                   {error ? <ErrorMessage message={error} /> : message ? <SuccessMessage message={message} /> : null}
               </form>
-              <Navigate to="/" />
+              
         </div>
     )
 }
