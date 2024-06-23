@@ -5,6 +5,10 @@ Database Design:
 ![Initial_db_design](Initial_db_design.png)
 
 
+Refrenced:
+https://github.com/gautamop01/KeyboardConqueror-React-Typing-Practice.git
+
+
 ## Schedule
 Week 1 (May 4 - May 10):
 
