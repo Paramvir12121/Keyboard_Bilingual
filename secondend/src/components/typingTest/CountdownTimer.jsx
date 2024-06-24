@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from 'react';
 
-const CountdownTimer = (props) => {
-    const [time, setTime] = useState(props.seconds);
+const CountdownTimer = ({ seconds }) => {
+    const [time, setTime] = useState(seconds);
 
     useEffect(() => {
+        if (time <= 0) return;
+
         const timer = setInterval(() => {
-            setTime((prevTime) => prevTime - 1);
-            if (time === 0) {  
-                clearInterval(timer);
-            }
+            setTime((prevTime) => {
+                if (prevTime <= 1) {
+                    clearInterval(timer);
+                    
+                    return 0;
+                }
+                return prevTime - 1;
+            });
         }, 1000);
-            // stop the timer when it reaches 0
-        
-        return () => {
-            clearInterval(timer);
-        };
-    }, []);
+
+        return () => clearInterval(timer);
+    }, [time]);
 
     return (
         <div>
-            <div>Countdown: {time} seconds</div>
+            <div>{time}</div>
         </div>
     );
 };
 
 export default CountdownTimer;
-    
