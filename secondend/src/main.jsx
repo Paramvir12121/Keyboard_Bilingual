@@ -9,13 +9,15 @@ import Login from "./pages/auth/Login";
 import App from "./App";
 import NotFoundPage from './pages/errors/NotFoundPage';
 import Dashboard from './pages/dashboard/Dashboard';
+import Typing from './components/typingTest/Typing';
 
 const router = createBrowserRouter([
   { path: '/', 
     element: <App />,
     children: [
       { path: "/login", element: <Login /> },
-      {path: '/dashboard', element: <Dashboard />}
+      {path: '/dashboard', element: <Dashboard />},
+      {path: '/typing', element: <Typing />},
       // Define other paths as needed
     ],
     errorElement: <NotFoundPage />
