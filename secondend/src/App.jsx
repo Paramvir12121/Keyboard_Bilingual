@@ -3,8 +3,6 @@ import Footer from "./components/layout/Footer";
 import { Outlet } from 'react-router-dom'; // Import Outlet
 import './App.css';
 
-
-
 function App() {
   
 
