@@ -2,9 +2,10 @@ import React, {useContext, useState} from "react";
 import baseApi from "../../hooks/baseApi";
 import FormInput from "../../components/common/FormInput";
 import ErrorMessage from "../../components/common/ErrorMessage";
-import SucessMessage from "../../components/common/SuccessMessage";
+import SuccessMessage from "../../components/common/SuccessMessage";
 import { useNavigate } from "react-router-dom";
 import {Context} from "../../App";
+import SucessMessage from "../../components/common/SuccessMessage";
 
 
 
@@ -26,6 +27,7 @@ const Login = () => {
             if (response.data) {
                 console.log(response.data);
                 setMessage('Login successful');
+                setSignedIn(true);
                 setTimeout(() => navigate('/dashboard'), 500);
             }
         } catch (error) {
@@ -41,7 +43,7 @@ const Login = () => {
                   <FormInput label="Username" type="username" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
                   <FormInput label="Password" type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                   <button type="submit">Login</button>
-                  {error ? <ErrorMessage message={error} /> : message ? <SuccessMessage message={message} /> : null}
+                  {error ? <ErrorMessage message={error} /> : <SucessMessage message={message} />}
               </form>
               
         </div>

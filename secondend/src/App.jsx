@@ -7,12 +7,12 @@ import './App.css';
 
 export const Context = React.createContext();
 
-function App() {
+export function App() {
   const [signedIn, setSignedIn] = useState(false);
 
   return (
     <>
-    <Context.Provider value={{ signedIn, setSignedIn }}>
+    <Context.Provider value={[signedIn, setSignedIn]}>
       <Header />    
       <p>{signedIn ? "Signed In " : "Signed Out"}</p>
        <Outlet /> 
