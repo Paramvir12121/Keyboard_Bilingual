@@ -9,6 +9,7 @@ const LogoutButton = () => {
     const handleLogout = () => {
         // Update the signedIn state to false
         setSignedIn(false);
+        localStorage.setItem('signedIn', 'false')
 
         // Optionally clear any other local state or session storage if needed
         sessionStorage.clear();  // Example: clearing session storage

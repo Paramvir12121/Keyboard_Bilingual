@@ -28,6 +28,7 @@ const Login = () => {
                 console.log(response.data);
                 setMessage('Login successful');
                 setSignedIn(true);
+                localStorage.setItem('signedIn', 'true')
                 setTimeout(() => navigate('/dashboard'), 500);
             }
         } catch (error) {
