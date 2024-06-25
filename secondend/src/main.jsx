@@ -5,7 +5,7 @@ import {createBrowserRouter,RouterProvider,} from "react-router-dom";
 // Bootstrap import
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Login from "./pages/auth/Login";
+import Login from "./auth/Login";
 import {App} from "./App";
 import NotFoundPage from './pages/errors/NotFoundPage';
 import Dashboard from './pages/dashboard/Dashboard';

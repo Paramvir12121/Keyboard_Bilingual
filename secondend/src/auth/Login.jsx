@@ -1,11 +1,11 @@
 import React, {useContext, useState} from "react";
-import baseApi from "../../hooks/baseApi";
-import FormInput from "../../components/common/FormInput";
-import ErrorMessage from "../../components/common/ErrorMessage";
-import SuccessMessage from "../../components/common/SuccessMessage";
+import baseApi from "../hooks/baseApi";
+import FormInput from "../components/common/FormInput";
+import ErrorMessage from "../components/common/ErrorMessage";
+import SuccessMessage from "../components/common/SuccessMessage";
 import { useNavigate } from "react-router-dom";
-import {Context} from "../../App";
-import SucessMessage from "../../components/common/SuccessMessage";
+import {Context} from "../App";
+import SucessMessage from "../components/common/SuccessMessage";
 
 
 
