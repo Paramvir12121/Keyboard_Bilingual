@@ -49,6 +49,7 @@
   
   .card{
     background-color: var(--background-color);
+    color: var(--primary-color);
   }
   
   /* .card-background {

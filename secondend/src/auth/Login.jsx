@@ -6,6 +6,7 @@ import SuccessMessage from "../components/common/SuccessMessage";
 import { useNavigate } from "react-router-dom";
 import {Context} from "../App";
 import SucessMessage from "../components/common/SuccessMessage";
+import Card from "react-bootstrap/Card";
 
 
 
@@ -39,14 +40,17 @@ const Login = () => {
 
     return (
         <div>
-            <h1>Login</h1>
+            <Card>
+            <Card.Body>
+            <Card.Title>Login</Card.Title>
             <form onSubmit={handleSubmit}>
                   <FormInput label="Username" type="username" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
                   <FormInput label="Password" type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                   <button type="submit">Login</button>
                   {error ? <ErrorMessage message={error} /> : <SucessMessage message={message} />}
               </form>
-              
+              </Card.Body>
+              </Card>
         </div>
     )
 }
