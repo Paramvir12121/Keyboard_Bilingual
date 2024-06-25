@@ -4,6 +4,7 @@ import CountdownTimer from './CountdownTimer';
 import RestartButton from './RestartButton';
 import Results from './Results';
 
+
 const Typeing = () => {
     const words = ["apple", "banana", "carrot", "dog", "elephant", "flower", "guitar", "house", "ice cream", "jungle", "kangaroo", "lemon", "mountain", "notebook", "ocean", "piano", "queen", "rainbow", "sun", "tree"];
     return (
@@ -20,7 +21,9 @@ const Typeing = () => {
                     </div>
                 </Card.Body>
                 <RestartButton onRestart={() => null}/>
+                    
             </Card>
+            
         </div>
     );
 }

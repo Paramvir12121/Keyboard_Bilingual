@@ -1,0 +1,117 @@
+<svg width="800" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define the style for the keys -->
+  <style>
+    .key {
+      fill: none;
+      stroke: black;
+      stroke-width: 2;
+    }
+    .key text {
+      fill: black;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+  </style>
+  
+  <!-- Define the keys for the Colemak layout -->
+  <!-- Row 1 -->
+  <g transform="translate(50, 50)">
+    <rect x="0" y="0" width="50" height="50" class="key" />
+    <text x="25" y="25">Q</text>
+    
+    <rect x="60" y="0" width="50" height="50" class="key" />
+    <text x="85" y="25">W</text>
+    
+    <rect x="120" y="0" width="50" height="50" class="key" />
+    <text x="145" y="25">F</text>
+    
+    <rect x="180" y="0" width="50" height="50" class="key" />
+    <text x="205" y="25">P</text>
+    
+    <rect x="240" y="0" width="50" height="50" class="key" />
+    <text x="265" y="25">G</text>
+    
+    <rect x="300" y="0" width="50" height="50" class="key" />
+    <text x="325" y="25">J</text>
+    
+    <rect x="360" y="0" width="50" height="50" class="key" />
+    <text x="385" y="25">L</text>
+    
+    <rect x="420" y="0" width="50" height="50" class="key" />
+    <text x="445" y="25">U</text>
+    
+    <rect x="480" y="0" width="50" height="50" class="key" />
+    <text x="505" y="25">Y</text>
+    
+    <rect x="540" y="0" width="50" height="50" class="key" />
+    <text x="565" y="25">;</text>
+  </g>
+  
+  <!-- Row 2 -->
+  <g transform="translate(50, 110)">
+    <rect x="0" y="0" width="50" height="50" class="key" />
+    <text x="25" y="25">A</text>
+    
+    <rect x="60" y="0" width="50" height="50" class="key" />
+    <text x="85" y="25">R</text>
+    
+    <rect x="120" y="0" width="50" height="50" class="key" />
+    <text x="145" y="25">S</text>
+    
+    <rect x="180" y="0" width="50" height="50" class="key" />
+    <text x="205" y="25">T</text>
+    
+    <rect x="240" y="0" width="50" height="50" class="key" />
+    <text x="265" y="25">D</text>
+    
+    <rect x="300" y="0" width="50" height="50" class="key" />
+    <text x="325" y="25">H</text>
+    
+    <rect x="360" y="0" width="50" height="50" class="key" />
+    <text x="385" y="25">N</text>
+    
+    <rect x="420" y="0" width="50" height="50" class="key" />
+    <text x="445" y="25">E</text>
+    
+    <rect x="480" y="0" width="50" height="50" class="key" />
+    <text x="505" y="25">I</text>
+    
+    <rect x="540" y="0" width="50" height="50" class="key" />
+    <text x="565" y="25">O</text>
+  </g>
+  
+  <!-- Row 3 -->
+  <g transform="translate(50, 170)">
+    <rect x="0" y="0" width="50" height="50" class="key" />
+    <text x="25" y="25">Z</text>
+    
+    <rect x="60" y="0" width="50" height="50" class="key" />
+    <text x="85" y="25">X</text>
+    
+    <rect x="120" y="0" width="50" height="50" class="key" />
+    <text x="145" y="25">C</text>
+    
+    <rect x="180" y="0" width="50" height="50" class="key" />
+    <text x="205" y="25">V</text>
+    
+    <rect x="240" y="0" width="50" height="50" class="key" />
+    <text x="265" y="25">B</text>
+    
+    <rect x="300" y="0" width="50" height="50" class="key" />
+    <text x="325" y="25">K</text>
+    
+    <rect x="360" y="0" width="50" height="50" class="key" />
+    <text x="385" y="25">M</text>
+    
+    <rect x="420" y="0" width="50" height="50" class="key" />
+    <text x="445" y="25">,</text>
+    
+    <rect x="480" y="0" width="50" height="50" class="key" />
+    <text x="505" y="25">.</text>
+    
+    <rect x="540" y="0" width="50" height="50" class="key" />
+    <text x="565" y="25">/</text>
+  </g>
+</svg>
