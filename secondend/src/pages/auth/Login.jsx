@@ -1,13 +1,15 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import baseApi from "../../hooks/baseApi";
 import FormInput from "../../components/common/FormInput";
 import ErrorMessage from "../../components/common/ErrorMessage";
 import SucessMessage from "../../components/common/SuccessMessage";
 import { useNavigate } from "react-router-dom";
+import {Context} from "../../App";
 
 
 
 const Login = () => {
+    const [signedIn, setSignedIn] = useContext(Context);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
