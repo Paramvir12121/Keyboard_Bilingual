@@ -16,8 +16,8 @@ const Signup = () => {
         try {
             const api = baseApi();
             const response = await api.post('/auth/signup', {username,email, password}, {withCredentials: true});
-
-            if (response.ok) {
+            console.log("Response: ", response.data)
+            if (response.data) {
                 // Signup successful, redirect to confirm email page
                 navigate('/confirm-email')
 

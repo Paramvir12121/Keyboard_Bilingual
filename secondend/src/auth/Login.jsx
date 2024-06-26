@@ -42,8 +42,9 @@ const Login = () => {
     return (
           <>
                  Login
-            
-            <Form onSubmit={handleSubmit}>
+            <div className="row mb-3 text-center">
+            <div className="col-4"></div>
+            <Form className="col-4" onSubmit={handleSubmit}>
                 <Form.Group controlId="username">
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -58,6 +59,8 @@ const Login = () => {
                   <button type="submit">Login</button>
                   {error ? <ErrorMessage message={error} /> : <SucessMessage message={message} />}
               </Form>
+              <div className="col-4"></div>
+              </div>
               </>
         
     )
