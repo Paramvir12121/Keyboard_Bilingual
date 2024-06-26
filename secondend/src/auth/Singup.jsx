@@ -1,57 +1,71 @@
 import React, { useState } from 'react';
+import baseApi from "../hooks/baseApi";
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+    const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSignup = async () => {
+    const navigate = useNavigate();
+
+    const handleSignup = async (e) => {
+        e.preventDefault(); // Prevent default form submission behavior
+
         try {
-            const response = await fetch('/api/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            });
+            const api = baseApi();
+            const response = await api.post('/auth/signup', {username,email, password}, {withCredentials: true});
 
             if (response.ok) {
-                // Signup successful, redirect to dashboard or login page
-                // You can handle this based on your application's requirements
+                // Signup successful, redirect to confirm email page
+                navigate('/confirm-email')
+
+                // Redirect logic here, e.g., window.location.href = '/dashboard';
             } else {
                 // Signup failed, handle error
                 const errorData = await response.json();
-                console.log('Signup failed:', errorData.message);
+                setErrorMessage(errorData.message || 'Signup failed');
             }
         } catch (error) {
             console.error('Error during signup:', error);
+            setErrorMessage('An error occurred during signup.');
         }
     };
 
     return (
         <div>
             <h2>Signup</h2>
-            <form>
+            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+            <form onSubmit={handleSignup}>
                 <div>
-                    <label htmlFor="username">Username:</label>
+                    <label>Email:</label>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Username:</label>
                     <input
                         type="text"
-                        id="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        required
                     />
                 </div>
                 <div>
-                    <label htmlFor="password">Password:</label>
+                    <label>Password:</label>
                     <input
                         type="password"
-                        id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
                 </div>
-                <button type="button" onClick={handleSignup}>
-                    Sign Up
-                </button>
+                <button type="submit">Signup</button>
             </form>
         </div>
     );

@@ -12,6 +12,7 @@ import Dashboard from './pages/dashboard/Dashboard';
 import Keyboard from '../src/components/keyboard/Keyboard';
 import Typing from '../src/components/typingTest/Typeing';
 import Typeing from '../src/components/typingTest/Typeing';
+import ConfirmEmail from './auth/ConfirmEmail';
 
 const router = createBrowserRouter([
   { path: '/', 
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       {path: "/login", element: <Login /> },
       {path: '/dashboard', element: <Dashboard />},
       {path: '/typing', element: <Typeing />},
+      {path: '/confirm-email', element: <ConfirmEmail />},
       // Define other paths as needed
     ],
     errorElement: <NotFoundPage />
