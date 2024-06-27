@@ -23,7 +23,7 @@ const ConfirmEmail = () => {
         }
       };
 
-    const handleConfirmEmail = () => {
+    const handleConfirmEmail = async() => {
         // Perform verification logic here
         try{
         const api = baseApi();

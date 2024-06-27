@@ -6,11 +6,7 @@ const handleResendConfirmEmail = () => {
 
 
 
-
-
-
-
-    handleResendCode = async (e) => {
+    handleResendCode = async () => {
         try {
         const email = Cookies.get('signup_email');
         console.log('Email:', email);
