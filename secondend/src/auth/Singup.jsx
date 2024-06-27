@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import baseApi from "../hooks/baseApi";
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Signup = () => {
     const [email, setEmail] = useState('');
@@ -12,12 +13,13 @@ const Signup = () => {
 
     const handleSignup = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
-
+        
         try {
             const api = baseApi();
             const response = await api.post('/auth/signup', {username,email, password}, {withCredentials: true});
             console.log("Response: ", response.data)
             if (response.data) {
+                Cookies.set('signup_email', email, { expires: 1 })
                 // Signup successful, redirect to confirm email page
                 navigate('/confirm-email')
 

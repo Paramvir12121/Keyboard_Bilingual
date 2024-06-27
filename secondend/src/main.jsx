@@ -12,7 +12,7 @@ import Dashboard from './pages/dashboard/Dashboard';
 import Keyboard from '../src/components/keyboard/Keyboard';
 import Typing from '../src/components/typingTest/Typeing';
 import Typeing from '../src/components/typingTest/Typeing';
-import ConfirmEmail from './auth/ConfirmEmail';
+import ConfirmEmail from './auth/misc/ConfirmEmail';
 import Signup from './auth/Singup'
 
 const router = createBrowserRouter([
