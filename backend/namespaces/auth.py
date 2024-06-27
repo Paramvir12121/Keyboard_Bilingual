@@ -290,7 +290,7 @@ class Login(Resource):
             session['access_token'] = access_token
             session['id_token'] = id_token
             # print("session",session)
-            resp = jsonify({'message': 'Login successful'})
+            resp = jsonify({'message': 'Login successful', 'user_id': db_user.id, 'username': username, 'email': email})
             # print("current app session: ",session['_id'])
             resp.set_cookie('session', session.sid, httponly=True)
             print("current id of session: ",session.sid)

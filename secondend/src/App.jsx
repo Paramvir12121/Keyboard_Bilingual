@@ -3,15 +3,18 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import { Outlet } from 'react-router-dom'; // Import Outlet
 import './App.css';
+import Cookies from 'js-cookie';
 
 export const Context = React.createContext();
 
 export function App() {
   const [signedIn, setSignedIn] = useState(() => {
-    if (localStorage.getItem('signedIn') === null) {
-      localStorage.setItem('signedIn', 'false');
+    const cookieValue = Cookies.get('signedIn');
+    if (cookieValue === undefined) {
+      Cookies.set('signedIn', 'false');
+      return false;
     }
-    return localStorage.getItem('signedIn') === 'true';
+    return cookieValue === 'true';
   });
 
 

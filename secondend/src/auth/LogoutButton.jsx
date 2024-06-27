@@ -13,7 +13,11 @@ const LogoutButton = () => {
 
         // Clear any other local state or session storage 
         localStorage.setItem('signedIn', 'false');  
-        sessionStorage.clear();  
+        document.cookie = 'email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'signedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        sessionStorage.clear(); 
+        
 
         // Redirect to the login page or home page
         navigate('/login');

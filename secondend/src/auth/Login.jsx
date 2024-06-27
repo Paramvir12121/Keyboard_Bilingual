@@ -8,6 +8,7 @@ import {Context} from "../App";
 import SucessMessage from "../components/common/SuccessMessage";
 import Card from "react-bootstrap/Card";
 import Form from 'react-bootstrap/Form';
+import Cookies from 'js-cookie'
 
 
 
@@ -27,10 +28,13 @@ const Login = () => {
             const response = await api.post('/auth/login', {username, password}, {withCredentials: true});
             console.log(response.data);
             if (response.data) {
-                console.log(response.data);
+                console.log("data: ",response.data);
                 setMessage('Login successful');
                 setSignedIn(true);
-                localStorage.setItem('signedIn', 'true')
+                
+                document.cookie = `signedIn=true`;
+                document.cookie = `username=${response.data.username}`;
+                document.cookie = `email=${response.data.email}`;
                 setTimeout(() => navigate('/dashboard'), 500);
             }
         } catch (error) {
@@ -47,11 +51,11 @@ const Login = () => {
             <Form className="col-4" onSubmit={handleSubmit}>
                 <Form.Group controlId="username">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <Form.Control type="text" value={username} autoComplete="username" onChange={(e) => setUsername(e.target.value)} />
                 </Form.Group>
                 <Form.Group controlId="password">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <Form.Control type="password" value={password} autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} />
                 </Form.Group>
                 <Card.Footer>
                     Don't have an account?<Card.Link href="/signup">Signup</Card.Link> here!
