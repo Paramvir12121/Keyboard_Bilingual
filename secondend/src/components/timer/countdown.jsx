@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
-const Countdown = ({ seconds }) => {
+const Countdown = ({ seconds, buttonLogicState }) => {
     const [count, setCount] = useState(seconds);
-    const [flag, setFlag] = useState(false);
+    const [isActive, setIsActive] = useState(buttonLogicState);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setCount((prevCount) => prevCount - 1);
+      let timer;
+      if (isActive && count > 0) {
+        timer = setInterval(() => {
+          setCount((prevCount) => prevCount - 1);
         }, 1000);
-
-        if (count === 0) {
-            setFlag(true);
-            clearInterval(timer);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [count]);
+      } else if (count === 0) {
+        setIsActive(false);
+      }
+    }, [count, isActive]);
 
     return (
         <div>

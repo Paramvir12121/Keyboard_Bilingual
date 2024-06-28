@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Cookie from 'js-cookie';
 import {Context} from "../../App";
 import Countdown from '../../components/timer/countdown';
+import ConsoleLog from '../../components/timer/tests/ConsoleLog';
 
 
 const UserLoggedIn = () => {
@@ -35,6 +36,7 @@ const Dashboard = () => {
        <>
          {signedIn ? <UserLoggedIn /> : <UserNotLoggedIn />} 
          <Countdown seconds={10} /> 
+         <ConsoleLog />
        </>
     );
 };
