@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import { Link } from 'react-router-dom';
 import Cookie from 'js-cookie';
 import {Context} from "../../App";
-import Countdown from '../../components/timer/countdown';
+import Countdown from '../../components/timer/Countdown';
 import ConsoleLog from '../../components/timer/tests/ConsoleLog';
 
 
