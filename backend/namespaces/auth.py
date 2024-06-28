@@ -223,7 +223,7 @@ class SignupConfirmation(Resource):
             user.save()
             return {'message': 'Email confirmed and user saved.'}, 200
         except client.exceptions.ClientError as error:
-            print(error)
+            print("Signup confirmation Error: ",error)
             return handle_cognito_error(error)
 
 

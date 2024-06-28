@@ -2,11 +2,8 @@ import React,{useState} from 'react'
 import baseApi from '../../hooks/baseApi'
 import Cookies from 'js-cookie'
 
-const handleResendConfirmEmail = () => {
+const handleResendConfirmEmail = async() => {
 
-
-
-    handleResendCode = async () => {
         try {
         const email = Cookies.get('signup_email');
         console.log('Email:', email);
@@ -17,7 +14,6 @@ const handleResendConfirmEmail = () => {
         console.error('Error during signup:', error);   
             }
         }
-        return handleResendCode
-    }
+       
 
 export default handleResendConfirmEmail
