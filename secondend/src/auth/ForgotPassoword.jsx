@@ -9,7 +9,7 @@ import ErrorMessage from "../components/common/ErrorMessage";
 import SucessMessage from "../components/common/SuccessMessage";
 
 const ForgotPassoword = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [error, setError] = useState(null);
     const [message, setMessage] = useState(null);
     const navigate = useNavigate();
@@ -18,10 +18,10 @@ const ForgotPassoword = () => {
         e.preventDefault();
         try {
             const api = baseApi();
-            const response = await api.post('/auth/forgot-password', {email}, {withCredentials: true});
+            const response = await api.post('/auth/reset_forgotten_password_request', {username}, {withCredentials: true});
             if (response.status === 200) {
                 console.log("data: ",response.data);
-                document.cookie = `email=${response.data.email}`;
+                document.cookie = `username=${response.data.username}`;
                 setTimeout(() => navigate('/login'), 500);
             }
         } catch (error) {
@@ -38,7 +38,7 @@ const ForgotPassoword = () => {
             <div className="col-4"></div>
             <Form className="col-4" onSubmit={handleSubmit}>
                 <Form.Group controlId="Email">
-                    <Form.Control placeholder="Enter your email" type="email" value={email} autoComplete="email" onChange={(e) => setEmail(e.target.value)} />
+                    <Form.Control placeholder="Enter your username" type="username" value={username} autoComplete="username" onChange={(e) => setUsername(e.target.value)} />
                 </Form.Group>
                 <Card.Footer>
                     Don't have an account?<Link to="/signup">Signup</Link> here!
