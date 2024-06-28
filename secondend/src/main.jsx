@@ -14,6 +14,7 @@ import Typing from '../src/components/typingTest/Typeing';
 import Typeing from '../src/components/typingTest/Typeing';
 import ConfirmEmail from './auth/misc/ConfirmEmail';
 import Signup from './auth/Singup'
+import ForgotPassoword from './auth/ForgotPassoword';
 
 const router = createBrowserRouter([
   { path: '/', 
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       {path: '/typing', element: <Typeing />},
       {path: '/confirm-email', element: <ConfirmEmail />},
       {path: '/signup', element: <Signup />},
+      {path: '/forgot-password', element: <ForgotPassoword />},
       // Define other paths as needed
     ],
     errorElement: <NotFoundPage />

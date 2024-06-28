@@ -8,7 +8,8 @@ import {Context} from "../App";
 import SucessMessage from "../components/common/SuccessMessage";
 import Card from "react-bootstrap/Card";
 import Form from 'react-bootstrap/Form';
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
+import {Link} from 'react-router-dom';
 
 
 
@@ -50,15 +51,18 @@ const Login = () => {
             <div className="col-4"></div>
             <Form className="col-4" onSubmit={handleSubmit}>
                 <Form.Group controlId="username">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" value={username} autoComplete="username" onChange={(e) => setUsername(e.target.value)} />
+                    
+                    <Form.Control placeholder="Username" type="text" value={username} autoComplete="username" onChange={(e) => setUsername(e.target.value)} />
                 </Form.Group>
                 <Form.Group controlId="password">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" value={password} autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} />
+                    
+                    <Form.Control placeholder="Enter Your Password" type="password" value={password} autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} />
                 </Form.Group>
                 <Card.Footer>
-                    Don't have an account?<Card.Link href="/signup">Signup</Card.Link> here!
+                    <Link to="/forgot-password">Forgot Password?</Link>
+                </Card.Footer>
+                <Card.Footer>
+                    Don't have an account?<Link to="/signup">Signup</Link> here!
                 </Card.Footer>
                   <button type="submit">Login</button>
                   {error ? <ErrorMessage message={error} /> : <SucessMessage message={message} />}
