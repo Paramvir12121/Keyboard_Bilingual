@@ -29,7 +29,7 @@ def handle_cognito_error(error):
     if error_code == 'UserNotFoundException':
         return {'message': 'User does not exist'}, 404
     elif error_code == 'NotAuthorizedException':
-        return {'message': 'Username or password is incorrect'}, 401
+        return {'message': 'Username or password is incorrect.'}, 401
     elif error_code == 'LimitExceededException':
         return {'message': 'Attempt limit exceeded, please try after some time.'}, 429
     else:
@@ -335,10 +335,14 @@ class ResetForgottenPasswordRequest(Resource):
                 SecretHash=secret_hash,
                 Username=username,
             )
+            print("response: ",response)
             return response, 201
         except client.exceptions.ClientError as error:
-            print("Handle Congito Error: ",handle_cognito_error(error))
+            print("AWS Cognito ClientError:", error)
             return handle_cognito_error(error)
+        except Exception as e:
+            print("Unexpected error:", e)
+            return {'message': 'An unexpected error occurred' }, 500
 
 @auth_ns.route('/reset_forgotten_password_confirmation')
 class ResetForgottenPasswordConfirmation(Resource):
