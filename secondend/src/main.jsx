@@ -14,7 +14,9 @@ import Typing from '../src/components/typingTest/Typeing';
 import Typeing from '../src/components/typingTest/Typeing';
 import ConfirmEmail from './auth/misc/ConfirmEmail';
 import Signup from './auth/Singup'
-import ForgotPassoword from './auth/ForgotPassoword';
+import ForgotPassoword from './auth/resetPassword/ForgotPassoword';
+import ForgotPasswordEmail from './auth/resetPassword/ForgotPasswordEmail';
+import ResetPasswordConfirm from './auth/resetPassword/ResetPasswordConfirm';
 
 const router = createBrowserRouter([
   { path: '/', 
@@ -25,7 +27,9 @@ const router = createBrowserRouter([
       {path: '/typing', element: <Typeing />},
       {path: '/confirm-email', element: <ConfirmEmail />},
       {path: '/signup', element: <Signup />},
-      {path: '/forgot-password', element: <ForgotPassoword />},
+      {path: '/forgot-password', element: <ForgotPassoword />}, 
+      {path: '/forgot-password-email', element: <ForgotPasswordEmail />}, 
+      {path: '/reset-password-confirm', element: <ResetPasswordConfirm />}, 
       // Define other paths as needed
     ],
     errorElement: <NotFoundPage />

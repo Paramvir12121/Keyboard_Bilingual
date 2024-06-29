@@ -23,12 +23,18 @@ def get_cognito_client():
 
 # Reusable error handling
 def handle_cognito_error(error):
-    if error.response['Error']['Code'] == 'UserNotFoundException':
+    error_code = error.response['Error']['Code']
+    error_message = error.response['Error']['Message']
+
+    if error_code == 'UserNotFoundException':
         return {'message': 'User does not exist'}, 404
-    elif error.response['Error']['Code'] == 'NotAuthorizedException':
+    elif error_code == 'NotAuthorizedException':
         return {'message': 'Username or password is incorrect'}, 401
+    elif error_code == 'LimitExceededException':
+        return {'message': 'Attempt limit exceeded, please try after some time.'}, 429
     else:
-        return {'message': str(error)}, 400
+        return {'message': error_message}, 400
+
 
 #get secret hash
 def get_secret_hash(username, client_id, client_secret):
@@ -312,6 +318,13 @@ class ResetForgottenPasswordRequest(Resource):
     def post(self):
         data = request.get_json()
         username = data.get('username')
+        if not username:
+            email = data.get('email')
+            user = User.query.filter_by(email=email).first()
+            print("user: ",user)
+            if not user:
+                return {'message': 'User not found'}, 404
+            username = user.username
         client = get_cognito_client()
         client_id = current_app.config['COGNITO_CLIENT_ID']
         client_secret = current_app.config['COGNITO_CLIENT_SECRET']
@@ -324,6 +337,7 @@ class ResetForgottenPasswordRequest(Resource):
             )
             return response, 201
         except client.exceptions.ClientError as error:
+            print("Handle Congito Error: ",handle_cognito_error(error))
             return handle_cognito_error(error)
 
 @auth_ns.route('/reset_forgotten_password_confirmation')
