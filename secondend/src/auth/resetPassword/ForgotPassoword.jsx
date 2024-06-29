@@ -18,7 +18,7 @@ const ForgotPassword = () => {
         setMessage(null);
         try {
             const api = baseApi();
-            const response = await api.post('/auth/reset_forgotten_password_request', { username }, { withCredentials: true });
+            const response = await api.post('/auth/reset_forgotten_password_request', { username: username }, { withCredentials: true });
             if (response.status === 201) {
                 setMessage(response.data.message);
                 setTimeout(() => navigate('/reset-password-confirm'), 500);

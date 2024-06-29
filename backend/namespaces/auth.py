@@ -336,7 +336,7 @@ class ResetForgottenPasswordRequest(Resource):
                 Username=username,
             )
             print("response: ",response)
-            return response, 201
+            return {'message': 'Request sucessful' }, 201
         except client.exceptions.ClientError as error:
             print("AWS Cognito ClientError:", error)
             return handle_cognito_error(error)

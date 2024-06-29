@@ -18,11 +18,11 @@ const ForgotPasswordEmail = () => {
         e.preventDefault();
         try {
             const api = baseApi();
-            const response = await api.post('/auth/reset_forgotten_password_request', {email}, {withCredentials: true});
+            const response = await api.post('/auth/reset_forgotten_password_request', {email: email}, {withCredentials: true});
             console.log("data: ",response);
             if (response.status === 201) {
                 console.log("data: ", response.data);
-                document.cookie = `username=${response.data.username}`;
+                // document.cookie = `username=${response.data.username}`;
                 document.cookie = `email=${response.data.email}`;
                 setTimeout(() => navigate('/reset-password-confirm'), 500);
             }
