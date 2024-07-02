@@ -111,8 +111,8 @@ const ColemakKeyboard = () => {
         <rect id="keyEqual" x="850" y="10" width="60" height="60" className={`key ${pressedKey === 'keyEqual' ? 'key-pressed' : ''}`} />
         <text x="880" y="50" className="key-text">=</text>
 
-        <rect id="keyBackspace" x="920" y="10" width="120" height="60" className={`key ${pressedKey === 'keyBackspace' ? 'key-pressed' : ''}`} />
-        <text x="980" y="50" className="key-text">Backspace</text>
+        <rect id="keyBackspace" x="920" y="10" width="180" height="60" className={`key ${pressedKey === 'keyBackspace' ? 'key-pressed' : ''}`} />
+        <text x="1010" y="50" className="key-text">Backspace</text>
 
         {/* Row 2 */}
         <rect id="keyTab" x="10" y="80" width="90" height="60" className={`key ${pressedKey === 'keyTab' ? 'key-pressed' : ''}`} />
@@ -154,8 +154,8 @@ const ColemakKeyboard = () => {
         <rect id="keyBracketRight" x="880" y="80" width="60" height="60" className={`key ${pressedKey === 'keyBracketRight' ? 'key-pressed' : ''}`} />
         <text x="910" y="120" className="key-text">]</text>
 
-        <rect id="keyBackslash" x="950" y="80" width="90" height="60" className={`key ${pressedKey === 'keyBackslash' ? 'key-pressed' : ''}`} />
-        <text x="995" y="120" className="key-text">\\</text>
+        <rect id="keyBackslash" x="950" y="80" width="150" height="60" className={`key ${pressedKey === 'keyBackslash' ? 'key-pressed' : ''}`} />
+        <text x="1025" y="120" className="key-text">\\</text>
 
         {/* Row 3 */}
         <rect id="keyCapsLock" x="10" y="150" width="100" height="60" className={`key ${pressedKey === 'keyCapsLock' ? 'key-pressed' : ''}`} />
@@ -194,8 +194,8 @@ const ColemakKeyboard = () => {
         <rect id="keyQuote" x="820" y="150" width="60" height="60" className={`key ${pressedKey === 'keyQuote' ? 'key-pressed' : ''}`} />
         <text x="850" y="190" className="key-text">'</text>
 
-        <rect id="keyEnter" x="890" y="150" width="120" height="60" className={`key ${pressedKey === 'keyEnter' ? 'key-pressed' : ''}`} />
-        <text x="950" y="190" className="key-text">Enter</text>
+        <rect id="keyEnter" x="890" y="150" width="210" height="60" className={`key ${pressedKey === 'keyEnter' ? 'key-pressed' : ''}`} />
+        <text x="995" y="190" className="key-text">Enter</text>
 
         {/* Row 4 */}
         <rect id="keyShiftLeft" x="10" y="220" width="140" height="60" className={`key ${pressedKey === 'keyShiftLeft' ? 'key-pressed' : ''}`} />
@@ -231,28 +231,27 @@ const ColemakKeyboard = () => {
         <rect id="keySlash" x="790" y="220" width="60" height="60" className={`key ${pressedKey === 'keySlash' ? 'key-pressed' : ''}`} />
         <text x="820" y="260" className="key-text">/</text>
 
-        <rect id="keyShiftRight" x="860" y="220" width="150" height="60" className={`key ${pressedKey === 'keyShiftRight' ? 'key-pressed' : ''}`} />
-        <text x="935" y="260" className="key-text">Shift</text>
+        <rect id="keyShiftRight" x="860" y="220" width="240" height="60" className={`key ${pressedKey === 'keyShiftRight' ? 'key-pressed' : ''}`} />
+        <text x="980" y="260" className="key-text">Shift</text>
 
         {/* Row 5 */}
-        <rect id="keyCtrlLeft" x="10" y="290" width="80" height="60" className={`key ${pressedKey === 'keyCtrlLeft' ? 'key-pressed' : ''}`} />
-        <text x="50" y="330" className="key-text">Ctrl</text>
+        <rect id="keyCtrlLeft" x="10" y="290" width="100" height="60" className={`key ${pressedKey === 'keyCtrlLeft' ? 'key-pressed' : ''}`} />
+        <text x="60" y="330" className="key-text">Ctrl</text>
 
-        <rect id="keyAltLeft" x="100" y="290" width="80" height="60" className={`key ${pressedKey === 'keyAltLeft' ? 'key-pressed' : ''}`} />
-        <text x="140" y="330" className="key-text">Alt</text>
+        <rect id="keyAltLeft" x="120" y="290" width="100" height="60" className={`key ${pressedKey === 'keyAltLeft' ? 'key-pressed' : ''}`} />
+        <text x="170" y="330" className="key-text">Alt</text>
 
-        <rect id="keySpace" x="190" y="290" width="500" height="60" className={`key ${pressedKey === 'keySpace' ? 'key-pressed' : ''}`} />
-        <text x="440" y="330" className="key-text">Space</text>
+        <rect id="keySpace" x="230" y="290" width="500" height="60" className={`key ${pressedKey === 'keySpace' ? 'key-pressed' : ''}`} />
+        <text x="480" y="330" className="key-text">Space</text>
 
-        <rect id="keyAltRight" x="700" y="290" width="80" height="60" className={`key ${pressedKey === 'keyAltRight' ? 'key-pressed' : ''}`} />
-        <text x="740" y="330" className="key-text">Alt</text>
+        <rect id="keyAltRight" x="740" y="290" width="100" height="60" className={`key ${pressedKey === 'keyAltRight' ? 'key-pressed' : ''}`} />
+        <text x="790" y="330" className="key-text">Alt</text>
 
-        <rect id="keyCtrlRight" x="790" y="290" width="80" height="60" className={`key ${pressedKey === 'keyCtrlRight' ? 'key-pressed' : ''}`} />
-        <text x="830" y="330" className="key-text">Ctrl</text>
+        <rect id="keyCtrlRight" x="850" y="290" width="100" height="60" className={`key ${pressedKey === 'keyCtrlRight' ? 'key-pressed' : ''}`} />
+        <text x="900" y="330" className="key-text">Ctrl</text>
       </svg>
     </div>
   );
 };
 
 export default ColemakKeyboard;
-
