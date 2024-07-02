@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import CountdownTimer from './CountdownTimer';
 import RestartButton from './RestartButton';
 import Results from './Results';
-import ColemakKeyboard from '../keyboard/ColemakKeyboard';
+import KeyboardLayout from './KeyboardLayout';
 
 
 const Typeing = () => {
@@ -24,7 +24,7 @@ const Typeing = () => {
                 <RestartButton onRestart={() => null}/>
                     
             </Card>
-            <ColemakKeyboard />
+            <KeyboardLayout />
         </div>
     );
 }

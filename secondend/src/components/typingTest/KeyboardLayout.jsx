@@ -1,10 +1,11 @@
 import React from 'react';
+import ColemakKeyboard from '../keyboard/ColemakKeyboard';
 
 const KeyboardLayout = () => {
     return (
-        <div>
-            {/* Your Colemak keyboard SVG code goes here */}
-        </div>
+        <>
+            <ColemakKeyboard />
+        </>
     );
 };
 
