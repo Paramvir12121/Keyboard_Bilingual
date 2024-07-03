@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  react_nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: react_nginx
+    restart: always
+    ports:
+      - 80:80
