@@ -17,6 +17,7 @@ import Signup from './auth/Singup'
 import ForgotPassoword from './auth/resetPassword/ForgotPassoword';
 import ForgotPasswordEmail from './auth/resetPassword/ForgotPasswordEmail';
 import ResetPasswordConfirm from './auth/resetPassword/ResetPasswordConfirm';
+import Checkout from './pages/stripe/Checkout';
 
 const router = createBrowserRouter([
   { path: '/', 
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       {path: '/forgot-password', element: <ForgotPassoword />}, 
       {path: '/forgot-password-email', element: <ForgotPasswordEmail />}, 
       {path: '/reset-password-confirm', element: <ResetPasswordConfirm />}, 
+      {path: '/checkout', element: <Checkout />}, 
       // Define other paths as needed
     ],
     errorElement: <NotFoundPage />
