@@ -24,6 +24,7 @@ const UserNotLoggedIn = () => {
             You are not logged in
             <div>
                 <Link to="/login">Login</Link>
+                <Link to="/checkout">Checkout</Link>
             </div>
         </div>
     )
