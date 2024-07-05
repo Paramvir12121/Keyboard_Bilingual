@@ -18,20 +18,31 @@ import ForgotPassoword from './auth/resetPassword/ForgotPassoword';
 import ForgotPasswordEmail from './auth/resetPassword/ForgotPasswordEmail';
 import ResetPasswordConfirm from './auth/resetPassword/ResetPasswordConfirm';
 import Checkout from './pages/stripe/Checkout';
+import ProtectedRoute from './auth/ProtectedRoutes';
 
 const router = createBrowserRouter([
   { path: '/', 
     element: <App />,
     children: [
       {path: "/login", element: <Login /> },
-      {path: '/dashboard', element: <Dashboard />},
-      {path: '/typing', element: <Typeing />},
+      // {path: '/dashboard', element: <Dashboard />},
+      // {path: '/typing', element: <Typeing />},
       {path: '/confirm-email', element: <ConfirmEmail />},
       {path: '/signup', element: <Signup />},
       {path: '/forgot-password', element: <ForgotPassoword />}, 
       {path: '/forgot-password-email', element: <ForgotPasswordEmail />}, 
       {path: '/reset-password-confirm', element: <ResetPasswordConfirm />}, 
-      {path: '/checkout', element: <Checkout />}, 
+      // {path: '/checkout', element: <Checkout />},
+      {
+        path: '/',
+        element: <ProtectedRoute />,
+        children: [
+          { path: '/dashboard', element: <Dashboard /> },
+          { path: '/typing', element: <Typing /> },
+          { path: '/checkout', element: <Checkout />},
+          // Add other protected routes here
+        ],
+      },
       // Define other paths as needed
     ],
     errorElement: <NotFoundPage />
