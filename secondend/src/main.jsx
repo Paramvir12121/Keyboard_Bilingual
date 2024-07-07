@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from "./auth/Login";
 import {App} from "./App";
 import NotFoundPage from './pages/errors/NotFoundPage';
+import NotAuthorized from './pages/errors/NotAuthorized';
+
 import Dashboard from './pages/dashboard/Dashboard';
 import Keyboard from '../src/components/keyboard/Keyboard';
 import Typing from '../src/components/typingTest/Typeing';
@@ -42,6 +44,7 @@ const router = createBrowserRouter([
           { path: '/checkout', element: <Checkout />},
           // Add other protected routes here
         ],
+        errorElement: <NotAuthorized />,
       },
       // Define other paths as needed
     ],

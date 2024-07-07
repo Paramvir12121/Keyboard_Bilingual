@@ -23,7 +23,6 @@ export function App() {
     <>
     <Context.Provider value={[signedIn, setSignedIn]}>
       <Header />    
-        <p>{signedIn ? "Signed In " : "Signed Out"}</p>
         <Outlet /> 
       <Footer />
       </Context.Provider>
