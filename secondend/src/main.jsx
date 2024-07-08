@@ -4,6 +4,7 @@ import './index.css'
 import {createBrowserRouter,RouterProvider,} from "react-router-dom";
 // Bootstrap import
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Cookies from 'js-cookie';
 
 import Login from "./auth/Login";
 import {App} from "./App";

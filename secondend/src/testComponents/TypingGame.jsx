@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import Cookies from 'js-cookie';
 
 const words = ['react', 'javascript', 'component', 'state', 'props', 'hook', 'effect', 'render', 'virtual', 'dom'];
+
+const qwertyToColemak = {
+  'q': 'q', 'w': 'w', 'e': 'f', 'r': 'p', 't': 'g', 'y': 'j', 'u': 'l', 'i': 'u', 'o': 'y', 'p': ';',
+  'a': 'a', 's': 'r', 'd': 's', 'f': 't', 'g': 'd', 'h': 'h', 'j': 'n', 'k': 'e', 'l': 'i', ';': 'o',
+  'z': 'z', 'x': 'x', 'c': 'c', 'v': 'v', 'b': 'b', 'n': 'k', 'm': 'm'
+};
 
 const TypingGame = () => {
   const [displayText, setDisplayText] = useState('');
   const [cursorIndex, setCursorIndex] = useState(0);
   const [isWrongKey, setIsWrongKey] = useState(false);
+  const [isColemak, setIsColemak] = useState(false);
 
   const generateNewText = useCallback(() => {
     let newText = '';
@@ -19,11 +27,19 @@ const TypingGame = () => {
 
   useEffect(() => {
     generateNewText();
+    const keyboardType = Cookies.get('keyboard_type');
+    setIsColemak(keyboardType === 'colemak');
   }, [generateNewText]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === displayText[cursorIndex]) {
+      let pressedKey = event.key.toLowerCase();
+      
+      if (isColemak && qwertyToColemak[pressedKey]) {
+        pressedKey = qwertyToColemak[pressedKey];
+      }
+
+      if (pressedKey === displayText[cursorIndex].toLowerCase()) {
         setIsWrongKey(false);
         setCursorIndex(prevIndex => {
           if (prevIndex + 1 >= displayText.length) {
@@ -41,7 +57,7 @@ const TypingGame = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [cursorIndex, displayText, generateNewText]);
+  }, [cursorIndex, displayText, generateNewText, isColemak]);
 
   return (
     <div className="typing-game">
@@ -57,6 +73,7 @@ const TypingGame = () => {
           </span>
         ))}
       </div>
+      <p>Keyboard Layout: {isColemak ? 'Colemak' : 'QWERTY'}</p>
     </div>
   );
 };
