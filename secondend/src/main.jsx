@@ -22,6 +22,9 @@ import ResetPasswordConfirm from './auth/resetPassword/ResetPasswordConfirm';
 import Checkout from './pages/stripe/Checkout';
 import ProtectedRoute from './auth/ProtectedRoutes';
 
+//tests
+import Test1 from './testComponents/Test1';
+
 const router = createBrowserRouter([
   { path: '/', 
     element: <App />,
@@ -42,6 +45,8 @@ const router = createBrowserRouter([
           { path: '/dashboard', element: <Dashboard /> },
           { path: '/typing', element: <Typing /> },
           { path: '/checkout', element: <Checkout />},
+          //tests
+          { path: '/test1', element: <Test1 />  }
           // Add other protected routes here
         ],
         errorElement: <NotAuthorized />,

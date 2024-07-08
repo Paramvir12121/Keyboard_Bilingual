@@ -16,7 +16,8 @@ const Dashboard = () => {
         {/* Add your dashboard components here */}
         <div>
             <Link to="/typing">Typing</Link> <br />
-            <Link to="/checkout">Checkout</Link>
+            <Link to="/checkout">Checkout</Link><br />
+            <Link to="/keypress">KeyPress Test</Link><br />
         </div>
         </div>
          <Countdown seconds={10} /> 
