@@ -14,6 +14,9 @@ const TypingGame = () => {
   const [cursorIndex, setCursorIndex] = useState(0);
   const [isWrongKey, setIsWrongKey] = useState(false);
   const [isColemak, setIsColemak] = useState(false);
+  const [errorCount, setErrorCount] = useState(0);
+  const [keysTyped, setKeysTyped] = useState(0);
+  const [accuracy, setAccuracy] = useState(100);
 
   const generateNewText = useCallback(() => {
     let newText = '';
@@ -39,6 +42,8 @@ const TypingGame = () => {
         pressedKey = qwertyToColemak[pressedKey];
       }
 
+      setKeysTyped(prev => prev + 1);
+
       if (pressedKey === displayText[cursorIndex].toLowerCase()) {
         setIsWrongKey(false);
         setCursorIndex(prevIndex => {
@@ -50,6 +55,7 @@ const TypingGame = () => {
         });
       } else {
         setIsWrongKey(true);
+        setErrorCount(prev => prev + 1);
       }
     };
 
@@ -59,9 +65,22 @@ const TypingGame = () => {
     };
   }, [cursorIndex, displayText, generateNewText, isColemak]);
 
+  useEffect(() => {
+    const calculateAccuracy = () => {
+      if (keysTyped === 0) return 100;
+      return Math.round(((keysTyped - errorCount) / keysTyped) * 100);
+    };
+    setAccuracy(calculateAccuracy());
+  }, [keysTyped, errorCount]);
+
   return (
     <div className="typing-game">
       <h2>Typing Game</h2>
+      <div className="stats">
+        <p>Errors: {errorCount}</p>
+        <p>Keys Typed: {keysTyped}</p>
+        <p>Accuracy: {accuracy}%</p>
+      </div>
       <p>Type the highlighted letter:</p>
       <div className="text-display">
         {displayText.split('').map((char, index) => (

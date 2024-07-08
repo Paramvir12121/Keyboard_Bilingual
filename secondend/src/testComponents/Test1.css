@@ -19,3 +19,14 @@
   .cursor.wrong {
     background-color: red;
   }
+
+  .stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .stats p {
+    margin: 0;
+  }
