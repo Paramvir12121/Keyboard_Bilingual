@@ -17,7 +17,7 @@ const Dashboard = () => {
         <div>
             <Link to="/typing">Typing</Link> <br />
             <Link to="/checkout">Checkout</Link><br />
-            <Link to="/keypress">KeyPress Test</Link><br />
+            <Link to="/test1">KeyPress Test</Link><br />
             <Link to="/lessonlist">Lesson List</Link><br />
         </div>
         </div>

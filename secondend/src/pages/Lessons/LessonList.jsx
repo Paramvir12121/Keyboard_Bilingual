@@ -1,21 +1,24 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const LessonList = ({id, title, description}) => {
+const LessonList = ({ id, title, description }) => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/lesson/${id}`);
+    };
+
     return (
         <div className="container">
             <div className="row">
-              
-                    <div className="col-md-4 mb-4" key={id}>
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">{title}</h5>
-                                <p className="card-text">{description}</p>
-                                {/* <a href={lesson.link} className="btn btn-primary">
-                                    Start Lesson
-                                </a> */}
-                            </div>
+                <div className="col-md-4 mb-4" key={id} id={id}>
+                    <div className="card" onClick={handleClick} style={{ cursor: 'pointer' }}>
+                        <div className="card-body">
+                            <h5 className="card-title">{title}</h5>
+                            <p className="card-text">{description}</p>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     );
