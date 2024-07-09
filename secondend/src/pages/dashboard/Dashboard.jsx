@@ -18,6 +18,7 @@ const Dashboard = () => {
             <Link to="/typing">Typing</Link> <br />
             <Link to="/checkout">Checkout</Link><br />
             <Link to="/keypress">KeyPress Test</Link><br />
+            <Link to="/lessonlist">Lesson List</Link><br />
         </div>
         </div>
          <Countdown seconds={10} /> 

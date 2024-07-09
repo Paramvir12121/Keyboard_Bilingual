@@ -22,6 +22,7 @@ import ForgotPasswordEmail from './auth/resetPassword/ForgotPasswordEmail';
 import ResetPasswordConfirm from './auth/resetPassword/ResetPasswordConfirm';
 import Checkout from './pages/stripe/Checkout';
 import ProtectedRoute from './auth/ProtectedRoutes';
+import LessonLists from './pages/Lessons/LessonLists';
 
 //tests
 import Test1 from './testComponents/Test1';
@@ -46,6 +47,7 @@ const router = createBrowserRouter([
           { path: '/dashboard', element: <Dashboard /> },
           { path: '/typing', element: <Typing /> },
           { path: '/checkout', element: <Checkout />},
+          { path: '/lessonlist', element: <LessonLists />},
           //tests
           { path: '/test1', element: <Test1 />  }
           // Add other protected routes here

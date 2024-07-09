@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import LessonList from './LessonList';
+import baseApi from '../../hooks/baseApi';
 
 const LessonLists = () => {
-    // Dummy data for lesson lists
-    const lessonLists = [
-        { id: 1, title: 'Lesson List 1', description: 'This is lesson list 1' },
-        { id: 2, title: 'Lesson List 2', description: 'This is lesson list 2' },
-        { id: 3, title: 'Lesson List 3', description: 'This is lesson list 3' },
-    ];
+    const api = baseApi();
+    const [lessonLists, setLessonLists] = useState([]);
+
+    useEffect(() => {
+        const fetchLessons = async () => {
+            try {
+                const response = await api.get('/lessons/all', { withCredentials: true });
+                setLessonLists(response.data);
+            } catch (error) {
+                console.error(error);
+                // Optionally, handle the error in the UI here
+            }
+        };
+
+        fetchLessons();
+    }, []); // Empty dependency array means this effect runs once on mount
 
     return (
         <div>
             {lessonLists.map((lessonList) => (
                 <LessonList
                     key={lessonList.id}
+                    id={lessonList.id}
                     title={lessonList.title}
                     description={lessonList.description}
                 />
