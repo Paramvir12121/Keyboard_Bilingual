@@ -16,7 +16,8 @@ const LessonPage = () => {
       try {
         const response = await api.get(`/lessons/${id}`, { withCredentials: true });
         setLesson(response.data);
-        setWords(response.data.words);
+        setWords(response.data.words.split(","));
+        console.log(response.data.words.split(","), "words");
         setLoading(false);
       } catch (error) {
         console.error(error);

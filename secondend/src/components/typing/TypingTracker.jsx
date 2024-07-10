@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Cookies from 'js-cookie';
+import './TypingTracker.css';
 
 
 
@@ -20,15 +21,21 @@ const TypingTracker = ({words}) => {
 
 console.log(words)
 
-  const generateNewText = useCallback(() => {
-    let newText = '';
-    for (let i = 0; i < 5; i++) {
-      newText += words[Math.floor(Math.random() * words.length)] + ' ';
-    }
-    setDisplayText(newText.trim());
-    setCursorIndex(0);
-    setIsWrongKey(false);
-  }, []);
+const generateNewText = useCallback(() => {
+  if (!words || words.length === 0) {
+    console.error('No words provided');
+    return;
+  }
+
+  let newText = '';
+  for (let i = 0; i < 15; i++) {
+    console.log(words.length)
+    newText += words[Math.floor(Math.random() * words.length)] + ' ';
+  }
+  setDisplayText(newText.trim());
+  setCursorIndex(0);
+  setIsWrongKey(false);
+}, [words]);
 
 // const generateNewText = useCallback(() => {
 
@@ -71,13 +78,13 @@ console.log(words)
     };
   }, [cursorIndex, displayText, generateNewText, isColemak]);
 
-  useEffect(() => {
-    const calculateAccuracy = () => {
-      if (keysTyped === 0) return 100;
-      return Math.round(((keysTyped - errorCount) / keysTyped) * 100);
-    };
-    setAccuracy(calculateAccuracy());
-  }, [keysTyped, errorCount]);
+  // useEffect(() => {
+  //   const calculateAccuracy = () => {
+  //     if (keysTyped === 0) return 100;
+  //     return Math.round(((keysTyped - errorCount) / keysTyped) * 100);
+  //   };
+  //   setAccuracy(calculateAccuracy());
+  // }, [keysTyped, errorCount]);
 
   return (
     <div className="typing-game">
