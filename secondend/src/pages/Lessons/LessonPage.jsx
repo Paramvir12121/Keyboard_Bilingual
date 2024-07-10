@@ -10,6 +10,7 @@ const LessonPage = () => {
   const [words, setWords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const initialTime = 15;
 
   useEffect(() => {
     const fetchLesson = async () => {
@@ -38,7 +39,7 @@ const LessonPage = () => {
       <h1>{lesson.title}</h1>
       <p>{lesson.description}</p>
       {/* Add more lesson content here */}
-      <TypingTracker words={words}/>
+      <TypingTracker words={words} initialTime={initialTime}/>
     </div>
   );
 };

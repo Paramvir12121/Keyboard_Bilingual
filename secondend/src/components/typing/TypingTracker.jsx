@@ -1,16 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Cookies from 'js-cookie';
 import './TypingTracker.css';
+import { qwertyToColemak } from '../keyboard/Layouts';
+import Timer from '../timer/Timer';
 
 
 
-const qwertyToColemak = {
-  'q': 'q', 'w': 'w', 'e': 'f', 'r': 'p', 't': 'g', 'y': 'j', 'u': 'l', 'i': 'u', 'o': 'y', 'p': ';',
-  'a': 'a', 's': 'r', 'd': 's', 'f': 't', 'g': 'd', 'h': 'h', 'j': 'n', 'k': 'e', 'l': 'i', ';': 'o',
-  'z': 'z', 'x': 'x', 'c': 'c', 'v': 'v', 'b': 'b', 'n': 'k', 'm': 'm'
-};
-
-const TypingTracker = ({words}) => {
+const TypingTracker = ({ words, initialTime }) => {
   const [displayText, setDisplayText] = useState('');
   const [cursorIndex, setCursorIndex] = useState(0);
   const [isWrongKey, setIsWrongKey] = useState(false);
@@ -18,28 +14,23 @@ const TypingTracker = ({words}) => {
   const [errorCount, setErrorCount] = useState(0);
   const [keysTyped, setKeysTyped] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
+  const [isTimerRunning, setIsTimerRunning] = useState(true);
+  const [wordsTyped, setWordsTyped] = useState(0);
 
-console.log(words)
+  const generateNewText = useCallback(() => {
+    if (!words || words.length === 0) {
+      console.error('No words provided');
+      return;
+    }
 
-const generateNewText = useCallback(() => {
-  if (!words || words.length === 0) {
-    console.error('No words provided');
-    return;
-  }
-
-  let newText = '';
-  for (let i = 0; i < 15; i++) {
-    console.log(words.length)
-    newText += words[Math.floor(Math.random() * words.length)] + ' ';
-  }
-  setDisplayText(newText.trim());
-  setCursorIndex(0);
-  setIsWrongKey(false);
-}, [words]);
-
-// const generateNewText = useCallback(() => {
-
-// }, []);
+    let newText = '';
+    for (let i = 0; i < 20; i++) {
+      newText += words[Math.floor(Math.random() * words.length)] + ' ';
+    }
+    setDisplayText(newText.trim());
+    setCursorIndex(0);
+    setIsWrongKey(false);
+  }, [words]);
 
   useEffect(() => {
     generateNewText();
@@ -48,6 +39,8 @@ const generateNewText = useCallback(() => {
   }, [generateNewText]);
 
   useEffect(() => {
+    if (!isTimerRunning) return;
+
     const handleKeyDown = (event) => {
       let pressedKey = event.key.toLowerCase();
       
@@ -57,12 +50,16 @@ const generateNewText = useCallback(() => {
 
       setKeysTyped(prev => prev + 1);
 
-      if (pressedKey === displayText[cursorIndex].toLowerCase()) {
+      if (pressedKey === displayText[cursorIndex].toLowerCase() || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
         setIsWrongKey(false);
         setCursorIndex(prevIndex => {
           if (prevIndex + 1 >= displayText.length) {
             generateNewText();
+            setWordsTyped(prev => prev + displayText.split(' ').length);
             return 0;
+          }
+          if (displayText[prevIndex + 1] === ' ') {
+            setWordsTyped(prev => prev + 1);
           }
           return prevIndex + 1;
         });
@@ -76,38 +73,60 @@ const generateNewText = useCallback(() => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [cursorIndex, displayText, generateNewText, isColemak]);
+  }, [cursorIndex, displayText, generateNewText, isColemak, isTimerRunning]);
 
-  // useEffect(() => {
-  //   const calculateAccuracy = () => {
-  //     if (keysTyped === 0) return 100;
-  //     return Math.round(((keysTyped - errorCount) / keysTyped) * 100);
-  //   };
-  //   setAccuracy(calculateAccuracy());
-  // }, [keysTyped, errorCount]);
+  useEffect(() => {
+    const calculateAccuracy = () => {
+      if (keysTyped === 0) return 100;
+      return Math.round(((keysTyped - errorCount) / keysTyped) * 100);
+    };
+    setAccuracy(calculateAccuracy());
+  }, [keysTyped, errorCount]);
+
+  const handleTimerEnd = () => {
+    setIsTimerRunning(false);
+  };
+
+  const handleRefresh = () => {
+    setIsTimerRunning(true);
+    setErrorCount(0);
+    setKeysTyped(0);
+    setAccuracy(100);
+    setWordsTyped(0);
+    generateNewText();
+  };
 
   return (
     <div className="typing-game">
       <h2>Typing Game</h2>
+      {isTimerRunning && <Timer initialTime={initialTime} onTimerEnd={handleTimerEnd} />}
       <div className="stats">
         <p>Errors: {errorCount}</p>
         <p>Keys Typed: {keysTyped}</p>
         <p>Accuracy: {accuracy}%</p>
+        <p>Words Typed: {wordsTyped}</p>
+        <p>WPM: {Math.round((wordsTyped / (initialTime / 60)) * 100) / 100}</p>
       </div>
-      <p>Type the highlighted letter:</p>
-      <div className="text-display">
-        {displayText.split('').map((char, index) => (
-          <span 
-            key={index} 
-            className={index === cursorIndex ? (isWrongKey ? 'cursor wrong' : 'cursor') : ''}
-          >
-            {char}
-          </span>
-        ))}
-      </div>
+      {isTimerRunning ? (
+        <>
+          <p>Type the highlighted letter:</p>
+          <div className="text-display">
+            {displayText.split('').map((char, index) => (
+              <span 
+                key={index} 
+                className={`character ${index === cursorIndex ? (isWrongKey ? 'cursor wrong' : 'cursor') : ''}`}
+              >
+                {char}
+              </span>
+            ))}
+          </div>
+        </>
+      ) : (
+        <button onClick={handleRefresh}>Restart</button>
+      )}
       <p>Keyboard Layout: {isColemak ? 'Colemak' : 'QWERTY'}</p>
     </div>
   );
 };
 
-export default TypingTracker
+export default TypingTracker;
