@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Cookies from 'js-cookie';
 import './TypingTracker.css';
 import { qwertyToColemak } from '../keyboard/Layouts';
 import Timer from '../timer/Timer';
-
-
 
 const TypingTracker = ({ words, initialTime }) => {
   const [displayText, setDisplayText] = useState('');
@@ -16,6 +14,7 @@ const TypingTracker = ({ words, initialTime }) => {
   const [accuracy, setAccuracy] = useState(100);
   const [isTimerRunning, setIsTimerRunning] = useState(true);
   const [wordsTyped, setWordsTyped] = useState(0);
+  const [startFlag, setStartFlag] = useState(false);
 
   const generateNewText = useCallback(() => {
     if (!words || words.length === 0) {
@@ -83,18 +82,22 @@ const TypingTracker = ({ words, initialTime }) => {
     setAccuracy(calculateAccuracy());
   }, [keysTyped, errorCount]);
 
-  const handleTimerEnd = () => {
+  const handleTimerEnd = useCallback(() => {
     setIsTimerRunning(false);
-  };
+  }, []);
 
-  const handleRefresh = () => {
+  const handleRefresh = useCallback(() => {
     setIsTimerRunning(true);
     setErrorCount(0);
     setKeysTyped(0);
     setAccuracy(100);
     setWordsTyped(0);
     generateNewText();
-  };
+  }, [generateNewText]);
+
+  const wpm = useMemo(() => {
+    return Math.floor(keysTyped * 60 / (initialTime * 5)) ;
+  }, [wordsTyped, initialTime]);
 
   return (
     <div className="typing-game">
@@ -105,7 +108,7 @@ const TypingTracker = ({ words, initialTime }) => {
         <p>Keys Typed: {keysTyped}</p>
         <p>Accuracy: {accuracy}%</p>
         <p>Words Typed: {wordsTyped}</p>
-        <p>WPM: {Math.round((wordsTyped / (initialTime / 60)) * 100) / 100}</p>
+        <p>WPM: {wpm}</p>
       </div>
       {isTimerRunning ? (
         <>
