@@ -52,11 +52,11 @@ const TypingTracker = ({ words, initialTime }) => {
       if (pressedKey === displayText[cursorIndex].toLowerCase() || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
         setIsWrongKey(false);
         setCursorIndex(prevIndex => {
-          if (prevIndex + 1 >= displayText.length) {
-            generateNewText();
-            setWordsTyped(prev => prev + displayText.split(' ').length);
-            return 0;
-          }
+          // if (prevIndex + 1 >= displayText.length) {
+          //   generateNewText();
+          //   setWordsTyped(prev => prev + displayText.split(' ').length);
+          //   return 0;
+          // }
           if (displayText[prevIndex + 1] === ' ') {
             setWordsTyped(prev => prev + 1);
           }

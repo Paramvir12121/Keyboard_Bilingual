@@ -4,14 +4,14 @@ from run import app
 
 def add_mock_data():
     mock_lessons = [
+        # Home Row - Left Four Keys
         {
-            "title": "Basics of Home Row",
-            "description": "Learn the basics of the home row keys.",
-            "keys": "a s d f j k l ;",
+            "title": "Home Row Left Four Keys",
+            "description": "Learn the basics of the home row left four keys.",
+            "keys": "a s d f",
             "words": [
-                "dad", "sad", "lad", "fad", "add", "ass", "all", "fall",
-                "sall", "lass", "lass", "lasso", "jass", "kass", "alas",
-                "salad", "flask", "Alaska", "sass", "assail", "halal",
+                "dad", "sad", "fad", "add", "ass", "all", "fall",
+                "sall", "lass", "alas", "salad", "sass", "assail", 
                 "halls", "falls", "calls", "stall", "shall", "small",
                 "tall", "wall", "mall", "gall", "fall", "call"
             ],
@@ -19,9 +19,24 @@ def add_mock_data():
             "created_at": datetime.utcnow(),
             "updated_at": datetime.utcnow()
         },
+        # Home Row - Right Four Keys
         {
-            "title": "Advanced Home Row",
-            "description": "Master the home row with complex words.",
+            "title": "Home Row Right Four Keys",
+            "description": "Learn the basics of the home row right four keys.",
+            "keys": "j k l ;",
+            "words": [
+                "jack", "lack", "kill", "fall", "skill", "jill", "jazz",
+                "flask", "joke", "lake", "sake", "seal", "jail", "kale",
+                "jacks", "kills", "lakes", "falls", "seals", "jokes"
+            ],
+            "difficulty": "easy",
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
+        },
+        # Home Row - All Keys
+        {
+            "title": "Complete Home Row",
+            "description": "Master all keys on the home row.",
             "keys": "a s d f j k l ;",
             "words": [
                 "alfalfa", "flask", "lads", "salads", "jackals", "hallways",
@@ -36,18 +51,93 @@ def add_mock_data():
             "created_at": datetime.utcnow(),
             "updated_at": datetime.utcnow()
         },
+        # Top Row - Left Four Keys
         {
-            "title": "Numbers and Symbols",
-            "description": "Learn to type numbers and symbols efficiently.",
-            "keys": "1 2 3 4 5 6 7 8 9 0 - =",
+            "title": "Top Row Left Four Keys",
+            "description": "Learn the basics of the top row left four keys.",
+            "keys": "q w e r",
             "words": [
-                "1/2", "$3.99", "@home", "#trending", "100%", "24/7", "9-5",
-                "50/50", "2020", "100+", "1st", "2nd", "3rd", "4th", "5th",
-                "6th", "7th", "8th", "9th", "10th", "1-800", "1+1=2", "$100",
-                "99%", "1,000", "1:1", "3.14", "007", "4x4", "360°", "1080p",
-                "5G", "4K", "8K"
+                "we", "wear", "were", "rear", "queue", "war", "ear",
+                "raw", "war", "era", "rare", "ware", "erase", "wee",
+                "wee", "were", "rewe", "wee", "rare", "wee", "we",
+                "wear", "wear", "rew", "raw"
             ],
-            "difficulty": "hard",
+            "difficulty": "easy",
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
+        },
+        # Top Row - Right Four Keys
+        {
+            "title": "Top Row Right Four Keys",
+            "description": "Learn the basics of the top row right four keys.",
+            "keys": "u i o p",
+            "words": [
+                "up", "pop", "pot", "tip", "top", "pit", "out", "put",
+                "pup", "pip", "opt", "pit", "pout", "put", "pi", "it",
+                "to", "pi", "pot", "put", "up", "out", "pip", "tip"
+            ],
+            "difficulty": "easy",
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
+        },
+        # Top Row - All Keys
+        {
+            "title": "Complete Top Row",
+            "description": "Master all keys on the top row.",
+            "keys": "q w e r u i o p",
+            "words": [
+                "quip", "quite", "quiet", "wiper", "write", "wrote", "route",
+                "writ", "wire", "router", "pout", "quote", "poutier", "query",
+                "require", "proud", "wiper", "required", "equip", "outwear",
+                "power", "wrapper", "outer", "pow", "quirky", "quote", "quiet",
+                "quirky", "equip", "pure", "putter", "pro"
+            ],
+            "difficulty": "medium",
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
+        },
+        # Bottom Row - Left Four Keys
+        {
+            "title": "Bottom Row Left Four Keys",
+            "description": "Learn the basics of the bottom row left four keys.",
+            "keys": "z x c v",
+            "words": [
+                "vex", "czar", "cave", "vac", "czar", "vex", "cave", "vac",
+                "vex", "vac", "vac", "vex", "czar", "cave", "vex", "vac",
+                "vex", "cave", "vac", "vac", "czar", "cave", "vac", "vex"
+            ],
+            "difficulty": "easy",
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
+        },
+        # Bottom Row - Right Four Keys
+        {
+            "title": "Bottom Row Right Four Keys",
+            "description": "Learn the basics of the bottom row right four keys.",
+            "keys": "b n m ,",
+            "words": [
+                "man", "ban", "nab", "nab", "nab", "nab", "nab", "ban",
+                "ban", "nab", "nab", "ban", "nab", "ban", "nab", "ban",
+                "ban", "nab", "ban", "nab", "ban", "nab", "ban", "nab"
+            ],
+            "difficulty": "easy",
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
+        },
+        # Bottom Row - All Keys
+        {
+            "title": "Complete Bottom Row",
+            "description": "Master all keys on the bottom row.",
+            "keys": "z x c v b n m ,",
+            "words": [
+                "vex", "czar", "cave", "vac", "czar", "vex", "cave", "vac",
+                "vex", "vac", "vac", "vex", "czar", "cave", "vex", "vac",
+                "vex", "cave", "vac", "vac", "czar", "cave", "vac", "vex",
+                "man", "ban", "nab", "nab", "nab", "nab", "nab", "ban",
+                "ban", "nab", "nab", "ban", "nab", "ban", "nab", "ban",
+                "ban", "nab", "ban", "nab", "ban", "nab", "ban", "nab"
+            ],
+            "difficulty": "medium",
             "created_at": datetime.utcnow(),
             "updated_at": datetime.utcnow()
         }
