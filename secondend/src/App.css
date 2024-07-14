@@ -3,6 +3,7 @@
     --secondary-color: #9B3922;
     --tertiary-color: #481E14;
     --background-color: #0C0C0C;
+    
   }
   /* 
   :root {
@@ -11,7 +12,10 @@
     --tertiary-color: #49108B;
     --background-color: #F3F8FF;
   } */
+
+  
   html, body {
+    font-family: "Playwrite PE", cursive !important;
   height: 100%;
   margin: 0;
   color: var(--primary-color);
