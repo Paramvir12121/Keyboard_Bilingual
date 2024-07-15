@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import baseApi from '../../hooks/baseApi'
 import TypingTracker from '../../components/typing/TypingTracker';
+import TypingViewer from '../../components/typing/TypingViewer';
 
 const LessonPage = () => {
   const { id } = useParams();
@@ -40,6 +41,7 @@ const LessonPage = () => {
       <p>{lesson.description}</p>
       {/* Add more lesson content here */}
       <TypingTracker words={words} initialTime={initialTime}/>
+      <TypingViewer words={words} />
     </div>
   );
 };
