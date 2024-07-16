@@ -11,10 +11,3 @@
     display: inline-block;
   }
   
-  .cursor {
-    background-color: yellow;
-  }
-  
-  .cursor.wrong {
-    background-color: red;
-  }
