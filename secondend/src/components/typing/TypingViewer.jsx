@@ -34,11 +34,15 @@ const TypingViewer = ({words}) => {
 
   }, [words]);
 
+
+
   useEffect(() => {
     generateNewText();
     const keyboardType = Cookies.get('keyboard_type');
     setIsColemak(keyboardType === 'colemak');
   } , [generateNewText]);
+
+  
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -66,6 +70,8 @@ const TypingViewer = ({words}) => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [cursorIndex, displayText, generateNewText, isColemak]);
+
+
 
   useEffect(() => {
     if (lessonEnded){
