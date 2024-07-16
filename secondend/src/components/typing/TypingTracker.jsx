@@ -101,7 +101,6 @@ const TypingTracker = ({ words, initialTime }) => {
 
   return (
     <div className="typing-game">
-      <h2>Typing Game</h2>
       {isTimerRunning && <Timer initialTime={initialTime} onTimerEnd={handleTimerEnd} />}
       <div className="stats">
         <p>Errors: {errorCount}</p>

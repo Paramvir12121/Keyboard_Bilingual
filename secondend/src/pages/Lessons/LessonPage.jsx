@@ -11,7 +11,7 @@ const LessonPage = () => {
   const [words, setWords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const initialTime = 15;
+  const initialTime = 120;
 
   useEffect(() => {
     const fetchLesson = async () => {

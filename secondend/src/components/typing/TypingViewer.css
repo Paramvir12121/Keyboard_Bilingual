@@ -1,0 +1,7 @@
+.cursor {
+    background-color: yellow;
+  }
+  
+.cursor.wrong {
+    background-color: red;
+  }
