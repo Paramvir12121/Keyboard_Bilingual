@@ -3,6 +3,9 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Cookies from 'js-cookie';
 import './TypingTracker.css';
 import { qwertyToColemak } from '../keyboard/Layouts';
+import TextDisplay from './display/TextDisplay';
+import Results from './results/Results';
+
 // import Timer from '../timer/Timer';
 
 const TypingViewer = ({words}) => {
@@ -13,9 +16,8 @@ const TypingViewer = ({words}) => {
   const [errorCount, setErrorCount] = useState(0);
   const [keysTyped, setKeysTyped] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
-  const [isTimerRunning, setIsTimerRunning] = useState(true);
   const [wordsTyped, setWordsTyped] = useState(0);
-  const [startFlag, setStartFlag] = useState(false);
+  const [lessonEnded, setLessonEnded] = useState(false);
 
   const generateNewText = useCallback(() => {
     if (!words || words.length === 0) {
@@ -65,21 +67,18 @@ const TypingViewer = ({words}) => {
     };
   }, [cursorIndex, displayText, generateNewText, isColemak]);
 
+  useEffect(() => {
+    if (lessonEnded){
+      //Display results
+    }
+  }, [lessonEnded]);
+
 
   return (
     <>
     <h2>Typing Viewer</h2>
-    {/* <div>{displayText}</div>
-    <div>{words[3]}</div> */}
-    {displayText.split('').map((char, index) => (
-              <span 
-                key={index} 
-                className={`character ${index === cursorIndex ? (isWrongKey ? 'cursor wrong' : 'cursor') : ' '}`}
-              >
-                {char}
-                {char === ' ' ? <span>&nbsp;</span> : null}
-              </span>
-            ))}
+
+    {lessonEnded ? <Result errorCount={errorCount} accuracy={accuracy} keysTyped={keysTyped} wordsTyped={wordsTyped}/> : <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />}
 
     </>
     
