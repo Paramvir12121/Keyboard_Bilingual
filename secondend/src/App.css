@@ -55,16 +55,15 @@
     background-color: var(--tertiary-color);
     color: var(--primary-color);
   }
+
   
-  /* .card-background {
-    background-color: var(--background-color);
-  } */
-  
-   
-  .cursor {
-    background-color: yellow;
-  }
-  
+/* <<<<<<<<<<< Text Display>>>>>>>>>> */
+.cursor {
+  background-color: yellow;
+}
+
 .cursor.wrong {
-    background-color: red;
-  }
+  background-color: red;
+}
+
+/* <<<<<<<<<<< Text Display>>>>>>>>>> */

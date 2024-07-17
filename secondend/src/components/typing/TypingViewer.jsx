@@ -1,12 +1,9 @@
-import './TypingViewer.css'
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Cookies from 'js-cookie';
 import './TypingTracker.css';
 import { qwertyToColemak } from '../keyboard/Layouts';
 import TextDisplay from './display/TextDisplay';
 import Results from './results/Results';
-
-// import Timer from '../timer/Timer';
 
 const TypingViewer = ({words}) => {
   const [displayText, setDisplayText] = useState('');
@@ -15,9 +12,12 @@ const TypingViewer = ({words}) => {
   const [isColemak, setIsColemak] = useState(false);
   const [errorCount, setErrorCount] = useState(0);
   const [keysTyped, setKeysTyped] = useState(0);
-  const [accuracy, setAccuracy] = useState(100);
   const [wordsTyped, setWordsTyped] = useState(0);
   const [lessonEnded, setLessonEnded] = useState(false);
+  const [startTime, setStartTime] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+
+  const timerRef = useRef(null);
 
   const generateNewText = useCallback(() => {
     if (!words || words.length === 0) {
@@ -31,10 +31,7 @@ const TypingViewer = ({words}) => {
       viewText += words[Math.floor(Math.random() * words.length)] + ' ';
     }
     setDisplayText(viewText.trim());
-
   }, [words]);
-
-
 
   useEffect(() => {
     generateNewText();
@@ -42,10 +39,25 @@ const TypingViewer = ({words}) => {
     setIsColemak(keyboardType === 'colemak');
   } , [generateNewText]);
 
-  
+  useEffect(() => {
+    if (startTime && !lessonEnded) {
+      timerRef.current = setInterval(() => {
+        setElapsedTime(prevTime => prevTime + 1);
+      }, 1000);
+    }
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [startTime, lessonEnded]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
+      if (!startTime) {
+        setStartTime(Date.now());
+      }
+
       let pressedKey = event.key.toLowerCase();
       if (isColemak && qwertyToColemak[pressedKey]) {
         pressedKey = qwertyToColemak[pressedKey];
@@ -55,8 +67,12 @@ const TypingViewer = ({words}) => {
         setIsWrongKey(false);
         setCursorIndex(prevIndex => {
           if (prevIndex + 1 >= displayText.length) {
-            generateNewText();
-            return 0;
+            setLessonEnded(true);
+            clearInterval(timerRef.current);
+            return prevIndex;
+          }
+          if (displayText[prevIndex] === ' ') {
+            setWordsTyped(prev => prev + 1);
           }
           return prevIndex + 1;
         });
@@ -69,26 +85,34 @@ const TypingViewer = ({words}) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [cursorIndex, displayText, generateNewText, isColemak]);
+  }, [cursorIndex, displayText, generateNewText, isColemak, startTime]);
 
+  const calculateStats = () => {
+    const totalCharacters = keysTyped;
+    const accuracy = ((totalCharacters - errorCount) / totalCharacters) * 100;
+    const wpm = (wordsTyped / (elapsedTime / 60));
 
-
-  useEffect(() => {
-    if (lessonEnded){
-      //Display results
-    }
-  }, [lessonEnded]);
-
+    return {
+      wpm,
+      accuracy,
+      errorCount,
+      totalCharacters,
+      elapsedTime
+    };
+  };
 
   return (
     <>
-    <h2>Typing Viewer</h2>
+      <h2>Typing Viewer</h2>
+      {timerRef.current && <p>Time Elapsed: {elapsedTime} seconds</p>}
 
-    {lessonEnded ? <Result errorCount={errorCount} accuracy={accuracy} keysTyped={keysTyped} wordsTyped={wordsTyped}/> : <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />}
-
+      {lessonEnded ? 
+        <Results {...calculateStats()} /> 
+        : 
+        <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />
+      }
     </>
-    
-  )
-}
+  );
+};
 
-export default TypingViewer
+export default TypingViewer;

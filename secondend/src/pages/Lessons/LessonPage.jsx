@@ -40,7 +40,7 @@ const LessonPage = () => {
       <h1>{lesson.title}</h1>
       <p>{lesson.description}</p>
       {/* Add more lesson content here */}
-      <TypingTracker words={words} initialTime={initialTime}/>
+      {/* <TypingTracker words={words} initialTime={initialTime}/> */}
       <TypingViewer words={words} />
     </div>
   );

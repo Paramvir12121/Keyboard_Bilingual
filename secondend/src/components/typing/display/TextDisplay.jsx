@@ -1,18 +1,22 @@
-import React from 'react'
+import React from 'react';
+import { Card } from 'react-bootstrap';
 
-const TextDisplay = ({displayText,cursorIndex,isWrongKey}) => {
+
+const TextDisplay = ({ displayText, cursorIndex, isWrongKey }) => {
   return (
-    <>
-    {displayText.split('').map((char, index) => (
-              <span 
-                key={index} 
-                className={`character ${index === cursorIndex ? (isWrongKey ? 'cursor wrong' : 'cursor') : ' '}`}
-              >
-                {char}
-                {char === ' ' ? <span>&nbsp;</span> : null}
-              </span>
-            ))}</>
-  )
-}
+    <Card className="text-display-card">
+      <Card.Body>
+        {displayText.split('').map((char, index) => (
+          <span 
+            key={index} 
+            className={`character ${index === cursorIndex ? (isWrongKey ? 'cursor wrong' : 'cursor') : ''}`}
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </span>
+        ))}
+      </Card.Body>
+    </Card>
+  );
+};
 
-export default TextDisplay
+export default TextDisplay;
