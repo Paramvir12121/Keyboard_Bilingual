@@ -41,7 +41,7 @@ const LessonPage = () => {
       <p>{lesson.description}</p>
       {/* Add more lesson content here */}
       {/* <TypingTracker words={words} initialTime={initialTime}/> */}
-      <TypingViewer words={words} />
+      <TypingViewer words={words} lessonId={id}/>
     </div>
   );
 };

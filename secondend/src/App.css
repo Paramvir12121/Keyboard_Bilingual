@@ -58,12 +58,34 @@
 
   
 /* <<<<<<<<<<< Text Display>>>>>>>>>> */
-.cursor {
-  background-color: yellow;
+.text-display-card {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  background-color: #f8f9fa;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.cursor.wrong {
-  background-color: red;
+.text-display-card .card-body {
+  padding: 1rem;
+}
+
+.character {
+  display: inline-block;
+  padding: 0 1px;
+  border-radius: 2px;
+  transition: all 0.1s ease-in-out;
+}
+
+.character.cursor {
+  background-color: #007bff;
+  color: white;
+}
+
+.character.cursor.wrong {
+  background-color: #dc3545;
+  color: white;
 }
 
 /* <<<<<<<<<<< Text Display>>>>>>>>>> */

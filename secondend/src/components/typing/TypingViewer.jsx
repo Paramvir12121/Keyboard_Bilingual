@@ -4,8 +4,9 @@ import './TypingTracker.css';
 import { qwertyToColemak } from '../keyboard/Layouts';
 import TextDisplay from './display/TextDisplay';
 import Results from './results/Results';
+import handleLessonCompletion from './handleLessonCompletion/handleLessonCompletion';
 
-const TypingViewer = ({words}) => {
+const TypingViewer = ({words, lessonId}) => {
   const [displayText, setDisplayText] = useState('');
   const [cursorIndex, setCursorIndex] = useState(0);
   const [isWrongKey, setIsWrongKey] = useState(false);
@@ -101,9 +102,26 @@ const TypingViewer = ({words}) => {
     };
   };
 
+  useEffect(() => {
+    if (lessonEnded) {
+      const stats = calculateStats();
+      const completeLessonAsync = async () => {
+        try {
+          const result = await handleLessonCompletion(lessonId, Math.round(stats.wpm));
+          console.log('Lesson completion result:', result);
+        } catch (error) {
+          console.error('Error completing lesson:', error);
+          setCompletionError('Failed to submit lesson completion. Please try again.');
+        }
+      };
+      completeLessonAsync();
+    }
+  }, [lessonEnded, lessonId]);
+
   return (
     <>
       <h2>Typing Viewer</h2>
+      
       {timerRef.current && <p>Time Elapsed: {elapsedTime} seconds</p>}
 
       {lessonEnded ? 
