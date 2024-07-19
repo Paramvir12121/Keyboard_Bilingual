@@ -3,7 +3,19 @@
     --secondary-color: #9B3922;
     --tertiary-color: #481E14;
     --background-color: #0C0C0C;
-    
+
+    --text-color: black;
+    --text-dim-color: grey;
+    --accent-color: black;
+    --error-color: red;
+    --sucess-color: lime;
+    --primary-shade-color: red;
+    --secondary-shade-color: red;
+    --primary-gradient: red;
+
+
+    --primary-font: ubuntu;
+    --secondary-font: ubuntu;
   }
   /* 
   :root {
@@ -15,7 +27,7 @@
 
   
   html, body {
-    font-family: "Playwrite PE", cursive !important;
+  font-family: "Playwrite PE", cursive !important;
   height: 100%;
   margin: 0;
   color: var(--primary-color);
