@@ -45,3 +45,11 @@ Week 4 (May 25 - May 31):
 
 Frontend 
 - use https://www.creative-tim.com/product/argon-design-system-react as react template
+
+- use https://coolors.co/  & http://colormind.io/ to get more colors
+
+- use https://mycolor.space/  & https://colors.muz.li/ to get color pallets
+
+- Use https://huemint.com/ to test
+
+- 
