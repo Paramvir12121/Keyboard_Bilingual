@@ -1,4 +1,4 @@
-/* :root {
+:root {
     --primary-color: #F2613F;
     --secondary-color: #9B3922;
     --tertiary-color: #481E14;
@@ -16,7 +16,7 @@
 
     --primary-font: ubuntu;
     --secondary-font: ubuntu;
-  } */
+  }
   /* 
   :root {
     --primary-color: #E26EE5;
@@ -26,13 +26,13 @@
   } */
 
 
-  
+/*   
   :root {
     --primary-color: #FF6F59;
     --secondary-color: #254441;
     --tertiary-color: #43AA8B;
     --background-color: #EF3054;
-  } 
+  }  */
 
   
   html, body {
