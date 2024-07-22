@@ -5,6 +5,7 @@ import { qwertyToColemak } from '../keyboard/Layouts';
 import TextDisplay from './display/TextDisplay';
 import Results from './results/Results';
 import handleLessonCompletion from './handleLessonCompletion/handleLessonCompletion';
+import {Link} from 'react-router-dom';
 
 const TypingViewer = ({words, lessonId}) => {
   const [displayText, setDisplayText] = useState('');

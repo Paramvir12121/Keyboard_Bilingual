@@ -2,7 +2,8 @@
     --primary-color: #F2613F;
     --secondary-color: #9B3922;
     --tertiary-color: #481E14;
-    --background-color: #0C0C0C;
+    --background-color: #0C0C0C; 
+    
 
     --text-color: black;
     --text-dim-color: grey;
@@ -48,7 +49,7 @@
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
-    background-color: var(--background-color);
+    background: linear-gradient(to bottom right, #221333, #766a83);
   }
   
 
