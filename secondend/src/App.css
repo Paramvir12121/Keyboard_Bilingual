@@ -99,3 +99,37 @@ button,
 }
 
 /* <<<<<<<<<<< Text Display>>>>>>>>>> */
+
+
+/* <<<<<<<<<<LessonList>>>>>>>>>>>>>>>> */
+.lesson-row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.lesson-col {
+  width: 300px;
+  min-width: 300px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Ensure the LessonList component takes full height of its container */
+.lesson-col > div {
+  height: 100%;
+}
+
+/* Style for the horizontal scrollbar */
+.lesson-row::-webkit-scrollbar {
+  height: 8px;
+}
+
+.lesson-row::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.lesson-row::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+/* <<<<<<<<<<LessonList>>>>>>>>>>>>>>>> */

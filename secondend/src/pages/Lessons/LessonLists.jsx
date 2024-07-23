@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import LessonList from './LessonList';
 import baseApi from '../../hooks/baseApi';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const LessonLists = () => {
     const api = baseApi();
@@ -12,7 +13,6 @@ const LessonLists = () => {
                 const response = await api.get('/lessons/all', { withCredentials: true });
                 const lessons = response.data;
                 
-                // Group lessons by topic
                 const grouped = lessons.reduce((acc, lesson) => {
                     const topic = lesson.topic || 'Uncategorized';
                     if (!acc[topic]) {
@@ -33,22 +33,24 @@ const LessonLists = () => {
     }, []);
 
     return (
-        <div>
+        <Container>
             {Object.entries(groupedLessons).map(([topic, lessons]) => (
                 <div key={topic}>
-                    <h2>{topic}</h2>
-                    {lessons.map((lesson) => (
-                        <LessonList
-                            key={lesson.id}
-                            id={lesson.id}
-                            title={lesson.title}
-                            topic={lesson.topic}
-                            description={lesson.description}
-                        />
-                    ))}
+                    <h2 className="mb-3">{topic}</h2>
+                    <Row className="flex-nowrap overflow-auto">
+                        {lessons.map((lesson) => (
+                            <Col key={lesson.id} xs={12} md={6} lg={4} xl={3} className="mb-3">
+                                <LessonList
+                                    id={lesson.id}
+                                    title={lesson.title}
+                                    description={lesson.description}
+                                />
+                            </Col>
+                        ))}
+                    </Row>
                 </div>
             ))}
-        </div>
+        </Container>
     );
 };
 
