@@ -14,6 +14,7 @@ from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jw
 from namespaces.auth import auth_ns
 from namespaces.lessons import lessons_ns
 from namespaces.payment import payment_ns
+from namespaces.settings import settings_ns
 from admin import admin_bp
 
 ###################### Settings ###########################
@@ -36,6 +37,7 @@ def create_app(config_to_use):
     api.add_namespace(auth_ns)
     api.add_namespace(lessons_ns)
     api.add_namespace(payment_ns)
+    api.add_namespace(settings_ns)
     app.register_blueprint(admin_bp)
     migrate = Migrate(app,db)
     JWTManager(app)

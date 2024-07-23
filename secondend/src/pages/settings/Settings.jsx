@@ -1,46 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
-import axios from 'axios';
+import baseApi from '../../hooks/baseApi';
 import Cookies from 'js-cookie';
 
-const SettingsPage = () => {
-    const defaultSettings = {
+const Settings = () => {
+    const api = baseApi();
+    const defaultSettings = () => ({
         keyboard_layout: 'colemak',
         font_size: 'medium',
-        audio_feedback: {
-            key_press_sound: true,
-            completion_sound: true,
-            error_sound: true,
-            background_music: {
-                enabled: true,
-                volume: 0.5,
-                track: ''
-            }
-        },
-        feedback_settings: {
-            show_success_rate: true,
-            show_average_time: true,
-            enable_error_heatmap: true
-        },
-        advanced_learning_options: {
-            typing_speed_goal: 50,
-            accuracy_goal: 90,
-            custom_lessons: []
-        },
-        account_management: {
-            change_password: '',
-            manage_subscriptions: '',
-            delete_account: ''
-        },
-        notifications: {
-            email_notifications: true,
-            app_notifications: true,
-            reminders: {
-                enabled: true,
-                time: '18:00'
-            }
-        }
-    };
+        key_press_sound: true,
+        completion_sound: true,
+        error_sound: true,
+        background_music_enabled: true,
+        background_music_volume: 0.5,
+        background_music_track: '',
+        show_success_rate: true,
+        show_average_time: true,
+        enable_error_heatmap: true,
+        typing_speed_goal: 50,
+        accuracy_goal: 90,
+        custom_lessons: [],
+        change_password: '',
+        manage_subscriptions: '',
+        delete_account: '',
+        email_notifications: true,
+        app_notifications: true,
+        reminders_enabled: true,
+        reminders_time: '18:00',
+      });
 
     const [settings, setSettings] = useState(() => {
         const savedSettings = Cookies.get('settings');
@@ -55,7 +42,7 @@ const SettingsPage = () => {
 
     const fetchSettings = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/settings');
+            const response = api.get('/settings', {ce});
             setSettings(response.data);
             Cookies.set('settings', JSON.stringify(response.data), { expires: 365 });
         } catch (error) {
@@ -357,4 +344,4 @@ const SettingsPage = () => {
     );
 };
 
-export default SettingsPage;
+export default Settings;
