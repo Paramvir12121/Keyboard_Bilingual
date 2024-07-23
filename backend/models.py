@@ -33,6 +33,9 @@ class Lesson(db.Model):
     __tablename__ = 'lessons'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
+    topic = db.Column(db.String(100), nullable=False)
+    subtopic = db.Column(db.String(100), nullable=False)
+    keyboard_type = db.Column(db.String(50), nullable=False)  # Keyboard type (e.g., qwerty, dvorak)
     description = db.Column(db.Text)
     keys = db.Column(db.String(50), nullable=False)  # Keys to be practiced (e.g., 'a s d')
     words = db.Column(db.Text, nullable=False)  # Words or phrases using the keys

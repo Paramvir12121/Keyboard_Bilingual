@@ -22,16 +22,16 @@ const Header = () => {
     }, [signedIn]);
 
     return (
-        <Navbar bg="light" expand="lg" className="mb-3">
+        <Navbar  expand="lg" className="mb-3">
             <Container>
-                <Navbar.Brand as={Link} to="/">My App</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/">Arch</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         {signedIn && (
                             <>
                                 <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
-                                <Nav.Link as={Link} to="/lessons">Lessons</Nav.Link>
+                                <Nav.Link as={Link} to="/lessonlist">Lessons</Nav.Link>
                             </>
                         )}
                     </Nav>

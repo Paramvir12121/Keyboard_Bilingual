@@ -4,31 +4,49 @@ import baseApi from '../../hooks/baseApi';
 
 const LessonLists = () => {
     const api = baseApi();
-    const [lessonLists, setLessonLists] = useState([]);
+    const [groupedLessons, setGroupedLessons] = useState({});
 
     useEffect(() => {
         const fetchLessons = async () => {
             try {
                 const response = await api.get('/lessons/all', { withCredentials: true });
-                setLessonLists(response.data);
+                const lessons = response.data;
+                
+                // Group lessons by topic
+                const grouped = lessons.reduce((acc, lesson) => {
+                    const topic = lesson.topic || 'Uncategorized';
+                    if (!acc[topic]) {
+                        acc[topic] = [];
+                    }
+                    acc[topic].push(lesson);
+                    return acc;
+                }, {});
+
+                setGroupedLessons(grouped);
             } catch (error) {
-                console.error(error);
-                // Optionally, handle the error in the UI here
+                console.error('Error fetching lessons:', error);
+                // Handle the error in the UI here
             }
         };
 
         fetchLessons();
-    }, []); // Empty dependency array means this effect runs once on mount
+    }, []);
 
     return (
         <div>
-            {lessonLists.map((lessonList) => (
-                <LessonList
-                    key={lessonList.id}
-                    id={lessonList.id}
-                    title={lessonList.title}
-                    description={lessonList.description}
-                />
+            {Object.entries(groupedLessons).map(([topic, lessons]) => (
+                <div key={topic}>
+                    <h2>{topic}</h2>
+                    {lessons.map((lesson) => (
+                        <LessonList
+                            key={lesson.id}
+                            id={lesson.id}
+                            title={lesson.title}
+                            topic={lesson.topic}
+                            description={lesson.description}
+                        />
+                    ))}
+                </div>
             ))}
         </div>
     );

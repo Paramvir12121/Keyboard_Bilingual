@@ -19,7 +19,7 @@ const LessonPage = () => {
         const response = await api.get(`/lessons/${id}`, { withCredentials: true });
         setLesson(response.data);
         setWords(response.data.words.split(","));
-        console.log(response.data.words.split(","), "words");
+        console.log(response.data, "data");
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -40,7 +40,6 @@ const LessonPage = () => {
       <h1>{lesson.title}</h1>
       <p>{lesson.description}</p>
       {/* Add more lesson content here */}
-      {/* <TypingTracker words={words} initialTime={initialTime}/> */}
       <TypingViewer words={words} lessonId={id}/>
     </div>
   );

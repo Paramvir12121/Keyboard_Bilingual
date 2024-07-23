@@ -7,6 +7,9 @@ def add_mock_data():
         # Home Row - Left Four Keys
         {
             "title": "Home Row Left Four Keys",
+            "topic": "Home Row",
+            "subtopic": "Left Side",
+            "keyboard_type": "colemak",
             "description": "Learn the basics of the home row left four keys.",
             "keys": "a s d f",
             "words": [
@@ -22,6 +25,9 @@ def add_mock_data():
         # Home Row - Right Four Keys
         {
             "title": "Home Row Right Four Keys",
+            "topic": "Home Row",
+            "subtopic": "Right Side",
+            "keyboard_type": "colemak",
             "description": "Learn the basics of the home row right four keys.",
             "keys": "j k l ;",
             "words": [
@@ -36,6 +42,9 @@ def add_mock_data():
         # Home Row - All Keys
         {
             "title": "Complete Home Row",
+            "topic": "Home Row",
+            "subtopic": "Complete",
+            "keyboard_type": "colemak",
             "description": "Master all keys on the home row.",
             "keys": "a s d f j k l ;",
             "words": [
@@ -54,8 +63,11 @@ def add_mock_data():
         # Top Row - Left Four Keys
         {
             "title": "Top Row Left Four Keys",
+            "topic": "Top Row",
+            "subtopic": "Left Side",
+            "keyboard_type": "colemak",
             "description": "Learn the basics of the top row left four keys.",
-            "keys": "q w e r",
+            "keys": "q w f p",
             "words": [
                 "we", "wear", "were", "rear", "queue", "war", "ear",
                 "raw", "war", "era", "rare", "ware", "erase", "wee",
@@ -69,12 +81,15 @@ def add_mock_data():
         # Top Row - Right Four Keys
         {
             "title": "Top Row Right Four Keys",
+            "topic": "Top Row",
+            "subtopic": "Right Side",
+            "keyboard_type": "colemak",
             "description": "Learn the basics of the top row right four keys.",
-            "keys": "u i o p",
+            "keys": "u g l y",
             "words": [
-                "up", "pop", "pot", "tip", "top", "pit", "out", "put",
-                "pup", "pip", "opt", "pit", "pout", "put", "pi", "it",
-                "to", "pi", "pot", "put", "up", "out", "pip", "tip"
+                "ugly", "gul", "gull", "lug", "guy", "gully", "lull",
+                "lullaby", "gully", "ugly", "gully", "lug", "guy",
+                "gull", "gul", "ugly", "lull", "gull", "gul", "gully"
             ],
             "difficulty": "easy",
             "created_at": datetime.utcnow(),
@@ -83,8 +98,11 @@ def add_mock_data():
         # Top Row - All Keys
         {
             "title": "Complete Top Row",
+            "topic": "Top Row",
+            "subtopic": "Complete",
+            "keyboard_type": "colemak",
             "description": "Master all keys on the top row.",
-            "keys": "q w e r u i o p",
+            "keys": "q w f p u g l y",
             "words": [
                 "quip", "quite", "quiet", "wiper", "write", "wrote", "route",
                 "writ", "wire", "router", "pout", "quote", "poutier", "query",
@@ -99,6 +117,9 @@ def add_mock_data():
         # Bottom Row - Left Four Keys
         {
             "title": "Bottom Row Left Four Keys",
+            "topic": "Bottom Row",
+            "subtopic": "Left Side",
+            "keyboard_type": "colemak",
             "description": "Learn the basics of the bottom row left four keys.",
             "keys": "z x c v",
             "words": [
@@ -113,6 +134,9 @@ def add_mock_data():
         # Bottom Row - Right Four Keys
         {
             "title": "Bottom Row Right Four Keys",
+            "topic": "Bottom Row",
+            "subtopic": "Right Side",
+            "keyboard_type": "colemak",
             "description": "Learn the basics of the bottom row right four keys.",
             "keys": "b n m ,",
             "words": [
@@ -127,6 +151,9 @@ def add_mock_data():
         # Bottom Row - All Keys
         {
             "title": "Complete Bottom Row",
+            "topic": "Bottom Row",
+            "subtopic": "Complete",
+            "keyboard_type": "colemak",
             "description": "Master all keys on the bottom row.",
             "keys": "z x c v b n m ,",
             "words": [
@@ -146,6 +173,9 @@ def add_mock_data():
     for lesson in mock_lessons:
         new_lesson = Lesson(
             title=lesson["title"],
+            topic=lesson["topic"],
+            subtopic=lesson["subtopic"],
+            keyboard_type=lesson["keyboard_type"],
             description=lesson["description"],
             keys=lesson["keys"],
             words=",".join(lesson["words"]),  # Join the list into a comma-separated string
