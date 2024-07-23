@@ -81,9 +81,11 @@ class Settings(Resource):
             settings = Setting(user_id=user_id)
             db.session.add(settings)
             db.session.commit()
+            settings = Setting.query.filter_by(user_id=user_id).first()
         return settings,200
     
     @settings_ns.marshal_with(setting_model)
+    @settings_ns.expect(setting_model)
     @login_required
     def post(self):
         session_token = request.cookies.get('session')
@@ -104,5 +106,5 @@ class Settings(Resource):
         for key, value in data.items():
             setattr(settings, key, value)
         db.session.commit()
-        return settings, 200
+        return {"message" :"Settings updated sucessfully"}, 200
 
