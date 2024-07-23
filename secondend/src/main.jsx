@@ -25,6 +25,7 @@ import ProtectedRoute from './auth/ProtectedRoutes';
 import LessonLists from './pages/Lessons/LessonLists';
 import LessonPage from './pages/Lessons/LessonPage';
 import TypingViewer from './components/typing/TypingViewer';
+import Settings from './pages/settings/Settings';
 
 
 import Test1 from './testComponents/Test1';
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
           { path: "/lesson/:id", element: <LessonPage />},
           //tests
           { path: '/test1', element: <Test1 />  },
-          {path: '/typing-viewer', element: <TypingViewer />},
+          {path: '/settings', element: <Settings />},
           // Add other protected routes here
         ],
         errorElement: <NotAuthorized />,
