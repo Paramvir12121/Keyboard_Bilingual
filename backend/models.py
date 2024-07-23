@@ -73,8 +73,37 @@ class Setting(db.Model):
     __tablename__ = 'settings'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    setting_name = db.Column(db.String(50), nullable=False)
-    setting_value = db.Column(db.String(200), nullable=False)
+    keyboard_layout = db.Column(db.String(50), default='colemak')
+    font_size = db.Column(db.String(50), default='medium')
+    
+    # Audio feedback
+    key_press_sound = db.Column(db.Boolean, default=True)
+    completion_sound = db.Column(db.Boolean, default=True)
+    error_sound = db.Column(db.Boolean, default=True)
+    background_music_enabled = db.Column(db.Boolean, default=True)
+    background_music_volume = db.Column(db.Float, default=0.5)
+    background_music_track = db.Column(db.String(200), default='')
+
+    # Feedback settings
+    show_success_rate = db.Column(db.Boolean, default=True)
+    show_average_time = db.Column(db.Boolean, default=True)
+    enable_error_heatmap = db.Column(db.Boolean, default=True)
+
+    # Advanced learning options
+    typing_speed_goal = db.Column(db.Integer, default=50)
+    accuracy_goal = db.Column(db.Integer, default=90)
+    custom_lessons = db.Column(db.PickleType, default=[])
+
+    # Account management
+    change_password = db.Column(db.String(200), default='')
+    manage_subscriptions = db.Column(db.String(200), default='')
+    delete_account = db.Column(db.String(200), default='')
+
+    # Notifications
+    email_notifications = db.Column(db.Boolean, default=True)
+    app_notifications = db.Column(db.Boolean, default=True)
+    reminders_enabled = db.Column(db.Boolean, default=True)
+    reminders_time = db.Column(db.String(50), default='18:00')
 
     user = db.relationship('User', backref='settings')
 
