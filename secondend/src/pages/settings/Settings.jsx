@@ -66,14 +66,11 @@ const Settings = () => {
         }
     };
 
-    const handleChange = (section, key, value) => {
+    const handleChange = (key, value) => {
         setSettings(prevSettings => {
             const updatedSettings = {
                 ...prevSettings,
-                [section]: {
-                    ...prevSettings[section],
-                    [key]: value
-                }
+                [key]: value
             };
             Cookies.set('settings', JSON.stringify(updatedSettings), { expires: 365 });
             return updatedSettings;
@@ -126,7 +123,7 @@ const Settings = () => {
                                 <Form.Control
                                     as="select"
                                     value={settings.keyboard_layout}
-                                    onChange={e => handleChange('keyboard_layout', 'keyboard_layout', e.target.value)}
+                                    onChange={e => handleChange('keyboard_layout', e.target.value)}
                                 >
                                     <option value="colemak">Colemak</option>
                                     <option value="qwerty">QWERTY</option>
@@ -140,7 +137,7 @@ const Settings = () => {
                                 <Form.Control
                                     as="select"
                                     value={settings.font_size}
-                                    onChange={e => handleChange('font_size', 'font_size', e.target.value)}
+                                    onChange={e => handleChange('font_size', e.target.value)}
                                 >
                                     <option value="small">Small</option>
                                     <option value="medium">Medium</option>

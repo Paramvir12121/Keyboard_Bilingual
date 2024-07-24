@@ -41,9 +41,7 @@ setting_model = settings_ns.model('Setting', {
     'custom_lessons': fields.List(fields.String, default=[]),
 
     # Account management
-    'change_password': fields.String(default=''),
-    'manage_subscriptions': fields.String(default=''),
-    'delete_account': fields.String(default=''),
+    
 
     # Notifications
     'email_notifications': fields.Boolean(default=True),
@@ -90,21 +88,20 @@ class Settings(Resource):
     def post(self):
         session_token = request.cookies.get('session')
         if not session_token:
-            return {"message":"Unauthorized"}, 401
+            return {"message": "Unauthorized"}, 401
+        
         user_id = session.get('user_id')
-        username = session.get('username')
-        email = session.get('email')
         if not user_id:
             return {"message": "Invalid session token. Not logged in."}, 401
+        
         data = request.get_json()
+        print("data: ",data)
         settings = Setting.query.filter_by(user_id=user_id).first()
 
-        # below code needs to be checked
         if not settings:
             settings = Setting(user_id=user_id)
             db.session.add(settings)
-        for key, value in data.items():
-            setattr(settings, key, value)
-        db.session.commit()
-        return {"message" :"Settings updated sucessfully"}, 200
+        settings.update(**data)
+        
+        return {"message": "Settings updated successfully"}, 200
 

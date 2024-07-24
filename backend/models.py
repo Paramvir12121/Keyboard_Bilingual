@@ -93,12 +93,6 @@ class Setting(db.Model):
     typing_speed_goal = db.Column(db.Integer, default=50)
     accuracy_goal = db.Column(db.Integer, default=90)
     custom_lessons = db.Column(db.PickleType, default=[])
-
-    # Account management
-    change_password = db.Column(db.String(200), default='')
-    manage_subscriptions = db.Column(db.String(200), default='')
-    delete_account = db.Column(db.String(200), default='')
-
     # Notifications
     email_notifications = db.Column(db.Boolean, default=True)
     app_notifications = db.Column(db.Boolean, default=True)
@@ -106,6 +100,37 @@ class Setting(db.Model):
     reminders_time = db.Column(db.String(50), default='18:00')
 
     user = db.relationship('User', backref='settings')
+
+    def __repr__(self):
+        return f"<Settings {self.id} >"    
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    def update(self,id,user_id,keyboard_layout, font_size, key_press_sound, completion_sound, error_sound, background_music_enabled, background_music_volume, background_music_track, show_success_rate, show_average_time, enable_error_heatmap, typing_speed_goal, accuracy_goal, custom_lessons, email_notifications, app_notifications, reminders_enabled, reminders_time):
+        self.keyboard_layout = keyboard_layout
+        self.font_size = font_size
+        self.key_press_sound = key_press_sound
+        self.completion_sound = completion_sound
+        self.error_sound = error_sound
+        self.background_music_enabled = background_music_enabled
+        self.background_music_volume = background_music_volume
+        self.background_music_track = background_music_track
+        self.show_success_rate = show_success_rate
+        self.show_average_time = show_average_time
+        self.enable_error_heatmap = enable_error_heatmap
+        self.typing_speed_goal = typing_speed_goal
+        self.accuracy_goal = accuracy_goal
+        self.custom_lessons = custom_lessons
+        self.email_notifications = email_notifications
+        self.app_notifications = app_notifications
+        self.reminders_enabled = reminders_enabled
+        self.reminders_time = reminders_time
+        
+
+    #     db.session.commit()
+
 
 class Payment(db.Model):
     __tablename__ = 'payments'
