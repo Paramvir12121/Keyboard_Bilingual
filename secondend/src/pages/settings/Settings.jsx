@@ -2,32 +2,47 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import baseApi from '../../hooks/baseApi';
 import Cookies from 'js-cookie';
+import KeyPressSounds from '../../assets/sounds/KeyPressSounds';
 
 const Settings = () => {
     const api = baseApi();
-    const defaultSettings = () => ({
+    const defaultSettings = {
         keyboard_layout: 'colemak',
         font_size: 'medium',
-        key_press_sound: true,
-        completion_sound: true,
-        error_sound: true,
-        background_music_enabled: true,
-        background_music_volume: 0.5,
-        background_music_track: '',
-        show_success_rate: true,
-        show_average_time: true,
-        enable_error_heatmap: true,
-        typing_speed_goal: 50,
-        accuracy_goal: 90,
-        custom_lessons: [],
-        change_password: '',
-        manage_subscriptions: '',
-        delete_account: '',
-        email_notifications: true,
-        app_notifications: true,
-        reminders_enabled: true,
-        reminders_time: '18:00',
-      });
+        audio_feedback: {
+            key_press_sound: true,
+            completion_sound: true,
+            error_sound: true,
+            background_music: {
+                enabled: true,
+                volume: 0.5,
+                track: ''
+            }
+        },
+        feedback_settings: {
+            show_success_rate: true,
+            show_average_time: true,
+            enable_error_heatmap: true
+        },
+        advanced_learning_options: {
+            typing_speed_goal: 50,
+            accuracy_goal: 90,
+            custom_lessons: []
+        },
+        account_management: {
+            change_password: '',
+            manage_subscriptions: '',
+            delete_account: ''
+        },
+        notifications: {
+            email_notifications: true,
+            app_notifications: true,
+            reminders: {
+                enabled: true,
+                time: '18:00'
+            }
+        }
+    };
 
     const [settings, setSettings] = useState(() => {
         const savedSettings = Cookies.get('settings');
@@ -42,7 +57,7 @@ const Settings = () => {
 
     const fetchSettings = async () => {
         try {
-            const response = api.get('/settings', {ce});
+            const response = await api.get('/settings');
             setSettings(response.data);
             Cookies.set('settings', JSON.stringify(response.data), { expires: 365 });
         } catch (error) {
@@ -84,7 +99,7 @@ const Settings = () => {
 
     const saveSettings = async () => {
         try {
-            await axios.post('http://localhost:5000/api/settings', settings);
+            await api.post('/settings', settings);
             setSaveStatus({ type: 'success', message: 'Settings saved successfully!' });
         } catch (error) {
             console.error('Error saving settings:', error);

@@ -57,7 +57,7 @@ const router = createBrowserRouter([
           {path: '/settings', element: <Settings />},
           // Add other protected routes here
         ],
-        errorElement: <NotAuthorized />,
+        errorElement: <NotFoundPage />,
       },
       // Define other paths as needed
     ],
