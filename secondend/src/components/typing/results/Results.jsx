@@ -1,10 +1,43 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import baseApi from '../../../hooks/baseApi';
 
-const Results = ({ wpm, accuracy, errorCount, totalCharacters, elapsedTime, wrongKeysPressedCount }) => {
+const Results =  ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapsedTime, wrongKeysPressedCount }) => {
+    const api = baseApi();
+    console.log("wrongKeysPressedCount", wrongKeysPressedCount);
+
+    useEffect(() => {
+        const sendUserLessonData = async () => {
+            const completedAt = new Date().toISOString();
+            const userLessonData = {
+                completed: true, // Assuming the lesson is completed if results are being shown
+                score: wpm, // Using WPM as the score
+                completion_time: elapsedTime, // Time taken to complete the lesson
+                accuracy: accuracy, // Accuracy percentage
+                attempts: 1, // Assuming this is the first attempt for simplicity
+                errors: errorCount, // Total errors made
+                completed_at: completedAt, // Timestamp of completion
+                error_keys: wrongKeysPressedCount // Assuming wrongKeysPressedCount is an array of wrong keys
+            };
+
+            try {
+                const response = await api.post(`/lessons/user_lesson/${lessonId}`, { withCredentials: true }, userLessonData);
+                console.log(response.data.message);
+            } catch (error) {
+                console.error('Error creating user lesson:', error);
+            }
+        };
+
+        sendUserLessonData();
+    }, [api, lessonId, wpm, accuracy, errorCount, totalCharacters, elapsedTime, wrongKeysPressedCount]);
+
+
+
+
   return (
     <Container>
+      LessonId: {lessonId}
       <Row className="mb-4">
         <Col>
           <h2>Typing Test Results</h2>

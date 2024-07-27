@@ -132,7 +132,7 @@ const TypingViewer = ({words, lessonId}) => {
       {timerRef.current && <p>Time Elapsed: {elapsedTime} seconds</p>}
 
       {lessonEnded ? 
-        <Results {...calculateStats()} /> 
+        <Results {...calculateStats()} lessonId={lessonId} /> 
         : 
         <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />
       }

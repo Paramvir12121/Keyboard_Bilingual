@@ -138,16 +138,20 @@ class LessonDetail(Resource):
 @lessons_ns.route('/user_lesson/<int:lesson_id>')
 class UserLessonCreate(Resource):
     @lessons_ns.expect(lesson_completion_model)
-    @login_required
-    @handle_errors
+    @cognito_auth_required
     def post(self, lesson_id):
         """Create a new user lesson"""
-        cognito_username= current_cognito_jwt['username']
-        print("cognito_username: ", cognito_username)
+        cognito_username = current_cognito_jwt['username']
         data = request.get_json()
+
         completed = data.get('completed', False)
         score = data.get('score', 0)
+        completion_time = data.get('completion_time', 0.0)
+        accuracy = data.get('accuracy', 0.0)
+        attempts = data.get('attempts', 0)
+        errors = data.get('errors', 0)
         completed_at = data.get('completed_at', datetime.utcnow())
+        error_keys = data.get('error_keys', '')
 
         lesson = Lesson.query.get_or_404(lesson_id)
 
@@ -156,7 +160,12 @@ class UserLessonCreate(Resource):
             lesson_id=lesson.id,
             completed=completed,
             score=score,
-            completed_at=completed_at
+            completion_time=completion_time,
+            accuracy=accuracy,
+            attempts=attempts,
+            errors=errors,
+            completed_at=completed_at,
+            error_keys=error_keys
         )
         db.session.add(user_lesson)
         db.session.commit()

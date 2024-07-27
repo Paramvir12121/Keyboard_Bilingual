@@ -58,6 +58,7 @@ class UserLesson(db.Model):
     attempts = db.Column(db.Integer, default=0)  # Number of attempts
     errors = db.Column(db.Integer, default=0)  # Number of errors
     completed_at = db.Column(db.DateTime)
+    error_keys = db.Column(db.String(200))  # Keys with errors
 
     user = db.relationship('User', backref='user_lessons')
     lesson = db.relationship('Lesson', backref='user_lessons')
@@ -144,6 +145,8 @@ class Payment(db.Model):
 
     def __repr__(self):
         return f"<Lesson {self.title} >"
+    
+
 
 
 
