@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
-const Results = ({ wpm, accuracy, errorCount, totalCharacters, elapsedTime }) => {
+const Results = ({ wpm, accuracy, errorCount, totalCharacters, elapsedTime, wrongKeysPressedCount }) => {
   return (
     <Container>
       <Row className="mb-4">
@@ -50,6 +50,22 @@ const Results = ({ wpm, accuracy, errorCount, totalCharacters, elapsedTime }) =>
             <Card.Body>
               <Card.Title>Time Elapsed</Card.Title>
               <Card.Text className="display-4">{elapsedTime} seconds</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Card>
+            <Card.Body>
+              <Card.Title>Wrong Keys Pressed</Card.Title>
+              <Card.Text>
+                {Object.entries(wrongKeysPressedCount).map(([key, count]) => (
+                  <div key={key}>
+                    {key}: {count}
+                  </div>
+                ))}
+              </Card.Text>
             </Card.Body>
           </Card>
         </Col>

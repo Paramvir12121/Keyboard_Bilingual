@@ -18,6 +18,7 @@ const TypingViewer = ({words, lessonId}) => {
   const [lessonEnded, setLessonEnded] = useState(false);
   const [startTime, setStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [wrongKeysPressedCount, setWrongKeysPressedCount] = useState({});
 
   const timerRef = useRef(null);
 
@@ -81,6 +82,10 @@ const TypingViewer = ({words, lessonId}) => {
       } else {
         setIsWrongKey(true);
         setErrorCount(prev => prev + 1);
+        setWrongKeysPressedCount(prev => ({
+          ...prev,
+          [displayText[cursorIndex]]: (prev[displayText[cursorIndex]] || 0) + 1
+        }));
       }
     }
     window.addEventListener('keydown', handleKeyDown);
@@ -99,7 +104,8 @@ const TypingViewer = ({words, lessonId}) => {
       accuracy,
       errorCount,
       totalCharacters,
-      elapsedTime
+      elapsedTime,
+      wrongKeysPressedCount
     };
   };
 

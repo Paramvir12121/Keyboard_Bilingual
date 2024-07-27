@@ -23,6 +23,7 @@ import ResetPasswordConfirm from './auth/resetPassword/ResetPasswordConfirm';
 import Checkout from './pages/stripe/Checkout';
 import ProtectedRoute from './auth/ProtectedRoutes';
 import LessonLists from './pages/lessons/LessonLists';
+
 import LessonPage from './pages/lessons/LessonPage';
 import TypingViewer from './components/typing/TypingViewer';
 import Settings from './pages/settings/Settings';
