@@ -93,12 +93,12 @@ const Results =  ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapse
             <Card.Body>
               <Card.Title>Wrong Keys Pressed</Card.Title>
               <Card.Text>
-                {Object.entries(wrongKeysPressedCount).map(([key, count]) => (
+              {Object.entries(wrongKeysPressedCount).map(([key, count]) => (
                   <div key={key}>
-                    {key}: {count}
+                      {key}: {count}
                   </div>
-                ))}
-              </Card.Text>
+              ))}
+          </Card.Text>
             </Card.Body>
           </Card>
         </Col>
