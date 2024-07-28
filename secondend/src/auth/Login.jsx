@@ -46,7 +46,8 @@ const Login = () => {
 
     return (
           <>
-                 Login
+                 <h2>Login</h2>
+                 
             <div className="row mb-3 text-center">
             <div className="col-4"></div>
             <Form className="col-4" onSubmit={handleSubmit}>
@@ -54,6 +55,7 @@ const Login = () => {
                     
                     <Form.Control placeholder="Username" type="text" value={username} autoComplete="username" onChange={(e) => setUsername(e.target.value)} />
                 </Form.Group>
+                <br/>
                 <Form.Group controlId="password">
                     
                     <Form.Control placeholder="Enter Your Password" type="password" value={password} autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} />
