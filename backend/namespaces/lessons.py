@@ -158,6 +158,8 @@ class UserLessonCreate(Resource):
         error_keys = data.get('error_keys', '')
 
         user_id = session.get('user_id')
+
+        error_keys_str = ','.join([f"{key}:{value}" for key, value in error_keys.items()])
        
         
 
@@ -170,7 +172,7 @@ class UserLessonCreate(Resource):
             accuracy=accuracy,
             attempts=attempts,
             errors=errors,
-            error_keys=error_keys
+            error_keys=error_keys_str
         )
         db.session.add(user_lesson)
         db.session.commit()
