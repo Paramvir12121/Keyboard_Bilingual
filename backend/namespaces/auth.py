@@ -93,6 +93,7 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         print("User checked")
         print("user_id: ",session.get('user_id'))
+        print("username: ",session.get('username'))
         if 'user_id' not in session:
             print("User Unauthorized")
             return {"message": "Unauthorized"}, 401

@@ -38,13 +38,15 @@ lesson_model = lessons_ns.model('Lesson', {
 })
 
 lesson_completion_model = lessons_ns.model('LessonCompletion', {
-    'lesson_id': fields.Integer(required=True, description='The lesson ID'),
-    'score': fields.Integer(required=True, description='The score'),
-    'completion_time': fields.Float(required=True, description='Time taken to complete the lesson'),
-    'accuracy': fields.Float(required=True, description='Accuracy percentage'),
-    'attempts': fields.Integer(required=True, description='Number of attempts'),
-    'errors': fields.Integer(required=True, description='Number of errors')
+    'completed': fields.Boolean(required=True),
+    'score': fields.Integer(required=True),
+    'completion_time': fields.Float(required=True),
+    'accuracy': fields.Float(required=True),
+    'attempts': fields.Integer(required=True),
+    'errors': fields.Integer(required=True),
+    'error_keys': fields.Raw(required=True)  # Assuming error_keys is a dictionary
 })
+
 
 ########################### Functions ################################
 
@@ -153,7 +155,6 @@ class UserLessonCreate(Resource):
         accuracy = data.get('accuracy', 0.0)
         attempts = data.get('attempts', 0)
         errors = data.get('errors', 0)
-        completed_at = data.get('completed_at', datetime.utcnow())
         error_keys = data.get('error_keys', '')
 
         user_id = session.get('user_id')
@@ -169,7 +170,6 @@ class UserLessonCreate(Resource):
             accuracy=accuracy,
             attempts=attempts,
             errors=errors,
-            completed_at=completed_at,
             error_keys=error_keys
         )
         db.session.add(user_lesson)

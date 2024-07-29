@@ -57,7 +57,7 @@ class UserLesson(db.Model):
     accuracy = db.Column(db.Float)  # Accuracy percentage (e.g., 0.95 for 95%)
     attempts = db.Column(db.Integer, default=0)  # Number of attempts
     errors = db.Column(db.Integer, default=0)  # Number of errors
-    completed_at = db.Column(db.DateTime)
+    completed_at = db.Column(db.DateTime,default=datetime.utcnow)  # Date and time of completion
     error_keys = db.Column(db.String(200))  # Keys with errors
 
     user = db.relationship('User', backref='user_lessons')

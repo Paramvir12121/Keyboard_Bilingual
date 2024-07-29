@@ -9,7 +9,6 @@ const Results =  ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapse
 
     useEffect(() => {
         const sendUserLessonData = async () => {
-            const completedAt = new Date().toISOString();
             const userLessonData = {
                 completed: true, // Assuming the lesson is completed if results are being shown
                 score: wpm, // Using WPM as the score
@@ -17,12 +16,11 @@ const Results =  ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapse
                 accuracy: accuracy, // Accuracy percentage
                 attempts: 1, // Assuming this is the first attempt for simplicity
                 errors: errorCount, // Total errors made
-                completed_at: completedAt, // Timestamp of completion
                 error_keys: wrongKeysPressedCount // Assuming wrongKeysPressedCount is an array of wrong keys
             };
 
             try {
-                const response = await api.post(`/lessons/user_lesson/${lessonId}`, { withCredentials: true }, userLessonData);
+                const response = await api.post(`/lessons/user_lesson/${lessonId}`, userLessonData,{ withCredentials: true });
                 console.log(response.data.message);
             } catch (error) {
                 console.error('Error creating user lesson:', error);
