@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import baseApi from '../../hooks/baseApi';
 import Cookies from 'js-cookie';
+import useFetchSettings from '../../hooks/useFetchSettings';
 
 const Settings = () => {
     const api = baseApi();
+    const { fetchSettings } = useFetchSettings();
     const defaultSettings = {
         keyboard_layout: 'colemak',
         font_size: 'medium',
@@ -37,33 +39,29 @@ const Settings = () => {
             }
         }
     };
+    const [saveStatus, setSaveStatus] = useState(null);
+    
 
     const [settings, setSettings] = useState(() => {
-        if (Cookies.get('settings')){
-            const savedSettings = Cookies.get('settings');
-            return savedSettings ? JSON.parse(savedSettings) : defaultSettings;
+        if (!Cookies.get('settings')) {
+            fetchSettings();  
         }
-        else {
-            return defaultSettings;
-        }
+        return JSON.parse(Cookies.get('settings'));
     });
 
-    const [saveStatus, setSaveStatus] = useState(null);
+    
 
-    useEffect(() => {
-        fetchSettings();
-    }, []);
-
-    const fetchSettings = async () => {
-        try {
-            const response = api.get('/settings/all', { withCredentials: true });
-            setSettings(response.data);
-            Cookies.set('settings', JSON.stringify(response.data), { expires: 365 });
-        } catch (error) {
-            console.error('Error fetching settings:', error);
-            setSaveStatus({ type: 'danger', message: 'Error fetching settings. Please try again.' });
-        }
-    };
+    // const fetchSettings = async () => {
+    //     try {
+    //         const response = api.get('/settings/all', { withCredentials: true });
+    //         setSettings(response.data);
+    //         Cookies.set('settings', JSON.stringify(response.data), { expires: 365 });
+    //     } catch (error) {
+    //         console.error('Error fetching settings:', error);
+    //         setSaveStatus({ type: 'danger', message: 'Error fetching settings. Please try again.' });
+    //         // Cookies.set('settings', JSON.stringify(defaultSettings), { expires: 365 });
+    //     }
+    // };
 
     const handleChange = (key, value) => {
         setSettings(prevSettings => {
