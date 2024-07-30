@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import baseApi from '../../hooks/baseApi';
 import Cookies from 'js-cookie';
-import KeyPressSounds from '../../assets/sounds/KeyPressSounds';
 
 const Settings = () => {
     const api = baseApi();
@@ -77,16 +76,13 @@ const Settings = () => {
         });
     };
 
-    const handleNestedChange = (section, key, nestedKey, value) => {
+    const handleNestedChange = (section, key, value) => {
         setSettings(prevSettings => {
             const updatedSettings = {
                 ...prevSettings,
                 [section]: {
                     ...prevSettings[section],
-                    [key]: {
-                        ...prevSettings[section][key],
-                        [nestedKey]: value
-                    }
+                    [key]: value
                 }
             };
             Cookies.set('settings', JSON.stringify(updatedSettings), { expires: 365 });
@@ -158,7 +154,7 @@ const Settings = () => {
                                 <Form.Check
                                     type="switch"
                                     checked={settings.audio_feedback.key_press_sound}
-                                    onChange={e => handleNestedChange('audio_feedback', 'key_press_sound', 'enabled', e.target.checked)}
+                                    onChange={e => handleNestedChange('audio_feedback', 'key_press_sound', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -168,7 +164,7 @@ const Settings = () => {
                                 <Form.Check
                                     type="switch"
                                     checked={settings.audio_feedback.completion_sound}
-                                    onChange={e => handleNestedChange('audio_feedback', 'completion_sound', 'enabled', e.target.checked)}
+                                    onChange={e => handleNestedChange('audio_feedback', 'completion_sound', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -178,7 +174,7 @@ const Settings = () => {
                                 <Form.Check
                                     type="switch"
                                     checked={settings.audio_feedback.error_sound}
-                                    onChange={e => handleNestedChange('audio_feedback', 'error_sound', 'enabled', e.target.checked)}
+                                    onChange={e => handleNestedChange('audio_feedback', 'error_sound', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -214,7 +210,7 @@ const Settings = () => {
                                 <Form.Check
                                     type="switch"
                                     checked={settings.feedback_settings.show_success_rate}
-                                    onChange={e => handleNestedChange('feedback_settings', 'show_success_rate', 'enabled', e.target.checked)}
+                                    onChange={e => handleNestedChange('feedback_settings', 'show_success_rate', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -224,7 +220,7 @@ const Settings = () => {
                                 <Form.Check
                                     type="switch"
                                     checked={settings.feedback_settings.show_average_time}
-                                    onChange={e => handleNestedChange('feedback_settings', 'show_average_time', 'enabled', e.target.checked)}
+                                    onChange={e => handleNestedChange('feedback_settings', 'show_average_time', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -234,7 +230,7 @@ const Settings = () => {
                                 <Form.Check
                                     type="switch"
                                     checked={settings.feedback_settings.enable_error_heatmap}
-                                    onChange={e => handleNestedChange('feedback_settings', 'enable_error_heatmap', 'enabled', e.target.checked)}
+                                    onChange={e => handleNestedChange('feedback_settings', 'enable_error_heatmap', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -251,7 +247,7 @@ const Settings = () => {
                                 <Form.Control
                                     type="number"
                                     value={settings.advanced_learning_options.typing_speed_goal}
-                                    onChange={e => handleNestedChange('advanced_learning_options', 'typing_speed_goal', 'value', e.target.value)}
+                                    onChange={e => handleNestedChange('advanced_learning_options', 'typing_speed_goal', e.target.value)}
                                 />
                             </Col>
                         </Form.Group>
@@ -261,7 +257,7 @@ const Settings = () => {
                                 <Form.Control
                                     type="number"
                                     value={settings.advanced_learning_options.accuracy_goal}
-                                    onChange={e => handleNestedChange('advanced_learning_options', 'accuracy_goal', 'value', e.target.value)}
+                                    onChange={e => handleNestedChange('advanced_learning_options', 'accuracy_goal', e.target.value)}
                                 />
                             </Col>
                         </Form.Group>
@@ -272,13 +268,17 @@ const Settings = () => {
                 <Card className="mb-4">
                     <Card.Header>Account Management</Card.Header>
                     <Card.Body>
-                        <Form.Group as={Row} className="mb-3">
+                        <Col sm={9}>
+                            Change pasword Here
+                        </Col>
+
+                        {/* <Form.Group as={Row} className="mb-3">
                             <Form.Label column sm={3}>Change Password</Form.Label>
                             <Col sm={9}>
                                 <Form.Control
                                     type="password"
                                     value={settings.account_management.change_password}
-                                    onChange={e => handleNestedChange('account_management', 'change_password', 'value', e.target.value)}
+                                    onChange={e => handleNestedChange('account_management', 'change_password', e.target.value)}
                                 />
                             </Col>
                         </Form.Group>
@@ -288,7 +288,7 @@ const Settings = () => {
                                 <Form.Control
                                     type="text"
                                     value={settings.account_management.manage_subscriptions}
-                                    onChange={e => handleNestedChange('account_management', 'manage_subscriptions', 'value', e.target.value)}
+                                    onChange={e => handleNestedChange('account_management', 'manage_subscriptions', e.target.value)}
                                 />
                             </Col>
                         </Form.Group>
@@ -298,10 +298,10 @@ const Settings = () => {
                                 <Form.Control
                                     type="text"
                                     value={settings.account_management.delete_account}
-                                    onChange={e => handleNestedChange('account_management', 'delete_account', 'value', e.target.value)}
+                                    onChange={e => handleNestedChange('account_management', 'delete_account', e.target.value)}
                                 />
                             </Col>
-                        </Form.Group>
+                        </Form.Group> */}
                     </Card.Body>
                 </Card>
 
@@ -315,7 +315,7 @@ const Settings = () => {
                                 <Form.Check
                                     type="switch"
                                     checked={settings.notifications.email_notifications}
-                                    onChange={e => handleNestedChange('notifications', 'email_notifications', 'enabled', e.target.checked)}
+                                    onChange={e => handleNestedChange('notifications', 'email_notifications', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -325,7 +325,7 @@ const Settings = () => {
                                 <Form.Check
                                     type="switch"
                                     checked={settings.notifications.app_notifications}
-                                    onChange={e => handleNestedChange('notifications', 'app_notifications', 'enabled', e.target.checked)}
+                                    onChange={e => handleNestedChange('notifications', 'app_notifications', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>

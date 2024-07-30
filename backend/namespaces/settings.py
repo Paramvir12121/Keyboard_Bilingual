@@ -41,7 +41,7 @@ setting_model = settings_ns.model('Setting', {
     'custom_lessons': fields.List(fields.String, default=[]),
 
     # Account management
-    
+    # None for now- add change password, delete account, etc.
 
     # Notifications
     'email_notifications': fields.Boolean(default=True),
