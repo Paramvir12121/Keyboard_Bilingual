@@ -58,7 +58,7 @@ setting_model = settings_ns.model('Setting', {
 
 ############### Routes ################
 
-@settings_ns.route('/')
+@settings_ns.route('/all')
 class Settings(Resource):
     @settings_ns.marshal_with(setting_model)
     @login_required

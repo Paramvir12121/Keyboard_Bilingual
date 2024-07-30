@@ -28,11 +28,6 @@ const Settings = () => {
             accuracy_goal: 90,
             custom_lessons: []
         },
-        account_management: {
-            change_password: '',
-            manage_subscriptions: '',
-            delete_account: ''
-        },
         notifications: {
             email_notifications: true,
             app_notifications: true,
@@ -44,8 +39,13 @@ const Settings = () => {
     };
 
     const [settings, setSettings] = useState(() => {
-        const savedSettings = Cookies.get('settings');
-        return savedSettings ? JSON.parse(savedSettings) : defaultSettings;
+        if (Cookies.get('settings')){
+            const savedSettings = Cookies.get('settings');
+            return savedSettings ? JSON.parse(savedSettings) : defaultSettings;
+        }
+        else {
+            return defaultSettings;
+        }
     });
 
     const [saveStatus, setSaveStatus] = useState(null);
@@ -56,7 +56,7 @@ const Settings = () => {
 
     const fetchSettings = async () => {
         try {
-            const response = await api.get('/settings');
+            const response = api.get('/settings/all', { withCredentials: true });
             setSettings(response.data);
             Cookies.set('settings', JSON.stringify(response.data), { expires: 365 });
         } catch (error) {
@@ -92,7 +92,7 @@ const Settings = () => {
 
     const saveSettings = async () => {
         try {
-            await api.post('/settings', settings);
+            api.post('/settings/all', settings, { withCredentials: true });
             setSaveStatus({ type: 'success', message: 'Settings saved successfully!' });
         } catch (error) {
             console.error('Error saving settings:', error);
@@ -269,39 +269,8 @@ const Settings = () => {
                     <Card.Header>Account Management</Card.Header>
                     <Card.Body>
                         <Col sm={9}>
-                            Change pasword Here
+                            Change password Here
                         </Col>
-
-                        {/* <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={3}>Change Password</Form.Label>
-                            <Col sm={9}>
-                                <Form.Control
-                                    type="password"
-                                    value={settings.account_management.change_password}
-                                    onChange={e => handleNestedChange('account_management', 'change_password', e.target.value)}
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={3}>Manage Subscriptions</Form.Label>
-                            <Col sm={9}>
-                                <Form.Control
-                                    type="text"
-                                    value={settings.account_management.manage_subscriptions}
-                                    onChange={e => handleNestedChange('account_management', 'manage_subscriptions', e.target.value)}
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={3}>Delete Account</Form.Label>
-                            <Col sm={9}>
-                                <Form.Control
-                                    type="text"
-                                    value={settings.account_management.delete_account}
-                                    onChange={e => handleNestedChange('account_management', 'delete_account', e.target.value)}
-                                />
-                            </Col>
-                        </Form.Group> */}
                     </Card.Body>
                 </Card>
 

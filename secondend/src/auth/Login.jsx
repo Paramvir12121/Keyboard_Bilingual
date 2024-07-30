@@ -8,7 +8,8 @@ import {Context} from "../App";
 import SucessMessage from "../components/common/SuccessMessage";
 import Card from "react-bootstrap/Card";
 import Form from 'react-bootstrap/Form';
-// import Cookies from 'js-cookie'
+import useFetchSettings from "../hooks/useFetchSettings";
+import Cookies from 'js-cookie'
 import {Link} from 'react-router-dom';
 
 
@@ -19,6 +20,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const [message, setMessage] = useState(null);
+    const {fetchSettings} = useFetchSettings();
+    
 
     const navigate = useNavigate();
 
@@ -33,6 +36,8 @@ const Login = () => {
                 setMessage('Login successful');
                 setSignedIn(true);
                 
+                
+                await fetchSettings();
                 document.cookie = `signedIn=true`;
                 document.cookie = `username=${response.data.username}`;
                 document.cookie = `email=${response.data.email}`;
