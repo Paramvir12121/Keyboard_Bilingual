@@ -7,9 +7,9 @@ const Results = ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapsed
 
     const api = baseApi();
     console.log("wrongKeysPressedCount", wrongKeysPressedCount);
-
+    let isMounted = true;
     useEffect(() => {
-        let isMounted = true;
+        
 
         const sendUserLessonData = async () => {
             const userLessonData = {
@@ -32,6 +32,7 @@ const Results = ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapsed
                     console.error('Error creating user lesson:', error);
                     setError(error);
                 }
+                Console.log("error", error);
             }
         };
 

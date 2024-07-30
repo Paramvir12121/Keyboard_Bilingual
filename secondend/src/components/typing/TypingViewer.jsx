@@ -4,7 +4,7 @@ import './TypingTracker.css';
 import { qwertyToColemak } from '../keyboard/Layouts';
 import TextDisplay from './display/TextDisplay';
 import Results from './results/Results';
-import handleLessonCompletion from './handleLessonCompletion/handleLessonCompletion';
+// import handleLessonCompletion from './handleLessonCompletion/handleLessonCompletion';
 import {Link} from 'react-router-dom';
 
 const TypingViewer = ({words, lessonId}) => {
@@ -92,7 +92,7 @@ const TypingViewer = ({words, lessonId}) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [cursorIndex, displayText, generateNewText, isColemak, startTime]);
+  }, [cursorIndex, displayText, isColemak, startTime]);
 
   const calculateStats = () => {
     const totalCharacters = keysTyped;
@@ -109,21 +109,21 @@ const TypingViewer = ({words, lessonId}) => {
     };
   };
 
-  useEffect(() => {
-    if (lessonEnded) {
-      const stats = calculateStats();
-      const completeLessonAsync = async () => {
-        try {
-          const result = await handleLessonCompletion(lessonId, Math.round(stats.wpm));
-          console.log('Lesson completion result:', result);
-        } catch (error) {
-          console.error('Error completing lesson:', error);
-          setCompletionError('Failed to submit lesson completion. Please try again.');
-        }
-      };
-      completeLessonAsync();
-    }
-  }, [lessonEnded, lessonId]);
+  // useEffect(() => {
+  //   if (lessonEnded) {
+  //     const stats = calculateStats();
+  //     const completeLessonAsync = async () => {
+  //       try {
+  //         const result = await handleLessonCompletion(lessonId, Math.round(stats.wpm));
+  //         console.log('Lesson completion result:', result);
+  //       } catch (error) {
+  //         console.error('Error completing lesson:', error);
+  //         setCompletionError('Failed to submit lesson completion. Please try again.');
+  //       }
+  //     };
+  //     completeLessonAsync();
+  //   }
+  // }, [lessonEnded, lessonId]);
 
   return (
     <>

@@ -9,7 +9,6 @@ from datetime import datetime
 from werkzeug.exceptions import HTTPException, NotFound, Unauthorized, Forbidden, BadRequest, InternalServerError
 from namespaces.auth import login_required
 
-
 lessons_ns = Namespace('lessons', description='Lessons API namespace.')
 
 ########################## MODELS ############################
