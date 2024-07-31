@@ -85,7 +85,7 @@ class Settings(Resource):
     @settings_ns.marshal_with(setting_model)
     @settings_ns.expect(setting_model)
     @login_required
-    def post(self):
+    def put(self):
         session_token = request.cookies.get('session')
         if not session_token:
             return {"message": "Unauthorized"}, 401
@@ -95,13 +95,22 @@ class Settings(Resource):
             return {"message": "Invalid session token. Not logged in."}, 401
         
         data = request.get_json()
-        print("data: ",data)
+        print("data: ", data)
         settings = Setting.query.filter_by(user_id=user_id).first()
 
         if not settings:
             settings = Setting(user_id=user_id)
             db.session.add(settings)
-        settings.update(**data)
+        else:
+            # Manually update each field
+            for key, value in data.items():
+                if isinstance(value, dict):
+                    # Handle nested dictionary values
+                    for nested_key, nested_value in value.items():
+                        setattr(settings, f"{key}_{nested_key}", nested_value)
+                else:
+                    setattr(settings, key, value)
         
+        db.session.commit()
         return {"message": "Settings updated successfully"}, 200
 

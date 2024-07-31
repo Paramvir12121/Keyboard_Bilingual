@@ -39,6 +39,8 @@ const Settings = () => {
             }
         }
     };
+    fetchSettings();
+    
     const [saveStatus, setSaveStatus] = useState(null);
     
 

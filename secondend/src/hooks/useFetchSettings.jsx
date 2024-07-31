@@ -8,9 +8,9 @@ const useFetchSettings = () => {
     const [isLoading, setIsLoading] = useState(true);
     const api = baseApi();
 
-    const fetchSettings = useCallback(async () => {
+    const fetchSettings = async () => {
         try {
-            const response = api.get('/settings/all', { withCredentials: 'true' });
+            const response = api.get('/settings/all', { withCredentials: true });
             setSettings(response.data);
             Cookies.set('settings', JSON.stringify(response.data), { expires: 365 });
         } catch (err) {
@@ -19,7 +19,7 @@ const useFetchSettings = () => {
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    };
 
     useEffect(() => {
         fetchSettings();
