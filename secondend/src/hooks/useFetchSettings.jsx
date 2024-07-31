@@ -14,6 +14,7 @@ const useFetchSettings = () => {
           if(response.status === 200) {
             console.log('Settings fetched successfully:', response.data);
             Cookies.set('settings', JSON.stringify(response.data), { expires: 365 });
+            return response.data;
           }
         } catch (err) {
           console.error('Error fetching settings:', err);
@@ -23,6 +24,8 @@ const useFetchSettings = () => {
     const updateSettings = async (settings) => {
         try {
           const response = await api.put('/settings/all', settings, { withCredentials: true });
+          //update settings in cookies
+          Cookies.set('settings', JSON.stringify(settings), { expires: 365 });
           if(response.status === 200) {
             console.log('Settings updated successfully:', response.data);
           }
