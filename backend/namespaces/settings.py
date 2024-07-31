@@ -104,12 +104,7 @@ class Settings(Resource):
         else:
             # Manually update each field
             for key, value in data.items():
-                if isinstance(value, dict):
-                    # Handle nested dictionary values
-                    for nested_key, nested_value in value.items():
-                        setattr(settings, f"{key}_{nested_key}", nested_value)
-                else:
-                    setattr(settings, key, value)
+                setattr(settings, key, value)
         
         db.session.commit()
         return {"message": "Settings updated successfully"}, 200

@@ -1,69 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
-import baseApi from '../../hooks/baseApi';
 import Cookies from 'js-cookie';
 import useFetchSettings from '../../hooks/useFetchSettings';
 
 const Settings = () => {
-    const api = baseApi();
-    const { fetchSettings } = useFetchSettings();
+    const { fetchSettings, updateSettings } = useFetchSettings();
     const defaultSettings = {
-        keyboard_layout: 'colemak',
+        keyboard_layout: 'COLEMAK',
         font_size: 'medium',
-        audio_feedback: {
-            key_press_sound: true,
-            completion_sound: true,
-            error_sound: true,
-            background_music: {
-                enabled: true,
-                volume: 0.5,
-                track: ''
-            }
-        },
-        feedback_settings: {
-            show_success_rate: true,
-            show_average_time: true,
-            enable_error_heatmap: true
-        },
-        advanced_learning_options: {
-            typing_speed_goal: 50,
-            accuracy_goal: 90,
-            custom_lessons: []
-        },
-        notifications: {
-            email_notifications: true,
-            app_notifications: true,
-            reminders: {
-                enabled: true,
-                time: '18:00'
-            }
-        }
+        key_press_sound: true,
+        completion_sound: true,
+        error_sound: true,
+        background_music_enabled: true,
+        background_music_volume: 0.5,
+        background_music_track: '',
+        show_success_rate: true,
+        show_average_time: true,
+        enable_error_heatmap: true,
+        typing_speed_goal: 50,
+        accuracy_goal: 90,
+        custom_lessons: [],
+        email_notifications: true,
+        app_notifications: true,
+        reminders_enabled: true,
+        reminders_time: '18:00'
     };
-    fetchSettings();
-    
+
     const [saveStatus, setSaveStatus] = useState(null);
-    
+    const [settings, setSettings] = useState(null);
 
-    const [settings, setSettings] = useState(() => {
-        if (!Cookies.get('settings')) {
-            fetchSettings();  
+    useEffect(() => {
+        const storedSettings = Cookies.get('settings');
+        if (storedSettings) {
+            setSettings(JSON.parse(storedSettings));
+        } else {
+            fetchSettings().then(fetchedSettings => {
+                setSettings(fetchedSettings);
+                Cookies.set('settings', JSON.stringify(fetchedSettings), { expires: 365 });
+            });
         }
-        return JSON.parse(Cookies.get('settings'));
-    });
-
-    
-
-    // const fetchSettings = async () => {
-    //     try {
-    //         const response = api.get('/settings/all', { withCredentials: true });
-    //         setSettings(response.data);
-    //         Cookies.set('settings', JSON.stringify(response.data), { expires: 365 });
-    //     } catch (error) {
-    //         console.error('Error fetching settings:', error);
-    //         setSaveStatus({ type: 'danger', message: 'Error fetching settings. Please try again.' });
-    //         // Cookies.set('settings', JSON.stringify(defaultSettings), { expires: 365 });
-    //     }
-    // };
+    }, []);
 
     const handleChange = (key, value) => {
         setSettings(prevSettings => {
@@ -76,29 +52,7 @@ const Settings = () => {
         });
     };
 
-    const handleNestedChange = (section, key, value) => {
-        setSettings(prevSettings => {
-            const updatedSettings = {
-                ...prevSettings,
-                [section]: {
-                    ...prevSettings[section],
-                    [key]: value
-                }
-            };
-            Cookies.set('settings', JSON.stringify(updatedSettings), { expires: 365 });
-            return updatedSettings;
-        });
-    };
-
-    const saveSettings = async () => {
-        try {
-            api.post('/settings/all', settings, { withCredentials: true });
-            setSaveStatus({ type: 'success', message: 'Settings saved successfully!' });
-        } catch (error) {
-            console.error('Error saving settings:', error);
-            setSaveStatus({ type: 'danger', message: 'Error saving settings. Please try again.' });
-        }
-    };
+    if (!settings) return <div>Loading...</div>;
 
     return (
         <Container>
@@ -153,8 +107,8 @@ const Settings = () => {
                             <Col sm={9}>
                                 <Form.Check
                                     type="switch"
-                                    checked={settings.audio_feedback.key_press_sound}
-                                    onChange={e => handleNestedChange('audio_feedback', 'key_press_sound', e.target.checked)}
+                                    checked={settings.key_press_sound}
+                                    onChange={e => handleChange('key_press_sound', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -163,8 +117,8 @@ const Settings = () => {
                             <Col sm={9}>
                                 <Form.Check
                                     type="switch"
-                                    checked={settings.audio_feedback.completion_sound}
-                                    onChange={e => handleNestedChange('audio_feedback', 'completion_sound', e.target.checked)}
+                                    checked={settings.completion_sound}
+                                    onChange={e => handleChange('completion_sound', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -173,27 +127,41 @@ const Settings = () => {
                             <Col sm={9}>
                                 <Form.Check
                                     type="switch"
-                                    checked={settings.audio_feedback.error_sound}
-                                    onChange={e => handleNestedChange('audio_feedback', 'error_sound', e.target.checked)}
+                                    checked={settings.error_sound}
+                                    onChange={e => handleChange('error_sound', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={3}>Background Music</Form.Label>
+                            <Form.Label column sm={3}>Background Music Enabled</Form.Label>
                             <Col sm={9}>
                                 <Form.Check
                                     type="switch"
-                                    checked={settings.audio_feedback.background_music.enabled}
-                                    onChange={e => handleNestedChange('audio_feedback', 'background_music', 'enabled', e.target.checked)}
+                                    checked={settings.background_music_enabled}
+                                    onChange={e => handleChange('background_music_enabled', e.target.checked)}
                                 />
-                                <Form.Label>Volume</Form.Label>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={3}>Background Music Volume</Form.Label>
+                            <Col sm={9}>
                                 <Form.Control
                                     type="range"
                                     min="0"
                                     max="1"
                                     step="0.1"
-                                    value={settings.audio_feedback.background_music.volume}
-                                    onChange={e => handleNestedChange('audio_feedback', 'background_music', 'volume', e.target.value)}
+                                    value={settings.background_music_volume}
+                                    onChange={e => handleChange('background_music_volume', e.target.value)}
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={3}>Background Music Track</Form.Label>
+                            <Col sm={9}>
+                                <Form.Control
+                                    type="text"
+                                    value={settings.background_music_track}
+                                    onChange={e => handleChange('background_music_track', e.target.value)}
                                 />
                             </Col>
                         </Form.Group>
@@ -209,8 +177,8 @@ const Settings = () => {
                             <Col sm={9}>
                                 <Form.Check
                                     type="switch"
-                                    checked={settings.feedback_settings.show_success_rate}
-                                    onChange={e => handleNestedChange('feedback_settings', 'show_success_rate', e.target.checked)}
+                                    checked={settings.show_success_rate}
+                                    onChange={e => handleChange('show_success_rate', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -219,8 +187,8 @@ const Settings = () => {
                             <Col sm={9}>
                                 <Form.Check
                                     type="switch"
-                                    checked={settings.feedback_settings.show_average_time}
-                                    onChange={e => handleNestedChange('feedback_settings', 'show_average_time', e.target.checked)}
+                                    checked={settings.show_average_time}
+                                    onChange={e => handleChange('show_average_time', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -229,8 +197,8 @@ const Settings = () => {
                             <Col sm={9}>
                                 <Form.Check
                                     type="switch"
-                                    checked={settings.feedback_settings.enable_error_heatmap}
-                                    onChange={e => handleNestedChange('feedback_settings', 'enable_error_heatmap', e.target.checked)}
+                                    checked={settings.enable_error_heatmap}
+                                    onChange={e => handleChange('enable_error_heatmap', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -246,8 +214,8 @@ const Settings = () => {
                             <Col sm={9}>
                                 <Form.Control
                                     type="number"
-                                    value={settings.advanced_learning_options.typing_speed_goal}
-                                    onChange={e => handleNestedChange('advanced_learning_options', 'typing_speed_goal', e.target.value)}
+                                    value={settings.typing_speed_goal}
+                                    onChange={e => handleChange('typing_speed_goal', e.target.value)}
                                 />
                             </Col>
                         </Form.Group>
@@ -256,21 +224,21 @@ const Settings = () => {
                             <Col sm={9}>
                                 <Form.Control
                                     type="number"
-                                    value={settings.advanced_learning_options.accuracy_goal}
-                                    onChange={e => handleNestedChange('advanced_learning_options', 'accuracy_goal', e.target.value)}
+                                    value={settings.accuracy_goal}
+                                    onChange={e => handleChange('accuracy_goal', e.target.value)}
                                 />
                             </Col>
                         </Form.Group>
-                    </Card.Body>
-                </Card>
-
-                {/* Account Management */}
-                <Card className="mb-4">
-                    <Card.Header>Account Management</Card.Header>
-                    <Card.Body>
-                        <Col sm={9}>
-                            Change password Here
-                        </Col>
+                        <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={3}>Custom Lessons</Form.Label>
+                            <Col sm={9}>
+                                <Form.Control
+                                    as="textarea"
+                                    value={settings.custom_lessons.join('\n')}
+                                    onChange={e => handleChange('custom_lessons', e.target.value.split('\n'))}
+                                />
+                            </Col>
+                        </Form.Group>
                     </Card.Body>
                 </Card>
 
@@ -283,8 +251,8 @@ const Settings = () => {
                             <Col sm={9}>
                                 <Form.Check
                                     type="switch"
-                                    checked={settings.notifications.email_notifications}
-                                    onChange={e => handleNestedChange('notifications', 'email_notifications', e.target.checked)}
+                                    checked={settings.email_notifications}
+                                    onChange={e => handleChange('email_notifications', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
@@ -293,33 +261,34 @@ const Settings = () => {
                             <Col sm={9}>
                                 <Form.Check
                                     type="switch"
-                                    checked={settings.notifications.app_notifications}
-                                    onChange={e => handleNestedChange('notifications', 'app_notifications', e.target.checked)}
+                                    checked={settings.app_notifications}
+                                    onChange={e => handleChange('app_notifications', e.target.checked)}
                                 />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={3}>Reminders</Form.Label>
+                            <Form.Label column sm={3}>Reminders Enabled</Form.Label>
                             <Col sm={9}>
                                 <Form.Check
                                     type="switch"
-                                    checked={settings.notifications.reminders.enabled}
-                                    onChange={e => handleNestedChange('notifications', 'reminders', 'enabled', e.target.checked)}
+                                    checked={settings.reminders_enabled}
+                                    onChange={e => handleChange('reminders_enabled', e.target.checked)}
                                 />
-                                <Form.Label>Time</Form.Label>
+                                <Form.Label>Reminders Time</Form.Label>
                                 <Form.Control
                                     type="time"
-                                    value={settings.notifications.reminders.time}
-                                    onChange={e => handleNestedChange('notifications', 'reminders', 'time', e.target.value)}
+                                    value={settings.reminders_time}
+                                    onChange={e => handleChange('reminders_time', e.target.value)}
                                 />
                             </Col>
+                            <Button variant="primary" onClick={() => updateSettings(settings)}>
+                    Save Settings
+                </Button>
                         </Form.Group>
                     </Card.Body>
                 </Card>
 
-                <Button variant="primary" onClick={saveSettings}>
-                    Save Settings
-                </Button>
+                
             </Form>
         </Container>
     );

@@ -5,27 +5,35 @@ import Cookies from 'js-cookie';
 const useFetchSettings = () => {
     const [settings, setSettings] = useState(null);
     const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+   
     const api = baseApi();
 
     const fetchSettings = async () => {
         try {
-            const response = api.get('/settings/all', { withCredentials: true });
-            setSettings(response.data);
+          const response = await api.get('/settings/all', { withCredentials: true });
+          if(response.status === 200) {
+            console.log('Settings fetched successfully:', response.data);
             Cookies.set('settings', JSON.stringify(response.data), { expires: 365 });
+          }
         } catch (err) {
-            console.error('Error fetching settings:', err);
-            setError(err);
-        } finally {
-            setIsLoading(false);
+          console.error('Error fetching settings:', err);
         }
-    };
+      };
 
-    useEffect(() => {
-        fetchSettings();
-    }, [fetchSettings]);
+    const updateSettings = async (settings) => {
+        try {
+          const response = await api.put('/settings/all', settings, { withCredentials: true });
+          if(response.status === 200) {
+            console.log('Settings updated successfully:', response.data);
+          }
+        } catch (err) {
+          console.error('Error updating settings:', err);
+        }
+      }
 
-    return { settings, error, isLoading, fetchSettings };
+    
+
+    return { settings, error, updateSettings, fetchSettings };
 }
 
 export default useFetchSettings;
