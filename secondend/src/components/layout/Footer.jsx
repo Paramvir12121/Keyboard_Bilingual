@@ -10,7 +10,6 @@ const Footer = () => {
         bottom: 0,
         width: '100%',
         textAlign: 'center', // Center the text
-        // backgroundColor: '#f0f0f0', // Background color for the footer
         padding: '5px 0', // Add some padding
     };
 

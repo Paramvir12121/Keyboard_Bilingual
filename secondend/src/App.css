@@ -3,7 +3,7 @@
     --secondary-color: #9B3922;
     --tertiary-color: #0A1D56;
     --background-color: #0C0C0C; 
-    --background-gradient: linear-gradient(to bottom right, #11071d, #552f2f);
+    --background-gradient: linear-gradient(to bottom right, #11071d, #550b0b);
     
 
     --text-color: black;
@@ -52,6 +52,10 @@ button,
     padding: 1rem;
     
   }
+footer {
+  color: white
+  }
+
   .navbar {
     background-color: white;
   }

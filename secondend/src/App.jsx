@@ -21,11 +21,13 @@ export function App() {
 
   return (
     <>
+    <div className="content-wrap">
     <Context.Provider value={[signedIn, setSignedIn]}>
       <Header />    
         <Outlet /> 
       <Footer />
       </Context.Provider>
+      </div>
     </>
   )
 }
