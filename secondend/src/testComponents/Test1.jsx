@@ -6,6 +6,8 @@ import { Card, Form, Row, Col } from 'react-bootstrap';
 const Test1 = () => {
   const [settings, setSettings] = useState(null);
   const { fetchSettings, updateSettings } = useFetchSettings();
+  
+
 
   useEffect(() => {
     const fetchInitialSettings = async () => {
@@ -17,7 +19,10 @@ const Test1 = () => {
     if (!settings) {
       fetchInitialSettings();
     }
-  }, [settings, fetchSettings]);
+
+  }, [settings ]);
+
+  
 
   const handleChange = (key, value) => {
     const newSettings = { ...settings, [key]: value };
@@ -29,15 +34,17 @@ const Test1 = () => {
 
   return (
     <div>
-      test1
+      <h2>Test 1</h2>
+
       <br />
       <br />
       {settings.keyboard_layout}
       <br />
-      <button onClick={fetchSettings}>Fetch Settings</button>
+      
+      {/* <button onClick={fetchSettings}>Fetch Settings</button>
       <br />
       <br />
-      <button onClick={() => updateSettings(settings)}>Update Settings</button>
+      <button onClick={() => updateSettings(settings)}>Update Settings</button> */}
 
       <Card className="mb-4">
         <Card.Header>General Settings</Card.Header>

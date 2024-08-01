@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Cookie from 'js-cookie';
 import Countdown from '../../components/timer/Countdown';
 import ConsoleLog from '../../components/timer/tests/ConsoleLog';
+import Graphs from './Graphs';
 
 
 
@@ -14,6 +15,9 @@ const Dashboard = () => {
          <div>
         Welcome to the Dashboard
         {/* Add dashboard components here */}
+        <div>
+            <Graphs />
+        </div>
         <div>
             <Link to="/typing">Typing</Link> <br />
             <Link to="/checkout">Checkout</Link><br />
