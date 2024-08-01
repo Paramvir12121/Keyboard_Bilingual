@@ -4,6 +4,11 @@ import baseApi from './baseApi';
 const getUserStats = () => {
     const api = baseApi();
 
+    const getTypingSpeed = async () => {
+        const response = await api.get('/stats/typingSpeed', {withCredentials: true});
+        return response.data;
+    }
+
     
 
 

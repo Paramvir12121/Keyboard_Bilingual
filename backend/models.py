@@ -53,6 +53,7 @@ class UserLesson(db.Model):
     lesson_id = db.Column(db.Integer, db.ForeignKey('lessons.id'), nullable=False)
     completed = db.Column(db.Boolean, default=False)
     score = db.Column(db.Integer)
+    # wpm = db.Column(db.Float)  # Words per minute
     completion_time = db.Column(db.Float)  # Time taken to complete the lesson in seconds
     accuracy = db.Column(db.Float)  # Accuracy percentage (e.g., 0.95 for 95%)
     attempts = db.Column(db.Integer, default=0)  # Number of attempts
