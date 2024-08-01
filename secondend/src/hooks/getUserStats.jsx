@@ -1,21 +1,17 @@
 import React from 'react'
 import baseApi from './baseApi';
 
-const getUserStats = () => {
+
     const api = baseApi();
 
-    const getTypingSpeed = async () => {
-        const response = await api.get('/stats/typingSpeed', {withCredentials: true});
+    export const getTypingSpeed = async () => {
+      try{
+        const response = await api.get('/lessons/typingspeed', {withCredentials: true});
+        console.log(response.data);
         return response.data;
+        
+    }catch(error){
+        console.error(error);
+    }   
     }
 
-    
-
-
-
-  return (
-    <div>getUserStats</div>
-  )
-}
-
-export default getUserStats

@@ -177,30 +177,35 @@ class UserLessonCreate(Resource):
         db.session.commit()
         return {'message': 'User lesson created successfully'}, 201
     
-    @login_required
-    @handle_errors
-    @lessons_ns.marshal_with(lesson_completion_model)
-    def get(self, lesson_id):
-        """Get a user lesson by lesson ID"""
-        user_id = session.get('user_id')
-        user_lesson = UserLesson.query.filter_by(user_id=user_id, lesson_id=lesson_id).first()
-        if not user_lesson:
-            raise NotFound("User lesson not found.")
-        return user_lesson
-    
 
-@lessons_ns.route('/user_lesson/typingspeed')
+@lessons_ns.route('/typingspeed')
 class UserLessonTypingSpeed(Resource):
     @login_required
     @handle_errors
     def get(self):
         """Get the user's typing speed"""
         user_id = session.get('user_id')
+        if not user_id:
+            return {"message":"Unauthorized"}, 401
         user_lessons = UserLesson.query.filter_by(user_id=user_id).all()
-        total_time = 0
-        total_score = 0
+        typing_speed_list = []
         for user_lesson in user_lessons:
-            total_time += user_lesson.completion_time
-            total_score += user_lesson.score
-        typing_speed = total_score / total_time
-        return typing_speed
+            typing_data = {"score":user_lesson.score, "accuracy":user_lesson.accuracy}
+            typing_speed_list.append(typing_data)
+        return typing_speed_list, 200
+
+@lessons_ns.route('/error_keys')
+class UserLessonErrorKeys(Resource):
+    @login_required
+    @handle_errors
+    def get(self):
+        """Get the user's error keys"""
+        user_id = session.get('user_id')
+        if not user_id:
+            return {"message":"Unauthorized"}, 401
+        user_lessons = UserLesson.query.filter_by(user_id=user_id).all()
+        error_keys_list = []
+        for user_lesson in user_lessons:
+            error_keys = user_lesson.error_keys.split(',')
+            error_keys_list.append(error_keys)
+        return error_keys_list, 200
