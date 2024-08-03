@@ -36,6 +36,8 @@
   height: 100%;
   margin: 0;
   color: var(--primary-color);
+  overflow-x: hidden;
+  
 }
 button,
   .btn {

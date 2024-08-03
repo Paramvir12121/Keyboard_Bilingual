@@ -20,7 +20,7 @@ const AccuracyGraph = () => {
       <LineChart data={typingData}>
         <XAxis  dataKey="name"/>
         <YAxis dataKey="accuracy" domain={[75, 100]} />
-        {/* <Tooltip /> */}
+        <Tooltip />
         <ReferenceLine y={100} stroke="green" label="100 Precent Accuracy" />
         <ReferenceLine y={95} stroke="yellow" label="95 Precent Accuracy" />
         <ReferenceLine y={90} stroke="red" label="90 Precent Accuracy" />
