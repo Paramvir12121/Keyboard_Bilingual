@@ -7,9 +7,17 @@ const AccuracyGraph = () => {
 
   useEffect(() => {
     const fetchTypingData = async () => {
-      const data = await getTypingSpeed();
-      setTypingData(data);
-      console.log("typing data: ", data);
+      try {
+        const data = await getTypingSpeed();
+        if (data && Array.isArray(data)) {
+          setTypingData(data);
+          console.log("Typing data:", data);
+        } else {
+          console.error("No valid typing data available.");
+        }
+      } catch (error) {
+        console.error("Error fetching typing data:", error);
+      }
     };
 
     fetchTypingData();
@@ -18,12 +26,12 @@ const AccuracyGraph = () => {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={typingData}>
-        <XAxis  dataKey="name"/>
+        <XAxis dataKey="name" />
         <YAxis dataKey="accuracy" domain={[75, 100]} />
         <Tooltip />
-        <ReferenceLine y={100} stroke="green" label="100 Precent Accuracy" />
-        <ReferenceLine y={95} stroke="yellow" label="95 Precent Accuracy" />
-        <ReferenceLine y={90} stroke="red" label="90 Precent Accuracy" />
+        <ReferenceLine y={100} stroke="green" label="100 Percent Accuracy" />
+        <ReferenceLine y={95} stroke="yellow" label="95 Percent Accuracy" />
+        <ReferenceLine y={90} stroke="red" label="90 Percent Accuracy" />
         <Line type="monotone" dataKey="accuracy" stroke="#8884d8" strokeWidth={2} />
       </LineChart>
     </ResponsiveContainer>
