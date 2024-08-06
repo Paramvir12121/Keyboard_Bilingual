@@ -21,6 +21,7 @@ setting_model = settings_ns.model('Setting', {
     'user_id': fields.Integer,
     'keyboard_layout': fields.String(default='colemak'),
     'font_size': fields.String(default='medium'),
+    'show_keyboard': fields.Boolean(default=True),
 
     # Audio feedback
     'key_press_sound': fields.Boolean(default=True),
