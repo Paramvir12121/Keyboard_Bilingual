@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import baseApi from '../../hooks/baseApi'
-import TypingTracker from '../../components/typing/TypingTracker';
 import TypingViewer from '../../components/typing/TypingViewer';
 import QwertyKeyboard from '../../components/keyboard/QwertyKeyboard';
 import ColemakKeyboard from '../../components/keyboard/ColemakKeyboard';

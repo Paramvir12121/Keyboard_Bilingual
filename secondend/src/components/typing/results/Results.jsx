@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import baseApi from '../../../hooks/baseApi';
-import {Link, link} from 'react-router-dom';
 import ResultNavbar from './ResultNavbar';
 
 const Results = ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapsedTime, wrongKeysPressedCount }) => {
