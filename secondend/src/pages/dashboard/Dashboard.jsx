@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Cookie from 'js-cookie';
-import Countdown from '../../components/timer/Countdown';
-import ConsoleLog from '../../components/timer/tests/ConsoleLog';
 import Graphs from './Graphs';
 import Goal from '../../components/common/Goal';
+import LessonLists from '../lessons/LessonLists';
 
 
 
@@ -19,9 +18,9 @@ const Dashboard = () => {
         </div>
         <h2>Dashboard</h2>
         {/* Add dashboard components here */}
-        <div>
-            <Graphs />
-        </div>
+        <Graphs />
+        <LessonLists />
+        
        
         <div>
             <Link to="/typing">Typing</Link> <br />

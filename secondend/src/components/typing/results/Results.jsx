@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import baseApi from '../../../hooks/baseApi';
+import {Link, link} from 'react-router-dom';
+import ResultNavbar from './ResultNavbar';
 
 const Results = ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapsedTime, wrongKeysPressedCount }) => {
     const [error, setError] = useState(null);
@@ -44,6 +46,7 @@ const Results = ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapsed
     }, []); // Empty dependency array ensures this runs only once
 
     return (
+        <>
         <Container>
             <Row className="mb-4">
                 <Col>
@@ -111,6 +114,9 @@ const Results = ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapsed
                 </Col>
             </Row>
         </Container>
+        <ResultNavbar />
+        </>
+        
     );
 };
 
