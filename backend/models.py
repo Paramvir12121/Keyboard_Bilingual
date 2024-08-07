@@ -77,6 +77,7 @@ class Setting(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     keyboard_layout = db.Column(db.String(50), default='colemak')
     font_size = db.Column(db.String(50), default='medium')
+    show_keyboard = db.Column(db.Boolean, default=True)
     
     # Audio feedback
     key_press_sound = db.Column(db.Boolean, default=True)
@@ -110,7 +111,7 @@ class Setting(db.Model):
         db.session.add(self)
         db.session.commit()
     
-    def update(self,id,user_id,keyboard_layout, font_size, key_press_sound, completion_sound, error_sound, background_music_enabled, background_music_volume, background_music_track, show_success_rate, show_average_time, enable_error_heatmap, typing_speed_goal, accuracy_goal, custom_lessons, email_notifications, app_notifications, reminders_enabled, reminders_time):
+    def update(self,id,user_id,show_keyboard,keyboard_layout, font_size, key_press_sound, completion_sound, error_sound, background_music_enabled, background_music_volume, background_music_track, show_success_rate, show_average_time, enable_error_heatmap, typing_speed_goal, accuracy_goal, custom_lessons, email_notifications, app_notifications, reminders_enabled, reminders_time):
         self.keyboard_layout = keyboard_layout
         self.font_size = font_size
         self.key_press_sound = key_press_sound
@@ -129,6 +130,7 @@ class Setting(db.Model):
         self.app_notifications = app_notifications
         self.reminders_enabled = reminders_enabled
         self.reminders_time = reminders_time
+        self.show_keyboard = show_keyboard
         
 
     #     db.session.commit()

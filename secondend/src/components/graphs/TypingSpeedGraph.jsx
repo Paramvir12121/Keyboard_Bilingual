@@ -39,7 +39,7 @@ const TypingSpeedGraph = () => {
       if (settings) {
         try {
           const parseSettings = JSON.parse(settings);
-          setSpeedGoal(parseSettings.typing_speed_goal || 10); // Set a default if typing_speed_goal is not defined
+          setSpeedGoal(parseSettings.typing_speed_goal); // Set a default if typing_speed_goal is not defined
         } catch (error) {
           console.error("Error parsing settings from cookies:", error);
         }

@@ -9,6 +9,7 @@ const Settings = () => {
         keyboard_layout: 'COLEMAK',
         font_size: 'medium',
         key_press_sound: true,
+        show_keyboard: true,
         completion_sound: true,
         error_sound: true,
         background_music_enabled: true,
@@ -93,6 +94,16 @@ const Settings = () => {
                                     <option value="medium">Medium</option>
                                     <option value="large">Large</option>
                                 </Form.Control>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={3}>Show Keyboard</Form.Label>
+                            <Col sm={9}>
+                                <Form.Check
+                                    type="switch"
+                                    checked={settings.show_keyboard}
+                                    onChange={e => handleChange('show_keyboard', e.target.checked)}
+                                />
                             </Col>
                         </Form.Group>
                     </Card.Body>
