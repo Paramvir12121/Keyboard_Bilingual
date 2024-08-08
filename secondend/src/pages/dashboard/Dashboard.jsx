@@ -4,6 +4,7 @@ import Cookie from 'js-cookie';
 import Graphs from './Graphs';
 import Goal from '../../components/common/Goal';
 import LessonLists from '../lessons/LessonLists';
+import StatsBar from '../../components/layout/StatsBar';
 
 
 
@@ -13,9 +14,9 @@ const Dashboard = () => {
     return (
        <>
          <div>
-         <div>
-            <Goal />
-        </div>
+        <StatsBar />
+        <Goal />
+        
         <h2>Dashboard</h2>
         {/* Add dashboard components here */}
         <Graphs />

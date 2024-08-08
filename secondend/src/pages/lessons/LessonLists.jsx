@@ -35,11 +35,11 @@ const LessonLists = () => {
     return (
         <Container>
             {Object.entries(groupedLessons).map(([topic, lessons]) => (
-                <div key={topic}>
-                    <h2 className="mb-3">{topic}</h2>
-                    <Row className="flex-nowrap overflow-auto">
+                <div key={topic} className="">
+                    <h2 className="">{topic}</h2>
+                    <Row>
                         {lessons.map((lesson) => (
-                            <Col key={lesson.id} xs={12} md={6} lg={4} xl={3} className="mb-3">
+                            <Col key={lesson.id} xs={12}  className="">
                                 <LessonList
                                     id={lesson.id}
                                     title={lesson.title}
