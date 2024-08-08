@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Card } from 'react-bootstrap';
 import baseApi from '../../../hooks/baseApi';
-import ResultNavbar from './ResultNavbar';
+
 
 const Results = ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapsedTime, wrongKeysPressedCount }) => {
     const [error, setError] = useState(null);
 
     const api = baseApi();
-    console.log("wrongKeysPressedCount", wrongKeysPressedCount);
-    let isMounted = true;
     useEffect(() => {
-        
+        let isMounted = true;
 
         const sendUserLessonData = async () => {
             const userLessonData = {
-                completed: true, // Assuming the lesson is completed if results are being shown
-                score: wpm, // Using WPM as the score
-                completion_time: elapsedTime, // Time taken to complete the lesson
-                accuracy: accuracy, // Accuracy percentage
-                attempts: 1, // Assuming this is the first attempt for simplicity
-                errors: errorCount, // Total errors made
-                error_keys: wrongKeysPressedCount // Assuming wrongKeysPressedCount is an array of wrong keys
+                completed: true,
+                score: wpm,
+                completion_time: elapsedTime,
+                accuracy: accuracy,
+                attempts: 1,
+                errors: errorCount,
+                error_keys: wrongKeysPressedCount
             };
 
             try {
@@ -33,7 +31,6 @@ const Results = ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapsed
                     console.error('Error creating user lesson:', error);
                     setError(error);
                 }
-                Console.log("error", error);
             }
         };
 
@@ -42,80 +39,37 @@ const Results = ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapsed
         return () => {
             isMounted = false;
         };
-    }, []); // Empty dependency array ensures this runs only once
+    }, [api, lessonId, wpm, accuracy, errorCount, totalCharacters, elapsedTime, wrongKeysPressedCount]);
 
     return (
-        <>
         <Container>
-            <Row className="mb-4">
-                <Col>
+            <Card>
+                <Card.Body>
                     <h2>Typing Test Results</h2>
-                </Col>
-            </Row>
-            <Row>
-                <Col md={4} className="mb-3">
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>Words Per Minute</Card.Title>
-                            <Card.Text className="display-4">{wpm.toFixed(2)}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col md={4} className="mb-3">
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>Accuracy</Card.Title>
-                            <Card.Text className="display-4">{accuracy.toFixed(2)}%</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col md={4} className="mb-3">
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>Error Count</Card.Title>
-                            <Card.Text className="display-4">{errorCount}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-            <Row>
-                <Col md={6} className="mb-3">
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>Total Characters</Card.Title>
-                            <Card.Text className="display-4">{totalCharacters}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col md={6} className="mb-3">
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>Time Elapsed</Card.Title>
-                            <Card.Text className="display-4">{elapsedTime} seconds</Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>Wrong Keys Pressed</Card.Title>
-                            <Card.Text>
-                                {Object.entries(wrongKeysPressedCount).map(([key, count]) => (
-                                    <span key={key}>
-                                        {key}: {count}
-                                    </span>
-                                ))}
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
+                    <div>
+                        <strong>Words Per Minute:</strong> {wpm.toFixed(2)}
+                    </div>
+                    <div>
+                        <strong>Accuracy:</strong> {accuracy.toFixed(2)}%
+                    </div>
+                    <div>
+                        <strong>Error Count:</strong> {errorCount}
+                    </div>
+                    <div>
+                        <strong>Total Characters:</strong> {totalCharacters}
+                    </div>
+                    <div>
+                        <strong>Time Elapsed:</strong> {elapsedTime} seconds
+                    </div>
+                    <div>
+                        <strong>Wrong Keys Pressed:</strong>
+                            {Object.entries(wrongKeysPressedCount).map(([key, count]) => (
+                                <div key={key}>{key}: {count}</div>
+                            ))}
+                    </div>
+                </Card.Body>
+            </Card>
         </Container>
-        <ResultNavbar />
-        </>
-        
     );
 };
 

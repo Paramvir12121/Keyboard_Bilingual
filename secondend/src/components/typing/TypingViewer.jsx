@@ -4,14 +4,16 @@ import './TypingTracker.css';
 import { qwertyToColemak } from '../keyboard/Layouts';
 import TextDisplay from './display/TextDisplay';
 import Results from './results/Results';
-// import handleLessonCompletion from './handleLessonCompletion/handleLessonCompletion';
-import {Link} from 'react-router-dom';
+import ColemakKeyboard from '../keyboard/ColemakKeyboard';
+import QwertyKeyboard from '../keyboard/QwertyKeyboard';
+import { Link } from 'react-router-dom';
 
-const TypingViewer = ({words, lessonId}) => {
+const TypingViewer = ({ words, lessonId }) => {
   const [displayText, setDisplayText] = useState('');
   const [cursorIndex, setCursorIndex] = useState(0);
   const [isWrongKey, setIsWrongKey] = useState(false);
   const [isColemak, setIsColemak] = useState(false);
+  const [showKeyboard, setShowKeyboard] = useState(false);
   const [errorCount, setErrorCount] = useState(0);
   const [keysTyped, setKeysTyped] = useState(0);
   const [wordsTyped, setWordsTyped] = useState(0);
@@ -38,9 +40,23 @@ const TypingViewer = ({words, lessonId}) => {
 
   useEffect(() => {
     generateNewText();
-    const keyboardType = Cookies.get('keyboard_type');
-    setIsColemak(keyboardType === 'colemak');
-  } , [generateNewText]);
+
+    const fetchSettings = async () => {
+      const settings = Cookies.get('settings');
+      if (settings) {
+        try {
+          const parseSettings = JSON.parse(settings);
+          setShowKeyboard(parseSettings.show_keyboard);
+          setIsColemak(parseSettings.keyboard_layout === 'colemak');
+          console.log("isColemak", isColemak);
+        } catch (error) {
+          console.error('Error parsing settings from cookies:', error);
+        }
+      }
+    };
+
+    fetchSettings();
+  }, [generateNewText]);
 
   useEffect(() => {
     if (startTime && !lessonEnded) {
@@ -109,22 +125,6 @@ const TypingViewer = ({words, lessonId}) => {
     };
   };
 
-  // useEffect(() => {
-  //   if (lessonEnded) {
-  //     const stats = calculateStats();
-  //     const completeLessonAsync = async () => {
-  //       try {
-  //         const result = await handleLessonCompletion(lessonId, Math.round(stats.wpm));
-  //         console.log('Lesson completion result:', result);
-  //       } catch (error) {
-  //         console.error('Error completing lesson:', error);
-  //         setCompletionError('Failed to submit lesson completion. Please try again.');
-  //       }
-  //     };
-  //     completeLessonAsync();
-  //   }
-  // }, [lessonEnded, lessonId]);
-
   return (
     <>
       <h2>Typing Viewer</h2>
@@ -136,6 +136,10 @@ const TypingViewer = ({words, lessonId}) => {
         : 
         <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />
       }
+
+      {showKeyboard && (
+        isColemak ? <ColemakKeyboard /> : <QwertyKeyboard />
+      )}
     </>
   );
 };
