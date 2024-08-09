@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../App';
+import ROUTES from '../Routes';
 
 const LogoutButton = () => {
     const [, setSignedIn] = useContext(Context);
@@ -20,7 +21,7 @@ const LogoutButton = () => {
         
 
         // Redirect to the login page or home page
-        navigate('/login');
+        navigate(ROUTES.LOGIN);
     };
 
     return (

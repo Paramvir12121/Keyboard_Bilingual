@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Context } from "../../App";
 import LogoutButton from '../../auth/LogoutButton';
 import Cookies from 'js-cookie';
+import ROUTES from '../../Routes'; // Importing ROUTES
 
 const Header = () => {
     const [signedIn, setSignedIn] = useContext(Context);
@@ -22,16 +23,16 @@ const Header = () => {
     }, [signedIn]);
 
     return (
-        <Navbar  expand="lg" className="mb-3">
+        <Navbar expand="lg" className="mb-3">
             <Container>
-                <Navbar.Brand as={Link} to="/">Arch</Navbar.Brand>
+                <Navbar.Brand as={Link} to={ROUTES.HOME}>Arch</Navbar.Brand> {/* Use ROUTES.HOME */}
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         {signedIn && (
                             <>
-                                <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
-                                <Nav.Link as={Link} to="/lessonlist">Lessons</Nav.Link>
+                                <Nav.Link as={Link} to={ROUTES.DASHBOARD}>Dashboard</Nav.Link> {/* Use ROUTES.DASHBOARD */}
+                                <Nav.Link as={Link} to={ROUTES.LESSON_LIST}>Lessons</Nav.Link> {/* Use ROUTES.LESSON_LIST */}
                             </>
                         )}
                     </Nav>
@@ -41,12 +42,13 @@ const Header = () => {
                                 <Navbar.Text className="me-3">
                                     Welcome, {username}!
                                 </Navbar.Text>
+                                <Button variant="primary" as={Link} to={ROUTES.SETTINGS} className="me-2">Settings</Button> {/* Use ROUTES.SETTINGS */}
                                 <LogoutButton />
                             </>
                         ) : (
                             <>
-                                <Button variant="outline-primary" className="me-2" onClick={() => navigate('/login')}>Login</Button>
-                                <Button variant="primary" onClick={() => navigate('/signup')}>Signup</Button>
+                                <Button variant="outline-primary" className="me-2" onClick={() => navigate(ROUTES.LOGIN)}>Login</Button> {/* Use ROUTES.LOGIN */}
+                                <Button variant="primary" onClick={() => navigate(ROUTES.SIGNUP)}>Signup</Button> {/* Use ROUTES.SIGNUP */}
                             </>
                         )}
                     </Nav>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import baseApi from "../hooks/baseApi";
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import ROUTES from '../Routes'; // Importing ROUTES
 
 const Signup = () => {
     const [email, setEmail] = useState('');
@@ -16,14 +17,12 @@ const Signup = () => {
         
         try {
             const api = baseApi();
-            const response = await api.post('/auth/signup', {username,email, password}, {withCredentials: true});
+            const response = await api.post('/auth/signup', { username, email, password }, { withCredentials: true });
             console.log("Response: ", response.data)
             if (response.data) {
-                Cookies.set('signup_email', email, { expires: 1 })
+                Cookies.set('signup_email', email, { expires: 1 });
                 // Signup successful, redirect to confirm email page
-                navigate('/confirm-email')
-
-                // Redirect logic here, e.g., window.location.href = '/dashboard';
+                navigate(ROUTES.CONFIRM_EMAIL); // Use ROUTES.CONFIRM_EMAIL
             } else {
                 // Signup failed, handle error
                 const errorData = await response.json();
