@@ -6,7 +6,7 @@ import TextDisplay from './display/TextDisplay';
 import Results from './results/Results';
 import ColemakKeyboard from '../keyboard/ColemakKeyboard';
 import QwertyKeyboard from '../keyboard/QwertyKeyboard';
-import { Link } from 'react-router-dom';
+
 
 const TypingViewer = ({ words, lessonId }) => {
   const [displayText, setDisplayText] = useState('');
