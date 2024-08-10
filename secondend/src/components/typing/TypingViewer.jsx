@@ -6,6 +6,7 @@ import TextDisplay from './display/TextDisplay';
 import Results from './results/Results';
 import ColemakKeyboard from '../keyboard/ColemakKeyboard';
 import QwertyKeyboard from '../keyboard/QwertyKeyboard';
+import ResultNavbar from './results/ResultNavbar';
 
 
 const TypingViewer = ({ words, lessonId }) => {
@@ -132,14 +133,20 @@ const TypingViewer = ({ words, lessonId }) => {
       {timerRef.current && <p>Time Elapsed: {elapsedTime} seconds</p>}
 
       {lessonEnded ? 
+        <>
         <Results {...calculateStats()} lessonId={lessonId} /> 
+        <ResultNavbar lessonId={lessonId} />
+        </>
         : 
+        <>
         <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />
-      }
-
-      {showKeyboard && (
+        {showKeyboard && (
         isColemak ? <ColemakKeyboard /> : <QwertyKeyboard />
       )}
+        </>
+      }
+
+     
     </>
   );
 };

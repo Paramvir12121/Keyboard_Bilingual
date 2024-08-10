@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import baseApi from '../../hooks/baseApi'
+import baseApi from '../../hooks/baseApi';
 import TypingViewer from '../../components/typing/TypingViewer';
 import Cookies from 'js-cookie';
 
@@ -11,10 +11,11 @@ const LessonPage = () => {
   const [words, setWords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const initialTime = 120;
 
   useEffect(() => {
     const fetchLesson = async () => {
+      setLoading(true); // Set loading to true each time the lesson ID changes
+      setError(null); // Reset error state
       try {
         const response = await api.get(`/lessons/${id}`, { withCredentials: true });
         setLesson(response.data);
@@ -28,25 +29,8 @@ const LessonPage = () => {
       }
     };
 
-    // const fetchSettings = async () => { 
-    //   const settings = Cookies.get('settings');
-    //   if (settings) {
-    //     try {
-    //       const parseSettings = JSON.parse(settings);
-    //       setDisplayKeyboard(parseSettings.show_keyboard);
-    //       setKeyboardType(parseSettings.keyboard_layout); 
-    //     } catch (error) {
-    //       console.error("Error parsing settings from cookies:", error);
-    //     }
-    //   }
-    // }
-      
-    // fetchSettings();
     fetchLesson();
-  }, [id]);
-
- 
-
+  }, [id]); // Re-run the effect when the id parameter changes
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -57,8 +41,7 @@ const LessonPage = () => {
       <h1>{lesson.title}</h1>
       <p>{lesson.description}</p>
       {/* Add more lesson content here */}
-      <TypingViewer words={words} lessonId={id}/>
-      {/* {dispalykeyboard ? keyboardType(keyboardLayout) : null} */}
+      <TypingViewer words={words} lessonId={id} />
     </div>
   );
 };
