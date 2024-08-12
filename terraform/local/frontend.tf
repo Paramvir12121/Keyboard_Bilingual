@@ -25,7 +25,7 @@ resource "docker_image" "frontend_image" {
 # Frontend Service Container
 resource "docker_container" "frontend_container" {
   name  = "frontend_service"
-  image = docker_image.frontend_image.latest
+  image = docker_image.frontend_image.image_id
   networks_advanced {
     name = docker_network.my_app_network.name
   }
