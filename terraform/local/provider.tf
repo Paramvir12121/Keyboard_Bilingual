@@ -8,5 +8,9 @@ terraform {
 }
 
 provider "docker" {
-  host = "unix:///var/run/docker.sock"
+  # for linux machines use the following host
+  host = "unix:///var/run/docker.sock" 
+
+  # for windows machines use the following host
+  #  host = "tcp://localhost:2375"
 }

@@ -1,33 +1,32 @@
-# Stage 1: Build the React app using Vite
-FROM node:14 AS build
+# Dockerfile
 
-# Set the working directory
+# Stage 1: Build the React app
+FROM node:latest AS build
+
+# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package.json package-lock.json ./
-
 # Install dependencies
+COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the app's code
 COPY . .
 
-# Build the React application
-RUN npm run build && echo "Build succeeded" || echo "Build failed"
+# Build the app
+RUN npm run build
 
-# Debugging step: List contents of /app after build
-RUN ls -al /app
-RUN ls -al /app/dist || echo "/app/dist directory not found"
-
-# Stage 2: Serve the React app with Nginx
+# Stage 2: Serve the React app with nginx
 FROM nginx:alpine
 
-# Copy the build output to the Nginx html directory
+# Copy the build output to nginx's html directory
 COPY --from=build /app/dist /usr/share/nginx/html
+
+# Copy custom nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port 80
 EXPOSE 80
 
-# Start Nginx
+# Command to run nginx
 CMD ["nginx", "-g", "daemon off;"]

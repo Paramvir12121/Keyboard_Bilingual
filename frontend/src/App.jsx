@@ -1,51 +1,35 @@
-import { Route, Routes } from 'react-router-dom';
+import React, { useState } from "react";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import { Outlet } from 'react-router-dom'; // Import Outlet
 import './App.css';
-import Home from './components/Home';
-import About from './components/About';
-import Login from './components/auth/Login';
-import Signup from './components/auth/Signup';
-import Settings from './components/windows/Settings';
-import Protected from './components/tests/Protected';
-import LessonList from './components/lessons/LessonList';
-import RequestPasswordReset from './components/auth/RequestPasswordReset';
-import ConfirmPasswordReset from './components/auth/ConfirmPasswordReset';
-import SignupConfirmation from './components/auth/SignupConfirmation';
-import TopBar from './components/navbar/TopBar';
-import UserLesson from './components/lessons/UserLesson';
+import Cookies from 'js-cookie';
 
-function App() {
-    return (
-        <>
-            <TopBar />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/protected" element={<Protected />} />
-                <Route path="/lessonlist" element={<LessonList />} />
-                <Route path="/lessons/:lessonId" element={<UserLesson />} />
-                <Route path="/signupconfirmation" element={<SignupConfirmation />} />
-                <Route path="/auth/*" element={<AuthTests />} />
-                {/* <Route path="/lesson/*" element={<Lessons />} /> */}
-            </Routes>
-        </>
-    );
+export const Context = React.createContext();
+
+export function App() {
+  const [signedIn, setSignedIn] = useState(() => {
+    const cookieValue = Cookies.get('signedIn');
+    if (cookieValue === undefined) {
+      Cookies.set('signedIn', 'false');
+      return false;
+    }
+    return cookieValue === 'true';
+  });
+
+
+
+  return (
+    <>
+    <div className="content-wrap">
+    <Context.Provider value={[signedIn, setSignedIn]}>
+      <Header />    
+        <Outlet /> 
+      <Footer />
+      </Context.Provider>
+      </div>
+    </>
+  )
 }
 
-// const Lessons = () => {
-//     <Routes>
-//         <Route path="list" element={<LessonList />} />
-//     </Routes>
 
-// }
-
-const AuthTests = () => (
-    <Routes>
-        <Route path="requestpasswordreset" element={<RequestPasswordReset />} />
-        <Route path="confirmpasswordreset" element={<ConfirmPasswordReset />} />
-    </Routes>
-);
-
-export default App;

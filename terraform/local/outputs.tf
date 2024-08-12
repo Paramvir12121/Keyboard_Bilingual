@@ -1,7 +1,7 @@
-output "backend_container_ip" {
-  value = docker_container.backend_container.ip_address
-}
+# output "backend_url" {
+#   value = "http://localhost:${var.backend_port}"
+# }
 
-output "frontend_container_ip" {
-  value = docker_container.frontend_container.ip_address
-}
+# output "frontend_url" {
+#   value = "http://localhost:${var.frontend_port}"
+# }
