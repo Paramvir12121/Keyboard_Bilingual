@@ -23,8 +23,10 @@ export function App() {
     <>
     <div className="content-wrap">
     <Context.Provider value={[signedIn, setSignedIn]}>
-      <Header />    
+      <Header /> 
+      <div className="app-outlet">
         <Outlet /> 
+      </div>   
       {/* <Footer /> */}
       </Context.Provider>
       </div>

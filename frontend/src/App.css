@@ -39,6 +39,7 @@
   overflow-x: hidden;
   
 }
+
 button,
   .btn {
     background-color: var(--secondary-color);
@@ -71,7 +72,11 @@ footer {
     background-color: var(--tertiary-color);
     color: var(--primary-color);
   }
-
+/* App.jsx main component */
+.app-outlet {
+  margin-left: 4rem;
+  margin-right: 4rem;
+}
   
 /* <<<<<<<<<<< Text Display>>>>>>>>>> */
 .text-display-card {
