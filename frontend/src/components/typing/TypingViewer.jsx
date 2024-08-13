@@ -35,6 +35,7 @@ const TypingViewer = ({ words, lessonId }) => {
 
     for (let i = 0; i < 20; i++) {
       viewText += words[Math.floor(Math.random() * words.length)] + ' ';
+      
     }
     setDisplayText(viewText.trim());
   }, [words]);
