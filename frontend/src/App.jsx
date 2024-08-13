@@ -25,7 +25,7 @@ export function App() {
     <Context.Provider value={[signedIn, setSignedIn]}>
       <Header />    
         <Outlet /> 
-      <Footer />
+      {/* <Footer /> */}
       </Context.Provider>
       </div>
     </>
