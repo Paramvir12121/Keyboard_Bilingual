@@ -5,6 +5,7 @@ import { qwertyToColemak } from '../keyboard/Layouts';
 import TextDisplay from './display/TextDisplay';
 import Results from './results/Results';
 import ColemakKeyboard from '../keyboard/ColemakKeyboard';
+import ColemakKeyboardSvg from '../keyboard/ColemakKeyboardSvg';
 import QwertyKeyboard from '../keyboard/QwertyKeyboard';
 import ResultNavbar from './results/ResultNavbar';
 
@@ -140,9 +141,21 @@ const TypingViewer = ({ words, lessonId }) => {
         : 
         <>
         <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />
-        {showKeyboard && (
-        isColemak ? <ColemakKeyboard /> : <QwertyKeyboard />
-      )}
+        {/* {showKeyboard && (
+          isColemak ? <ColemakKeyboard /> : <QwertyKeyboard />
+      )} 
+          */}
+                {isColemak ? (
+          <>
+            <ColemakKeyboard /> 
+            {showKeyboard && <ColemakKeyboardSvg />}
+          </>
+        ) : (
+          showKeyboard && <QwertyKeyboard />
+        )}
+
+
+       
         </>
       }
 

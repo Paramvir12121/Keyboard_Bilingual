@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import useFetchSettings from '../../hooks/useFetchSettings';
+import { useNavigate } from 'react-router-dom';
+import ROUTES from '../../Routes';
+
 
 const Settings = () => {
     const { fetchSettings, updateSettings } = useFetchSettings();
+    const navigate = useNavigate();
     const defaultSettings = {
         keyboard_layout: 'COLEMAK',
         font_size: 'medium',
@@ -52,6 +56,12 @@ const Settings = () => {
             return updatedSettings;
         });
     };
+
+    const handleSubmit = () => {
+        updateSettings(settings)
+        //write code to navigate to ROUTES.dashboard
+        navigate(ROUTES.DASHBOARD)
+    }
 
     if (!settings) return <div>Loading...</div>;
 
@@ -292,7 +302,7 @@ const Settings = () => {
                                     onChange={e => handleChange('reminders_time', e.target.value)}
                                 />
                             </Col>
-                            <Button variant="primary" onClick={() => updateSettings(settings)}>
+                            <Button variant="primary" onClick={handleSubmit}>
                     Save Settings
                 </Button>
                         </Form.Group>
