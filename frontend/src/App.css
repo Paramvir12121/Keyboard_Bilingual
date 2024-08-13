@@ -148,5 +148,33 @@ footer {
 /* <<<<<<<<<<GRAPHS>>>>>>>>>>>>>>>> */
 
 
-
 /* <<<<<<<<<<GRAPHS>>>>>>>>>>>>>>>> */
+
+
+/* <<<<<<<<<<<<<<KEYBOARD>>>>>>>>>>>>>>>> */
+.key {
+  fill: none;
+  stroke: #333333;
+  stroke-width: 2;
+  rx: 10;
+  ry: 10;
+}
+.key-text {
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  text-anchor: middle;
+  fill: #333333;
+  pointer-events: none;
+}
+.subtext {
+  font-family: 'Arial', sans-serif;
+  font-size: 12px;
+  text-anchor: middle;
+  fill: #666666;
+  pointer-events: none;
+}
+.key-pressed {
+  fill: orange;
+}
+
+/* <<<<<<<<<<<<<<KEYBOARD>>>>>>>>>>>>>>>> */

@@ -43,27 +43,7 @@ const QwertyKeyboard = () => {
         viewBox="0 0 1200 350"
         preserveAspectRatio="xMidYMid meet"
       >
-        <style>
-          {`
-          .key {
-            fill: none;
-            stroke: #333333;
-            stroke-width: 2;
-            rx: 10;
-            ry: 10;
-          }
-          .key-text {
-            font-family: 'Arial', sans-serif;
-            font-size: 18px;
-            text-anchor: middle;
-            fill: #333333;
-            pointer-events: none;
-          }
-          .key-pressed {
-            fill: orange;
-          }
-        `}
-        </style>
+       
         {/* Row 1 */}
         <rect id="keyGrave" x="10" y="10" width="60" height="60" className={`key ${pressedKey === 'keyGrave' ? 'key-pressed' : ''}`} />
         <text x="40" y="50" className="key-text">`</text>

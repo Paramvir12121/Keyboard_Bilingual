@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Cookies from 'js-cookie';
-import './TypingTracker.css';
 import { qwertyToColemak } from '../keyboard/Layouts';
 import TextDisplay from './display/TextDisplay';
 import Results from './results/Results';
