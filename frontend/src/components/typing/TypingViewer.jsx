@@ -30,13 +30,13 @@ const TypingViewer = ({ words, lessonId }) => {
       console.error('No words provided');
       return;
     }
-
-    let viewText = '';
-
-    for (let i = 0; i < 20; i++) {
-      viewText += words[Math.floor(Math.random() * words.length)] + ' ';
-      
-    }
+  
+    // Shuffle the words array to prevent repetition
+    const shuffledWords = [...words].sort(() => Math.random() - 0.5);
+  
+    // Join all the shuffled words into a single string
+    const viewText = shuffledWords.join(' ');
+  
     setDisplayText(viewText.trim());
   }, [words]);
 

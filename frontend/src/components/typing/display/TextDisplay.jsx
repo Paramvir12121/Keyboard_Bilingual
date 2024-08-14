@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
-
 const TextDisplay = ({ displayText, cursorIndex, isWrongKey }) => {
+  console.log('TextDisplay: ', displayText);
   return (
     <Card className="text-display-card">
       <Card.Body>
@@ -12,6 +12,7 @@ const TextDisplay = ({ displayText, cursorIndex, isWrongKey }) => {
             className={`character ${index === cursorIndex ? (isWrongKey ? 'cursor wrong' : 'cursor') : ''}`}
           >
             {char === ' ' ? '\u00A0' : char}
+            
           </span>
         ))}
       </Card.Body>
