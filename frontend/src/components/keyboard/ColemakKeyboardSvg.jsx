@@ -122,8 +122,8 @@ const ColemakKeyboardSvg = ({ pressedKey }) => {
         <text x="1025" y="130" className="subtext">\\</text>
 
         {/* Row 3 */}
-        <rect id="keyCapsLock" x="10" y="150" width="100" height="60" className={`key ${pressedKey === 'keyCapsLock' ? 'key-pressed' : ''}`} />
-        <text x="60" y="180" className="key-text">Caps</text>
+        <rect id="keyBackspace" x="10" y="150" width="100" height="60" className={`key ${pressedKey === 'keyBackspace' ? 'key-pressed' : ''}`} />
+        <text x="60" y="180" className="key-text">Backspace</text>
 
         <rect id="keyA" x="120" y="150" width="60" height="60" className={`key ${pressedKey === 'keyA' ? 'key-pressed' : ''}`} />
         <text x="150" y="180" className="key-text">A</text>
