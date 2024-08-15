@@ -2,62 +2,8 @@
 This is repository for Learn colemak (name not finalized) web app that uses react as frontend and flask as backend with sql db database. It uses cognito as authentication service 
 
 Database Design:
-+-----------------+       +------------------+       +-----------------+
-|     User        |<------|     Payment      |       |     Lesson      |
-|-----------------|       |------------------|       |-----------------|
-| id (PK)         |       | id (PK)          |       | id (PK)         |
-| cognito_id      |       | user_id (FK)     |       | title           |
-| username        |       | amount           |       | topic           |
-| email           |       | currency         |       | subtopic        |
-| created_at      |       | payment_date     |       | keyboard_type   |
-| updated_at      |       +------------------+       | description     |
-| access_token    |                                    | keys            |
-| refresh_token   |<---------------------------------->| words           |
-| has_paid        |                                    | difficulty      |
-+-----------------+       +------------------+         | created_at      |
-        ^                 |     Setting      |         | updated_at      |
-        |                 |------------------|         +-----------------+
-        |                 | id (PK)          |
-        |                 | user_id (FK)     |
-        |                 | keyboard_layout  |
-        |                 | font_size        |
-        |                 | show_keyboard    |
-        |                 | key_press_sound  |
-        |                 | completion_sound |
-        |                 | error_sound      |
-        |                 | background_music_enabled   |
-        |                 | background_music_volume    |
-        |                 | background_music_track     |
-        |                 | show_success_rate          |
-        |                 | show_average_time          |
-        |                 | enable_error_heatmap       |
-        |                 | typing_speed_goal          |
-        |                 | accuracy_goal              |
-        |                 | custom_lessons             |
-        |                 | email_notifications        |
-        |                 | app_notifications          |
-        |                 | reminders_enabled          |
-        |                 | reminders_time             |
-        |                 +------------------+
-        |
-        v
-+-----------------+
-|   UserLesson    |
-|-----------------|
-| id (PK)         |
-| user_id (FK)    |
-| lesson_id (FK)  |
-| completed       |
-| score           |
-| completion_time |
-| accuracy        |
-| attempts        |
-| errors          |
-| completed_at    |
-| error_keys      |
-+-----------------+
 
-![Initial_db_design](Initial_db_design.png)
+![db_design](db.png)
 
 
 Refrenced:
