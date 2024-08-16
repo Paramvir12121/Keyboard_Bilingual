@@ -17,15 +17,17 @@ const Dashboard = () => {
             <h2>Dashboard</h2>
             {/* Add dashboard components here */}
             <Graphs />
+            <div className='lesson-list-div'>
             <LessonLists />
+            </div>
             
-            <div>
+            {/* <div>
                 <Link to={ROUTES.TYPING}>Typing</Link> <br />
                 <Link to={ROUTES.CHECKOUT}>Checkout</Link><br />
                 <Link to={ROUTES.TEST1}>KeyPress Test</Link><br />
                 <Link to={ROUTES.LESSON_LIST}>Lesson List</Link><br /> 
                 <Link to={ROUTES.SETTINGS}>Settings</Link><br /> 
-            </div>
+            </div> */}
          </div>
        </>
     );
