@@ -1,10 +1,10 @@
 from main import create_app
-from config import DevConfig
+from config import DevConfig, TestConfig
 from exts import db
 
 #
 
-app = create_app(DevConfig)
+app = create_app(TestConfig)
 
 
 
