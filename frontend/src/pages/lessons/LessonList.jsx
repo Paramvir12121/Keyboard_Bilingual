@@ -11,7 +11,7 @@ const LessonList = ({ id, title, description, topic }) => {
 
     return (
         <div key={id} id={id}>
-            <div className="card" onClick={handleClick} style={{ cursor: 'pointer' }}>
+            <div className="card lesson-card" onClick={handleClick} style={{ cursor: 'pointer' }}>
                 <div className="card-body">
                     <h5 className="card-title">{title}</h5>
                     <p className="card-text">{topic}</p>

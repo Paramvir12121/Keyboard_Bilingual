@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ColemakKeyboardSvg from './ColemakKeyboardSvg';
+
 
 const qwertyToColemak = {
   'q': 'q', 'w': 'w', 'e': 'f', 'r': 'p', 't': 'g', 'y': 'j', 'u': 'l', 'i': 'u', 'o': 'y', 'p': ';',

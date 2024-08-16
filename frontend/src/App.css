@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #4441ff;
+    --primary-color: #bebec4;
     --secondary-color: #9B3922;
     --tertiary-color: #0A1D56;
     --background-color: #0C0C0C; 
@@ -119,6 +119,12 @@ footer {
   margin-top: 5rem;
   margin-bottom: 5rem;
 }
+
+.lesson-card{
+  margin-top: .2rem;
+}
+
+
 /* <<<<<<<<<<LessonList>>>>>>>>>>>>>>>> */
 .lesson-row {
   margin-right: -15px;
@@ -185,3 +191,25 @@ footer {
 }
 
 /* <<<<<<<<<<<<<<KEYBOARD>>>>>>>>>>>>>>>> */
+
+/* <<<<<<<<<<<<<<HANDS SVG>>>>>>>>>>>>>>>> */
+.finger {
+  fill: #f5c6cb;
+  stroke: #d9534f;
+  stroke-width: 2;
+}
+
+.thumb {
+  fill: #f5c6cb;
+  stroke: #d9534f;
+  stroke-width: 2;
+}
+
+.palm {
+  fill: #e2a4a8;
+  stroke: #d9534f;
+  stroke-width: 2;
+}
+
+
+/* <<<<<<<<<<<<<<HANDS SVG>>>>>>>>>>>>>>>> */

@@ -7,7 +7,7 @@ import ColemakKeyboard from '../keyboard/ColemakKeyboard';
 import ColemakKeyboardSvg from '../keyboard/ColemakKeyboardSvg';
 import QwertyKeyboard from '../keyboard/QwertyKeyboard';
 import ResultNavbar from './results/ResultNavbar';
-
+import HandsSvg from '../keyboard/HandsSvg';
 
 const TypingViewer = ({ words, lessonId }) => {
   const [displayText, setDisplayText] = useState('');
@@ -153,6 +153,7 @@ const TypingViewer = ({ words, lessonId }) => {
         ) : (
           showKeyboard && <QwertyKeyboard />
         )}
+        <HandsSvg pressedKey={displayText[cursorIndex]} />
 
 
        
