@@ -1,16 +1,7 @@
-# Learn_Colemak
-This is repository for Learn colemak (name not finalized) web app that uses react as frontend and flask as backend with sql db database. It uses cognito as authentication service 
+# Alt_keyboard_styles
+This is repository for Learn colemak (name not finalized) web app that uses react as frontend and flask as backend with sql db database. It uses cognito as authentication service.
 
-## Application Design of hybrid Deployment
-![app_diagram](app_diagram.png)
-
-## Database Design:
-
-![db_design](db.png)
-
-
-
-Alt Style to learn
+## Alt Style offered
 
 - Dvorak Simplified Keyboard
 
@@ -30,8 +21,12 @@ Alt Style to learn
     - A variant of Colemak that further optimizes key placement to reduce finger movement and increase comfort.
     - It modifies the positions of some keys, such as D and H, to better align with natural finger movement and reduce strain on the home row.
 
+## Application Design of hybrid Deployment
+![app_diagram](app_diagram.png)
 
+## Database Design:
 
+![db_design](db.png)
 
 
 Refrenced:
