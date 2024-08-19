@@ -6,6 +6,11 @@ Database Design:
 ![db_design](db.png)
 
 
+Application Design of hytbrid Deployment
+![app_diagram](app_diagram.png)
+
+
+
 Refrenced:
 https://github.com/gautamop01/KeyboardConqueror-React-Typing-Practice.git
 
