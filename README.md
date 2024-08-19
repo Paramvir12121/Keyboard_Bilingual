@@ -1,12 +1,12 @@
 # Learn_Colemak
 This is repository for Learn colemak (name not finalized) web app that uses react as frontend and flask as backend with sql db database. It uses cognito as authentication service 
 
-Database Design:
+## Database Design:
 
 ![db_design](db.png)
 
 
-Application Design of hytbrid Deployment
+## Application Design of hybrid Deployment
 ![app_diagram](app_diagram.png)
 
 
