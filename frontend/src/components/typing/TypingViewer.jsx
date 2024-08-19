@@ -153,7 +153,7 @@ const TypingViewer = ({ words, lessonId }) => {
         ) : (
           showKeyboard && <QwertyKeyboard />
         )}
-        <HandsSvg pressedKey={displayText[cursorIndex]} />
+        {/* <HandsSvg pressedKey={displayText[cursorIndex]} /> */}
 
 
        

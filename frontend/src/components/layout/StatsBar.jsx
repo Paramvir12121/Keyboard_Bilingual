@@ -1,13 +1,13 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Nav, Navbar } from 'react-bootstrap';
 
 
 const StatsBar = () => {
     
     return (
-        <div>
+        <Nav>
             StasBar
-        </div>
+        </Nav>
     );
 };
 

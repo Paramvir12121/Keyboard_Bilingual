@@ -16,7 +16,7 @@ const Dashboard = () => {
             
             <h2>Dashboard</h2>
             {/* Add dashboard components here */}
-            {/* <Graphs /> */}
+            <Graphs />
             <div className='lesson-list-div'>
             <LessonLists />
             </div>

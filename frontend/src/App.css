@@ -4,9 +4,8 @@
     --tertiary-color: #0A1D56;
     --background-color: #0C0C0C; 
     --background-gradient: linear-gradient(to bottom right, #11071d, #550b0b);
-    
 
-    --text-color: black;
+    --text-color: #0A1D56;
     --text-dim-color: grey;
     --accent-color: black;
     --error-color: red;
@@ -25,7 +24,6 @@
     min-height: 100vh;
     max-width: 100vw;
     margin: 0 auto;
-    /* padding: 2rem; */
     text-align: center;
     background: var(--background-gradient);
   }
@@ -100,6 +98,8 @@ footer {
   padding: 0 1px;
   border-radius: 2px;
   transition: all 0.1s ease-in-out;
+  color: var(--text-color)
+  
 }
 
 .character.cursor {

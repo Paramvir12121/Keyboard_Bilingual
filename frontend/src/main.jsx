@@ -28,6 +28,8 @@ import TypingViewer from './components/typing/TypingViewer';
 import Settings from './pages/settings/Settings';
 import Test1 from './testComponents/Test1';
 
+
+
 import ROUTES from "./Routes";  // Import the routes
 
 const router = createBrowserRouter([
