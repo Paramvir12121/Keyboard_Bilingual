@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Nav, Navbar } from 'react-bootstrap';
+import { Container, Row, Col, Nav} from 'react-bootstrap';
 
 
 const StatsBar = () => {
