@@ -4,8 +4,8 @@ import { qwertyToColemak } from '../keyboard/Layouts';
 import TextDisplay from './display/TextDisplay';
 import Results from './results/Results';
 import ColemakKeyboard from '../keyboard/ColemakKeyboard';
-import ColemakKeyboardSvg from '../keyboard/ColemakKeyboardSvg';
-import QwertyKeyboard from '../keyboard/QwertyKeyboard';
+import ColemakKeyboardSvg from '../keyboardSvgs.jsx/ColemakKeyboardSvg';
+import QwertyKeyboard from '../keyboardSvgs.jsx/QwertyKeyboard';
 import ResultNavbar from './results/ResultNavbar';
 import HandsSvg from '../keyboard/HandsSvg';
 
