@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: react_nginx
+    environment:
+      - env_file=.env.local
     restart: always
     ports:
       - 80:80

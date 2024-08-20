@@ -1,32 +1,20 @@
-version: '3'
-
 services:
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - frontend_build:/usr/share/nginx/html
+  reverse-proxy:
+    build: ./nginx_proxy_server
     ports:
       - "80:80"
     depends_on:
-      - backend
       - frontend
-
-  backend:
-    build: ./backend
-    volumes:
-      - ./backend:/app
-    expose:
-      - "8000"
 
   frontend:
     build: ./frontend
-    volumes:
-      - ./frontend:/app
-    run:
-      - npm run build
-    volumes:
-      - frontend_build:/app/build
+    container_name: frontend_container
+    ports:
+      - "3000:80"
 
-volumes:
-  frontend_build:
+  backend:
+    build: ./backend
+    container_name: backend_container
+    ports:
+      - "5000:5000"
+    
