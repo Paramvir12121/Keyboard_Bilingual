@@ -32,7 +32,7 @@ This is repository for Learn colemak (name not finalized) web app that uses reac
 Refrenced:
 https://github.com/gautamop01/KeyboardConqueror-React-Typing-Practice.git
 
-
+https://itnext.io/how-to-serve-your-backends-with-nginx-a-comprehensive-guide-c8a74955c6ed
 
 
 Frontend 
