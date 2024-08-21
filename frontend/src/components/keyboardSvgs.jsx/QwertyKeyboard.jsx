@@ -1,19 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-const qwertyKeyMap = {
-  '`': 'keyGrave', '1': 'key1', '2': 'key2', '3': 'key3', '4': 'key4', '5': 'key5',
-  '6': 'key6', '7': 'key7', '8': 'key8', '9': 'key9', '0': 'key0', '-': 'keyMinus',
-  '=': 'keyEqual', 'q': 'keyQ', 'w': 'keyW', 'e': 'keyE', 'r': 'keyR', 't': 'keyT',
-  'y': 'keyY', 'u': 'keyU', 'i': 'keyI', 'o': 'keyO', 'p': 'keyP', '[': 'keyBracketLeft',
-  ']': 'keyBracketRight', '\\': 'keyBackslash', 'a': 'keyA', 's': 'keyS', 'd': 'keyD',
-  'f': 'keyF', 'g': 'keyG', 'h': 'keyH', 'j': 'keyJ', 'k': 'keyK', 'l': 'keyL', ';': 'keySemicolon',
-  "'": 'keyQuote', 'z': 'keyZ', 'x': 'keyX', 'c': 'keyC', 'v': 'keyV', 'b': 'keyB',
-  'n': 'keyN', 'm': 'keyM', ',': 'keyComma', '.': 'keyPeriod', '/': 'keySlash'
-};
-
-const QwertyKeyboard = ({pressedKey}) => {
-
-
+const QwertyKeyboard = ({ pressedKey }) => {
   return (
     <div style={{ width: '100%', height: 'auto' }}>
       <svg
@@ -22,7 +9,6 @@ const QwertyKeyboard = ({pressedKey}) => {
         viewBox="0 0 1200 350"
         preserveAspectRatio="xMidYMid meet"
       >
-       
         {/* Row 1 */}
         <rect id="keyGrave" x="10" y="10" width="60" height="60" className={`key ${pressedKey === 'keyGrave' ? 'key-pressed' : ''}`} />
         <text x="40" y="50" className="key-text">`</text>
