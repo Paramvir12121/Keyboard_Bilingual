@@ -7,7 +7,7 @@ import ColemakKeyboard from '../keyboard/ColemakKeyboard';
 import ColemakKeyboardSvg from '../keyboardSvgs.jsx/ColemakKeyboardSvg';
 import QwertyKeyboard from '../keyboardSvgs.jsx/QwertyKeyboard';
 import ResultNavbar from './results/ResultNavbar';
-// import { fromQwertykeyboardConversions,toQwertyKeyboardConversions } from '../keyboard/Layouts';
+import KeyboardSelection from './keyboardSelection/KeyboardSelection';
 
 
 const TypingViewer = ({ words, lessonId }) => {
@@ -15,6 +15,10 @@ const TypingViewer = ({ words, lessonId }) => {
   const [cursorIndex, setCursorIndex] = useState(0);
   const [isWrongKey, setIsWrongKey] = useState(false);
   const [isColemak, setIsColemak] = useState(false);
+
+  const [userLearningLayout, setUserLearningLayout] = useState('qwerty');
+  const [userKeyboardLayout, setUserKeyboardLayout] = useState('colemak');
+
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [errorCount, setErrorCount] = useState(0);
   const [keysTyped, setKeysTyped] = useState(0);
@@ -50,6 +54,8 @@ const TypingViewer = ({ words, lessonId }) => {
         try {
           const parseSettings = JSON.parse(settings);
           setShowKeyboard(parseSettings.show_keyboard);
+          setUserLearningLayout(parseSettings.keyboard_layout);
+
           setIsColemak(parseSettings.keyboard_layout === 'colemak');
           console.log("isColemak", isColemak);
         } catch (error) {
@@ -142,18 +148,17 @@ const TypingViewer = ({ words, lessonId }) => {
         : 
         <>
         <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />
-        {/* {showKeyboard && (
-          isColemak ? <ColemakKeyboard /> : <QwertyKeyboard />
-      )} 
-          */}
-                {isColemak ? (
+        
+                {/* {isColemak ? (
           <>
             <ColemakKeyboard /> 
             {showKeyboard && <ColemakKeyboardSvg />}
           </>
         ) : (
           showKeyboard && <QwertyKeyboard />
-        )}
+        )} */}
+
+        <KeyboardSelection userLearningLayout={userLearningLayout} userKeyboardLayout={userKeyboardLayout} showKeyboard={showKeyboard}/>
        
         </>
       }
