@@ -6,6 +6,8 @@ services:
     depends_on:
       - frontend
       - backend
+    networks:
+      - app-network
 
   frontend:
     build: ./frontend
@@ -13,7 +15,9 @@ services:
     ports:
       - "3000:80"
     env_file:
-    - ./frontend/.env
+      - ./frontend/.env
+    networks:
+      - app-network
 
   backend:
     build: ./backend
@@ -22,4 +26,9 @@ services:
       - "5000:5000"
     env_file:
       - ./backend/.env
-    
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
