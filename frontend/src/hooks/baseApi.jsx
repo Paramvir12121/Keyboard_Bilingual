@@ -1,8 +1,4 @@
-import axios from 'axios'
-
-console.log(import.meta.env.VITE_API_URL)
-console.log(import.meta.env);
-
+import axios from 'axios';
 
 const baseApi = () => {
     const api = axios.create({

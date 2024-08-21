@@ -1,145 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import useFetchSettings from '../hooks/useFetchSettings';
-import { Card, Form, Row, Col } from 'react-bootstrap';
+import KeyboardTrainer from './KeyboardTrainer';
+
+const qwertyLayout = {
+  'q': 'q', 'w': 'w', 'e': 'e', 'r': 'r', 't': 't', 'y': 'y', 'u': 'u', 'i': 'i', 'o': 'o', 'p': 'p',
+  'a': 'a', 's': 's', 'd': 'd', 'f': 'f', 'g': 'g', 'h': 'h', 'j': 'j', 'k': 'k', 'l': 'l', ';': ';',
+  'z': 'z', 'x': 'x', 'c': 'c', 'v': 'v', 'b': 'b', 'n': 'n', 'm': 'm', ',': ',', '.': '.', '/': '/',
+  '[': '[', ']': ']', '\\': '\\', '`': '`', '-': '-', '=': '=', '1': '1', '2': '2', '3': '3', '4': '4',
+  '5': '5', '6': '6', '7': '7', '8': '8', '9': '9', '0': '0'
+};
+
+const colemakLayout = {
+  'q': 'q', 'w': 'w', 'f': 'e', 'p': 'r', 'g': 't', 'j': 'y', 'l': 'u', 'u': 'i', 'y': 'o', ';': 'p',
+  'a': 'a', 'r': 's', 's': 'd', 't': 'f', 'd': 'g', 'h': 'h', 'n': 'j', 'e': 'k', 'i': 'l', 'o': ';',
+  'z': 'z', 'x': 'x', 'c': 'c', 'v': 'v', 'b': 'b', 'k': 'n', 'm': 'm', ',': ',', '.': '.', '/': '/',
+  '[': '[', ']': ']', '\\': '\\', '`': '`', '-': '-', '=': '=', '1': '1', '2': '2', '3': '3', '4': '4',
+  '5': '5', '6': '6', '7': '7', '8': '8', '9': '9', '0': '0'
+};
+
+const dvorakLayout = {
+  '\'': 'q', ',': 'w', '.': 'e', 'p': 'r', 'y': 't', 'f': 'y', 'g': 'u', 'c': 'i', 'r': 'o', 'l': 'p',
+  'a': 'a', 'o': 's', 'e': 'd', 'u': 'f', 'i': 'g', 'd': 'h', 'h': 'j', 't': 'k', 'n': 'l', 's': ';',
+  ';': 'z', 'q': 'x', 'j': 'c', 'k': 'v', 'x': 'b', 'b': 'n', 'm': 'm', 'w': ',', 'v': '.', 'z': '/',
+  '[': '[', ']': ']', '\\': '\\', '`': '`', '-': '-', '=': '=', '1': '1', '2': '2', '3': '3', '4': '4',
+  '5': '5', '6': '6', '7': '7', '8': '8', '9': '9', '0': '0'
+};
+
+// Add other layouts as needed
+
+
 
 const Test1 = () => {
-  const [settings, setSettings] = useState(null);
-  const { fetchSettings, updateSettings } = useFetchSettings();
-  
-
-
-  useEffect(() => {
-    const fetchInitialSettings = async () => {
-      const fetchedSettings = await fetchSettings();
-      setSettings(fetchedSettings || {});
-      console.log('Settings:', fetchedSettings);
-    };
-
-    if (!settings) {
-      fetchInitialSettings();
-    }
-
-  }, [settings ]);
 
   
-
-  const handleChange = (key, value) => {
-    const newSettings = { ...settings, [key]: value };
-    setSettings(newSettings);
-    Cookies.set('settings', JSON.stringify(newSettings), { expires: 365 });
-  };
-
-  if (!settings) return <div>Loading...</div>;
 
   return (
     <div>
-      <h2>Test 1</h2>
+      <h1>Keyboard Layout Trainer</h1>
+      {/* Example: Train Colemak on QWERTY base */}
+      <KeyboardTrainer baseLayout={qwertyLayout} targetLayout={colemakLayout} />
 
-      <br />
-      <br />
-      {settings.keyboard_layout}
-      <br />
-      
-      {/* <button onClick={fetchSettings}>Fetch Settings</button>
-      <br />
-      <br />
-      <button onClick={() => updateSettings(settings)}>Update Settings</button> */}
+      {/* Example: Train Dvorak on Colemak base */}
+      <KeyboardTrainer baseLayout={colemakLayout} targetLayout={dvorakLayout} />
 
-      <Card className="mb-4">
-        <Card.Header>General Settings</Card.Header>
-        <Card.Body>
-          <Form.Group as={Row} className="mb-3">
-            <Form.Label column sm={3}>Keyboard Layout</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                as="select"
-                value={settings.keyboard_layout || 'qwerty'}
-                onChange={e => handleChange('keyboard_layout', e.target.value)}
-              >
-                <option value="colemak">Colemak</option>
-                <option value="qwerty">QWERTY</option>
-                <option value="dvorak">Dvorak</option>
-              </Form.Control>
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} className="mb-3">
-            <Form.Label column sm={3}>Font Size</Form.Label>
-            <Col sm={9}>
-              <Form.Control
-                as="select"
-                value={settings.font_size || 'medium'}
-                onChange={e => handleChange('font_size', e.target.value)}
-              >
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-              </Form.Control>
-            </Col>
-              {/* Audio Feedback Settings */}
-              <Card className="mb-4">
-                    <Card.Header>Audio Feedback</Card.Header>
-                    <Card.Body>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={3}>Key Press Sound</Form.Label>
-                            <Col sm={9}>
-                                <Form.Check
-                                    type="switch"
-                                    checked={settings.key_press_sound ?? true}
-                                    onChange={e => handleChange('key_press_sound', e.target.checked)}
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={3}>Completion Sound</Form.Label>
-                            <Col sm={9}>
-                                <Form.Check
-                                    type="switch"
-                                    checked={settings.completion_sound ?? true}
-                                    onChange={e => handleChange('completion_sound', e.target.checked)}
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={3}>Error Sound</Form.Label>
-                            <Col sm={9}>
-                                <Form.Check
-                                    type="switch"
-                                    checked={settings.error_sound ?? true}
-                                    onChange={e => handleChange('error_sound', e.target.checked)}
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={3}>Background Music</Form.Label>
-                            <Col sm={9}>
-                                <Form.Check
-                                    type="switch"
-                                    checked={settings.background_music?.enabled ?? false}
-                                    onChange={e => handleChange('background_music', { ...settings.background_music, enabled: e.target.checked })}
-                                />
-                                <Form.Label>Volume</Form.Label>
-                                <Form.Control
-                                    type="range"
-                                    min="0"
-                                    max="1"
-                                    step="0.1"
-                                    value={settings.background_music?.volume ?? 0.5}
-                                    onChange={e => handleChange('background_music', { ...settings.background_music, volume: e.target.value })}
-                                />
-                            </Col>
-                        </Form.Group>
-                    </Card.Body>
-                </Card>
-
-            <button variant="primary" onClick={() => updateSettings(settings)}>
-                Save Settings
-            </button>
-          </Form.Group>
-        </Card.Body>
-      </Card>
+      {/* You can create more trainers for different base and target layouts */}
     </div>
   );
 };
+
 
 export default Test1;

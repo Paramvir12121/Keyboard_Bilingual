@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import baseApi from '../../hooks/baseApi';
 import TypingViewer from '../../components/typing/TypingViewer';
-import Cookies from 'js-cookie';
+
 
 const LessonPage = () => {
   const { id } = useParams();
