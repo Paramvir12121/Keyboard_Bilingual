@@ -41,7 +41,7 @@ const Test1 = () => {
       <KeyboardTrainer baseLayout={qwertyLayout} targetLayout={colemakLayout} />
 
       {/* Example: Train Dvorak on Colemak base */}
-      <KeyboardTrainer baseLayout={colemakLayout} targetLayout={dvorakLayout} />
+      <KeyboardTrainer baseLayout={qwertyLayout} targetLayout={dvorakLayout} />
 
       {/* You can create more trainers for different base and target layouts */}
     </div>
