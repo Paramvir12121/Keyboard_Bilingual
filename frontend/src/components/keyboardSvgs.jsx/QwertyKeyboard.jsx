@@ -11,29 +11,8 @@ const qwertyKeyMap = {
   'n': 'keyN', 'm': 'keyM', ',': 'keyComma', '.': 'keyPeriod', '/': 'keySlash'
 };
 
-const QwertyKeyboard = () => {
-  const [pressedKey, setPressedKey] = useState(null);
+const QwertyKeyboard = ({pressedKey}) => {
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      const key = e.key.toLowerCase();
-      if (qwertyKeyMap[key]) {
-        setPressedKey(qwertyKeyMap[key]);
-      }
-    };
-
-    const handleKeyUp = () => {
-      setPressedKey(null);
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
-    };
-  }, []);
 
   return (
     <div style={{ width: '100%', height: 'auto' }}>
