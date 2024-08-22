@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd backend || {echo "Directory not found"; exit 1 }
+cd backend
 
 source venv/bin/activate
 
