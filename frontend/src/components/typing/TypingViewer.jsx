@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Cookies from 'js-cookie';
-import { qwertyToColemak } from '../keyboard/Layouts';
 import TextDisplay from './display/TextDisplay';
 import Results from './results/Results';
 import ColemakKeyboard from '../keyboard/ColemakKeyboard';
@@ -8,6 +7,7 @@ import ColemakKeyboardSvg from '../keyboardSvgs.jsx/ColemakKeyboardSvg';
 import QwertyKeyboard from '../keyboardSvgs.jsx/QwertyKeyboard';
 import ResultNavbar from './results/ResultNavbar';
 import KeyboardSelection from './keyboardSelection/KeyboardSelection';
+import { layoutMappings } from './layoutMapping/LayoutMapping';
 
 
 const TypingViewer = ({ words, lessonId }) => {
@@ -17,7 +17,7 @@ const TypingViewer = ({ words, lessonId }) => {
   const [isColemak, setIsColemak] = useState(false);
 
   const [userLearningLayout, setUserLearningLayout] = useState('qwerty');
-  const [userKeyboardLayout, setUserKeyboardLayout] = useState('colemak');
+  const [userKeyboardLayout, setUserKeyboardLayout] = useState('qwerty');
 
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [errorCount, setErrorCount] = useState(0);
@@ -29,6 +29,7 @@ const TypingViewer = ({ words, lessonId }) => {
   const [wrongKeysPressedCount, setWrongKeysPressedCount] = useState({});
 
   const timerRef = useRef(null);
+  let pressedKey = null;
 
   const generateNewText = useCallback(() => {
     if (!words || words.length === 0) {
@@ -82,42 +83,52 @@ const TypingViewer = ({ words, lessonId }) => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (!startTime) {
-        setStartTime(Date.now());
-      }
+        if (!startTime) {
+            setStartTime(Date.now());
+        }
 
-      let pressedKey = event.key.toLowerCase();
-      if (isColemak && qwertyToColemak[pressedKey]) {
-        pressedKey = qwertyToColemak[pressedKey];
-      }
-      setKeysTyped(prev => prev + 1);
-      if (pressedKey === displayText[cursorIndex].toLowerCase() || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
-        setIsWrongKey(false);
-        setCursorIndex(prevIndex => {
-          if (prevIndex + 1 >= displayText.length) {
-            setLessonEnded(true);
-            clearInterval(timerRef.current);
-            return prevIndex;
-          }
-          if (displayText[prevIndex] === ' ') {
-            setWordsTyped(prev => prev + 1);
-          }
-          return prevIndex + 1;
-        });
-      } else {
-        setIsWrongKey(true);
-        setErrorCount(prev => prev + 1);
-        setWrongKeysPressedCount(prev => ({
-          ...prev,
-          [displayText[cursorIndex]]: (prev[displayText[cursorIndex]] || 0) + 1
-        }));
-      }
-    }
+        let pressedKey = event.key.toLowerCase();
+
+        if (layoutMappings[userKeyboardLayout] && layoutMappings[userKeyboardLayout][userLearningLayout]) {
+            const conversionMap = layoutMappings[userKeyboardLayout][userLearningLayout];
+            
+            // Log the pressed key before and after conversion
+            console.log(`Original Pressed Key: ${pressedKey}`);
+            if (conversionMap[pressedKey]) {
+                pressedKey = conversionMap[pressedKey];
+            }
+            console.log(`Converted Pressed Key: ${pressedKey}`);
+        }
+
+        setKeysTyped(prev => prev + 1);
+        if (pressedKey === displayText[cursorIndex].toLowerCase() || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
+            setIsWrongKey(false);
+            setCursorIndex(prevIndex => {
+                if (prevIndex + 1 >= displayText.length) {
+                    setLessonEnded(true);
+                    clearInterval(timerRef.current);
+                    return prevIndex;
+                }
+                if (displayText[prevIndex] === ' ') {
+                    setWordsTyped(prev => prev + 1);
+                }
+                return prevIndex + 1;
+            });
+        } else {
+            setIsWrongKey(true);
+            setErrorCount(prev => prev + 1);
+            setWrongKeysPressedCount(prev => ({
+                ...prev,
+                [displayText[cursorIndex]]: (prev[displayText[cursorIndex]] || 0) + 1
+            }));
+        }
+    };
     window.addEventListener('keydown', handleKeyDown);
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+        window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [cursorIndex, displayText, isColemak, startTime]);
+}, [cursorIndex, displayText, userKeyboardLayout, userLearningLayout, startTime]);
+
 
   const calculateStats = () => {
     const totalCharacters = keysTyped;
@@ -148,18 +159,9 @@ const TypingViewer = ({ words, lessonId }) => {
         : 
         <>
         <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />
-        
-                {/* {isColemak ? (
-          <>
-            <ColemakKeyboard /> 
-            {showKeyboard && <ColemakKeyboardSvg />}
-          </>
-        ) : (
-          showKeyboard && <QwertyKeyboard />
-        )} */}
 
-        <KeyboardSelection userLearningLayout={userLearningLayout} userKeyboardLayout={userKeyboardLayout} showKeyboard={showKeyboard}/>
-       
+        <KeyboardSelection userLearningLayout={userLearningLayout} userKeyboardLayout={userKeyboardLayout} showKeyboard={showKeyboard} />
+                
         </>
       }
 

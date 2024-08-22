@@ -3,7 +3,7 @@ import ColemakKeyboardSvg from '../../keyboardSvgs.jsx/ColemakKeyboardSvg';
 import QwertyKeyboard from '../../keyboardSvgs.jsx/QwertyKeyboard';
 import DvorakKeyboardSvg from '../../keyboardSvgs.jsx/DvorakKeyboardSvg';
 
-const KeyboardSelection = ({ userLearningLayout, userKeyboardLayout, showKeyboard }) => {
+const KeyboardSelection = ({ userLearningLayout, userKeyboardLayout, showKeyboard  }) => {
     const [pressedKey, setPressedKey] = useState(null);
 
     useEffect(() => {

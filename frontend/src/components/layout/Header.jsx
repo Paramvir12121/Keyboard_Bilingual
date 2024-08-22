@@ -23,9 +23,9 @@ const Header = () => {
     }, [signedIn]);
 
     return (
-        <Navbar expand="lg" className="mb-3">
+        <Navbar expand="md" className="mb-3">
             <Container>
-                <Navbar.Brand as={Link} to={ROUTES.HOME}>Arch</Navbar.Brand> {/* Use ROUTES.HOME */}
+                <Navbar.Brand as={Link} to={ROUTES.DASHBOARD}>Arch</Navbar.Brand> {/* Use ROUTES.HOME */}
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
