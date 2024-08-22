@@ -69,76 +69,63 @@ const TypingViewer = ({ words, lessonId }) => {
   }, [generateNewText]);
 
   useEffect(() => {
-    if (startTime && !lessonEnded) {
-      timerRef.current = setInterval(() => {
-        setElapsedTime(prevTime => prevTime + 1);
-      }, 1000);
-    }
-    return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
+    const handleKeyDown = (event) => {
+      if (!startTime) {
+        setStartTime(Date.now());
+      }
+  
+      let pressedKey = event.key.toLowerCase();
+  
+      if (layoutMappings[userKeyboardLayout] && layoutMappings[userKeyboardLayout][userLearningLayout]) {
+        const conversionMap = layoutMappings[userKeyboardLayout][userLearningLayout];
+        if (conversionMap[pressedKey]) {
+          pressedKey = conversionMap[pressedKey];
+        }
+      }
+  
+      setKeysTyped(prev => prev + 1);
+  
+      // Ensure that pressedKey is set correctly
+      const keyId = `key${pressedKey.charAt(0).toUpperCase() + pressedKey.slice(1)}`;
+      setPressedKey(keyId);
+  
+      if (pressedKey === displayText[cursorIndex].toLowerCase() || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
+        setIsWrongKey(false);
+        setCursorIndex(prevIndex => {
+          if (prevIndex + 1 >= displayText.length) {
+            setLessonEnded(true);
+            clearInterval(timerRef.current);
+            return prevIndex;
+          }
+          if (displayText[prevIndex] === ' ') {
+            setWordsTyped(prev => prev + 1);
+          }
+          return prevIndex + 1;
+        });
+      } else {
+        setIsWrongKey(true);
+        setErrorCount(prev => prev + 1);
+        setWrongKeysPressedCount(prev => ({
+          ...prev,
+          [displayText[cursorIndex]]: (prev[displayText[cursorIndex]] || 0) + 1
+        }));
       }
     };
-  }, [startTime, lessonEnded]);
-
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-        if (!startTime) {
-            setStartTime(Date.now());
-        }
-
-        let pressedKey = event.key.toLowerCase();
-
-        if (layoutMappings[userKeyboardLayout] && layoutMappings[userKeyboardLayout][userLearningLayout]) {
-            const conversionMap = layoutMappings[userKeyboardLayout][userLearningLayout];
-            
-            if (conversionMap[pressedKey]) {
-                pressedKey = conversionMap[pressedKey];
-            }
-        }
-
-        setKeysTyped(prev => prev + 1);
-
-        // Update the pressedKey state to the corresponding key ID
-        setPressedKey(`key${pressedKey.charAt(0).toUpperCase() + pressedKey.slice(1)}`);
-
-        if (pressedKey === displayText[cursorIndex].toLowerCase() || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
-            setIsWrongKey(false);
-            setCursorIndex(prevIndex => {
-                if (prevIndex + 1 >= displayText.length) {
-                    setLessonEnded(true);
-                    clearInterval(timerRef.current);
-                    return prevIndex;
-                }
-                if (displayText[prevIndex] === ' ') {
-                    setWordsTyped(prev => prev + 1);
-                }
-                return prevIndex + 1;
-            });
-        } else {
-            setIsWrongKey(true);
-            setErrorCount(prev => prev + 1);
-            setWrongKeysPressedCount(prev => ({
-                ...prev,
-                [displayText[cursorIndex]]: (prev[displayText[cursorIndex]] || 0) + 1
-            }));
-        }
-    };
-
+  
     const handleKeyUp = () => {
-        // Reset the pressedKey state when the key is released
-        setPressedKey(null);
+      setPressedKey(null); // Reset the pressedKey when the key is released
     };
-
+  
     window.addEventListener('keydown', handleKeyDown);
-    
     window.addEventListener('keyup', handleKeyUp);
-
+  
     return () => {
-        window.removeEventListener('keydown', handleKeyDown);
-        window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
     };
-}, [cursorIndex, displayText, userKeyboardLayout, userLearningLayout, startTime]);
+  }, [cursorIndex, displayText, userKeyboardLayout, userLearningLayout, startTime]);
+  
+
 
 
 
