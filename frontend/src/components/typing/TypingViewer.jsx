@@ -131,6 +131,7 @@ const TypingViewer = ({ words, lessonId }) => {
     };
 
     window.addEventListener('keydown', handleKeyDown);
+    
     window.addEventListener('keyup', handleKeyUp);
 
     return () => {
