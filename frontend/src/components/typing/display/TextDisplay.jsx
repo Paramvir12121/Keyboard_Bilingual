@@ -2,7 +2,6 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 
 const TextDisplay = ({ displayText, cursorIndex, isWrongKey }) => {
-  console.log('TextDisplay: ', displayText);
   return (
     <Card className="text-display-card">
       <Card.Body>

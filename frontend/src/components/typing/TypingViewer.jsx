@@ -27,9 +27,9 @@ const TypingViewer = ({ words, lessonId }) => {
   const [startTime, setStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [wrongKeysPressedCount, setWrongKeysPressedCount] = useState({});
+  const [pressedKey, setPressedKey] = useState(null);
 
   const timerRef = useRef(null);
-  let pressedKey = null;
 
   const generateNewText = useCallback(() => {
     if (!words || words.length === 0) {
@@ -160,7 +160,7 @@ const TypingViewer = ({ words, lessonId }) => {
         <>
         <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />
 
-        <KeyboardSelection userLearningLayout={userLearningLayout} userKeyboardLayout={userKeyboardLayout} showKeyboard={showKeyboard} />
+        <KeyboardSelection userLearningLayout={userLearningLayout} userKeyboardLayout={userKeyboardLayout} showKeyboard={showKeyboard} pressedKey={pressedKey}/>
                 
         </>
       }

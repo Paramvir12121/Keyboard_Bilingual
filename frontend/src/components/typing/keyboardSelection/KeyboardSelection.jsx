@@ -3,46 +3,35 @@ import ColemakKeyboardSvg from '../../keyboardSvgs.jsx/ColemakKeyboardSvg';
 import QwertyKeyboard from '../../keyboardSvgs.jsx/QwertyKeyboard';
 import DvorakKeyboardSvg from '../../keyboardSvgs.jsx/DvorakKeyboardSvg';
 
-const KeyboardSelection = ({ userLearningLayout, userKeyboardLayout, showKeyboard  }) => {
-    const [pressedKey, setPressedKey] = useState(null);
+const KeyboardSelection = ({ userLearningLayout, userKeyboardLayout, showKeyboard, pressedKey }) => {
+    if (!showKeyboard) {
+        return null;  // Don't render anything if the keyboard should not be shown
+    }
 
-    useEffect(() => {
-        const handleKeyDown = (event) => {
-            let key = event.key.toLowerCase();
+    let KeyboardComponent;
 
-            // Translate the key from user's physical layout to the learning layout
-            if (userKeyboardLayout[key]) {
-                key = userKeyboardLayout[key];
-            }
-
-            // Map the translated key to the corresponding key in the learning layout
-            if (userLearningLayout[key]) {
-                setPressedKey(userLearningLayout[key]);
-            } else {
-                setPressedKey(null);
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-        window.addEventListener('keyup', () => setPressedKey(null)); // Reset on key up
-
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-            window.removeEventListener('keyup', () => setPressedKey(null));
-        };
-    }, [userLearningLayout, userKeyboardLayout]);
+    switch (userLearningLayout) {
+        case 'colemak':
+            KeyboardComponent = ColemakKeyboardSvg;
+            break;
+        case 'dvorak':
+            KeyboardComponent = DvorakKeyboardSvg;
+            break;
+        case 'workman':
+            KeyboardComponent = WorkmanKeyboardSvg;
+            break;
+        case 'qwerty':
+        default:
+            KeyboardComponent = QwertyKeyboard;
+            break;
+    }
 
     return (
         <div>
-            {showKeyboard && (
-                <>
-                    {userLearningLayout === 'colemak' && <ColemakKeyboardSvg pressedKey={pressedKey} />}
-                    {userLearningLayout === 'qwerty' && <QwertyKeyboard pressedKey={pressedKey} />}
-                    {userLearningLayout === 'dvorak' && <DvorakKeyboardSvg pressedKey={pressedKey} />}
-                </>
-            )}
+            <KeyboardComponent pressedKey={pressedKey} />
         </div>
     );
 };
 
 export default KeyboardSelection;
+      

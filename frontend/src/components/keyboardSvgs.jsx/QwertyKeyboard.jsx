@@ -1,6 +1,7 @@
 import React from 'react';
 
 const QwertyKeyboard = ({ pressedKey }) => {
+  console.log('pressedKey:', pressedKey);
   return (
     <div style={{ width: '100%', height: 'auto' }}>
       <svg
