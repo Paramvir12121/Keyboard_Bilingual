@@ -92,15 +92,16 @@ const TypingViewer = ({ words, lessonId }) => {
         if (layoutMappings[userKeyboardLayout] && layoutMappings[userKeyboardLayout][userLearningLayout]) {
             const conversionMap = layoutMappings[userKeyboardLayout][userLearningLayout];
             
-            // Log the pressed key before and after conversion
-            console.log(`Original Pressed Key: ${pressedKey}`);
             if (conversionMap[pressedKey]) {
                 pressedKey = conversionMap[pressedKey];
             }
-            console.log(`Converted Pressed Key: ${pressedKey}`);
         }
 
         setKeysTyped(prev => prev + 1);
+
+        // Update the pressedKey state to the corresponding key ID
+        setPressedKey(`key${pressedKey.charAt(0).toUpperCase() + pressedKey.slice(1)}`);
+
         if (pressedKey === displayText[cursorIndex].toLowerCase() || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
             setIsWrongKey(false);
             setCursorIndex(prevIndex => {
@@ -123,11 +124,21 @@ const TypingViewer = ({ words, lessonId }) => {
             }));
         }
     };
+
+    const handleKeyUp = () => {
+        // Reset the pressedKey state when the key is released
+        setPressedKey(null);
+    };
+
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+
     return () => {
         window.removeEventListener('keydown', handleKeyDown);
+        window.removeEventListener('keyup', handleKeyUp);
     };
 }, [cursorIndex, displayText, userKeyboardLayout, userLearningLayout, startTime]);
+
 
 
   const calculateStats = () => {
