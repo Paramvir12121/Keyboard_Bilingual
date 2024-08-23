@@ -24,6 +24,7 @@ const TypingViewer = ({ words, lessonId }) => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [wrongKeysPressedCount, setWrongKeysPressedCount] = useState({});
   const [pressedKey, setPressedKey] = useState(null);
+  const [results, setResults] = useState(null);
   const timerRef = useRef(null);
   const generateNewText = useCallback(() => {
     if (!words || words.length === 0) {
@@ -69,6 +70,8 @@ const TypingViewer = ({ words, lessonId }) => {
       }
     };
   }, [startTime, lessonEnded]);
+
+  
   useEffect(() => {
     const handleKeyDown = (event) => {
         if (!startTime) {
@@ -121,6 +124,8 @@ const TypingViewer = ({ words, lessonId }) => {
         window.removeEventListener('keyup', handleKeyUp);
     };
 }, [cursorIndex, displayText, userKeyboardLayout, userLearningLayout, startTime]);
+
+
   const calculateStats = () => {
     const totalCharacters = keysTyped;
     const accuracy = ((totalCharacters - errorCount) / totalCharacters) * 100;
@@ -134,6 +139,13 @@ const TypingViewer = ({ words, lessonId }) => {
       wrongKeysPressedCount
     };
   };
+
+  useEffect(() => {
+    if (lessonEnded) {
+      setResults(calculateStats());
+    }
+  }, [lessonEnded]);
+
   return (
     <>
       <h2>Typing Viewer</h2>
@@ -141,7 +153,7 @@ const TypingViewer = ({ words, lessonId }) => {
       {timerRef.current && <p>Time Elapsed: {elapsedTime} seconds</p>}
       {lessonEnded ? 
         <>
-        <Results {...calculateStats()} lessonId={lessonId} /> 
+        <Results stats={results} lessonId={lessonId} /> 
         <ResultNavbar lessonId={lessonId} />
         </>
         : 
