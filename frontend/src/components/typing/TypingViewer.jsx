@@ -8,16 +8,13 @@ import QwertyKeyboard from '../keyboardSvgs.jsx/QwertyKeyboard';
 import ResultNavbar from './results/ResultNavbar';
 import KeyboardSelection from './keyboardSelection/KeyboardSelection';
 import { layoutMappings } from './layoutMapping/LayoutMapping';
-
 const TypingViewer = ({ words, lessonId }) => {
   const [displayText, setDisplayText] = useState('');
   const [cursorIndex, setCursorIndex] = useState(0);
   const [isWrongKey, setIsWrongKey] = useState(false);
   const [isColemak, setIsColemak] = useState(false);
-
   const [userLearningLayout, setUserLearningLayout] = useState('qwerty');
   const [userKeyboardLayout, setUserKeyboardLayout] = useState('qwerty');
-
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [errorCount, setErrorCount] = useState(0);
   const [keysTyped, setKeysTyped] = useState(0);
@@ -27,9 +24,7 @@ const TypingViewer = ({ words, lessonId }) => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [wrongKeysPressedCount, setWrongKeysPressedCount] = useState({});
   const [pressedKey, setPressedKey] = useState(null);
-
   const timerRef = useRef(null);
-
   const generateNewText = useCallback(() => {
     if (!words || words.length === 0) {
       console.error('No words provided');
@@ -44,10 +39,8 @@ const TypingViewer = ({ words, lessonId }) => {
   
     setDisplayText(viewText.trim());
   }, [words]);
-
   useEffect(() => {
     generateNewText();
-
     const fetchSettings = async () => {
       const settings = Cookies.get('settings');
       if (settings) {
@@ -55,7 +48,6 @@ const TypingViewer = ({ words, lessonId }) => {
           const parseSettings = JSON.parse(settings);
           setShowKeyboard(parseSettings.show_keyboard);
           setUserLearningLayout(parseSettings.keyboard_layout);
-
           setIsColemak(parseSettings.keyboard_layout === 'colemak');
           console.log("isColemak", isColemak);
         } catch (error) {
@@ -63,81 +55,76 @@ const TypingViewer = ({ words, lessonId }) => {
         }
       }
     };
-
     fetchSettings();
   }, [generateNewText]);
-
+  useEffect(() => {
+    if (startTime && !lessonEnded) {
+      timerRef.current = setInterval(() => {
+        setElapsedTime(prevTime => prevTime + 1);
+      }, 1000);
+    }
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [startTime, lessonEnded]);
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (!startTime) {
-        const start = Date.now();
-        setStartTime(start);
-
-        // Start the timer to update elapsedTime every second
-        timerRef.current = setInterval(() => {
-          setElapsedTime(Math.floor((Date.now() - start) / 1000));
-        }, 1000);
-      }
-  
-      let pressedKey = event.key.toLowerCase();
-  
-      if (layoutMappings[userKeyboardLayout] && layoutMappings[userKeyboardLayout][userLearningLayout]) {
-        const conversionMap = layoutMappings[userKeyboardLayout][userLearningLayout];
-        if (conversionMap[pressedKey]) {
-          pressedKey = conversionMap[pressedKey];
+        if (!startTime) {
+            setStartTime(Date.now());
         }
-      }
-  
-      setKeysTyped(prev => prev + 1);
-  
-      // Ensure that pressedKey is set correctly
-      const keyId = `key${pressedKey.charAt(0).toUpperCase() + pressedKey.slice(1)}`;
-      setPressedKey(keyId);
-  
-      if (pressedKey === displayText[cursorIndex].toLowerCase() || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
-        setIsWrongKey(false);
-        setCursorIndex(prevIndex => {
-          if (prevIndex + 1 >= displayText.length) {
-            setLessonEnded(true);
-            clearInterval(timerRef.current); // Stop the timer when the lesson ends
-            return prevIndex;
-          }
-          if (displayText[prevIndex] === ' ') {
-            setWordsTyped(prev => prev + 1);
-          }
-          return prevIndex + 1;
-        });
-      } else {
-        setIsWrongKey(true);
-        setErrorCount(prev => prev + 1);
-        setWrongKeysPressedCount(prev => ({
-          ...prev,
-          [displayText[cursorIndex]]: (prev[displayText[cursorIndex]] || 0) + 1
-        }));
-      }
+        let pressedKey = event.key.toLowerCase();
+        if (layoutMappings[userKeyboardLayout] && layoutMappings[userKeyboardLayout][userLearningLayout]) {
+            const conversionMap = layoutMappings[userKeyboardLayout][userLearningLayout];
+            
+            if (conversionMap[pressedKey]) {
+                pressedKey = conversionMap[pressedKey];
+            }
+        }
+        setKeysTyped(prev => prev + 1);
+        // Update the pressedKey state to the corresponding key ID
+        setPressedKey(`key${pressedKey.charAt(0).toUpperCase() + pressedKey.slice(1)}`);
+        if (pressedKey === displayText[cursorIndex].toLowerCase() || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
+            setIsWrongKey(false);
+            setCursorIndex(prevIndex => {
+                if (prevIndex + 1 >= displayText.length) {
+                    setLessonEnded(true);
+                    clearInterval(timerRef.current);
+                    return prevIndex;
+                }
+                if (displayText[prevIndex] === ' ') {
+                    setWordsTyped(prev => prev + 1);
+                }
+                return prevIndex + 1;
+            });
+        } else {
+            setIsWrongKey(true);
+            setErrorCount(prev => prev + 1);
+            setWrongKeysPressedCount(prev => ({
+                ...prev,
+                [displayText[cursorIndex]]: (prev[displayText[cursorIndex]] || 0) + 1
+            }));
+        }
     };
-  
     const handleKeyUp = () => {
-      setPressedKey(null); // Reset the pressedKey when the key is released
+        // Reset the pressedKey state when the key is released
+        setPressedKey(null);
     };
-  
+
     window.addEventListener('keydown', handleKeyDown);
+
     window.addEventListener('keyup', handleKeyUp);
-  
+
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
-      clearInterval(timerRef.current); // Clear the timer when the component unmounts
+        window.removeEventListener('keydown', handleKeyDown);
+        window.removeEventListener('keyup', handleKeyUp);
     };
-  }, [cursorIndex, displayText, userKeyboardLayout, userLearningLayout, startTime]);
-  
+}, [cursorIndex, displayText, userKeyboardLayout, userLearningLayout, startTime]);
   const calculateStats = () => {
     const totalCharacters = keysTyped;
     const accuracy = ((totalCharacters - errorCount) / totalCharacters) * 100;
     const wpm = (wordsTyped / (elapsedTime / 60));
-    console.log("WPM:", wpm);
-    console.log("words Typed",wordsTyped, "elapsedTime", elapsedTime);
-
     return {
       wpm,
       accuracy,
@@ -147,13 +134,11 @@ const TypingViewer = ({ words, lessonId }) => {
       wrongKeysPressedCount
     };
   };
-
   return (
     <>
       <h2>Typing Viewer</h2>
       
       {timerRef.current && <p>Time Elapsed: {elapsedTime} seconds</p>}
-
       {lessonEnded ? 
         <>
         <Results {...calculateStats()} lessonId={lessonId} /> 
@@ -162,13 +147,12 @@ const TypingViewer = ({ words, lessonId }) => {
         : 
         <>
         <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />
-
         <KeyboardSelection userLearningLayout={userLearningLayout} userKeyboardLayout={userKeyboardLayout} showKeyboard={showKeyboard} pressedKey={pressedKey}/>
                 
         </>
       }
+     
     </>
   );
 };
-
 export default TypingViewer;
