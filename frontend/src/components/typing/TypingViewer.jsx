@@ -9,7 +9,6 @@ import ResultNavbar from './results/ResultNavbar';
 import KeyboardSelection from './keyboardSelection/KeyboardSelection';
 import { layoutMappings } from './layoutMapping/LayoutMapping';
 
-
 const TypingViewer = ({ words, lessonId }) => {
   const [displayText, setDisplayText] = useState('');
   const [cursorIndex, setCursorIndex] = useState(0);
@@ -71,7 +70,13 @@ const TypingViewer = ({ words, lessonId }) => {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (!startTime) {
-        setStartTime(Date.now());
+        const start = Date.now();
+        setStartTime(start);
+
+        // Start the timer to update elapsedTime every second
+        timerRef.current = setInterval(() => {
+          setElapsedTime(Math.floor((Date.now() - start) / 1000));
+        }, 1000);
       }
   
       let pressedKey = event.key.toLowerCase();
@@ -94,7 +99,7 @@ const TypingViewer = ({ words, lessonId }) => {
         setCursorIndex(prevIndex => {
           if (prevIndex + 1 >= displayText.length) {
             setLessonEnded(true);
-            clearInterval(timerRef.current);
+            clearInterval(timerRef.current); // Stop the timer when the lesson ends
             return prevIndex;
           }
           if (displayText[prevIndex] === ' ') {
@@ -122,17 +127,16 @@ const TypingViewer = ({ words, lessonId }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
+      clearInterval(timerRef.current); // Clear the timer when the component unmounts
     };
   }, [cursorIndex, displayText, userKeyboardLayout, userLearningLayout, startTime]);
   
-
-
-
-
   const calculateStats = () => {
     const totalCharacters = keysTyped;
     const accuracy = ((totalCharacters - errorCount) / totalCharacters) * 100;
     const wpm = (wordsTyped / (elapsedTime / 60));
+    console.log("WPM:", wpm);
+    console.log("words Typed",wordsTyped, "elapsedTime", elapsedTime);
 
     return {
       wpm,
@@ -163,8 +167,6 @@ const TypingViewer = ({ words, lessonId }) => {
                 
         </>
       }
-
-     
     </>
   );
 };

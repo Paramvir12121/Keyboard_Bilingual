@@ -21,6 +21,8 @@ const Results = ({ lessonId, wpm, accuracy, errorCount, totalCharacters, elapsed
                 errors: errorCount,
                 error_keys: wrongKeysPressedCount
             };
+            console.log('WPM:', wpm, 'Accuracy:', accuracy);
+
 
             try {
                 const response = await api.post(`/lessons/user_lesson/${lessonId}`, userLessonData, { withCredentials: true });
