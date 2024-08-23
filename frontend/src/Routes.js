@@ -14,6 +14,7 @@ const ROUTES = {
     TEST1: '/test1',
     SETTINGS: '/settings',
     NOT_FOUND: '*',
+    STATS: '/stats',
   };
   
   export default ROUTES;

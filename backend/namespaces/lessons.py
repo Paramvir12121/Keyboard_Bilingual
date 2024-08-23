@@ -195,6 +195,7 @@ class UserLessonTypingSpeed(Resource):
             user_lesson_accuracy = round(user_lesson.accuracy, 0)
             typing_data = {"score":user_lesson_score, "accuracy":user_lesson_accuracy}
             typing_speed_list.append(typing_data)
+            print("Typing Speed List: ",typing_speed_list)
         return typing_speed_list, 200
 
 @lessons_ns.route('/error_keys')
