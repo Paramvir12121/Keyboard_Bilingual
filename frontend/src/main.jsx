@@ -12,7 +12,6 @@ import NotFoundPage from './pages/errors/NotFoundPage';
 import NotAuthorized from './pages/errors/NotAuthorized';
 
 import Dashboard from './pages/dashboard/Dashboard';
-import Keyboard from '../src/components/keyboard/Keyboard';
 import Typing from '../src/components/typingTest/Typeing';
 import ConfirmEmail from './auth/misc/ConfirmEmail';
 import Signup from './auth/Singup';
@@ -24,7 +23,6 @@ import ProtectedRoute from './auth/ProtectedRoutes';
 import LessonLists from './pages/lessons/LessonLists';
 
 import LessonPage from './pages/lessons/LessonPage';
-import TypingViewer from './components/typing/TypingViewer';
 import Settings from './pages/settings/Settings';
 import Test1 from './testComponents/Test1';
 import StatsPage from './pages/stats/StatsPage';

@@ -4,11 +4,10 @@ import baseApi from '../../../hooks/baseApi';
 
 const Results = ({ lessonId, stats }) => {
     const [error, setError] = useState(null);
+    const [isMounted, setIsMounted] = useState(true);
     const api = baseApi();
 
     useEffect(() => {
-        let isMounted = true;
-
         const sendUserLessonData = async () => {
             if (!stats) return;
 
@@ -23,14 +22,18 @@ const Results = ({ lessonId, stats }) => {
             };
 
             try {
-                const response = await api.post(`/lessons/user_lesson/${lessonId}`, userLessonData, { withCredentials: true });
+                
                 if (isMounted) {
-                    console.log(response.data.message);
+                    const response = await api.post(`/lessons/user_lesson/${lessonId}`, userLessonData, { withCredentials: true });
+                    console.log("I mounted message: ",response.data.message);
+                    setIsMounted(false);
+                    
                 }
             } catch (error) {
                 if (isMounted) {
                     console.error('Error creating user lesson:', error);
                     setError(error);
+                    setIsMounted(false);
                 }
             }
         };
@@ -38,7 +41,7 @@ const Results = ({ lessonId, stats }) => {
         sendUserLessonData();
 
         return () => {
-            isMounted = false;
+            setIsMounted(false);
         };
     }, [api, lessonId, stats]);
 
