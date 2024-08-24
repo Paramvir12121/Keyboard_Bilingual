@@ -14,8 +14,6 @@ const Dashboard = () => {
          <div>
             <StatsBar />
             <Goal />
-            <Loading />
-            
             <h2>Dashboard</h2>
             {/* Add dashboard components here */}
             <Graphs />
