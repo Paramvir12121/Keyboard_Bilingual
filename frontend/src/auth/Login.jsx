@@ -10,7 +10,8 @@ import Form from 'react-bootstrap/Form';
 import useFetchSettings from "../hooks/useFetchSettings";
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
-import ROUTES from '../Routes'; // Importing ROUTES for navigation
+import ROUTES from '../Routes';
+import Loading from "../components/common/Loading";
 
 const Login = () => {
     const [signedIn, setSignedIn] = useContext(Context);
@@ -18,11 +19,15 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const [message, setMessage] = useState(null);
+    const [loading, setLoading] = useState(false);
     const { fetchSettings } = useFetchSettings();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(null);
+        setMessage(null);
+        
         try {
             const api = baseApi();
             const response = await api.post('/auth/login', { username, password }, { withCredentials: true });
@@ -31,12 +36,17 @@ const Login = () => {
                 console.log("data: ", response.data);
                 setMessage('Login successful');
                 setSignedIn(true);
+                setLoading(true); // Set loading to true after successful login
 
                 await fetchSettings();
                 document.cookie = `signedIn=true`;
                 document.cookie = `username=${response.data.username}`;
                 document.cookie = `email=${response.data.email}`;
-                setTimeout(() => navigate(ROUTES.DASHBOARD), 500); // Navigate using ROUTES.DASHBOARD
+                
+                // Use setTimeout to show loading state for a moment before redirecting
+                setTimeout(() => {
+                    navigate(ROUTES.DASHBOARD);
+                }, 2000);
             }
         } catch (error) {
             console.error("Error: ", error.response.data.message);
@@ -46,38 +56,52 @@ const Login = () => {
 
     return (
         <>
-            <h2>Login</h2>
+            
             <div className="row mb-3 text-center">
                 <div className="col-4"></div>
-                <Form className="col-4" onSubmit={handleSubmit}>
-                    <Form.Group controlId="username">
-                        <Form.Control
-                            placeholder="Username"
-                            type="text"
-                            value={username}
-                            autoComplete="username"
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </Form.Group>
-                    <br />
-                    <Form.Group controlId="password">
-                        <Form.Control
-                            placeholder="Enter Your Password"
-                            type="password"
-                            value={password}
-                            autoComplete="current-password"
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Card.Footer>
-                        <Link to={ROUTES.FORGOT_PASSWORD}>Forgot Password?</Link> {/* Use ROUTES.FORGOT_PASSWORD */}
-                    </Card.Footer>
-                    <Card.Footer>
-                        Don't have an account? <Link to={ROUTES.SIGNUP}>Signup</Link> here! {/* Use ROUTES.SIGNUP */}
-                    </Card.Footer>
-                    <button type="submit">Login</button>
-                    {error ? <ErrorMessage message={error} /> : <SuccessMessage message={message} />}
-                </Form>
+                {loading ? (
+                    <div className="col-4">
+                        <Loading />
+                        
+                    </div>
+                ) : (
+                    <>
+                    <h2>Login</h2>  
+                    <div className="row mb-3 text-center">
+                    <div className="col-4"></div>
+                    <Form className="col-4" onSubmit={handleSubmit}>
+                        <Form.Group controlId="username">
+                            <Form.Control
+                                placeholder="Username"
+                                type="text"
+                                value={username}
+                                autoComplete="username"
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </Form.Group>
+                        <br />
+                        <Form.Group controlId="password">
+                            <Form.Control
+                                placeholder="Enter Your Password"
+                                type="password"
+                                value={password}
+                                autoComplete="current-password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </Form.Group>
+                        <Card.Footer>
+                            <Link to={ROUTES.FORGOT_PASSWORD}>Forgot Password?</Link>
+                        </Card.Footer>
+                        <Card.Footer>
+                            Don't have an account? <Link to={ROUTES.SIGNUP}>Signup</Link> here!
+                        </Card.Footer>
+                        <button type="submit">Login</button>
+                        {error && <ErrorMessage message={error} />}
+                        {message && <SuccessMessage message={message} />}
+                    </Form>
+                    </div>
+                    </>
+                )}
                 <div className="col-4"></div>
             </div>
         </>

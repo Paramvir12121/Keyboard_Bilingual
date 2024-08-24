@@ -1,5 +1,5 @@
-import React from 'react'
 import baseApi from './baseApi';
+
 
 
     const api = baseApi();
@@ -7,7 +7,7 @@ import baseApi from './baseApi';
     export const getTypingSpeed = async () => {
       try{
         const response = await api.get('/lessons/typingspeed', {withCredentials: true});
-        console.log(response.data);
+        console.log("getTypingSpeed Response: ",response);
         return response.data;
         
     }catch(error){

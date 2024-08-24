@@ -4,7 +4,7 @@ from exts import db
 
 #
 
-app = create_app(TestConfig)
+app = create_app(DevConfig)
 
 
 

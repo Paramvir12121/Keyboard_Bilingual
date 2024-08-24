@@ -75,25 +75,29 @@ def handle_errors(f):
     def decorated_function(*args, **kwargs):
         try:
             return f(*args, **kwargs)
-        # except DecodeError:
-        #     return jsonify({"message": "Invalid token. Please log in again."}), 401
-        # except ExpiredSignatureError:
-        #     return jsonify({"message": "Token has expired. Please log in again."}), 401
-        except Unauthorized:
+        except Unauthorized as e:
+            print(f"Unauthorized error: {str(e)}")
             return {"message": "Unauthorized access."}, 401
-        except Forbidden:
+        except Forbidden as e:
+            print(f"Forbidden error: {str(e)}")
             return {"message": "Forbidden access."}, 403
-        except NotFound:
+        except NotFound as e:
+            print(f"Not found error: {str(e)}")
             return {"message": "Resource not found."}, 404
         except BadRequest as e:
+            print(f"Bad request error: {str(e)}")
             return {"message": str(e)}, 400
-        except InternalServerError:
+        except InternalServerError as e:
+            print(f"Internal server error: {str(e)}")
             return {"message": "Internal server error."}, 500
         except HTTPException as e:
+            print(f"HTTP exception: {str(e)}")
             return {"message": e.description}, e.code
         except Exception as e:
+            print(f"Unexpected error: {str(e)}")
             return {"message": "An unexpected error occurred: " + str(e)}, 500
     return decorated_function
+
 
 ######################### APIs ###############################
 
@@ -186,16 +190,26 @@ class UserLessonTypingSpeed(Resource):
         """Get the user's typing speed"""
         user_id = session.get('user_id')
         if not user_id:
-            return {"message":"Unauthorized"}, 401
+            return {"message": "Unauthorized"}, 401
+        
         user_lessons = UserLesson.query.filter_by(user_id=user_id).all()
         typing_speed_list = []
+        
         for user_lesson in user_lessons:
-            # make sure socre has only one value after floaring point
-            user_lesson_score = round(user_lesson.score, 0)
-            user_lesson_accuracy = round(user_lesson.accuracy, 0)
-            typing_data = {"score":user_lesson_score, "accuracy":user_lesson_accuracy}
-            typing_speed_list.append(typing_data)
+            # Check if score and accuracy are not None before rounding
+            if user_lesson.score is not None and user_lesson.accuracy is not None:
+                user_lesson_score = round(user_lesson.score, 0)
+                user_lesson_accuracy = round(user_lesson.accuracy, 0)
+                typing_data = {"score": user_lesson_score, "accuracy": user_lesson_accuracy}
+                typing_speed_list.append(typing_data)
+            else:
+                # Handle the case where score or accuracy is None
+                typing_data = {"score": user_lesson.score, "accuracy": user_lesson.accuracy}
+                typing_speed_list.append(typing_data)
+                print(f"Found None value: score={user_lesson.score}, accuracy={user_lesson.accuracy}")
+        
         return typing_speed_list, 200
+
 
 @lessons_ns.route('/error_keys')
 class UserLessonErrorKeys(Resource):

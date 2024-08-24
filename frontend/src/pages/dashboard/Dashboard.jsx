@@ -6,6 +6,7 @@ import Goal from '../../components/common/Goal';
 import LessonLists from '../lessons/LessonLists';
 import StatsBar from '../../components/layout/StatsBar';
 import ROUTES from '../../Routes';  // Import the routes
+import Loading from '../../components/common/Loading';
 
 const Dashboard = () => {
     return (
@@ -13,7 +14,6 @@ const Dashboard = () => {
          <div>
             <StatsBar />
             <Goal />
-            
             <h2>Dashboard</h2>
             {/* Add dashboard components here */}
             <Graphs />

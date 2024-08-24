@@ -5,17 +5,13 @@ import Results from './results/Results';
 import ResultNavbar from './results/ResultNavbar';
 import KeyboardSelection from './keyboardSelection/KeyboardSelection';
 import { layoutMappings } from './layoutMapping/LayoutMapping';
-
-
 const TypingViewer = ({ words, lessonId }) => {
   const [displayText, setDisplayText] = useState('');
   const [cursorIndex, setCursorIndex] = useState(0);
   const [isWrongKey, setIsWrongKey] = useState(false);
   const [isColemak, setIsColemak] = useState(false);
-
   const [userLearningLayout, setUserLearningLayout] = useState('qwerty');
   const [userKeyboardLayout, setUserKeyboardLayout] = useState('qwerty');
-
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [errorCount, setErrorCount] = useState(0);
   const [keysTyped, setKeysTyped] = useState(0);
@@ -25,9 +21,8 @@ const TypingViewer = ({ words, lessonId }) => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [wrongKeysPressedCount, setWrongKeysPressedCount] = useState({});
   const [pressedKey, setPressedKey] = useState(null);
-
+  const [results, setResults] = useState(null);
   const timerRef = useRef(null);
-
   const generateNewText = useCallback(() => {
     if (!words || words.length === 0) {
       console.error('No words provided');
@@ -42,10 +37,8 @@ const TypingViewer = ({ words, lessonId }) => {
   
     setDisplayText(viewText.trim());
   }, [words]);
-
   useEffect(() => {
     generateNewText();
-
     const fetchSettings = async () => {
       const settings = Cookies.get('settings');
       if (settings) {
@@ -53,7 +46,6 @@ const TypingViewer = ({ words, lessonId }) => {
           const parseSettings = JSON.parse(settings);
           setShowKeyboard(parseSettings.show_keyboard);
           setUserLearningLayout(parseSettings.keyboard_layout);
-
           setIsColemak(parseSettings.keyboard_layout === 'colemak');
           console.log("isColemak", isColemak);
         } catch (error) {
@@ -61,10 +53,8 @@ const TypingViewer = ({ words, lessonId }) => {
         }
       }
     };
-
     fetchSettings();
   }, [generateNewText]);
-
   useEffect(() => {
     if (startTime && !lessonEnded) {
       timerRef.current = setInterval(() => {
@@ -78,14 +68,13 @@ const TypingViewer = ({ words, lessonId }) => {
     };
   }, [startTime, lessonEnded]);
 
+  
   useEffect(() => {
     const handleKeyDown = (event) => {
         if (!startTime) {
             setStartTime(Date.now());
         }
-
         let pressedKey = event.key.toLowerCase();
-
         if (layoutMappings[userKeyboardLayout] && layoutMappings[userKeyboardLayout][userLearningLayout]) {
             const conversionMap = layoutMappings[userKeyboardLayout][userLearningLayout];
             
@@ -93,12 +82,9 @@ const TypingViewer = ({ words, lessonId }) => {
                 pressedKey = conversionMap[pressedKey];
             }
         }
-
         setKeysTyped(prev => prev + 1);
-
         // Update the pressedKey state to the corresponding key ID
         setPressedKey(`key${pressedKey.charAt(0).toUpperCase() + pressedKey.slice(1)}`);
-
         if (pressedKey === displayText[cursorIndex].toLowerCase() || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
             setIsWrongKey(false);
             setCursorIndex(prevIndex => {
@@ -121,14 +107,13 @@ const TypingViewer = ({ words, lessonId }) => {
             }));
         }
     };
-
     const handleKeyUp = () => {
         // Reset the pressedKey state when the key is released
         setPressedKey(null);
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    
+
     window.addEventListener('keyup', handleKeyUp);
 
     return () => {
@@ -138,12 +123,10 @@ const TypingViewer = ({ words, lessonId }) => {
 }, [cursorIndex, displayText, userKeyboardLayout, userLearningLayout, startTime]);
 
 
-
   const calculateStats = () => {
     const totalCharacters = keysTyped;
     const accuracy = ((totalCharacters - errorCount) / totalCharacters) * 100;
     const wpm = (wordsTyped / (elapsedTime / 60));
-
     return {
       wpm,
       accuracy,
@@ -154,29 +137,31 @@ const TypingViewer = ({ words, lessonId }) => {
     };
   };
 
+  useEffect(() => {
+    if (lessonEnded) {
+      setResults(calculateStats());
+    }
+  }, [lessonEnded]);
+
   return (
     <>
       <h2>Typing Viewer</h2>
       
       {timerRef.current && <p>Time Elapsed: {elapsedTime} seconds</p>}
-
       {lessonEnded ? 
         <>
-        <Results {...calculateStats()} lessonId={lessonId} /> 
+        <Results stats={results} lessonId={lessonId} /> 
         <ResultNavbar lessonId={lessonId} />
         </>
         : 
         <>
         <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />
-
         <KeyboardSelection userLearningLayout={userLearningLayout} userKeyboardLayout={userKeyboardLayout} showKeyboard={showKeyboard} pressedKey={pressedKey}/>
                 
         </>
       }
-
      
     </>
   );
 };
-
 export default TypingViewer;

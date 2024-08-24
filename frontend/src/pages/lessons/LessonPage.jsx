@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import baseApi from '../../hooks/baseApi';
 import TypingViewer from '../../components/typing/TypingViewer';
+import Loading from '../../components/common/Loading';
 
 
 const LessonPage = () => {
@@ -32,7 +33,7 @@ const LessonPage = () => {
     fetchLesson();
   }, [id]); // Re-run the effect when the id parameter changes
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div><Loading /></div>;
   if (error) return <div>{error}</div>;
   if (!lesson) return <div>No lesson found</div>;
 
