@@ -84,11 +84,12 @@ const Settings = () => {
                                 <Form.Control
                                     as="select"
                                     value={settings.keyboard_layout}
-                                    onChange={e => handleChange('keyboard_layout', e.target.value)}
-                                >
+                                    onChange={e => handleChange('keyboard_layout', e.target.value)}>
                                     <option value="colemak">Colemak</option>
+                                    <option value="colemakdh">Colemak DH</option>
                                     <option value="qwerty">QWERTY</option>
                                     <option value="dvorak">Dvorak</option>
+                                    <option value="workman">Workman</option>
                                 </Form.Control>
                             </Col>
                         </Form.Group>
