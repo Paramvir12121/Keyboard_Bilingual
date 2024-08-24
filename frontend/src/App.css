@@ -213,3 +213,20 @@ footer {
 
 
 /* <<<<<<<<<<<<<<HANDS SVG>>>>>>>>>>>>>>>> */
+
+/* <<<<<<<<<<<<<<Loading Animation>>>>>>>>> */
+.loader {
+  margin: auto;
+  border: 10px solid #EAF0F6;
+  border-radius: 50%;
+  border-top: 10px solid var(--tertiary-color);
+  width: 200px;
+  height: 200px;
+  animation: loader_spinner 1s linear infinite;
+}
+
+@keyframes loader_spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* <<<<<<<<<<<<<<Loading Animation>>>>>>>>> */
