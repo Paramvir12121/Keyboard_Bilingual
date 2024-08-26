@@ -10,6 +10,8 @@ const ROUTES = {
     TYPING: '/typing',
     CHECKOUT: '/checkout',
     LESSON_LIST: '/lessonlist',
+    SPEED_TEST: '/speedtest',
+    SPEED_TEST_PAGE: (id = ':id') =>`/speedtest/${id}`,
     LESSON_PAGE: (id = ':id') => `/lesson/${id}`,  // Use as ROUTES.LESSON_PAGE() or ROUTES.LESSON_PAGE('someId')
     TEST1: '/test1',
     SETTINGS: '/settings',
