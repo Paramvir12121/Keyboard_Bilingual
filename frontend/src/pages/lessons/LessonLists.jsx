@@ -55,7 +55,7 @@ const LessonLists = () => {
                     <Row>
                         {/* Only show lessons where lesson.keyboard_type matches keyboardLayout */}
                         {lessons
-                            .filter(lesson => lesson.keyboard_type === keyboardLayout)
+                            .filter(lesson => lesson.keyboard_type === keyboardLayout )
                             .map((lesson) => (
                                 <Col key={lesson.id} xs={12} className="">
                                     <LessonList
