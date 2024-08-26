@@ -48,16 +48,18 @@ const SpeedTestLists = () => {
 
     return (
         <div>
-            SpeedTestLists
             <Container>
+            <h2 className="">Speed Tests</h2>
             {Object.entries(groupedLessons).map(([topic, lessons]) => (
-                <div key={topic} className="">
-                    <h2 className="">{topic}</h2>
+                <div className="">
+                    
                     <Row>
-                        {/* Only show lessons where lesson.keyboard_type matches keyboardLayout */}
+                    
                         {lessons
-                            .filter(lesson => lesson.keyboard_type === keyboardLayout)
+                            .filter(lesson => lesson.topic === "Speedtest")
                             .map((lesson) => (
+                                <>
+                                
                                 <Col key={lesson.id} xs={12} className="">
                                     <SpeedTestList
                                         id={lesson.id}
@@ -65,6 +67,7 @@ const SpeedTestLists = () => {
                                         description={lesson.description}
                                     />
                                 </Col>
+                                </>
                             ))}
                     </Row>
                 </div>

@@ -9,7 +9,7 @@ def add_mock_data():
         # Speed Test - Most Common Words (Beginner)
         {
             "title": "Speed Test - Common Words (Beginner)",
-            "topic": "Speedtest",
+            "topic": "Speed Test",
             "subtopic": "Common Words",
             "keyboard_type": "all",  # Assuming the keyboard type is QWERTY for speed tests
             "description": "Test your typing speed on the most common words in English. Suitable for beginners.",
@@ -26,7 +26,7 @@ def add_mock_data():
         # Speed Test - Most Common Words (Intermediate)
         {
             "title": "Speed Test - Common Words (Intermediate)",
-            "topic": "Speedtest",
+            "topic": "Speed Test",
             "subtopic": "Common Words",
             "keyboard_type": "all",
             "description": "Test your typing speed on slightly more advanced common words in English.",
@@ -43,7 +43,7 @@ def add_mock_data():
         # Speed Test - Most Common Words (Advanced)
         {
             "title": "Speed Test - Common Words (Advanced)",
-            "topic": "Speedtest",
+            "topic": "Speed Test",
             "subtopic": "Common Words",
             "keyboard_type": "all",  # For advanced tests, we can include all keyboard types
             "description": "Challenge yourself with a typing speed test on the most advanced common words in English.",
