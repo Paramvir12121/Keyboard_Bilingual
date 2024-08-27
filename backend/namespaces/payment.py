@@ -57,3 +57,26 @@ class PaymentProcess(Resource):
             return {"status": "success", "charge": charge}
         except stripe.error.StripeError as e:
             return {"status": "error", "message": str(e)}, 400
+
+@payment_ns.route('/create-checkout-session')
+class CreateCheckoutSession(Resource):
+    def post(self):
+        stripe.api_key = current_app.config['STRIPE_API_KEY']
+        YOUR_DOMAIN = 'http://localhost:3000'
+        try:
+            checkout_session = stripe.checkout.Session.create(
+                line_items=[
+                    {
+                        # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+                        'price': '{{PRICE_ID}}',
+                        'quantity': 1,
+                    },
+                ],
+                mode='payment',
+                success_url=YOUR_DOMAIN + '?success=true',
+                cancel_url=YOUR_DOMAIN + '?canceled=true',
+            )
+        except Exception as e:
+            return str(e)
+
+        
