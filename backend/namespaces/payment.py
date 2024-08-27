@@ -78,5 +78,6 @@ class CreateCheckoutSession(Resource):
             )
         except Exception as e:
             return str(e)
+        return checkout_session,200
 
         

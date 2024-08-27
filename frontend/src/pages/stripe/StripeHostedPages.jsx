@@ -6,7 +6,7 @@ const StripeHostedPages = () => {
     const handleSubmit = async (event) => {
     try {
         const response = await api.post('/create-checkout-session', {
-            priceId: 'price_1JZ2QzJ0zFqZV2Vc5s6XW8eM'},{withCredentials: true});
+            priceId: '1234'},{withCredentials: true});
         console.log(response);
     }
     catch (error) {
