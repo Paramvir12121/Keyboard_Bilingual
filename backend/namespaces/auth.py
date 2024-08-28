@@ -88,6 +88,19 @@ def refresh_token_if_needed(f):
         return f(*args, **kwargs)
     return decorated_function
 
+def payment_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return {"message": "Unauthorized"}, 401
+        user_id = session.get('user_id')
+        user = User.query.get(user_id)
+        if not user.has_paid:
+            return {"message": "Payment required"}, 402
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):

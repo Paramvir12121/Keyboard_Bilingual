@@ -77,26 +77,34 @@ class CreateCheckoutSession(Resource):
 
 @login_required
 @payment_ns.route('/webhook')
-class PaymentWebhook(Resource):
+class StripeWebhook(Resource):
     def post(self):
         payload = request.get_data(as_text=True)
         sig_header = request.headers.get('Stripe-Signature')
+        endpoint_secret = current_app.config['STRIPE_WEBHOOK_SECRET']
+        event = None
 
         try:
             event = stripe.Webhook.construct_event(
-                payload, sig_header, current_app.config['STRIPE_ENDPOINT_SECRET']
+                payload, sig_header, endpoint_secret
             )
         except ValueError as e:
             # Invalid payload
-            return 'Invalid payload', 400
+            return jsonify({'error': str(e)}), 400
         except stripe.error.SignatureVerificationError as e:
             # Invalid signature
-            return 'Invalid signature', 400
+            return jsonify({'error': str(e)}), 400
 
-        # Handle the event
+        # Handle the checkout.session.completed event
         if event['type'] == 'checkout.session.completed':
             session = event['data']['object']
-            # Fulfill the purchase
-            handle_checkout_session(session)
+            customer_email = session['customer_details']['email']
 
-        return 'Success', 200
+            # Find the user by email
+            user = User.query.filter_by(email=customer_email).first()
+
+            if user:
+                user.has_paid = True
+                db.session.commit()
+
+        return jsonify({'status': 'success'}), 200
