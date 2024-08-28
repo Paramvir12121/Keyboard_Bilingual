@@ -1,5 +1,5 @@
 import stripe
-from flask import current_app, request
+from flask import current_app, request, jsonify
 from flask_restx import Namespace, Resource
 from models import db, User, Payment  # Ensure correct import paths
 
@@ -63,12 +63,16 @@ class CreateCheckoutSession(Resource):
     def post(self):
         stripe.api_key = current_app.config['STRIPE_API_KEY']
         YOUR_DOMAIN = 'http://localhost:3000'
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "No data provided"}), 400
+        price_id = data.get('priceId')
+        
         try:
             checkout_session = stripe.checkout.Session.create(
                 line_items=[
                     {
-                        # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-                        'price': '{{PRICE_ID}}',
+                        'price': price_id,  # Use the actual price_id
                         'quantity': 1,
                     },
                 ],
@@ -76,8 +80,9 @@ class CreateCheckoutSession(Resource):
                 success_url=YOUR_DOMAIN + '?success=true',
                 cancel_url=YOUR_DOMAIN + '?canceled=true',
             )
+            print("Checkout Session: ",checkout_session)
+            return {"url": checkout_session.url}, 200 
         except Exception as e:
-            return str(e)
-        return checkout_session,200
-
+            print("Error: ",str(e))
+            return jsonify({"error": str(e)}), 400
         
