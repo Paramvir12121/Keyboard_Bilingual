@@ -29,6 +29,12 @@ import Settings from './pages/settings/Settings';
 import Test1 from './testComponents/Test1';
 import StatsPage from './pages/stats/StatsPage';
 
+import FirstPage from './pages/introPages/FirstPage';
+import SecondPage from './pages/introPages/SecondPage';
+import ThirdPage from './pages/introPages/ThirdPage';
+import LandingPage from './pages/introPages/LandingPage';
+
+
 
 
 import ROUTES from "./Routes";  // Import the routes
@@ -44,6 +50,10 @@ const router = createBrowserRouter([
       { path: ROUTES.FORGOT_PASSWORD, element: <ForgotPassoword /> },
       { path: ROUTES.FORGOT_PASSWORD_EMAIL, element: <ForgotPasswordEmail /> },
       { path: ROUTES.RESET_PASSWORD_CONFIRM, element: <ResetPasswordConfirm /> },
+      { path: ROUTES.FIRST_PAGE, element: <FirstPage /> },
+      { path: ROUTES.SECOND_PAGE, element: <SecondPage /> },
+      { path: ROUTES.THIRD_PAGE, element: <ThirdPage /> },
+      { path: ROUTES.LANDING_PAGE, element: <LandingPage /> },
       {
         path: ROUTES.HOME,
         element: <ProtectedRoute />,

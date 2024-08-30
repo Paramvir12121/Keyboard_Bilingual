@@ -17,6 +17,12 @@ const ROUTES = {
     SETTINGS: '/settings',
     NOT_FOUND: '*',
     STATS: '/stats',
+
+    // Pages for the intro
+    FIRST_PAGE: '/first',
+    SECOND_PAGE: '/second',
+    THIRD_PAGE: '/third',
+    LANDING_PAGE: '/landing',
   };
   
   export default ROUTES;

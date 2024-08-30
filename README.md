@@ -43,3 +43,6 @@ Frontend
 - use https://mycolor.space/  & https://colors.muz.li/ to get color pallets
 
 - Use https://huemint.com/ to test
+
+
+## Improvement SEO
