@@ -43,3 +43,10 @@ Frontend
 - use https://mycolor.space/  & https://colors.muz.li/ to get color pallets
 
 - Use https://huemint.com/ to test
+
+
+## Improvement SEO
+
+
+## Launch on https://www.producthunt.com/
+- https://www.producthunt.com/

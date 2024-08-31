@@ -21,11 +21,19 @@ import ResetPasswordConfirm from './auth/resetPassword/ResetPasswordConfirm';
 import Checkout from './pages/stripe/Checkout';
 import ProtectedRoute from './auth/ProtectedRoutes';
 import LessonLists from './pages/lessons/LessonLists';
+import SpeedTestListsPage from './pages/speedTests/SpeedTestListsPage';
+import SpeedTestPage from './pages/speedTests/SpeedTestPage'; 
 
 import LessonPage from './pages/lessons/LessonPage';
 import Settings from './pages/settings/Settings';
 import Test1 from './testComponents/Test1';
 import StatsPage from './pages/stats/StatsPage';
+
+import FirstPage from './pages/introPages/FirstPage';
+import SecondPage from './pages/introPages/SecondPage';
+import ThirdPage from './pages/introPages/ThirdPage';
+import LandingPage from './pages/introPages/LandingPage';
+
 
 
 
@@ -42,6 +50,10 @@ const router = createBrowserRouter([
       { path: ROUTES.FORGOT_PASSWORD, element: <ForgotPassoword /> },
       { path: ROUTES.FORGOT_PASSWORD_EMAIL, element: <ForgotPasswordEmail /> },
       { path: ROUTES.RESET_PASSWORD_CONFIRM, element: <ResetPasswordConfirm /> },
+      { path: ROUTES.FIRST_PAGE, element: <FirstPage /> },
+      { path: ROUTES.SECOND_PAGE, element: <SecondPage /> },
+      { path: ROUTES.THIRD_PAGE, element: <ThirdPage /> },
+      { path: ROUTES.LANDING_PAGE, element: <LandingPage /> },
       {
         path: ROUTES.HOME,
         element: <ProtectedRoute />,
@@ -51,6 +63,8 @@ const router = createBrowserRouter([
           { path: ROUTES.CHECKOUT, element: <Checkout /> },
           { path: ROUTES.LESSON_LIST, element: <LessonLists /> },
           { path: ROUTES.LESSON_PAGE(), element: <LessonPage /> },  // Use the function to generate the route
+          { path: ROUTES.SPEED_TEST, element: <SpeedTestListsPage />},  // Use the function to generate the route
+          { path: ROUTES.SPEED_TEST_PAGE(), element: <SpeedTestPage />},  // Use the function to generate the route
           { path: ROUTES.TEST1, element: <Test1 /> },
           { path: ROUTES.SETTINGS, element: <Settings /> },
           { path: ROUTES.STATS, element: <StatsPage /> },

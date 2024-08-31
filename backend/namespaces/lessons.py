@@ -206,7 +206,7 @@ class UserLessonTypingSpeed(Resource):
                 # Handle the case where score or accuracy is None
                 typing_data = {"score": user_lesson.score, "accuracy": user_lesson.accuracy}
                 typing_speed_list.append(typing_data)
-                print(f"Found None value: score={user_lesson.score}, accuracy={user_lesson.accuracy}")
+                # print(f"Found None value: score={user_lesson.score}, accuracy={user_lesson.accuracy}")
         
         return typing_speed_list, 200
 

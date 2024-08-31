@@ -7,6 +7,7 @@ import LessonLists from '../lessons/LessonLists';
 import StatsBar from '../../components/layout/StatsBar';
 import ROUTES from '../../Routes';  // Import the routes
 import Loading from '../../components/common/Loading';
+import StripeHostedPages from '../stripe/StripeHostedPages';
 
 const Dashboard = () => {
     return (
@@ -17,6 +18,7 @@ const Dashboard = () => {
             <h2>Dashboard</h2>
             {/* Add dashboard components here */}
             <Graphs />
+            <StripeHostedPages />
             <div className='lesson-list-div'>
             <LessonLists />
             </div>

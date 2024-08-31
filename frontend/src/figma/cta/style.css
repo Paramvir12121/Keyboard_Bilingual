@@ -1,0 +1,60 @@
+.CTA {
+    background-color: #2b2b2b;
+    height: 600px;
+    width: 1280px;
+  }
+  
+  .CTA .group {
+    height: 400px;
+    left: 100px;
+    position: relative;
+    top: 100px;
+    width: 1084px;
+  }
+  
+  .CTA .GIF {
+    background-image: url(https://cdn.animaapp.com/projects/630dc37cacb332ac4dee2e04/files/1000x800.gif);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 400px;
+    left: 580px;
+    position: absolute;
+    top: 0;
+    width: 500px;
+  }
+  
+  .CTA .primary-CTA-instance {
+    left: 0 !important;
+    position: absolute !important;
+    top: 327px !important;
+  }
+  
+  .CTA .subtitle {
+    color: var(--white);
+    font-family: var(--body-18px-font-family);
+    font-size: var(--body-18px-font-size);
+    font-style: var(--body-18px-font-style);
+    font-weight: var(--body-18px-font-weight);
+    left: 0;
+    letter-spacing: var(--body-18px-letter-spacing);
+    line-height: var(--body-18px-line-height);
+    opacity: 0.4;
+    position: absolute;
+    top: 223px;
+    width: 400px;
+  }
+  
+  .CTA .title {
+    color: var(--white);
+    font-family: var(--headline-60px-font-family);
+    font-size: var(--headline-60px-font-size);
+    font-style: var(--headline-60px-font-style);
+    font-weight: var(--headline-60px-font-weight);
+    left: 0;
+    letter-spacing: var(--headline-60px-letter-spacing);
+    line-height: var(--headline-60px-line-height);
+    position: absolute;
+    top: 13px;
+    width: 500px;
+  }
+  

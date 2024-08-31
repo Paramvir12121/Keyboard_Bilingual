@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import LessonList from './LessonList';
+import SpeedTestList from './SpeedTestList';
 import baseApi from '../../hooks/baseApi';
 import { Container, Row, Col } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 
-const LessonLists = () => {
+const SpeedTestLists = () => {
     const api = baseApi();
     const [groupedLessons, setGroupedLessons] = useState({});
     const [keyboardLayout, setKeyboardLayout] = useState('qwerty');
@@ -30,7 +30,6 @@ const LessonLists = () => {
                 // Handle the error in the UI here
             }
         };
-
         const fetchSettings = async () => {
             const settings = Cookies.get('settings');
             if (settings) {
@@ -48,28 +47,34 @@ const LessonLists = () => {
     }, []);
 
     return (
-        <Container>
+        <div>
+            <Container>
+            <h2 className="">Speed Tests</h2>
             {Object.entries(groupedLessons).map(([topic, lessons]) => (
-                <div key={topic} className="">
-                    <h2 className="">{topic}</h2>
+                <div className="">
+                    
                     <Row>
-                        {/* Only show lessons where lesson.keyboard_type matches keyboardLayout */}
+                    
                         {lessons
-                            .filter(lesson => lesson.keyboard_type === keyboardLayout )
+                            .filter(lesson => lesson.topic === "Speedtest")
                             .map((lesson) => (
+                                <>
+                                
                                 <Col key={lesson.id} xs={12} className="">
-                                    <LessonList
+                                    <SpeedTestList
                                         id={lesson.id}
                                         title={lesson.title}
                                         description={lesson.description}
                                     />
                                 </Col>
+                                </>
                             ))}
                     </Row>
                 </div>
             ))}
         </Container>
+        </div>
     );
 };
 
-export default LessonLists;
+export default SpeedTestLists;

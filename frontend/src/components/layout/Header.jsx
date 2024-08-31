@@ -6,6 +6,8 @@ import LogoutButton from '../../auth/LogoutButton';
 import Cookies from 'js-cookie';
 import ROUTES from '../../Routes'; // Importing ROUTES
 
+
+
 const Header = () => {
     const [signedIn, setSignedIn] = useContext(Context);
     const navigate = useNavigate();
@@ -33,6 +35,7 @@ const Header = () => {
                             <>
                                 <Nav.Link as={Link} to={ROUTES.DASHBOARD}>Dashboard</Nav.Link> {/* Use ROUTES.DASHBOARD */}
                                 <Nav.Link as={Link} to={ROUTES.LESSON_LIST}>Lessons</Nav.Link> {/* Use ROUTES.LESSON_LIST */}
+                                <Nav.Link as={Link} to={ROUTES.SPEED_TEST}>Speed Tests</Nav.Link> {/* Use ROUTES.LESSON_LIST */}
                             </>
                         )}
                     </Nav>
