@@ -314,7 +314,7 @@ class Login(Resource):
             # print("session",session)
             resp = jsonify({'message': 'Login successful', 'user_id': db_user.id, 'username': username, 'email': email})
             # print("current app session: ",session['_id'])
-            resp.set_cookie('session', session.sid, httponly=True)
+            resp.set_cookie('session', session.sid, httponly=True, secure=True, samesite='None')
             print("current id of session: ",session.sid)
             return resp
         except client.exceptions.ClientError as error:
