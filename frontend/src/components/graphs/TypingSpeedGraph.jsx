@@ -1,37 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, ReferenceLine } from 'recharts';
-import { getUserLesonData } from '../../hooks/getUserStats';
 import Cookies from 'js-cookie';
 
-const TypingSpeedGraph = ({userTypingData}) => {
+const TypingSpeedGraph = ({ userTypingData }) => {
   const [typingData, setTypingData] = useState([]);
   const [speedGoal, setSpeedGoal] = useState(10);
-  const [maxScore, setMaxScore] = useState(50); // Default to 50 to prevent domain errors
+  const [maxScore, setMaxScore] = useState(50);
 
   useEffect(() => {
     const fetchTypingData = async () => {
-      const data = userTypingData;
-      
-      // Find the maximum score in the data
-      let max = 0;
-      data.forEach((element) => {
-        if (element.score > max) {
-          max = element.score;
+      if (userTypingData && userTypingData.length > 0) {
+        // Find the maximum score in the data
+        let max = 0;
+        userTypingData.forEach((element) => {
+          if (element.score > max) {
+            max = element.score;
+          }
+        });
+
+        setTypingData(userTypingData);
+
+        // Set maxScore based on the maximum score found
+        if (max < 50) {
+          setMaxScore(50);
+        } else if (max < 100) {
+          setMaxScore(100);
+        } else if (max < 150) {
+          setMaxScore(150);
+        } else {
+          setMaxScore(max + 10);
         }
-      });
-
-      // Set maxScore based on the maximum score found
-      if (max < 50) {
-        setMaxScore(50);
-      } else if (max < 100) {
-        setMaxScore(100);
-      } else if (max < 150) {
-        setMaxScore(150);
       } else {
-        setMaxScore(max + 10);
+        console.error("No typing data available.");
       }
-
-      setTypingData(data);
     };
 
     const fetchSettings = () => {
@@ -39,21 +40,21 @@ const TypingSpeedGraph = ({userTypingData}) => {
       if (settings) {
         try {
           const parseSettings = JSON.parse(settings);
-          setSpeedGoal(parseSettings.typing_speed_goal); // Set a default if typing_speed_goal is not defined
+          setSpeedGoal(parseSettings.typing_speed_goal || 10);
         } catch (error) {
           console.error("Error parsing settings from cookies:", error);
         }
       }
     };
-    
+
     fetchTypingData();
     fetchSettings();
-  }, []);
+  }, [userTypingData]);
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={userTypingData}>
-        <XAxis dataKey="name" />
+      <LineChart data={typingData}>
+        <XAxis dataKey="lesson_name" /> {/* Make sure the key matches your data */}
         <YAxis domain={[0, maxScore]} />
         <Tooltip />
         <Line type="monotone" dataKey="score" stroke="#8884d8" strokeWidth={2} />
