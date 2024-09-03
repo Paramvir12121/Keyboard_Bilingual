@@ -60,6 +60,8 @@ class UserLesson(db.Model):
     errors = db.Column(db.Integer, default=0)  # Number of errors
     completed_at = db.Column(db.DateTime,default=datetime.utcnow)  # Date and time of completion
     error_keys = db.Column(db.String(200))  # Keys with errors
+    # keyboard_layout = db.Column(db.String(50))
+
 
     user = db.relationship('User', backref='user_lessons')
     lesson = db.relationship('Lesson', backref='user_lessons')
