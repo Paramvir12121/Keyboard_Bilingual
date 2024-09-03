@@ -13,9 +13,9 @@ const Results = ({ lessonId, stats }) => {
 
             const userLessonData = {
                 completed: true,
-                score: stats.wpm,
+                score: stats.wpm.toFixed(0),
                 completion_time: stats.elapsedTime,
-                accuracy: stats.accuracy,
+                accuracy: stats.accuracy.toFixed(0),
                 attempts: 1,
                 errors: stats.errorCount,
                 error_keys: stats.wrongKeysPressedCount

@@ -200,14 +200,30 @@ class UserLessonTypingSpeed(Resource):
             if user_lesson.score is not None and user_lesson.accuracy is not None:
                 user_lesson_score = round(user_lesson.score, 0)
                 user_lesson_accuracy = round(user_lesson.accuracy, 0)
-                typing_data = {"score": user_lesson_score, "accuracy": user_lesson_accuracy}
+                user_error_keys = user_lesson.error_keys.split(',')
+                user_lesson_name = user_lesson.lesson.title
+                user_completion_time = user_lesson.completion_time
+                
+                typing_data = {"score": user_lesson_score, 
+                               "accuracy": user_lesson_accuracy,
+                               "error_keys": user_error_keys,
+                               "lesson": user_lesson_name,
+                               "completion_time": user_completion_time}
                 typing_speed_list.append(typing_data)
+
             else:
                 # Handle the case where score or accuracy is None
-                typing_data = {"score": user_lesson.score, "accuracy": user_lesson.accuracy}
+                user_lesson_score = user_lesson.score
+                user_lesson_accuracy = user_lesson.accuracy
+                user_error_keys = user_lesson.error_keys.split(',')
+                user_lesson_name = user_lesson.lesson.title
+                user_completion_time = user_lesson.completion_time
+                typing_data = {"score": user_lesson_score, 
+                               "accuracy": user_lesson_accuracy,
+                               "error_keys": user_error_keys,
+                               "lesson": user_lesson_name}
                 typing_speed_list.append(typing_data)
-                # print(f"Found None value: score={user_lesson.score}, accuracy={user_lesson.accuracy}")
-        
+
         return typing_speed_list, 200
 
 
