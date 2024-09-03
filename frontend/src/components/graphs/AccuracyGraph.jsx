@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveContainer } from 'recharts';
-import { getTypingSpeed } from '../../hooks/getUserStats';
+import { getUserLesonData } from '../../hooks/getUserStats';
 
-const AccuracyGraph = () => {
+const AccuracyGraph = ({userTypingData}) => {
   const [typingData, setTypingData] = useState([]);
 
-  useEffect(() => {
-    const fetchTypingData = async () => {
-      try {
-        const data = await getTypingSpeed();
-        if (data && Array.isArray(data)) {
-          setTypingData(data);
-          console.log("Typing data:", data);
-        } else {
-          console.error("No valid typing data available.");
-        }
-      } catch (error) {
-        console.error("Error fetching typing data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchTypingData = async () => {
+  //     try {
+  //       const data = userTypingData;
+  //       if (data && Array.isArray(data)) {
+  //         setTypingData(data);
+  //         console.log("Typing data:", data);
+  //       } else {
+  //         console.error("No valid typing data available.");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching typing data:", error);
+  //     }
+  //   };
 
-    fetchTypingData();
-  }, []);
+  //   fetchTypingData();
+  // }, []);
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={typingData}>
+      <LineChart data={userTypingData}>
         <XAxis dataKey="name" />
         <YAxis dataKey="accuracy" domain={[75, 100]} />
         <Tooltip />

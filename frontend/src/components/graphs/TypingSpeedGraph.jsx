@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, ReferenceLine } from 'recharts';
-import { getTypingSpeed } from '../../hooks/getUserStats';
+import { getUserLesonData } from '../../hooks/getUserStats';
 import Cookies from 'js-cookie';
 
-const TypingSpeedGraph = () => {
+const TypingSpeedGraph = ({userTypingData}) => {
   const [typingData, setTypingData] = useState([]);
   const [speedGoal, setSpeedGoal] = useState(10);
   const [maxScore, setMaxScore] = useState(50); // Default to 50 to prevent domain errors
 
   useEffect(() => {
     const fetchTypingData = async () => {
-      const data = await getTypingSpeed();
+      const data = userTypingData;
       
       // Find the maximum score in the data
       let max = 0;
@@ -52,7 +52,7 @@ const TypingSpeedGraph = () => {
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={typingData}>
+      <LineChart data={userTypingData}>
         <XAxis dataKey="name" />
         <YAxis domain={[0, maxScore]} />
         <Tooltip />
