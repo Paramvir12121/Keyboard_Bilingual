@@ -44,6 +44,15 @@ Frontend
 
 - Use https://huemint.com/ to test
 
+## Business Plan
+- Design content and practice around making users keyboard bilingual.
+    - Set the learning language to what user wants to learn or if the user is learning keyboard for first time
+    - use keyboardbilingual.com as domain
+    - Setup pages to guide through selecting layout
+    - Setup articles to help users understand which language is for them, and why not to use qwerty
+    - Setup total timer
+      
+thisorthat.com
 
 ## Improvement SEO
 
