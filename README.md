@@ -52,6 +52,7 @@ Access Market Research at [Market Research](./Market_research_and_analysis.md)
     - Setup pages to guide through selecting layout
     - Setup articles to help users understand which language is for them, and why not to use qwerty
     - Setup total timer
+    - Also show approx time to master on startup
 
 
       
