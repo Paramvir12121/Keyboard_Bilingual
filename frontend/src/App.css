@@ -1,180 +1,157 @@
 :root {
-    --primary-color: #bebec4;
-    --secondary-color: #9B3922;
-    --tertiary-color: #0A1D56;
-    --background-color: #0C0C0C; 
-    --background-gradient: linear-gradient(to bottom right, #11071d, #550b0b);
+  --primary-color: #bebec4;
+  --secondary-color: #9B3922;
+  --tertiary-color: #0A1D56;
+  --background-color: #0C0C0C;
+  --background-gradient: linear-gradient(to bottom right, #11071d, #550b0b);
 
-    --text-color: #0A1D56;
-    --text-dim-color: grey;
-    --accent-color: black;
-    --error-color: red;
-    --sucess-color: lime;
-    --primary-shade-color: red;
-    --secondary-shade-color: red;
-    --primary-gradient: red;
+  --text-color: #0A1D56;
+  --text-dim-color: #6c757d;
+  --accent-color: #000000;
+  --error-color: #dc3545;
+  --success-color: #28a745;
+  --primary-shade-color: #880000;
+  --secondary-shade-color: #5f1616;
+  --primary-gradient: linear-gradient(45deg, #9B3922, #FF6A56);
 
+  --primary-font: "Ubuntu Mono", monospace;
+  --header-font: "Ubuntu", sans-serif;
+  --secondary-font: "Arial", sans-serif;
+}
 
-    --primary-font: "Ubuntu Mono", monospace;
-    --header-font: "ubuntu-bold" ;
-    --secondary-font: ubuntu;
-  }
- 
 #root {
-    min-height: 100vh;
-    max-width: 100vw;
-    margin: 0 auto;
-    text-align: center;
-    background: var(--background-gradient);
-  }
-  
-  
-  html, body {
+  min-height: 100vh;
+  max-width: 100vw;
+  margin: 0 auto;
+  text-align: center;
+  background: var(--background-gradient);
+}
+
+html, body {
   font-family: var(--primary-font);
   height: 100%;
   margin: 0;
   color: var(--primary-color);
   overflow-x: hidden;
-  
+  background-color: var(--background-color);
 }
 
-button,
-  .btn {
-    background-color: var(--secondary-color);
-    color: var(--tertiary-color);
-    /* padding: 1rem 2rem; */
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  header {
-    background-color: var(--tertiary-color);
-    padding: 1rem;
-    
-  }
-footer {
-  color: white
-  }
+/* General Button Styling */
+button, .btn {
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-  .navbar {
-    background-color: white;
-  }
-  
-  
-  .typing-text {
-    color: var(--primary-color);
-  }
-  
-  .card{
-    background-color: var(--tertiary-color);
-    color: var(--primary-color);
-    border-radius: 3px;
-  }
-/* App.jsx main component */
+button:hover, .btn:hover {
+  background-color: var(--primary-shade-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Header Styling */
+header {
+  background-color: var(--tertiary-color);
+  padding: 1.5rem;
+  color: var(--primary-color);
+  font-family: var(--header-font);
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  color: #f8f9fa;
+  padding: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+  background-color: var(--tertiary-color);
+}
+
+/* Navbar */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+/* Text Display Styling */
+.typing-text {
+  color: var(--primary-color);
+}
+
+/* Card Components */
+.card {
+  background-color: var(--tertiary-color);
+  color: var(--primary-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* App Outlet Spacing */
 .app-outlet {
   margin-left: 4rem;
   margin-right: 4rem;
 }
-  
 
-/* <<<<<<<<<<< Text Display>>>>>>>>>> */
+/* Text Display Cards */
 .text-display-card {
   font-family: 'Courier New', monospace;
   font-size: 1.2rem;
   line-height: 1.5;
   background-color: #f8f9fa;
   border: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .text-display-card .card-body {
-  padding: 1rem;
-  white-space: pre-wrap; /* Preserve spaces and line breaks */
- 
+  padding: 1.5rem;
+  white-space: pre-wrap;
 }
 
-.character {
-  display: inline-block;
-  padding: 0 1px;
-  border-radius: 2px;
-  transition: all 0.1s ease-in-out;
-  color: var(--text-color)
-  
+/* Graph Card Styling */
+.graph-card {
+  background-color: var(--primary-color);
+  border-top: 8px solid var(--secondary-color);
+  border-left: 8px solid var(--secondary-color);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-.character.cursor {
-  background-color: #007bff;
-  color: white;
-}
-
-.character.cursor.wrong {
-  background-color: #dc3545;
-  color: white;
-}
-
-
-/* <<<<<<<<<<< Text Display>>>>>>>>>> */
-
-.lesson-list-div{
+/* Lesson Components */
+.lesson-list-div {
   margin-top: 5rem;
   margin-bottom: 5rem;
 }
 
-.lesson-card{
-  margin-top: .2rem;
+.lesson-card {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--tertiary-color);
+  color: var(--primary-color);
+  transition: all 0.2s ease;
 }
 
-
-/* <<<<<<<<<<LessonList>>>>>>>>>>>>>>>> */
-.lesson-row {
-  margin-right: -15px;
-  margin-left: -15px;
+.lesson-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.lesson-col {
-  width: 300px;
-  min-width: 300px;
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
-/* Ensure the LessonList component takes full height of its container */
-.lesson-col > div {
-  height: 100%;
-}
-
-/* Style for the horizontal scrollbar */
-.lesson-row::-webkit-scrollbar {
-  height: 8px;
-}
-
-.lesson-row::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 4px;
-}
-
-.lesson-row::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
-}
-/* <<<<<<<<<<LessonList>>>>>>>>>>>>>>>> */
-
-/* <<<<<<<<<<<<<<Graph>>>>>>>>>>>>>>> */
-.graph-card {
-  .graph-card {
-    background-color: var(--primary-color);
-    border-style: none; /* Removes all borders initially */
-    border-top: 8px solid var(--secondary-color); /* Add a thicker border on top */
-    border-left: 8px solid var(--secondary-color); /* Add a thicker border on the left */
-    border-radius: 8px; /* Increase the corner radius for sharper and rounder effect */
-    /* Optional: Adjust padding or margin if needed to account for thicker borders */
-  }
-  
-}
-/* <<<<<<<<<<<<<<Graph>>>>>>>>>>>>>>> */
-
-
-/* <<<<<<<<<<<<<<KEYBOARD>>>>>>>>>>>>>>>> */
+/* Keyboard Styling */
 .key {
   fill: none;
   stroke: #333333;
@@ -182,49 +159,12 @@ footer {
   rx: 10;
   ry: 10;
 }
-.key-text {
-  font-family: 'Arial', sans-serif;
-  font-size: 18px;
-  text-anchor: middle;
-  fill: #333333;
-  pointer-events: none;
-}
-.subtext {
-  font-family: 'Arial', sans-serif;
-  font-size: 12px;
-  text-anchor: middle;
-  fill: #666666;
-  pointer-events: none;
-}
+
 .key-pressed {
-  fill: orange;
+  fill: var(--success-color);
 }
 
-/* <<<<<<<<<<<<<<KEYBOARD>>>>>>>>>>>>>>>> */
-
-/* <<<<<<<<<<<<<<HANDS SVG>>>>>>>>>>>>>>>> */
-.finger {
-  fill: #f5c6cb;
-  stroke: #d9534f;
-  stroke-width: 2;
-}
-
-.thumb {
-  fill: #f5c6cb;
-  stroke: #d9534f;
-  stroke-width: 2;
-}
-
-.palm {
-  fill: #e2a4a8;
-  stroke: #d9534f;
-  stroke-width: 2;
-}
-
-
-/* <<<<<<<<<<<<<<HANDS SVG>>>>>>>>>>>>>>>> */
-
-/* <<<<<<<<<<<<<<Loading Animation>>>>>>>>> */
+/* Loading Spinner */
 .loader {
   margin: auto;
   border: 10px solid #EAF0F6;
@@ -236,12 +176,15 @@ footer {
 }
 
 @keyframes loader_spinner {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-/* <<<<<<<<<<<<<<Loading Animation>>>>>>>>> */
 
-/* <<<<<<<<<<<<<<Intro Pages>>>>>>>>>>>>>>> */
+/* Fullscreen Container */
 .fullscreen-container {
   width: 100%;
   height: 100vh;
@@ -249,62 +192,40 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.7); /* Darker semi-transparent background */
-  color: #f0f0f0; /* Softer white text color */
-  padding: 0 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #f0f0f0;
+  padding: 2rem;
   text-align: center;
-  transition: background-color 0.3s ease; /* Smooth background color transition */
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
 }
 
 .fullscreen-container h1 {
   font-size: 3.5rem;
   margin-bottom: 30px;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 2px;
-  transition: transform 0.3s ease, color 0.3s ease; /* Smooth transitions */
-}
-
-.fullscreen-container p {
-  font-size: 1.25rem;
-  max-width: 800px;
-  line-height: 1.6;
-  margin-bottom: 20px;
-  transition: opacity 0.3s ease; /* Smooth fade-in effect */
-}
-
-.fullscreen-container p:last-of-type {
-  margin-bottom: 40px;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .fullscreen-container button {
   padding: 12px 30px;
   font-size: 1.25rem;
   color: #ffffff;
-  background-color: #007bff; /* Bootstrap primary color */
+  background-color: #007bff;
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Button transitions */
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .fullscreen-container button:hover {
-  background-color: #0056b3; /* Darker shade on hover */
-  transform: scale(1.05); /* Slightly increase size on hover */
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 .fullscreen-container:hover {
-  background-color: rgba(0, 0, 0, 0.8); /* Slightly darken the background on hover */
-}
-
-.fullscreen-container h1:hover {
-  color: #ffdd57; /* Change color on hover */
-  transform: scale(1.05); /* Slightly increase size on hover */
-}
-
-.fullscreen-container p {
-  opacity: 0;
-  animation: fadeIn 1s forwards 0.5s; /* Fade-in effect with delay */
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 @keyframes fadeIn {
@@ -312,6 +233,3 @@ footer {
     opacity: 1;
   }
 }
-/* <<<<<<<<<<<<<<Intro Pages>>>>>>>>>>>>>>> */
-
-
