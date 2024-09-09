@@ -159,10 +159,19 @@ footer {
 }
 /* <<<<<<<<<<LessonList>>>>>>>>>>>>>>>> */
 
-/* <<<<<<<<<<GRAPHS>>>>>>>>>>>>>>>> */
-
-
-/* <<<<<<<<<<GRAPHS>>>>>>>>>>>>>>>> */
+/* <<<<<<<<<<<<<<Graph>>>>>>>>>>>>>>> */
+.graph-card {
+  .graph-card {
+    background-color: var(--primary-color);
+    border-style: none; /* Removes all borders initially */
+    border-top: 8px solid var(--secondary-color); /* Add a thicker border on top */
+    border-left: 8px solid var(--secondary-color); /* Add a thicker border on the left */
+    border-radius: 8px; /* Increase the corner radius for sharper and rounder effect */
+    /* Optional: Adjust padding or margin if needed to account for thicker borders */
+  }
+  
+}
+/* <<<<<<<<<<<<<<Graph>>>>>>>>>>>>>>> */
 
 
 /* <<<<<<<<<<<<<<KEYBOARD>>>>>>>>>>>>>>>> */
@@ -304,3 +313,5 @@ footer {
   }
 }
 /* <<<<<<<<<<<<<<Intro Pages>>>>>>>>>>>>>>> */
+
+

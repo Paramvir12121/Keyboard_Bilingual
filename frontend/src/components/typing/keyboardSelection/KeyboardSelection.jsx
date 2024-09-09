@@ -27,7 +27,7 @@ const KeyboardSelection = ({ userLearningLayout, userKeyboardLayout, showKeyboar
     }
 
     return (
-        <div>
+        <div className='container-lg'>
             <KeyboardComponent pressedKey={pressedKey} />
         </div>
     );

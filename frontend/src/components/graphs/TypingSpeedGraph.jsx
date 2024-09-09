@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, ReferenceLine } from 'recharts';
 import Cookies from 'js-cookie';
+import Card from 'react-bootstrap/Card';
 
 const TypingSpeedGraph = ({ userTypingData }) => {
   const [typingData, setTypingData] = useState([]);
@@ -52,6 +53,7 @@ const TypingSpeedGraph = ({ userTypingData }) => {
   }, [userTypingData]);
 
   return (
+    <Card className="graph-card">
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={typingData}>
         <XAxis dataKey="lesson_name" /> {/* Make sure the key matches your data */}
@@ -61,6 +63,7 @@ const TypingSpeedGraph = ({ userTypingData }) => {
         <ReferenceLine y={speedGoal} stroke="red" label="Your Speed Goal" />
       </LineChart>
     </ResponsiveContainer>
+    </Card>
   );
 }
 
