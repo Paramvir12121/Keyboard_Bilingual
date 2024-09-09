@@ -17,8 +17,6 @@ export function App() {
     return cookieValue === 'true';
   });
 
-
-
   return (
     <>
     <div className="content-wrap">

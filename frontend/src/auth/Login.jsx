@@ -34,15 +34,16 @@ const Login = () => {
             console.log(response.data);
             if (response.data) {
                 console.log("data: ", response.data);
-                setMessage('Login successful');
+                
+                Cookies.set('signedIn', 'true');
+                Cookies.set('username', response.data.username);
+                Cookies.set('email', response.data.email);
                 setSignedIn(true);
                 setLoading(true); // Set loading to true after successful login
-
+                setMessage('Login successful');
                 await fetchSettings();
-                document.cookie = `signedIn=true`;
-                document.cookie = `username=${response.data.username}`;
-                document.cookie = `email=${response.data.email}`;
                 
+                    
                 // Use setTimeout to show loading state for a moment before redirecting
                 setTimeout(() => {
                     navigate(ROUTES.DASHBOARD);
