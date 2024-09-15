@@ -41,13 +41,14 @@ const Login = () => {
                 setSignedIn(true);
                 setLoading(true); // Set loading to true after successful login
                 setMessage('Login successful');
-                await fetchSettings();
                 
-                    
-                // Use setTimeout to show loading state for a moment before redirecting
+                fetchSettings();
                 setTimeout(() => {
                     navigate(ROUTES.DASHBOARD);
                 }, 2000);
+                    
+                // Use setTimeout to show loading state for a moment before redirecting
+                
             }
         } catch (error) {
             console.error("Error: ", error.response.data.message);

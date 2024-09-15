@@ -5,6 +5,7 @@ import { Context } from "../../App";
 import Cookies from 'js-cookie';
 import ROUTES from '../../Routes'; // Importing ROUTES
 import { useLogout } from '../../auth/useLogout';
+import LogoutButton from '../../auth/LogoutButton';
 
 const Header = () => {
     const [signedIn, setSignedIn] = useContext(Context);
@@ -48,7 +49,8 @@ const Header = () => {
                                 <Button variant="outline-primary" as={Link} to={ROUTES.SETTINGS} className="me-2 px-3">
                                     Settings
                                 </Button>
-                                <Button onClick={useLogout()}>Logout</Button>
+                                {/* <Button onClick={useLogout()}>Logout</Button> */}
+                                <LogoutButton />
                             </>
                         ) : (
                             <>

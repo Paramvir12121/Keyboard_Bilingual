@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../App';
 import ROUTES from '../Routes';
+import { Button } from 'react-bootstrap';
 
 const LogoutButton = () => {
     const [, setSignedIn] = useContext(Context);
@@ -25,7 +26,8 @@ const LogoutButton = () => {
     };
 
     return (
-        <button onClick={handleLogout}>Logout</button>
+        <Button variant="outline-primary"
+        className="me-2 px-3" onClick={handleLogout}>Logout</Button>
     );
 };
 
