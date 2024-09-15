@@ -1,25 +1,26 @@
 :root {
   /* Color Palette */
-  --primary-color: #d9d9dc;
-  --secondary-color: #9B3922;
-  --tertiary-color: #0A1D56;
-  --background-color: #0C0C0C;
-  --background-gradient: linear-gradient(to bottom right, #11071d, #550b0b);
+  --primary-color: #00ADB5; /* Teal */
+  --secondary-color: #FF6F61; /* Coral */
+  --tertiary-color: #2E2E2E; /* Dark Slate Grey */
+  --background-color: #1C1C1C; /* Charcoal Black */
+  --background-gradient: linear-gradient(to bottom, #1C1C1C, #2E2E2E); /* Gradient from Charcoal Black to Dark Slate Grey */
 
-  --text-color: #050000;
-  --text-dim-color: #6c757d;
+  --text-color: #FFFFFF; /* White */
+  --text-dim-color: #B0B0B0; /* Light Grey */
+  --text-background-color: #f8f9fa;
   --accent-color: #000000;
   --error-color: #dc3545;
   --success-color: #28a745;
-  --primary-shade-color: #880000;
-  --secondary-shade-color: #5f1616;
-  --primary-gradient: linear-gradient(45deg, #9B3922, #FF6A56);
+  --primary-shade-color: #008A90; /* Darker Teal */
+  --secondary-shade-color: #E65D54; /* Darker Coral */
+  --primary-gradient: linear-gradient(45deg, #00ADB5, #FF6F61);
 
   /* Button and Border Colors */
   --button-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   --button-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   --button-hover-lift: -2px;
-  --button-radius: 25px;
+  --button-radius: 8px;
 
   /* Font Styles */
   --primary-font: "Ubuntu Mono", monospace;
@@ -32,6 +33,7 @@
   --padding-container: 2rem;
   --margin-top-large: 5rem;
   --margin-bottom-large: 5rem;
+  --margin-side-large: 5rem;
 
   /* Transition */
   --transition-ease: all 0.3s ease;
@@ -58,8 +60,8 @@ html, body {
 
 /* General Button Styling */
 button, .btn {
-  background-color: var(--secondary-color);
-  color: var(--tertiary-color);
+  background-color: var(--primary-color);
+  color: var(--text-color);
   padding: var(--padding-button);
   border: none;
   border-radius: 8px;
@@ -69,16 +71,26 @@ button, .btn {
 }
 
 button:hover, .btn:hover {
-  background-color: var(--primary-shade-color);
+  background-color: var(--primary-shade-color); /* Darker Teal */
   transform: translateY(var(--button-hover-lift));
   box-shadow: var(--button-hover-shadow);
 }
 
+/* Secondary Button Styling */
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-shade-color); /* Darker Coral */
+}
+
 /* Header Styling */
 header {
-  background-color: var(--tertiary-color);
+  background-color: var(--tertiary-color); /* Dark Slate Grey */
   padding: var(--padding-card);
-  color: var(--primary-color);
+  color: var(--text-color); /* White */
   font-family: var(--header-font);
   font-weight: bold;
   text-transform: uppercase;
@@ -88,19 +100,31 @@ header {
 
 /* Footer Styling */
 footer {
-  color: #f8f9fa;
+  color: var(--text-color); /* White */
   padding: 1rem;
   font-size: 0.9rem;
   text-align: center;
-  background-color: var(--tertiary-color);
+  background-color: var(--tertiary-color); /* Dark Slate Grey */
   margin-top: auto; /* Push the footer to the bottom */
   padding-bottom: 2rem; /* Optional padding for extra empty space */
 }
 
+.app-outlet{
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
 /* Navbar */
 .navbar {
-  background-color: var(--primary-color);
-  /* Removed the bottom border for a cleaner look */
+  background-color: var(--tertiary-color); /* Dark Slate Grey */
+}
+
+.navbar a {
+  color: var(--text-color); /* White */
+}
+
+.navbar a:hover {
+  color: var(--primary-color); /* Teal */
 }
 
 /* Main Content Area */
@@ -111,13 +135,13 @@ footer {
 
 /* Text Display */
 .typing-text {
-  color: var(--primary-color);
+  color: var(--primary-color); /* Teal */
 }
 
 /* Card Components */
 .card {
-  background-color: var(--tertiary-color);
-  color: var(--primary-color);
+  background-color: var(--tertiary-color); /* Dark Slate Grey */
+  color: var(--text-color); /* White */
   border-radius: 8px;
   box-shadow: var(--button-shadow);
   transition: var(--transition-ease);
@@ -128,53 +152,36 @@ footer {
   box-shadow: var(--button-hover-shadow);
 }
 
-/* App Outlet Spacing */
-.app-outlet {
-  margin-left: 4rem;
-  margin-right: 4rem;
+/* Card Heading and Text */
+.card-header {
+  color: var(--text-color); /* White for headings */
 }
 
-/* <<<<<<<<<<< Text Display>>>>>>>>>> */
-.text-display-card {
-  font-family: 'Courier New', monospace;
-  font-size: 1.2rem;
-  line-height: 1.5;
-  background-color: #f8f9fa;
-  border: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.card-body {
+  color: var(--text-dim-color); /* Light Grey for body text */
 }
-
-.text-display-card .card-body {
-  padding: 1rem;
-  white-space: pre-wrap; /* Preserve spaces and line breaks */
-}
-
-.character {
-  display: inline-block;
-  padding: 0 1px;
-  border-radius: 2px;
-  transition: all 0.1s ease-in-out;
-  color: var(--text-color);
-}
-
-.character.cursor {
-  background-color: #007bff;
-  color: white;
-}
-
-.character.cursor.wrong {
-  background-color: #dc3545;
-  color: white;
-}
-
-/* <<<<<<<<<<< Text Display>>>>>>>>>> */
 
 /* Graph Card Styling */
 .graph-card {
-  background-color: var(--primary-color);
+  background-color: var(--tertiary-color); /* Dark Slate Grey */
   border-radius: 10px;
   padding: var(--padding-card);
   box-shadow: var(--button-shadow);
+  border: 2px solid var(--primary-color); /* Teal border */
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.graph-axis-labels {
+  color: var(--text-dim-color); /* Light Grey for axis labels */
+}
+
+.graph-elements {
+  stroke: var(--primary-color); /* Teal for main graph elements */
+}
+
+.graph-secondary-elements {
+  stroke: var(--secondary-color); /* Coral for secondary graph elements */
 }
 
 /* Lesson Components */
@@ -186,8 +193,8 @@ footer {
 .lesson-card {
   margin-top: 0.5rem;
   border-radius: 8px;
-  background-color: var(--primary-color);
-  color: var(--text-color);
+  background-color: var(--tertiary-color); /* Dark Slate Grey */
+  color: var(--text-color); /* White */
   transition: var(--transition-ease);
 }
 
@@ -206,15 +213,15 @@ footer {
 }
 
 .key-pressed {
-  fill: var(--success-color);
+  fill: var(--success-color); /* Green */
 }
 
 /* Loading Spinner */
 .loader {
   margin: auto;
-  border: 10px solid #EAF0F6;
+  border: 10px solid rgba(0, 0, 0, 0.1); /* Light border */
+  border-top: 10px solid var(--primary-color); /* Teal for top part */
   border-radius: 50%;
-  border-top: 10px solid var(--tertiary-color);
   width: 200px;
   height: 200px;
   animation: loader_spinner 1s linear infinite;
@@ -231,9 +238,9 @@ footer {
 
 /* StatsBar Component */
 .stats-bar {
-  background-color: var(--primary-color);
+  background-color: var(--tertiary-color); /* Dark Slate Grey */
   padding: 1rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--primary-color); /* Teal border */
   border-radius: 0.5rem;
   box-shadow: var(--button-shadow);
 }
@@ -241,12 +248,12 @@ footer {
 .stats-bar h6 {
   font-size: 1rem;
   margin-bottom: 0;
-  color: var(--tertiary-color);
+  color: var(--text-color); /* White */
 }
 
 .stats-bar p {
   margin-bottom: 0;
-  color: var(--text-dim-color);
+  color: var(--text-dim-color); /* Light Grey */
   font-size: 0.9rem;
 }
 
@@ -270,7 +277,7 @@ footer {
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.7);
-  color: #f0f0f0;
+  color: var(--text-color); /* White */
   padding: var(--padding-container);
   text-align: center;
   border-radius: 12px;
@@ -331,14 +338,14 @@ footer {
 }
 
 .btn-primary {
-  background-color: #007bff; /* Primary button color */
-  border-color: #007bff;
+  background-color: var(--primary-color); /* Teal */
+  border-color: var(--primary-color);
   color: white;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+  background-color: var(--primary-shade-color); /* Darker Teal */
+  border-color: var(--primary-shade-color);
 }
 
 .btn-danger {
@@ -353,22 +360,22 @@ footer {
 }
 
 .btn-outline-primary {
-  color: #007bff;
-  border-color: #007bff;
+  color: var(--primary-color); /* Teal */
+  border-color: var(--primary-color);
 }
 
 .btn-outline-primary:hover {
-  background-color: #007bff;
+  background-color: var(--primary-color); /* Fill with teal on hover */
   color: white;
 }
 
 .btn-outline-danger {
-  color: var(--error-color);
+  color: var(--error-color); /* Red */
   border-color: var(--error-color);
 }
 
 .btn-outline-danger:hover {
-  background-color: var(--error-color);
+  background-color: var(--error-color); /* Fill with red on hover */
   color: white;
 }
 
@@ -384,14 +391,13 @@ footer {
 /* The loader animation */
 .loader {
   border: 8px solid rgba(0, 0, 0, 0.1); /* Light border */
-  border-top: 8px solid #3498db; /* Blue color for top part */
+  border-top: 8px solid var(--primary-color); /* Teal for top part */
   border-radius: 50%;
   width: 60px;
   height: 60px;
   animation: spin 1s linear infinite; /* Animation effect */
 }
 
-/* Animation keyframes */
 @keyframes spin {
   0% {
       transform: rotate(0deg);

@@ -14,7 +14,7 @@ const Dashboard = () => {
        <>
          <div>
             <StatsBar />
-            <Goal />
+            {/* <Goal /> */}
             {/* Add dashboard components here */}
             <Graphs />
             <StripeHostedPages />
