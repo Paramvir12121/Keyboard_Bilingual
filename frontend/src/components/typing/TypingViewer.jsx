@@ -144,9 +144,7 @@ const TypingViewer = ({ words, lessonId }) => {
   }, [lessonEnded]);
 
   return (
-    <>
-      <h2>Typing Viewer</h2>
-      
+    <>      
       {timerRef.current && <p>Time Elapsed: {elapsedTime} seconds</p>}
       {lessonEnded ? 
         <>
