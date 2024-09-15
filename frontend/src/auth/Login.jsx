@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import baseApi from "../hooks/baseApi";
-import FormInput from "../components/common/FormInput";
 import ErrorMessage from "../components/common/ErrorMessage";
 import SuccessMessage from "../components/common/SuccessMessage";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../App";
 import Card from "react-bootstrap/Card";
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'; // Import Button from Bootstrap
 import useFetchSettings from "../hooks/useFetchSettings";
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
@@ -31,83 +31,72 @@ const Login = () => {
         try {
             const api = baseApi();
             const response = await api.post('/auth/login', { username, password }, { withCredentials: true });
-            console.log(response.data);
             if (response.data) {
-                console.log("data: ", response.data);
-                
                 Cookies.set('signedIn', 'true');
                 Cookies.set('username', response.data.username);
                 Cookies.set('email', response.data.email);
                 setSignedIn(true);
-                setLoading(true); // Set loading to true after successful login
+                setLoading(true);
                 setMessage('Login successful');
-                
                 fetchSettings();
                 setTimeout(() => {
                     navigate(ROUTES.DASHBOARD);
                 }, 2000);
-                    
-                // Use setTimeout to show loading state for a moment before redirecting
-                
             }
         } catch (error) {
-            console.error("Error: ", error.response.data.message);
-            setError(error.response.data.message);
+            setError(error.response?.data?.message || "An unexpected error occurred");
         }
-    }
+    };
 
     return (
-        <>
-            
-            <div className="row mb-3 text-center">
-                <div className="col-4"></div>
-                {loading ? (
-                    <div className="col-4">
-                        <Loading />
-                        
-                    </div>
-                ) : (
-                    <>
-                    <h2>Login</h2>  
-                    <div className="row mb-3 text-center">
-                    <div className="col-4"></div>
-                    <Form className="col-4" onSubmit={handleSubmit}>
-                        <Form.Group controlId="username">
-                            <Form.Control
-                                placeholder="Username"
-                                type="text"
-                                value={username}
-                                autoComplete="username"
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </Form.Group>
-                        <br />
-                        <Form.Group controlId="password">
-                            <Form.Control
-                                placeholder="Enter Your Password"
-                                type="password"
-                                value={password}
-                                autoComplete="current-password"
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </Form.Group>
-                        <Card.Footer>
-                            <Link to={ROUTES.FORGOT_PASSWORD}>Forgot Password?</Link>
-                        </Card.Footer>
-                        <Card.Footer>
-                            Don't have an account? <Link to={ROUTES.SIGNUP}>Signup</Link> here!
-                        </Card.Footer>
-                        <button type="submit">Login</button>
-                        {error && <ErrorMessage message={error} />}
-                        {message && <SuccessMessage message={message} />}
-                    </Form>
-                    </div>
-                    </>
-                )}
-                <div className="col-4"></div>
-            </div>
-        </>
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "60vh" }}>
+            {loading ? (
+                <Loading />
+            ) : (
+                <Card className="shadow p-4" style={{ maxWidth: '400px', width: '100%' }}>
+                    <Card.Body>
+                        <h2 className="text-center mb-4">Login</h2>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group controlId="username" className="mb-3">
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control
+                                    placeholder="Enter your username"
+                                    type="text"
+                                    value={username}
+                                    autoComplete="username"
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                />
+                            </Form.Group>
+
+                            <Form.Group controlId="password" className="mb-3">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control
+                                    placeholder="Enter your password"
+                                    type="password"
+                                    value={password}
+                                    autoComplete="current-password"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                            </Form.Group>
+
+                            {error && <ErrorMessage message={error} />}
+                            {message && <SuccessMessage message={message} />}
+                            <br />
+                            <Button type="submit" variant="primary" className="w-100 mb-3">
+                                Login
+                            </Button>
+                            
+                            <Link to={ROUTES.FORGOT_PASSWORD}>Forgot Password?<br />    
+                            </Link>Don't have an account? <Link to={ROUTES.SIGNUP}>Signup</Link> here!
+                            
+                        </Form>
+                    </Card.Body>
+                </Card>
+            )}
+        </div>
     );
-}
+};
 
 export default Login;

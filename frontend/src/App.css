@@ -49,6 +49,7 @@
   background: var(--background-gradient);
 }
 
+
 html, body {
   font-family: var(--primary-font);
   height: 100%;
@@ -56,6 +57,10 @@ html, body {
   color: var(--primary-color);
   overflow-x: hidden;
   background-color: var(--background-color);
+}
+
+a {
+  text-decoration: none;
 }
 
 /* General Button Styling */
@@ -100,18 +105,26 @@ header {
 
 /* Footer Styling */
 footer {
+  background-color: var(--tertiary-color); /* Dark Slate Grey */
   color: var(--text-color); /* White */
   padding: 1rem;
-  font-size: 0.9rem;
   text-align: center;
-  background-color: var(--tertiary-color); /* Dark Slate Grey */
-  margin-top: auto; /* Push the footer to the bottom */
+  font-size: 0.9rem;
+  width: 100%;
+  margin-top: auto; /* Pushes the footer to the bottom */
+  position: relative; /* Keeps it in the normal flow of the document */
   padding-bottom: 2rem; /* Optional padding for extra empty space */
+}
+
+footer p {
+  margin: 0;
 }
 
 .app-outlet{
   margin-left: 5rem;
   margin-right: 5rem;
+  flex-grow: 1; /* Takes up all available space */
+  padding-bottom: 2rem; /* Add some space before the footer */
 }
 
 /* Navbar */
@@ -120,6 +133,10 @@ footer {
 }
 
 .navbar a {
+  color: var(--text-color); /* White */
+}
+
+.navbar text {
   color: var(--text-color); /* White */
 }
 
@@ -406,3 +423,4 @@ footer {
       transform: rotate(360deg);
   }
 }
+

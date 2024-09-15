@@ -43,13 +43,12 @@ const Header = () => {
                     <Nav className="align-items-center">
                         {signedIn ? (
                             <>
-                                <Navbar.Text className="me-3 text-muted">
-                                    Welcome, <span className="fw-bold text-dark">{username}</span>!
+                                <Navbar.Text className="me-3">
+                                    Welcome, <span className="fw-bold">{username}</span>!
                                 </Navbar.Text>
                                 <Button variant="outline-primary" as={Link} to={ROUTES.SETTINGS} className="me-2 px-3">
                                     Settings
                                 </Button>
-                                {/* <Button onClick={useLogout()}>Logout</Button> */}
                                 <LogoutButton />
                             </>
                         ) : (

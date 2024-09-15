@@ -25,7 +25,7 @@ export function App() {
       <div className="app-outlet">
         <Outlet /> 
       </div>   
-      {/* <Footer /> */}
+      <Footer />
       </Context.Provider>
       </div>
     </>
