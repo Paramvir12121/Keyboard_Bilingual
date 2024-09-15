@@ -254,7 +254,7 @@ class Login(Resource):
     @auth_ns.expect(login_model)
     def post(self):
         print(f"Content-Type: {request.content_type}")  # Debugging line
-        print(f"Request Data: {request.data}")  # Debugging line
+        # print(f"Request Data: {request.data}")  # Debugging line
 
         if request.content_type != 'application/json':
             return {'message': "Did not attempt to load JSON data because the request Content-Type was not 'application/json'."}, 400

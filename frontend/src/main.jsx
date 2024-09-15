@@ -13,6 +13,7 @@ import NotAuthorized from './pages/errors/NotAuthorized';
 
 import Dashboard from './pages/dashboard/Dashboard';
 import Typing from '../src/components/typingTest/Typeing';
+
 import ConfirmEmail from './auth/misc/ConfirmEmail';
 import Signup from './auth/Singup';
 import ForgotPassoword from './auth/resetPassword/ForgotPassoword';
@@ -20,6 +21,7 @@ import ForgotPasswordEmail from './auth/resetPassword/ForgotPasswordEmail';
 import ResetPasswordConfirm from './auth/resetPassword/ResetPasswordConfirm';
 import Checkout from './pages/stripe/Checkout';
 import ProtectedRoute from './auth/ProtectedRoutes';
+
 import LessonLists from './pages/lessons/LessonLists';
 import SpeedTestListsPage from './pages/speedTests/SpeedTestListsPage';
 import SpeedTestPage from './pages/speedTests/SpeedTestPage'; 

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import TypingSpeedGraph from '../../components/graphs/TypingSpeedGraph';
-import AccuracyGraph from '../../components/graphs/AccuracyGraph';
+import TypingSpeedGraph from '../../../components/graphs/TypingSpeedGraph';
+import AccuracyGraph from '../../../components/graphs/AccuracyGraph';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { getUserLesonData } from '../../hooks/getUserStats';
+import { getUserLesonData } from '../../../hooks/getUserStats';
 
 const Graphs = () => {
   const [userTypingData, setUserTypingData] = useState([]);

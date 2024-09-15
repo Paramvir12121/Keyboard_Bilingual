@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Cookie from 'js-cookie';
-import Graphs from './Graphs';
+import Graphs from './components/Graphs';
 import Goal from '../../components/common/Goal';
 import LessonLists from '../lessons/LessonLists';
 import StatsBar from '../../components/layout/StatsBar';
