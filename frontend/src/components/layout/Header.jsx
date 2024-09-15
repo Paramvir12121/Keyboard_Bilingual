@@ -2,11 +2,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 import { Context } from "../../App";
-import LogoutButton from '../../auth/LogoutButton';
 import Cookies from 'js-cookie';
 import ROUTES from '../../Routes'; // Importing ROUTES
-
-
+import { useLogout } from '../../auth/useLogout';
 
 const Header = () => {
     const [signedIn, setSignedIn] = useContext(Context);
@@ -25,33 +23,49 @@ const Header = () => {
     }, [signedIn]);
 
     return (
-        <Navbar expand="md" className="mb-3">
+        <Navbar expand="sm" className="mb-3 shadow-sm">
             <Container>
-                <Navbar.Brand as={Link} to={ROUTES.DASHBOARD}>Arch</Navbar.Brand> {/* Use ROUTES.HOME */}
+                <Navbar.Brand as={Link} to={ROUTES.DASHBOARD} className="fw-bold fs-4">
+                    Arch
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         {signedIn && (
                             <>
-                                <Nav.Link as={Link} to={ROUTES.DASHBOARD}>Dashboard</Nav.Link> {/* Use ROUTES.DASHBOARD */}
-                                <Nav.Link as={Link} to={ROUTES.LESSON_LIST}>Lessons</Nav.Link> {/* Use ROUTES.LESSON_LIST */}
-                                <Nav.Link as={Link} to={ROUTES.SPEED_TEST}>Speed Tests</Nav.Link> {/* Use ROUTES.LESSON_LIST */}
+                                <Nav.Link as={Link} to={ROUTES.DASHBOARD} className="fw-semibold">Dashboard</Nav.Link>
+                                <Nav.Link as={Link} to={ROUTES.LESSON_LIST} className="fw-semibold">Lessons</Nav.Link>
+                                <Nav.Link as={Link} to={ROUTES.SPEED_TEST} className="fw-semibold">Speed Tests</Nav.Link>
                             </>
                         )}
                     </Nav>
-                    <Nav>
+                    <Nav className="align-items-center">
                         {signedIn ? (
                             <>
-                                <Navbar.Text className="me-3">
-                                    Welcome, {username}!
+                                <Navbar.Text className="me-3 text-muted">
+                                    Welcome, <span className="fw-bold text-dark">{username}</span>!
                                 </Navbar.Text>
-                                <Button variant="primary" as={Link} to={ROUTES.SETTINGS} className="me-2">Settings</Button> {/* Use ROUTES.SETTINGS */}
-                                <LogoutButton />
+                                <Button variant="outline-primary" as={Link} to={ROUTES.SETTINGS} className="me-2 px-3">
+                                    Settings
+                                </Button>
+                                <Button onClick={useLogout()}>Logout</Button>
                             </>
                         ) : (
                             <>
-                                <Button variant="outline-primary" className="me-2" onClick={() => navigate(ROUTES.LOGIN)}>Login</Button> {/* Use ROUTES.LOGIN */}
-                                <Button variant="primary" onClick={() => navigate(ROUTES.SIGNUP)}>Signup</Button> {/* Use ROUTES.SIGNUP */}
+                                <Button
+                                    variant="outline-primary"
+                                    className="me-2 px-3"
+                                    onClick={() => navigate(ROUTES.LOGIN)}
+                                >
+                                    Login
+                                </Button>
+                                <Button
+                                    variant="primary"
+                                    className="px-3"
+                                    onClick={() => navigate(ROUTES.SIGNUP)}
+                                >
+                                    Signup
+                                </Button>
                             </>
                         )}
                     </Nav>

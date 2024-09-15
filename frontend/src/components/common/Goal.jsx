@@ -27,10 +27,18 @@ const Goal = () => {
     <Container className="my-4">
       <Row className="justify-content-center">
         <Col md={4}>
-          <Card className="text-center shadow-sm">
+          <Card className="text-center shadow-sm border-0" style={{ backgroundColor: '#f0f4f8' }}>
             <Card.Body>
-              <Card.Title className="mb-3">Your Typing Speed Goal</Card.Title>
-              <Card.Text className="h4">{goal} WPM</Card.Text>
+              <Card.Title className="mb-3" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#333' }}>
+                Your Typing Speed Goal
+              </Card.Title>
+              <Card.Text className="h4" style={{ color: '#007bff', fontSize: '2rem', fontWeight: '700' }}>
+                {goal} WPM
+              </Card.Text>
+              <hr />
+              <Card.Text style={{ color: '#6c757d', fontSize: '0.9rem' }}>
+                Keep practicing to reach your goal!
+              </Card.Text>
             </Card.Body>
           </Card>
         </Col>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 
-// Example props structure:
+
 const userStats = {
   speedGoal: 60,
   averageSpeedLast5: 55,
@@ -20,37 +20,32 @@ const StatsBar = () => {
   } = userStats;
 
   return (
-    <Nav className="p-3 bg-light border rounded shadow-sm">
+    <Nav className="stats-bar">
       <Container>
         <Row className="d-flex justify-content-between align-items-center">
-          {/* Speed Goal */}
           <Col className="text-center">
-            <h6 className="mb-0">Speed Goal</h6>
-            <p className="text-muted mb-0">{speedGoal} WPM</p>
+            <h6>Speed Goal</h6>
+            <p>{speedGoal} WPM</p>
           </Col>
 
-          {/* Average Speed (Last 5 Lessons) */}
           <Col className="text-center">
-            <h6 className="mb-0">Avg Speed (Last 5)</h6>
-            <p className="text-muted mb-0">{averageSpeedLast5} WPM</p>
+            <h6>Avg Speed (Last 5)</h6>
+            <p>{averageSpeedLast5} WPM</p>
           </Col>
 
-          {/* Most Problematic Key */}
           <Col className="text-center">
-            <h6 className="mb-0">Problematic Key</h6>
-            <p className="text-muted mb-0">{mostProblematicKey}</p>
+            <h6>Problematic Key</h6>
+            <p>{mostProblematicKey}</p>
           </Col>
 
-          {/* Accuracy */}
           <Col className="text-center">
-            <h6 className="mb-0">Accuracy</h6>
-            <p className="text-muted mb-0">{accuracy}%</p>
+            <h6>Accuracy</h6>
+            <p>{accuracy}%</p>
           </Col>
 
-          {/* Error Rate */}
           <Col className="text-center">
-            <h6 className="mb-0">Error Rate</h6>
-            <p className="text-muted mb-0">{errorRate}%</p>
+            <h6>Error Rate</h6>
+            <p>{errorRate}%</p>
           </Col>
         </Row>
       </Container>
