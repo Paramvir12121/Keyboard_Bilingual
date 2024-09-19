@@ -66,7 +66,7 @@ const Settings = () => {
     if (!settings) return <div>Loading...</div>;
 
     return (
-        <Container>
+        <Container className='my-4'>
             <h1 className="my-4">Settings</h1>
             {saveStatus && (
                 <Alert variant={saveStatus.type} onClose={() => setSaveStatus(null)} dismissible>
@@ -303,14 +303,13 @@ const Settings = () => {
                                     onChange={e => handleChange('reminders_time', e.target.value)}
                                 />
                             </Col>
-                            <Button variant="primary" onClick={handleSubmit}>
-                    Save Settings
-                </Button>
+                            {/* below button is too large, limit its size */}
+                            <Button variant="primary"  onClick={handleSubmit} className=" m-3 btn-sm">
+                                Save Settings
+                            </Button>
                         </Form.Group>
                     </Card.Body>
                 </Card>
-
-                
             </Form>
         </Container>
     );

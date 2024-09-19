@@ -50,7 +50,7 @@ const Results = ({ lessonId, stats }) => {
     return (
         <Container>
             <Card>
-                <Card.Body>
+                <Card.Body className='results-card'>
                     <h2>Typing Test Results</h2>
                     <div><strong>Words Per Minute:</strong> {stats.wpm.toFixed(2)}</div>
                     <div><strong>Accuracy:</strong> {stats.accuracy.toFixed(2)}%</div>

@@ -388,7 +388,7 @@ footer p {
 .btn-primary {
   background-color: var(--primary-color); /* Teal */
   border-color: var(--primary-color);
-  color: white;
+  color: var(--text-color);
 }
 
 .btn-primary:hover {
@@ -408,12 +408,13 @@ footer p {
 }
 
 .btn-outline-primary {
-  color: var(--primary-color); /* Teal */
+  background-color: var(--primary-color); /* Teal */
   border-color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .btn-outline-primary:hover {
-  background-color: var(--primary-color); /* Fill with teal on hover */
+  background-color: var(--primary-shade-color);; /* Fill with teal on hover */
   color: white;
 }
 
@@ -455,3 +456,61 @@ footer p {
   }
 }
 
+
+/* <<<<<<<<<<<<<<RESULT NAVBAR>>>>>>>>>>> */
+.result-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent; /* Make navbar background transparent */
+  padding: 0; /* Remove padding */
+  border: none; /* Remove border */
+  box-shadow: none; /* Remove shadow */
+}
+
+.result-navbar .nav-link, 
+.result-navbar .btn {
+  background-color: var(--primary-color); /* Teal button background */
+  color: var(--text-color); /* White text */
+  padding: 0.5rem 1rem; /* Adjust padding for buttons */
+  margin-top: 1rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  text-decoration: none; /* Remove underline */
+  border: none; /* Remove borders */
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer;
+  transition: var(--transition-ease); /* Smooth transitions */
+  box-shadow: var(--button-shadow); /* Subtle shadow for depth */
+}
+
+.result-navbar .nav-link:hover, 
+.result-navbar .btn:hover {
+  background-color: var(--primary-shade-color); /* Darker Teal on hover */
+  box-shadow: var(--button-hover-shadow); /* Increase shadow on hover */
+}
+
+.result-navbar .btn-outline-secondary {
+  background-color: var(--secondary-color); /* Coral background for secondary button */
+  color: var(--text-color); /* White text */
+}
+
+.result-navbar .btn-outline-secondary:hover {
+  background-color: var(--secondary-shade-color); /* Darker Coral on hover */
+}
+
+
+.result-navbar .nav-link:disabled, 
+.result-navbar .btn:disabled {
+  background-color: var(--text-dim-color); /* Light Grey background for disabled */
+  color: var(--background-color); /* Dim text color */
+  cursor: not-allowed; /* Change cursor for disabled buttons */
+}
+
+/* <<<<<<<<<<<<<<RESULT NAVBAR>>>>>>>>>>> */
+
+.results-card {
+  align-items: center;
+  /* align all text center */
+  text-align: center;
+}

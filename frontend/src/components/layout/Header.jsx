@@ -6,6 +6,8 @@ import Cookies from 'js-cookie';
 import ROUTES from '../../Routes'; // Importing ROUTES
 import { useLogout } from '../../auth/useLogout';
 import LogoutButton from '../../auth/LogoutButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons'; // Settings icon
 
 const Header = () => {
     const [signedIn, setSignedIn] = useContext(Context);
@@ -26,8 +28,8 @@ const Header = () => {
     return (
         <Navbar expand="sm" className="mb-3 shadow-sm">
             <Container>
-                <Navbar.Brand as={Link} to={ROUTES.DASHBOARD} className="fw-bold fs-4">
-                    Arch
+                <Navbar.Brand as={Link} to={ROUTES.DASHBOARD} className="fw fs-5">
+                    Keyboard Bilingual
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -46,9 +48,10 @@ const Header = () => {
                                 <Navbar.Text className="me-3">
                                     Welcome, <span className="fw-bold">{username}</span>!
                                 </Navbar.Text>
-                                <Button variant="outline-primary" as={Link} to={ROUTES.SETTINGS} className="me-2 px-3">
-                                    Settings
-                                </Button>
+                                <Link to={ROUTES.SETTINGS} className="me-2 px-3 text-decoration-none">
+                                <FontAwesomeIcon className='primary' icon={faCog} size="lg" />
+                                </Link>
+
                                 <LogoutButton />
                             </>
                         ) : (
