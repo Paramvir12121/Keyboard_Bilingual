@@ -4,7 +4,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Context } from "../../App";
 import Cookies from 'js-cookie';
 import ROUTES from '../../Routes'; // Importing ROUTES
-import { useLogout } from '../../auth/useLogout';
 import LogoutButton from '../../auth/LogoutButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons'; // Settings icon

@@ -261,7 +261,7 @@ footer p {
 }
 
 .key-pressed {
-  fill: var(--success-color); /* Green */
+  fill: var(--success-color) !important; 
 }
 
 /* Loading Spinner */
