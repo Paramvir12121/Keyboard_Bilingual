@@ -1,0 +1,16 @@
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    ports:
+      - "4566:4566"  # Main LocalStack gateway
+      - "4571:4571"
+    environment:
+      - SERVICES=s3,ec2,rds,sqs,sns,sts  # Include 'sts' in this list
+      - PORT=4566
+      - DEFAULT_REGION=us-east-1
+      # - LOCALSTACK_AUTH_TOKEN=
+    volumes:
+      - "./localstack:/var/lib/localstack"  # Optional: persist state
+

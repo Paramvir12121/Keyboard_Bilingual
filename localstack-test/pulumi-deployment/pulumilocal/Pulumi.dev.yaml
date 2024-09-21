@@ -1,0 +1,8 @@
+config:
+  aws:accessKey: test
+  aws:s3UsePathStyle: "true"
+  aws:secretKey: test
+  aws:skipCredentialsValidation: "true"
+  aws:skipRequestingAccountId: "true"
+  aws:endpoints:
+    - s3: http://localhost:4566
