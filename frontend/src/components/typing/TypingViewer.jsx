@@ -5,6 +5,7 @@ import Results from './results/Results';
 import ResultNavbar from './results/ResultNavbar';
 import KeyboardSelection from './keyboardSelection/KeyboardSelection';
 import { layoutMappings } from './layoutMapping/LayoutMapping';
+
 const TypingViewer = ({ words, lessonId }) => {
   const [displayText, setDisplayText] = useState('');
   const [cursorIndex, setCursorIndex] = useState(0);
@@ -78,14 +79,12 @@ const TypingViewer = ({ words, lessonId }) => {
         if (layoutMappings[userKeyboardLayout] && layoutMappings[userKeyboardLayout][userLearningLayout]) {
             const conversionMap = layoutMappings[userKeyboardLayout][userLearningLayout];
             
-            if (conversionMap[pressedKey]) {
-                pressedKey = conversionMap[pressedKey];
-            }
+            
         }
         setKeysTyped(prev => prev + 1);
         // Update the pressedKey state to the corresponding key ID
-        setPressedKey(`key${pressedKey.charAt(0).toUpperCase() + pressedKey.slice(1)}`);
-        if (pressedKey === displayText[cursorIndex].toLowerCase() || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
+        setPressedKey(pressedKey);
+        if (pressedKey === displayText[cursorIndex] || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
             setIsWrongKey(false);
             setCursorIndex(prevIndex => {
                 if (prevIndex + 1 >= displayText.length) {
@@ -113,8 +112,9 @@ const TypingViewer = ({ words, lessonId }) => {
     };
 
     window.addEventListener('keydown', handleKeyDown);
-
     window.addEventListener('keyup', handleKeyUp);
+    
+    
 
     return () => {
         window.removeEventListener('keydown', handleKeyDown);
@@ -155,7 +155,7 @@ const TypingViewer = ({ words, lessonId }) => {
         <>
         <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />
         <KeyboardSelection userLearningLayout={userLearningLayout} userKeyboardLayout={userKeyboardLayout} showKeyboard={showKeyboard} pressedKey={pressedKey}/>
-                
+          
         </>
       }
      
