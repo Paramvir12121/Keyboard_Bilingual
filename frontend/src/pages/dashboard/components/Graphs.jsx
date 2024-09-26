@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { getUserLesonData } from '../../../hooks/getUserStats';
+import StatsBar from '../../../components/layout/StatsBar';
 
 const Graphs = () => {
   const [userTypingData, setUserTypingData] = useState([]);
@@ -28,7 +29,8 @@ const Graphs = () => {
   }, []);
 
   return (
-    
+      <>
+      <StatsBar />
       <Row>
         <Col lg={6} className="mb-3">
             <TypingSpeedGraph userTypingData={userTypingData}/>
@@ -37,6 +39,7 @@ const Graphs = () => {
         <AccuracyGraph userTypingData={userTypingData}/>
         </Col>
       </Row>
+      </>
     
   );
 }

@@ -2,7 +2,7 @@ from flask_restx import Api, Resource, Namespace, fields
 from flask import Flask, jsonify, render_template, request,session
 from flask_session import Session
 from flask_cognito import CognitoAuth, cognito_auth_required, current_cognito_jwt
-from models import User, Lesson, UserLesson
+from models import User, Lesson, UserLesson, Setting
 from exts import db
 from functools import wraps
 from datetime import datetime
@@ -194,6 +194,10 @@ class UserLessonTypingSpeed(Resource):
         
         user_lessons = UserLesson.query.filter_by(user_id=user_id).all()
         typing_speed_list = []
+
+        user_settings = Setting.query.filter_by(user_id=user_id).first()
+        typing_speed_goal = user_settings.typing_speed_goal
+        
         
         for user_lesson in user_lessons:
             # Check if score and accuracy are not None before rounding
@@ -221,7 +225,8 @@ class UserLessonTypingSpeed(Resource):
                 typing_data = {"score": user_lesson_score, 
                                "accuracy": user_lesson_accuracy,
                                "error_keys": user_error_keys,
-                               "lesson": user_lesson_name}
+                               "lesson": user_lesson_name,
+                               "typing_speed_goal": typing_speed_goal,}
                 typing_speed_list.append(typing_data)
 
         return typing_speed_list, 200

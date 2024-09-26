@@ -4,7 +4,6 @@ import Cookie from 'js-cookie';
 import Graphs from './components/Graphs';
 import Goal from '../../components/common/Goal';
 import LessonLists from '../lessons/LessonLists';
-import StatsBar from '../../components/layout/StatsBar';
 import ROUTES from '../../Routes';  // Import the routes
 import Loading from '../../components/common/Loading';
 import StripeHostedPages from '../stripe/StripeHostedPages';
@@ -13,7 +12,7 @@ const Dashboard = () => {
     return (
        <>
          <div>
-            <StatsBar />
+           
             {/* <Goal /> */}
             {/* Add dashboard components here */}
             <Graphs />
