@@ -226,7 +226,7 @@ class UserLessonTypingSpeed(Resource):
                                "accuracy": user_lesson_accuracy,
                                "error_keys": user_error_keys,
                                "lesson": user_lesson_name,
-                               "typing_speed_goal": typing_speed_goal,}
+                               }
                 typing_speed_list.append(typing_data)
 
         return typing_speed_list, 200
@@ -247,3 +247,4 @@ class UserLessonErrorKeys(Resource):
             error_keys = user_lesson.error_keys.split(',')
             error_keys_list.append(error_keys)
         return error_keys_list, 200
+    

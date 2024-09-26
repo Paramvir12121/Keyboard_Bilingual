@@ -6,23 +6,6 @@ import Card from 'react-bootstrap/Card';
 const AccuracyGraph = ({userTypingData}) => {
   const [typingData, setTypingData] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchTypingData = async () => {
-  //     try {
-  //       const data = userTypingData;
-  //       if (data && Array.isArray(data)) {
-  //         setTypingData(data);
-  //         console.log("Typing data:", data);
-  //       } else {
-  //         console.error("No valid typing data available.");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching typing data:", error);
-  //     }
-  //   };
-
-  //   fetchTypingData();
-  // }, []);
 
   return (
     <Card className="graph-card">

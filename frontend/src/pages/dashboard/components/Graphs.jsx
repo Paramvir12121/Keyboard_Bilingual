@@ -6,9 +6,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { getUserLesonData } from '../../../hooks/getUserStats';
 import StatsBar from '../../../components/layout/StatsBar';
+import useFetchSettings from '../../../hooks/useFetchSettings';
 
 const Graphs = () => {
   const [userTypingData, setUserTypingData] = useState([]);
+  const [userSettingsData, setUserSettingsData] = useState({});
 
   useEffect(() => {
     const fetchTypingData = async () => {
@@ -25,12 +27,21 @@ const Graphs = () => {
       }
     };
 
+    const fetchSettings = async () => {
+      const { fetchSettings } = useFetchSettings();
+      const userSettingsData = await fetchSettings();
+      setUserSettingsData(userSettingsData);
+      console.log("Settings fetched:", userSettingsData);
+    } 
+
+    fetchSettings();
+
     fetchTypingData();
   }, []);
 
   return (
       <>
-      <StatsBar />
+      <StatsBar userTypingData={userTypingData} userSettingsData={userSettingsData}/>
       <Row>
         <Col lg={6} className="mb-3">
             <TypingSpeedGraph userTypingData={userTypingData}/>
