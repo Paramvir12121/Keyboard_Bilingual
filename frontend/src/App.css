@@ -263,7 +263,10 @@ footer p {
 .key-pressed {
   fill: var(--success-color) !important; 
 }
-
+.key-subtext {
+  font-size: 0.8rem;
+  color: var(--text-dim-color); /* Light Grey */
+}
 /* Loading Spinner */
 .loader {
   margin: auto;

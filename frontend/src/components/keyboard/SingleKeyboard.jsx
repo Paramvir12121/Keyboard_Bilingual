@@ -67,7 +67,18 @@ const SingleKeyboard = ({ pressedKey }) => {
             }, 250);
 
             // Clean up the timeout if the component unmounts or pressedKey changes
-            return () => clearTimeout(timer);
+            return () => {
+                clearTimeout(timer); 
+            };
+        } else {
+            const timer = setTimeout(() => {
+                setPressedKeyId(''); // Reset pressedKeyId
+            }, 250);
+
+            // Clean up the timeout if the component unmounts or pressedKey changes
+            return () => {
+                clearTimeout(timer); 
+            };
         }
     }, [pressedKey, userKeyboardLayout]);
 
