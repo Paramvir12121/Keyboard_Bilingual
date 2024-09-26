@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import {keyIdTo} from './KeyIdTo';
+import {userKeyboardLayouts} from './userKeyboardLayouts';
 
 const fingerColorMap = {
     leftPinky: 'rgba(255, 111, 97, 0.2)',     // Coral
