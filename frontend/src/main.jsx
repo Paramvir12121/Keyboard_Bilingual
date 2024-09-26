@@ -12,7 +12,7 @@ import NotFoundPage from './pages/errors/NotFoundPage';
 import NotAuthorized from './pages/errors/NotAuthorized';
 
 import Dashboard from './pages/dashboard/Dashboard';
-import Typing from '../src/components/typingTest/Typeing';
+
 
 import ConfirmEmail from './auth/misc/ConfirmEmail';
 import Signup from './auth/Singup';
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
         element: <ProtectedRoute />,
         children: [
           { path: ROUTES.DASHBOARD, element: <Dashboard /> },
-          { path: ROUTES.TYPING, element: <Typing /> },
+        
           { path: ROUTES.CHECKOUT, element: <Checkout /> },
           { path: ROUTES.LESSON_LIST, element: <LessonLists /> },
           { path: ROUTES.LESSON_PAGE(), element: <LessonPage /> },  // Use the function to generate the route

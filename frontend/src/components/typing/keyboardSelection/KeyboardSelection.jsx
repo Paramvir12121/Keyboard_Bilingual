@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ColemakKeyboardSvg from '../../keyboardSvgs.jsx/ColemakKeyboardSvg';
-import QwertyKeyboard from '../../keyboardSvgs.jsx/QwertyKeyboard';
-import DvorakKeyboardSvg from '../../keyboardSvgs.jsx/DvorakKeyboardSvg';
-import SingleKeyboard from '../../../testComponents/SingleKeyboard';
+import SingleKeyboard from '../../keyboard/SingleKeyboard';
 
 const KeyboardSelection = ({ userLearningLayout, userKeyboardLayout, showKeyboard, pressedKey }) => {
     if (!showKeyboard) {
