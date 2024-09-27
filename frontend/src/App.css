@@ -57,6 +57,10 @@ html, body {
   color: var(--primary-color);
   overflow-x: hidden;
   background-color: var(--background-color);
+  min-width: 400px; /* Minimum width you want the window to be */
+  min-height: 300px;
+  overflow-x: auto;  /* Allow horizontal scrolling if content exceeds the min-width */
+  overflow-y: auto;  /* Allow vertical scrolling if content exceeds the min-height */
 }
 
 a {
@@ -121,8 +125,8 @@ footer p {
 }
 
 .app-outlet{
-  margin-left: 5rem;
-  margin-right: 5rem;
+  margin-left: 5%; /* 5% of the viewport width */
+  margin-right: 5%; /* 5% of the viewport width */
   flex-grow: 1; /* Takes up all available space */
   padding-bottom: 2rem; /* Add some space before the footer */
 }
@@ -520,7 +524,7 @@ footer p {
 /* Sidebar (topic column) styling */
 .nav-column {
   margin-top: 3rem;
-  background-color: rgba(44, 44, 44, 0.8); /* Darker, semi-transparent background */
+  background-color: rgba(44, 44, 44, 0.8); 
   padding: 1rem;
   border: 1px solid var(--primary-color); /* Border matching the primary color */
   border-radius: 8px; /* Slightly rounded corners */
@@ -538,7 +542,7 @@ footer p {
   margin-top: 0.5rem;
   padding: 0.75rem 1rem;
   font-size: 1rem;
-  background-color: var(--secondary-color); /* Background color matches the secondary color */
+  background-color: var(--secondary-color); 
   color: var(--text-color); /* Text color should contrast the background */
   border: none;
   border-radius: 4px; /* Slightly rounded corners */
@@ -559,7 +563,7 @@ footer p {
 }
 
 .topic-button.active {
-  background-color: var(--primary-color); /* Highlight active topic with the primary color */
+  background-color: var(--primary-color); 
   color: #fff; /* Ensure active topic text is white */
 }
 
@@ -577,20 +581,20 @@ footer p {
 .lesson-list-column h2 {
   color: var(--primary-color); /* Primary color for the section title */
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   font-size: 1.5rem;
-  border-bottom: 2px solid var(--primary-color); /* Underline the section title */
-  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-color); 
+  /* padding-bottom: 0.5rem; */
 }
 
-.lesson-list-column .lesson-card {
+/* .lesson-list-column .lesson-card {
   padding: 1rem;
   margin-bottom: 0.5rem;
-  background-color: var(--tertiary-color); /* Dark slate grey background */
-  border: 1px solid var(--primary-color); /* Add border */
+  background-color: var(--tertiary-color); 
+  border: 1px solid var(--primary-color); 
   border-radius: 4px;
   transition: var(--transition-ease);
-}
+} */
 
 
 /* Scrollbar styling for nav-column */

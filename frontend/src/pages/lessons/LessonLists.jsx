@@ -82,7 +82,7 @@ const LessonLists = () => {
                                 {groupedLessons[selectedTopic]
                                     .filter(lesson => lesson.keyboard_type === keyboardLayout || lesson.keyboard_type === 'all')
                                     .map((lesson) => (
-                                        <Col key={lesson.id} xs={12} className="mb-2">
+                                        <Col key={lesson.id} xs={12} >
                                             <LessonList
                                                 id={lesson.id}
                                                 title={lesson.title}
