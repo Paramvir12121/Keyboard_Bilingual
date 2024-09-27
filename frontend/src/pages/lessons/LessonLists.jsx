@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import LessonList from './LessonList';
 import baseApi from '../../hooks/baseApi';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Nav } from 'react-bootstrap';
 import Cookies from 'js-cookie';
+import Button from 'react-bootstrap/Button';
 
 const LessonLists = () => {
     const api = baseApi();
     const [groupedLessons, setGroupedLessons] = useState({});
     const [keyboardLayout, setKeyboardLayout] = useState('qwerty');
+    const [selectedTopic, setSelectedTopic] = useState(''); // State to manage the selected topic
 
     useEffect(() => {
         const fetchLessons = async () => {
@@ -25,9 +27,12 @@ const LessonLists = () => {
                 }, {});
 
                 setGroupedLessons(grouped);
+                // Set the first topic as selected by default
+                if (Object.keys(grouped).length > 0) {
+                    setSelectedTopic(Object.keys(grouped)[0]);
+                }
             } catch (error) {
                 console.error('Error fetching lessons:', error);
-                // Handle the error in the UI here
             }
         };
 
@@ -48,26 +53,48 @@ const LessonLists = () => {
     }, []);
 
     return (
-        <Container>
-            {Object.entries(groupedLessons).map(([topic, lessons]) => (
-                <div key={topic} className="">
-                    <h2 className="">{topic}</h2>
-                    <Row>
-                        {/* Only show lessons where lesson.keyboard_type matches keyboardLayout */}
-                        {lessons
-                            .filter(lesson => lesson.keyboard_type === keyboardLayout || lesson.keyboard_type === 'all')
-                            .map((lesson) => (
-                                <Col key={lesson.id} xs={12} className="">
-                                    <LessonList
-                                        id={lesson.id}
-                                        title={lesson.title}
-                                        description={lesson.description}
-                                    />
-                                </Col>
-                            ))}
-                    </Row>
-                </div>
-            ))}
+        <Container fluid>
+            <Row>
+                {/* Vertical Navbar for topics */}
+                <Col xs={4} md={3} >
+                    <div className="nav-column">
+                        {Object.keys(groupedLessons).map(topic => (
+                                <Button 
+                                    active={topic === selectedTopic} 
+                                    onClick={() => setSelectedTopic(topic)}
+                                    className='topic-button'
+                                    key={topic}
+                                >
+                                    {topic}
+                               
+                            </Button>
+                            
+                        ))}
+                    </div>
+                </Col>
+
+                {/* Lessons list on the right */}
+                <Col xs={8} md={9} className='lesson-list-column'>
+                    {selectedTopic && groupedLessons[selectedTopic] && (
+                        <>
+                            <h2>{selectedTopic}</h2>
+                            <Row>
+                                {groupedLessons[selectedTopic]
+                                    .filter(lesson => lesson.keyboard_type === keyboardLayout || lesson.keyboard_type === 'all')
+                                    .map((lesson) => (
+                                        <Col key={lesson.id} xs={12} className="mb-2">
+                                            <LessonList
+                                                id={lesson.id}
+                                                title={lesson.title}
+                                                description={lesson.description}
+                                            />
+                                        </Col>
+                                    ))}
+                            </Row>
+                        </>
+                    )}
+                </Col>
+            </Row>
         </Container>
     );
 };
