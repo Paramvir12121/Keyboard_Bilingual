@@ -524,11 +524,7 @@ footer p {
 /* Sidebar (topic column) styling */
 .nav-column {
   margin-top: 3rem;
-<<<<<<< HEAD
   background-color: rgba(44, 44, 44, 0.8); 
-=======
-  background-color: rgba(248, 248, 248, 0); /* Darker, semi-transparent background */
->>>>>>> 31dcc1f (finalized lesson style, started on user profile)
   padding: 1rem;
   /* border: 1px solid var(--primary-color);  */
   border-radius: 8px; /* Slightly rounded corners */
