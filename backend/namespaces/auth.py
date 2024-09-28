@@ -447,3 +447,18 @@ class CheckLogin(Resource):
             return {"message": "Invalid session token. Not logged in."}, 401
         return {"message": "User is logged in.", "user_id": user_id,"username":username, "email": email}, 200
 
+@auth_ns.route('/getuserprofile')
+class GetUserProfile(Resource):
+    @login_required
+    @refresh_token_if_needed
+    def get(self):
+        session_token = request.cookies.get('session')
+        print("session cookie: ",request.cookies.get('session'))
+        if not session_token:
+            return {"message":"Unauthorized"}, 401
+        user_id = session.get('user_id')
+        user = User.query.get(user_id)
+        if not user:
+            return {"message": "User not found"}, 404
+        print("profile seen")
+        return {"username": user.username, "email": user.email,"subscriber": user.has_paid }, 200

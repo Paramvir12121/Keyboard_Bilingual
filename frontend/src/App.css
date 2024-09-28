@@ -588,7 +588,6 @@ footer p {
   /* padding-bottom: 0.5rem; */
 }
 
-<<<<<<< HEAD
 /* .lesson-list-column .lesson-card {
   padding: 1rem;
   margin-bottom: 0.5rem;
@@ -599,8 +598,6 @@ footer p {
 } */
 
 
-=======
->>>>>>> 31dcc1f (finalized lesson style, started on user profile)
 /* Scrollbar styling for nav-column */
 .nav-column::-webkit-scrollbar {
   width: 8px;
