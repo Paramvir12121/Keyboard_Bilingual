@@ -524,11 +524,15 @@ footer p {
 /* Sidebar (topic column) styling */
 .nav-column {
   margin-top: 3rem;
+<<<<<<< HEAD
   background-color: rgba(44, 44, 44, 0.8); 
+=======
+  background-color: rgba(248, 248, 248, 0); /* Darker, semi-transparent background */
+>>>>>>> 31dcc1f (finalized lesson style, started on user profile)
   padding: 1rem;
-  border: 1px solid var(--primary-color); /* Border matching the primary color */
+  /* border: 1px solid var(--primary-color);  */
   border-radius: 8px; /* Slightly rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  */
   height: calc(100vh - 3rem); /* Make the sidebar fill most of the screen height */
   overflow-y: auto; /* Enable scrolling for long lists */
   position: sticky;
@@ -570,11 +574,12 @@ footer p {
 /* Lesson list column styling */
 .lesson-list-column {
   margin-top: 3rem;
-  background-color: rgba(30, 30, 30, 0.8); /* A darker, semi-transparent background */
+  background-color: rgba(30, 30, 30, 0); /* A darker, semi-transparent background */
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow */
-  border: 1px solid var(--primary-color); /* Matching the primary color */
+  transition: var(--transition-ease);
+  /* border: 1px solid var(--primary-color);  */
 }
 
 /* Lesson cards inside the column */
@@ -587,6 +592,7 @@ footer p {
   /* padding-bottom: 0.5rem; */
 }
 
+<<<<<<< HEAD
 /* .lesson-list-column .lesson-card {
   padding: 1rem;
   margin-bottom: 0.5rem;
@@ -597,12 +603,14 @@ footer p {
 } */
 
 
+=======
+>>>>>>> 31dcc1f (finalized lesson style, started on user profile)
 /* Scrollbar styling for nav-column */
 .nav-column::-webkit-scrollbar {
   width: 8px;
 }
 
 .nav-column::-webkit-scrollbar-thumb {
-  background-color: var(--primary-color); /* Match scrollbar color with primary color */
+  background-color: var(--primary-color); 
   border-radius: 4px;
 }

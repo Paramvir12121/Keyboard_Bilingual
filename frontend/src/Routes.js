@@ -2,6 +2,10 @@ const ROUTES = {
     HOME: '/',
     LOGIN: '/login',
     SIGNUP: '/signup',
+
+    USER_PROFILE: '/user-profile',
+
+
     CONFIRM_EMAIL: '/confirm-email',
     FORGOT_PASSWORD: '/forgot-password',
     FORGOT_PASSWORD_EMAIL: '/forgot-password-email',

@@ -31,6 +31,8 @@ import Settings from './pages/settings/Settings';
 import Test1 from './testComponents/Test1';
 import StatsPage from './pages/stats/StatsPage';
 
+import UserProfile from './pages/profile/UserProfile';
+
 import FirstPage from './pages/introPages/FirstPage';
 import SecondPage from './pages/introPages/SecondPage';
 import ThirdPage from './pages/introPages/ThirdPage';
@@ -61,6 +63,8 @@ const router = createBrowserRouter([
         element: <ProtectedRoute />,
         children: [
           { path: ROUTES.DASHBOARD, element: <Dashboard /> },
+          { path: ROUTES.USER_PROFILE, element: <UserProfile /> },
+          
         
           { path: ROUTES.CHECKOUT, element: <Checkout /> },
           { path: ROUTES.LESSON_LIST, element: <LessonLists /> },
