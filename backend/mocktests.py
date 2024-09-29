@@ -1,17 +1,14 @@
 from models import db, Lesson
-from datetime import datetime
+from datetime import datetime, timezone  # Updated import for timezone-aware datetime
 from run import app
 
 def add_mock_data():
     mock_lessons = [
-        # Existing lessons data goes here...
-        
-        # Speed Test - Most Common Words (Beginner)
         {
             "title": "Speed Test - Common Words (Beginner)",
             "topic": "Speed Test",
             "subtopic": "Common Words",
-            "keyboard_type": "all",  # Assuming the keyboard type is QWERTY for speed tests
+            "keyboard_type": "all",
             "description": "Test your typing speed on the most common words in English. Suitable for beginners.",
             "keys": "the of and to a in that is was he for it with as his on be at by i this had not are but from or have an they",
             "words": [
@@ -20,10 +17,9 @@ def add_mock_data():
                 "this", "had", "not", "are", "but", "from", "or", "have", "an", "they"
             ],
             "difficulty": "easy",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
+            "created_at": datetime.now(timezone.utc),  
+            "updated_at": datetime.now(timezone.utc)
         },
-        # Speed Test - Most Common Words (Intermediate)
         {
             "title": "Speed Test - Common Words (Intermediate)",
             "topic": "Speed Test",
@@ -37,15 +33,14 @@ def add_mock_data():
                 "what", "up", "its", "about", "into", "than", "them", "these", "then", "some"
             ],
             "difficulty": "medium",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
+            "created_at": datetime.now(timezone.utc),
+            "updated_at": datetime.now(timezone.utc)
         },
-        # Speed Test - Most Common Words (Advanced)
         {
             "title": "Speed Test - Common Words (Advanced)",
             "topic": "Speed Test",
             "subtopic": "Common Words",
-            "keyboard_type": "all",  # For advanced tests, we can include all keyboard types
+            "keyboard_type": "all",
             "description": "Challenge yourself with a typing speed test on the most advanced common words in English.",
             "keys": "would like him just over most even find way many people may one other how also because after new well must things great still where through right down life back",
             "words": [
@@ -54,21 +49,29 @@ def add_mock_data():
                 "must", "things", "great", "still", "where", "through", "right", "down", "life", "back"
             ],
             "difficulty": "hard",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
+            "created_at": datetime.now(timezone.utc),
+            "updated_at": datetime.now(timezone.utc)
         }
     ]
 
     for lesson in mock_lessons:
+        # Truncate values to avoid exceeding column limits
+        title = lesson["title"][:50]  # Truncate to 50 characters
+        topic = lesson["topic"][:50]  # Truncate to 50 characters
+        subtopic = lesson["subtopic"][:50]  # Truncate to 50 characters
+        keyboard_type = lesson["keyboard_type"][:50]  # Truncate to 50 characters
+        difficulty = lesson["difficulty"][:50]  # Truncate to 50 characters
+        keys = lesson["keys"][:50]  # Truncate to 50 characters
+        
         new_lesson = Lesson(
-            title=lesson["title"],
-            topic=lesson["topic"],
-            subtopic=lesson["subtopic"],
-            keyboard_type=lesson["keyboard_type"],
+            title=title,
+            topic=topic,
+            subtopic=subtopic,
+            keyboard_type=keyboard_type,
             description=lesson["description"],
-            keys=lesson["keys"],
+            keys=keys,
             words=",".join(lesson["words"][:30]),  # Include only the first 30 words
-            difficulty=lesson["difficulty"],
+            difficulty=difficulty,
             created_at=lesson["created_at"],
             updated_at=lesson["updated_at"]
         )
