@@ -14,6 +14,7 @@ BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 class Config:
     SECRET_KEY = config('SECRET_KEY', default='secret')
     STRIPE_API_KEY = config('STRIPE_API_KEY')
+    PORT=config('PORT', cast=int, default=5000)
 
 class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI = config('DATABASE_URI', default="sqlite:///dev.db")
@@ -41,6 +42,7 @@ class TestConfig(Config):
     COGNITO_USERPOOL_ID = config('USER_POOL_ID')
     COGNITO_CLIENT_ID = config('COGNITO_CLIENT_ID')
     COGNITO_DOMAIN = config('COGNITO_DOMAIN')
+    
 
     # Session management
     SESSION_TYPE = 'sqlalchemy'

@@ -5,6 +5,7 @@ from flask_restx import Api, Resource, Namespace
 from flask_jwt_extended import JWTManager
 from flask_session import Session
 
+
 from models import User, Lesson, UserLesson
 from exts import db
 
