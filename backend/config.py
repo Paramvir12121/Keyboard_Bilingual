@@ -32,7 +32,7 @@ class DevConfig(Config):
 class TestConfig(Config):
     DEBUG = config('DEBUG', cast=bool, default=True)
     SQLALCHEMY_ECHO = config('SQLALCHEMY_ECHO', cast=bool, default=False)
-    SQLALCHEMY_DATABASE_URI = config('TEST_DATABASE_URI')
+    SQLALCHEMY_DATABASE_URI = config('SUPABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = config('SQLALCHEMY_TRACK_MODIFICATIONS', cast=bool, default=False)
 
     # Cognito settings
