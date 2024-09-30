@@ -13,16 +13,16 @@ resource "aws_key_pair" "my_key_pair" {
 resource "aws_instance" "backend" {
   ami           = "ami-0c02fb55956c7d316" # Amazon Linux 2 AMI; change as needed
   instance_type = "t2.micro" # Change to your preferred instance type
-  key_name      = aws_key_pair.my_key_pair.key_name
+#   key_name      = aws_key_pair.my_key_pair.key_name
 
   tags = {
     Name = "backend-instance"
   }
 
   # Assign a public IP (if needed) by using the default subnet configuration
-  associate_public_ip_address = true
+#   associate_public_ip_address = true
 
-  subnet_id = "subnet-xxxxxxxx" # Replace with your existing subnet ID
+#   subnet_id = "subnet-xxxxxxxx" # Replace with your existing subnet ID
 
   # User data script to install Python, clone the private repo, and add .env file
   user_data = <<-EOF
@@ -37,7 +37,7 @@ resource "aws_instance" "backend" {
               pip3 install flask
 
               # Setup GitHub authentication using a personal access token
-              GITHUB_USERNAME="your-github-username"
+              GITHUB_USERNAME="paramvir12121"
               GITHUB_TOKEN="your-github-access-token"
               REPO="https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/yourusername/your-flask-app.git"
 
