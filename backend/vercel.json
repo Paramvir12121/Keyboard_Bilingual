@@ -2,7 +2,7 @@
   "version": 2,
   "functions": {
     "run.py": {
-      "runtime": "python3.12.2"
+      "runtime": "@vercel/python3.12"
     }
   },
   "routes": [
