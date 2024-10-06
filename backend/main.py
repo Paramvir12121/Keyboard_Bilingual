@@ -62,9 +62,10 @@ def create_app(config_to_use):
     migrate = Migrate(app,db)
     JWTManager(app)
 
-    @app.route('/raise-error')
-    def raise_error():
-        raise Exception('Rollbar test 1')
+    # Rollbar test
+    # @app.route('/raise-error')
+    # def raise_error():
+    #     raise Exception('Rollbar test 1')
 
     cognito = CognitoAuth(app)
     cognito_client = boto3.client('cognito-idp', region_name=config_to_use.COGNITO_REGION)
