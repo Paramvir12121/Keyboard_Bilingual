@@ -2,19 +2,19 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/run.py",
+      "src": "run.py",
       "use": "@vercel/python"
     }
   ],
   "functions": {
-    "api/*.py": {
+    "run.py": {
       "runtime": "python3.12.2"
     }
   },
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/api/run.py"
+      "dest": "run.py"
     }
   ]
 }
