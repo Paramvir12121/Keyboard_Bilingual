@@ -15,6 +15,8 @@ class Config:
     SECRET_KEY = config('SECRET_KEY', default='secret')
     STRIPE_API_KEY = config('STRIPE_API_KEY')
     PORT=config('PORT', cast=int, default=5000)
+    ROLLBAR_TOKEN = config('ROLLBAR_TOKEN')
+    
 
 class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI = config('DATABASE_URI', default="sqlite:///dev.db")

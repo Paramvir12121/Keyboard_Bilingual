@@ -18,9 +18,27 @@ from namespaces.payment import payment_ns
 from namespaces.settings import settings_ns
 from admin import admin_bp
 
+
+import rollbar
+import rollbar.contrib.flask
+import os
+from flask import got_request_exception
+
+
 ###################### Settings ###########################
-
-
+def init_rollbar(app,config_to_use):
+    rollbar.init(
+        # Your Rollbar access token
+        access_token=config_to_use.ROLLBAR_TOKEN,
+        # Environment settings ('development', 'production', etc.)
+        environment='production',
+        # Your application version
+        root=os.path.dirname(os.path.realpath(__file__)),
+        allow_logging_basic_config=False
+    )
+    
+    # Attach Rollbar to Flask’s exception handling
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
 
 ###################### APP ############################
 def create_app(config_to_use):
@@ -33,6 +51,7 @@ def create_app(config_to_use):
     CORS(app, supports_credentials=True, origins="*")
     db.init_app(app)
     Session(app)
+    init_rollbar(app,config_to_use)
 
     api = Api(app, doc='/docs')
     api.add_namespace(auth_ns)
@@ -42,6 +61,10 @@ def create_app(config_to_use):
     app.register_blueprint(admin_bp)
     migrate = Migrate(app,db)
     JWTManager(app)
+
+    @app.route('/raise-error')
+    def raise_error():
+        raise Exception('Rollbar test 1')
 
     cognito = CognitoAuth(app)
     cognito_client = boto3.client('cognito-idp', region_name=config_to_use.COGNITO_REGION)
