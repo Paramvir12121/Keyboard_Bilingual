@@ -1,4 +1,4 @@
-from .models import db, Lesson
+from models import db, Lesson
 from datetime import datetime
 from run import app
 
