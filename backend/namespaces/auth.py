@@ -259,11 +259,9 @@ class Login(Resource):
         if request.content_type != 'application/json':
             return {'message': "Did not attempt to load JSON data because the request Content-Type was not 'application/json'."}, 400
 
-        data = request.get_json()
-        print(f"Parsed JSON Data: {data}")  # Debugging line
-
+        data = request.get_json() 
         if not data:
-            return {'message': 'No data provided'}, 400
+            return {'message': 'No user login data provided'}, 400
 
         username = data.get('username')
         password = data.get('password')
