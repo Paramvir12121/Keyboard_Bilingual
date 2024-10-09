@@ -1,12 +1,12 @@
 steps:
-  # Step 1: Build the Docker image
+   # Step 1: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
     dir: 'backend'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/backend-repo/backend-image:$SHORT_SHA', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/learn-colemak/backend-image:latest', '.']
 
   # Step 2: Push the Docker image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/backend-repo/backend-image:$SHORT_SHA']
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/learn-colemak/backend-image:latest']
 
   # Step 3: Deploy the image to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -16,7 +16,7 @@ steps:
       - deploy
       - backend-service
       - --image
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/backend-repo/backend-image:$SHORT_SHA'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/backend-repo/backend-image:latest'
       - --platform
       - managed
       - --region

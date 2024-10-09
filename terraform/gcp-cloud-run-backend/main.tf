@@ -3,8 +3,8 @@
 resource "google_artifact_registry_repository" "backend_repo" {
   provider         = google
   location         = var.region
-  repository_id    = "backend-repo"
-  repository_format = "DOCKER"
+  repository_id    = var.github_repo
+  format = "DOCKER"
 }
 
 # Create Cloud Run service
@@ -15,7 +15,7 @@ resource "google_cloud_run_service" "backend_service" {
   template {
     spec {
       containers {
-        image = "us-central1-docker.pkg.dev/${var.project_id}/backend-repo/backend-image:$SHORT_SHA"
+        image = "us-central1-docker.pkg.dev/${var.project_id}/backend-repo/backend-image:latest"
         resources {
           limits = {
             memory = "512Mi"
