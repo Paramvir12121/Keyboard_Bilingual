@@ -26,7 +26,7 @@ const ROUTES = {
     FIRST_PAGE: '/first',
     SECOND_PAGE: '/second',
     THIRD_PAGE: '/third',
-    LANDING_PAGE: '/landing',
+    LANDING_PAGE: '',
   };
   
   export default ROUTES;
