@@ -23,7 +23,7 @@ resource "google_cloudbuild_trigger" "backend_build_trigger" {
     _ARTIFACT_REPO = var.artifact_repo
   }
 
-  filename = "backend/cloudbuild.yaml"
+  filename = "../../backend/cloudbuild.yaml"
 }
 
 
