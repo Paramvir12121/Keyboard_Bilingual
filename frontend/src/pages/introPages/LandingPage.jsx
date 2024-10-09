@@ -1,63 +1,113 @@
 // src/components/LandingPage.js
 import React from 'react';
+import { Link } from 'react-router-dom';
+import {
+  Navbar,
+  Nav,
+  Container,
+  Button,
+  Row,
+  Col,
+  Card,
+  Carousel,
+} from 'react-bootstrap';
 
 const LandingPage = () => {
-    const schemaOrgJSONLD = {
-        "@context": "http://schema.org",
-        "@type": "WebApplication",
-        "name": "Keyboard Bilingual",
-        "url": "https://yourwebsite.com",
-        "description": "Learn new keyboard layouts effortlessly while keeping your current typing skills intact.",
-        "author": {
-          "@type": "Organization",
-          "name": "Your Company Name",
-        },
-      };
+  const schemaOrgJSONLD = {
+    "@context": "http://schema.org",
+    "@type": "WebApplication",
+    "name": "Keyboard Bilingual",
+    "url": "https://yourwebsite.com",
+    "description": "Learn new keyboard layouts effortlessly while keeping your current typing skills intact.",
+    "author": {
+      "@type": "Organization",
+      "name": "Your Company Name",
+    },
+  };
+
   return (
-    
-    <div style={styles.container}>
-        
+    <div className="landing-container">
+      {/* Navigation Bar */}
+      {/* <Navbar expand="lg" fixed="top" className="navbar-custom">
+        <Container>
+          <Navbar.Brand href="#" className="navbar-logo">
+            Keyboard Bilingual
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-toggle-custom" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto navbar-links">
+              <Nav.Link href="#features">Features</Nav.Link>
+              <Nav.Link href="#testimonials">Testimonials</Nav.Link>
+              <Nav.Link href="#footer">Contact</Nav.Link>
+              <Link to="/signup" className="btn btn-primary nav-btn">
+                Get Started
+              </Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar> */}
+
       {/* Hero Section */}
-      <section style={styles.heroSection}>
-        <div style={styles.heroContent}>
-          <h1 style={styles.heroHeading}>Master Any Keyboard Layout Without Losing Your Touch</h1>
-          <p style={styles.heroSubHeading}>
+      <Container fluid className="hero-section">
+        <Container className="hero-content">
+          <h1 className="hero-heading">Master Any Keyboard Layout Without Losing Your Touch</h1>
+          <p className="hero-subheading">
             Learn new keyboard layouts effortlessly while keeping your current typing skills intact.
           </p>
-          <button style={styles.ctaButton}>Start Your Journey</button>
-        </div>
-      </section>
+          <Link to="/signup" className="btn btn-primary cta-button">
+            Start Your Journey
+          </Link>
+        </Container>
+      </Container>
 
       {/* Features Section */}
-      <section style={styles.featuresSection}>
-        <h2 style={styles.sectionTitle}>Why Choose Keyboard Bilingual?</h2>
-        <div style={styles.featuresGrid}>
-          {features.map((feature, index) => (
-            <div key={index} style={styles.featureCard}>
-              <h3 style={styles.featureTitle}>{feature.title}</h3>
-              <p style={styles.featureDescription}>{feature.description}</p>
-            </div>
-          ))}
-        </div>
+      <section id="features" className="features-section">
+        <Container>
+          <h2 className="section-title">Why Choose Keyboard Bilingual?</h2>
+          <Row className="features-grid">
+            {features.map((feature, index) => (
+              <Col key={index} md={4} className="mb-4">
+                <Card className="feature-card">
+                  <div className={`feature-icon icon-${index + 1}`}></div>
+                  <Card.Body>
+                    <Card.Title className="feature-title">{feature.title}</Card.Title>
+                    <Card.Text className="feature-description">{feature.description}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
       </section>
 
       {/* Testimonials Section */}
-      <section style={styles.testimonialsSection}>
-        <h2 style={styles.sectionTitle}>What Our Users Say</h2>
-        <div style={styles.testimonialGrid}>
-          {testimonials.map((testimonial, index) => (
-            <div key={index} style={styles.testimonialCard}>
-              <p style={styles.testimonialText}>"{testimonial.text}"</p>
-              <h4 style={styles.testimonialAuthor}>- {testimonial.author}</h4>
-            </div>
-          ))}
-        </div>
+      <section id="testimonials" className="testimonials-section">
+        <Container>
+          <h2 className="section-title">What Our Users Say</h2>
+          <Carousel className="testimonial-carousel">
+            {testimonials.map((testimonial, index) => (
+              <Carousel.Item key={index}>
+                <Card className="testimonial-card">
+                  <div className="testimonial-avatar">{testimonial.author.charAt(0)}</div>
+                  <Card.Body>
+                    <Card.Text className="testimonial-text">"{testimonial.text}"</Card.Text>
+                    <Card.Title className="testimonial-author">- {testimonial.author}</Card.Title>
+                  </Card.Body>
+                </Card>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </Container>
       </section>
 
       {/* Footer Section */}
-      <footer style={styles.footer}>
-        <p>&copy; 2024 Keyboard Bilingual. All rights reserved.</p>
-        <button style={styles.ctaButton}>Try It Free</button>
+      <footer id="footer" className="footer">
+        <Container>
+          <p>&copy; 2024 Keyboard Bilingual. All rights reserved.</p>
+          <Link to="/signup" className="btn btn-primary cta-button">
+            Try It Free
+          </Link>
+        </Container>
       </footer>
     </div>
   );
@@ -77,103 +127,5 @@ const testimonials = [
   { text: 'The customizable lessons are a game changer.', author: 'Sarah P.' },
   { text: 'My typing speed and accuracy improved significantly.', author: 'Emily R.' },
 ];
-
-const styles = {
-  container: {
-    fontFamily: "'Ubuntu', sans-serif",
-    backgroundColor: '#1C1C1C',
-    color: '#fff',
-    textAlign: 'center',
-  },
-  heroSection: {
-    background: 'linear-gradient(135deg, #00ADB5, #FF6F61)',
-    height: '100vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#fff',
-  },
-  heroContent: {
-    maxWidth: '800px',
-  },
-  heroHeading: {
-    fontSize: '3rem',
-    marginBottom: '1rem',
-  },
-  heroSubHeading: {
-    fontSize: '1.2rem',
-    marginBottom: '2rem',
-    color: '#F1F1F1',
-  },
-  ctaButton: {
-    padding: '1rem 2rem',
-    backgroundColor: '#2E2E2E',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    fontSize: '1rem',
-  },
-  featuresSection: {
-    background: '#1C1C1C',
-    color: '#FFFFFF',
-    padding: '4rem 2rem',
-    textAlign: 'center',
-  },
-  sectionTitle: {
-    fontSize: '2rem',
-    marginBottom: '2rem',
-  },
-  featuresGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '2rem',
-  },
-  featureCard: {
-    background: '#2E2E2E',
-    padding: '1.5rem',
-    borderRadius: '8px',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-  },
-  featureTitle: {
-    fontSize: '1.5rem',
-    marginBottom: '1rem',
-  },
-  featureDescription: {
-    fontSize: '1rem',
-    color: '#B0B0B0',
-  },
-  testimonialsSection: {
-    background: '#2E2E2E',
-    color: '#FFFFFF',
-    padding: '4rem 2rem',
-    textAlign: 'center',
-  },
-  testimonialGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '2rem',
-  },
-  testimonialCard: {
-    background: '#1C1C1C',
-    padding: '1.5rem',
-    borderRadius: '8px',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-  },
-  testimonialText: {
-    fontSize: '1.2rem',
-    marginBottom: '1rem',
-    color: '#B0B0B0',
-  },
-  testimonialAuthor: {
-    fontSize: '1rem',
-    color: '#FFF',
-  },
-  footer: {
-    background: '#2E2E2E',
-    color: '#FFFFFF',
-    padding: '2rem',
-  },
-};
 
 export default LandingPage;

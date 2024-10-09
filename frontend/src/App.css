@@ -607,3 +607,240 @@ footer p {
   background-color: var(--primary-color); 
   border-radius: 4px;
 }
+
+
+
+
+
+
+/* Landing Page */
+/* Landing Page Styles */
+/* General Styles */
+.landing-container {
+  font-family: var(--header-font);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Navigation Bar */
+.navbar-custom {
+  background-color: var(--background-color);
+  padding: 1rem 2rem;
+  box-shadow: var(--button-shadow);
+}
+
+.navbar-logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.navbar-links .nav-link {
+  color: var(--text-color) !important;
+  margin-right: 1rem;
+  transition: color 0.3s;
+}
+
+.navbar-links .nav-link:hover {
+  color: var(--primary-color) !important;
+}
+
+.navbar-toggle-custom {
+  border-color: var(--primary-color);
+}
+
+.navbar-toggle-custom .navbar-toggler-icon {
+  background-image: none;
+}
+
+.navbar-toggle-custom .navbar-toggler-icon:after {
+  content: '\2630'; /* Unicode character for hamburger icon */
+  color: var(--primary-color);
+  font-size: 1.5rem;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--text-color);
+  padding-top: 100px; /* Adjust for fixed navbar */
+  padding-bottom: 100px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::after {
+  content: '';
+  background: var(--background-gradient);
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  right: -50%;
+  bottom: 0;
+  left: -50%;
+  transform: rotate(45deg);
+}
+
+.hero-content {
+  z-index: 1;
+  text-align: center;
+}
+
+.hero-heading {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.hero-subheading {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-dim-color);
+}
+
+.cta-button {
+  font-size: 1.2rem;
+  padding: 0.75rem 2rem;
+}
+
+/* Features Section */
+.features-section {
+  background: var(--background-color);
+  color: var(--text-color);
+  padding: 4rem 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.feature-card {
+  background: var(--tertiary-color);
+  padding: var(--padding-card);
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--text-color);
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.feature-description {
+  font-size: 1rem;
+  color: var(--text-dim-color);
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  background: var(--tertiary-color);
+  color: var(--text-color);
+  padding: 4rem 0;
+}
+
+.testimonial-carousel .carousel-indicators li {
+  background-color: var(--primary-color);
+}
+
+.testimonial-card {
+  background: var(--background-color);
+  padding: var(--padding-card);
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.testimonial-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  background: var(--primary-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--text-color);
+}
+
+.testimonial-text {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-dim-color);
+}
+
+.testimonial-author {
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+/* Footer */
+.footer {
+  background: var(--tertiary-color);
+  color: var(--text-color);
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.footer p {
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-heading {
+    font-size: 2.5rem;
+  }
+
+  .hero-subheading {
+    font-size: 1.2rem;
+  }
+
+  .navbar-links {
+    text-align: center;
+  }
+
+  .navbar-links .nav-link {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .nav-btn {
+    display: block;
+    margin: 0 auto 1rem;
+  }
+}
+
+/* / Landing Page */
