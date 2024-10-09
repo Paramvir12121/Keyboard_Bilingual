@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const baseApi = () => {
     const api = axios.create({
-        baseURL: 'http://35.175.237.25:5000/',
+        // get the base url from the .env file for vite
+        baseURL: import.meta.env.VITE_API_URL,
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
