@@ -47,7 +47,8 @@ const TypingViewer = ({ words, lessonId }) => {
         try {
           const parseSettings = JSON.parse(settings);
           setShowKeyboard(parseSettings.show_keyboard);
-          setUserLearningLayout(parseSettings.keyboard_layout);
+          setUserLearningLayout(parseSettings.user_learning_layout);
+          setUserKeyboardLayout(parseSettings.keyboard_layout);
         } catch (error) {
           console.error('Error parsing settings from cookies:', error);
         }

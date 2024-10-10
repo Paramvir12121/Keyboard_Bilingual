@@ -15,13 +15,11 @@ const fingerColorMap = {
     thumb: 'rgba(97, 255, 150, 0.2)',         // Light green
 };
 
-const SingleKeyboard = ({ pressedKey }) => {
+const SingleKeyboard = ({ pressedKey,userKeyboardLayout,userLearningLayout }) => {
     const [pressedKeyId, setPressedKeyId] = useState(pressedKey);
 
-    const userKeyboardLayout = 'colemak'; // Change this if you want to switch between layouts
-    const userLearningLayout = 'qwerty';
-    const layoutKeys = userKeyboardLayouts[userKeyboardLayout];
-    const learningLayoutKeys = userKeyboardLayouts[userLearningLayout];
+    const layoutKeys = userKeyboardLayouts[userLearningLayout];
+    const learningLayoutKeys = userKeyboardLayouts[userKeyboardLayout];
 
     useEffect(() => {
         if (pressedKey) {

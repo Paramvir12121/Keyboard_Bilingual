@@ -19,7 +19,8 @@ settings_ns = Namespace('settings', description='Settings API namespace.')
 setting_model = settings_ns.model('Setting', {
     'id': fields.Integer,
     'user_id': fields.Integer,
-    'keyboard_layout': fields.String(default='colemak'),
+    'keyboard_layout': fields.String(default='qwerty'),
+    'user_learning_layout': fields.String(default='qwerty'),
     'font_size': fields.String(default='medium'),
     'show_keyboard': fields.Boolean(default=True),
 

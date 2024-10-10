@@ -11,6 +11,7 @@ const Settings = () => {
     const navigate = useNavigate();
     const defaultSettings = {
         keyboard_layout: 'COLEMAK',
+        
         font_size: 'medium',
         key_press_sound: true,
         show_keyboard: true,
@@ -78,6 +79,21 @@ const Settings = () => {
                 <Card className="mb-4">
                     <Card.Header>General Settings</Card.Header>
                     <Card.Body>
+                    <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={3}>Learning Layout</Form.Label>
+                            <Col sm={9}>
+                                <Form.Control
+                                    as="select"
+                                    value={settings.user_learning_layout}
+                                    onChange={e => handleChange('user_learning_layout', e.target.value)}>
+                                    <option value="colemak">Colemak</option>
+                                    <option value="colemakdh">Colemak DH</option>
+                                    <option value="qwerty">QWERTY</option>
+                                    <option value="dvorak">Dvorak</option>
+                                    <option value="workman">Workman</option>
+                                </Form.Control>
+                            </Col>
+                        </Form.Group>
                         <Form.Group as={Row} className="mb-3">
                             <Form.Label column sm={3}>Keyboard Layout</Form.Label>
                             <Col sm={9}>
@@ -93,6 +109,7 @@ const Settings = () => {
                                 </Form.Control>
                             </Col>
                         </Form.Group>
+                        
                         <Form.Group as={Row} className="mb-3">
                             <Form.Label column sm={3}>Font Size</Form.Label>
                             <Col sm={9}>

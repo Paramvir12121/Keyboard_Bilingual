@@ -13,6 +13,9 @@ class User(db.Model):
     access_token = db.Column(db.String)
     refresh_token = db.Column(db.String)
     has_paid = db.Column(db.Boolean, default=False)  # New field to track payment status
+    # role = db.Column(db.String(50), default='user')
+  
+
 
     def __repr__(self):
         return f"<User {self.username} >"
@@ -60,7 +63,7 @@ class UserLesson(db.Model):
     errors = db.Column(db.Integer, default=0)  # Number of errors
     completed_at = db.Column(db.DateTime,default=datetime.utcnow)  # Date and time of completion
     error_keys = db.Column(db.String(200))  # Keys with errors
-    # keyboard_layout = db.Column(db.String(50))
+    user_learning_layout = db.Column(db.String(50))
 
 
     user = db.relationship('User', backref='user_lessons')
@@ -77,8 +80,7 @@ class Setting(db.Model):
     __tablename__ = 'settings'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    # user_keyboard_layout = db.Column(db.String(50), default='qwerty')
-    # user_training_keyboard_layout = db.Column(db.String(50), default='qwerty')
+    user_learning_layout = db.Column(db.String(50), default='qwerty')
     keyboard_layout = db.Column(db.String(50), default='colemak')
     font_size = db.Column(db.String(50), default='medium')
     show_keyboard = db.Column(db.Boolean, default=True)
@@ -115,8 +117,9 @@ class Setting(db.Model):
         db.session.add(self)
         db.session.commit()
     
-    def update(self,id,user_id,show_keyboard,keyboard_layout, font_size, key_press_sound, completion_sound, error_sound, background_music_enabled, background_music_volume, background_music_track, show_success_rate, show_average_time, enable_error_heatmap, typing_speed_goal, accuracy_goal, custom_lessons, email_notifications, app_notifications, reminders_enabled, reminders_time):
+    def update(self,id,user_id,show_keyboard,user_learning_layout,keyboard_layout, font_size, key_press_sound, completion_sound, error_sound, background_music_enabled, background_music_volume, background_music_track, show_success_rate, show_average_time, enable_error_heatmap, typing_speed_goal, accuracy_goal, custom_lessons, email_notifications, app_notifications, reminders_enabled, reminders_time):
         self.keyboard_layout = keyboard_layout
+        self.user_learning_layout = user_learning_layout
         self.font_size = font_size
         self.key_press_sound = key_press_sound
         self.completion_sound = completion_sound
@@ -151,36 +154,6 @@ class Payment(db.Model):
     user = db.relationship('User', backref='payments')
 
     def __repr__(self):
-        return f"<Lesson {self.title} >"
+        return f"<Payment {self.id} by User {self.user_id}>"
+
     
-
-
-
-
-# class Todo(db.Model):
-#     id = db.Column(db.Integer(), primary_key=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-#     title = db.Column(db.String(), nullable=False)
-#     description = db.Column(db.Text(), nullable=False)
-#     priority = db.Column(db.String(50))
-#     status = db.Column(db.String(50), default='pending')
-#     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-#     # due_date = db.Column(db.DateTime)
-
-#     def __repr__(self):
-#         return f"<Todo {self.title} >"
-    
-#     def save(self):
-#         db.session.add(self)
-#         db.session.commit()
-
-#     def delete(self):
-#         db.session.delete(self)
-#         db.session.commit()
-
-#     def update(self, title, description, priority):
-#         self.title=title
-#         self.description=description
-#         self.priority=priority
-
-#         db.session.commit()
