@@ -5,12 +5,13 @@ import Results from './results/Results';
 import ResultNavbar from './results/ResultNavbar';
 import KeyboardSelection from './keyboardSelection/KeyboardSelection';
 import { layoutMappings } from './layoutMapping/LayoutMapping';
+import { userKeyboardLayouts } from '../keyboard/userKeyboardLayouts';
+import { keyIdTo } from '../keyboard/KeyIdTo';
 
 const TypingViewer = ({ words, lessonId }) => {
   const [displayText, setDisplayText] = useState('');
   const [cursorIndex, setCursorIndex] = useState(0);
   const [isWrongKey, setIsWrongKey] = useState(false);
-  const [isColemak, setIsColemak] = useState(false);
   const [userLearningLayout, setUserLearningLayout] = useState('qwerty');
   const [userKeyboardLayout, setUserKeyboardLayout] = useState('qwerty');
   const [showKeyboard, setShowKeyboard] = useState(false);
@@ -47,8 +48,6 @@ const TypingViewer = ({ words, lessonId }) => {
           const parseSettings = JSON.parse(settings);
           setShowKeyboard(parseSettings.show_keyboard);
           setUserLearningLayout(parseSettings.keyboard_layout);
-          setIsColemak(parseSettings.keyboard_layout === 'colemak');
-          console.log("isColemak", isColemak);
         } catch (error) {
           console.error('Error parsing settings from cookies:', error);
         }
@@ -84,6 +83,12 @@ const TypingViewer = ({ words, lessonId }) => {
         setKeysTyped(prev => prev + 1);
         // Update the pressedKey state to the corresponding key ID
         setPressedKey(pressedKey);
+        // convert pressed key to the key in the learning layout
+        // pressedKey = keyIdTo['qwerty'][pressedKey] ;
+        // console.log('First Conversion pressedKey:', pressedKey);
+        // pressedKey = userKeyboardLayouts['colemak'][pressedKey];
+        // console.log('Second Conversion pressedKey:', pressedKey);
+        
         if (pressedKey === displayText[cursorIndex] || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
             setIsWrongKey(false);
             setCursorIndex(prevIndex => {

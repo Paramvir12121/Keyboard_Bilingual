@@ -6,24 +6,6 @@ const KeyboardSelection = ({ userLearningLayout, userKeyboardLayout, showKeyboar
         return null;  // Don't render anything if the keyboard should not be shown
     }
 
-    // let KeyboardComponent;
-
-    // switch (userLearningLayout) {
-    //     case 'colemak':
-    //         KeyboardComponent = ColemakKeyboardSvg;
-    //         break;
-    //     case 'dvorak':
-    //         KeyboardComponent = DvorakKeyboardSvg;
-    //         break;
-    //     case 'workman':
-    //         KeyboardComponent = WorkmanKeyboardSvg;
-    //         break;
-    //     case 'qwerty':
-    //     default:
-    //         KeyboardComponent = QwertyKeyboard;
-    //         break;
-    // }
-
     return (
         <div className='container-lg'>
             {/* <KeyboardComponent pressedKey={pressedKey} /> */}

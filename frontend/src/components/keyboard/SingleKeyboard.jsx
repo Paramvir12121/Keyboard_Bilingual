@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {keyIdTo} from './KeyIdTo';
 import {userKeyboardLayouts} from './userKeyboardLayouts';
 
+
 const fingerColorMap = {
     leftPinky: 'rgba(255, 111, 97, 0.2)',     // Coral
     leftRing: 'rgba(255, 171, 97, 0.2)',      // Light coral
@@ -14,51 +15,17 @@ const fingerColorMap = {
     thumb: 'rgba(97, 255, 150, 0.2)',         // Light green
 };
 
-// const userKeyboardLayouts = {
-//     qwerty: {
-//         '`': '`', '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9', '0': '0', '-': '-', '=': '=', 
-//         Q: 'Q', W: 'W', E: 'E', R: 'R', T: 'T', Y: 'Y', U: 'U', I: 'I', O: 'O', P: 'P', '[': '[', ']': ']', '\\': '\\', 
-//         A: 'A', S: 'S', D: 'D', F: 'F', G: 'G', H: 'H', J: 'J', K: 'K', L: 'L', ';': ';', "'": "'",
-//         Z: 'Z', X: 'X', C: 'C', V: 'V', B: 'B', N: 'N', M: 'M', ',': ',', '.': '.', '/': '/',
-//     },
-//     colemak: {
-//         '`': '`', '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9', '0': '0', '-': '-', '=': '=', 
-//         Q: 'Q', W: 'W', E: 'F', R: 'P', T: 'G', Y: 'J', U: 'L', I: 'U', O: 'Y', P: ';', '[': '[', ']': ']', '\\': '\\', 
-//         A: 'A', S: 'R', D: 'S', F: 'T', G: 'D', H: 'H', J: 'N', K: 'E', L: 'I', ';': 'O', "'": "'", 
-//         Z: 'Z', X: 'X', C: 'C', V: 'V', B: 'B', N: 'K', M: 'M', ',': 'W', '.': 'V', '/': 'Z',
-    
-//     },
-// };
-// const keyIdTo = {
-//     qwerty: {
-//    '`': 'keyGrave', '1': 'key1', '2': 'key2', '3': 'key3', '4': 'key4', '5': 'key5', '6': 'key6', '7': 'key7', '8': 'key8', '9': 'key9', '0': 'key0', 
-//     '-': 'keyMinus', '=': 'keyEqual', 'Q': 'keyQ', 'W': 'keyW', 'E': 'keyE', 'R': 'keyR', 'T': 'keyT', 'Y': 'keyY', 'U': 'keyU', 'I': 'keyI', 'O': 'keyO', 
-//     'P': 'keyP', '[': 'keyBracketLeft', ']': 'keyBracketRight', '\\': 'keyBackslash', 'A': 'keyA', 'S': 'keyS', 'D': 'keyD', 'F': 'keyF', 'G': 'keyG', 
-//     'H': 'keyH', 'J': 'keyJ', 'K': 'keyK', 'L': 'keyL', ';': 'keySemicolon', "'": 'keyQuote', 'Z': 'keyZ', 'X': 'keyX', 'C': 'keyC', 'V': 'keyV', 'B': 'keyB', 
-//     'N': 'keyN', 'M': 'keyM', ',': 'keyComma', '.': 'keyPeriod', '/': 'keySlash', 'Tab': 'keyTab', 'CapsLock': 'keyCapsLock', 'Enter': 'keyEnter', 
-//     'Shift': 'keyShiftLeft', 'Ctrl': 'keyCtrlLeft', 'Alt': 'keyAltLeft', 'Space': 'keySpace', 'AltRight': 'keyAltRight', 'CtrlRight': 'keyCtrlRight', 
-//     'Backspace': 'keyBackspace'
-// },
-// colemak: {
-//     '`': 'keyGrave', '1': 'key1', '2': 'key2', '3': 'key3', '4': 'key4', '5': 'key5', '6': 'key6', '7': 'key7', '8': 'key8', '9': 'key9', '0': 'key0', 
-//     '-': 'keyMinus', '=': 'keyEqual', 'Q': 'keyQ', 'W': 'keyW', 'F': 'keyE', 'P': 'keyR', 'G': 'keyT', 'J': 'keyY', 'L': 'keyU', 'U': 'keyI', 'Y': 'keyO', 
-//     ';': 'keyP', '[': 'keyBracketLeft', ']': 'keyBracketRight', '\\': 'keyBackslash', 'A': 'keyA', 'R': 'keyS', 'S': 'keyD', 'T': 'keyF', 'D': 'keyG', 
-//     'H': 'keyH', 'N': 'keyJ', 'E': 'keyK', 'I': 'keyL', 'O': 'keySemicolon', "'": 'keyQuote', 'Z': 'keyZ', 'X': 'keyX', 'C': 'keyC', 'V': 'keyV', 'B': 'keyB', 
-//     'K': 'keyN', 'M': 'keyM', ',': 'keyComma', '.': 'keyPeriod', '/': 'keySlash', 'Tab': 'keyTab', 'CapsLock': 'keyCapsLock', 'Enter': 'keyEnter', 
-//     'Shift': 'keyShiftLeft', 'Ctrl': 'keyCtrlLeft', 'Alt': 'keyAltLeft', 'Space': 'keySpace', 'AltRight': 'keyAltRight', 'CtrlRight': 'keyCtrlRight', 
-//     'Backspace': 'keyBackspace'
-// }};
-
 const SingleKeyboard = ({ pressedKey }) => {
     const [pressedKeyId, setPressedKeyId] = useState(pressedKey);
 
-    const userKeyboardLayout = 'qwerty'; // Change this if you want to switch between layouts
-    const userLearningLayout = 'colemak';
+    const userKeyboardLayout = 'colemak'; // Change this if you want to switch between layouts
+    const userLearningLayout = 'qwerty';
     const layoutKeys = userKeyboardLayouts[userKeyboardLayout];
     const learningLayoutKeys = userKeyboardLayouts[userLearningLayout];
 
     useEffect(() => {
         if (pressedKey) {
+            console.log('Pressed key:', pressedKey);
             const upperKey = pressedKey.toUpperCase();
             const keyId = keyIdTo[userKeyboardLayout][upperKey];
             setPressedKeyId(keyId);
