@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {keyIdTo} from './KeyIdTo';
+import {ToKeyId} from './ToKeyId';
 import {userKeyboardLayouts} from './userKeyboardLayouts';
 
 
@@ -25,7 +25,7 @@ const SingleKeyboard = ({ pressedKey,userKeyboardLayout,userLearningLayout }) =>
         if (pressedKey) {
             console.log('Pressed key:', pressedKey);
             const upperKey = pressedKey.toUpperCase();
-            const keyId = keyIdTo[userKeyboardLayout][upperKey];
+            const keyId = ToKeyId[userKeyboardLayout][upperKey];
             setPressedKeyId(keyId);
 
             // Set a timeout to clear the highlight after 0.25 seconds

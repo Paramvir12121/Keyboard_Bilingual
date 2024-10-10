@@ -1,4 +1,4 @@
-export const keyIdTo = {
+export const ToKeyId = {
     qwerty: {
         '`': 'keyGrave', '1': 'key1', '2': 'key2', '3': 'key3', '4': 'key4', '5': 'key5', '6': 'key6', '7': 'key7', '8': 'key8', '9': 'key9', '0': 'key0', 
         '-': 'keyMinus', '=': 'keyEqual', 'Q': 'keyQ', 'W': 'keyW', 'E': 'keyE', 'R': 'keyR', 'T': 'keyT', 'Y': 'keyY', 'U': 'keyU', 'I': 'keyI', 'O': 'keyO', 

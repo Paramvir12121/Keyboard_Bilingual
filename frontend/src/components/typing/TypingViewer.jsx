@@ -6,7 +6,8 @@ import ResultNavbar from './results/ResultNavbar';
 import KeyboardSelection from './keyboardSelection/KeyboardSelection';
 import { layoutMappings } from './layoutMapping/LayoutMapping';
 import { userKeyboardLayouts } from '../keyboard/userKeyboardLayouts';
-import { keyIdTo } from '../keyboard/KeyIdTo';
+import { ToKeyId } from '../keyboard/ToKeyId';
+import { FromKeyId } from '../keyboard/FromKeyId';
 
 const TypingViewer = ({ words, lessonId }) => {
   const [displayText, setDisplayText] = useState('');
@@ -69,64 +70,85 @@ const TypingViewer = ({ words, lessonId }) => {
     };
   }, [startTime, lessonEnded]);
 
+
   
   useEffect(() => {
     const handleKeyDown = (event) => {
-        if (!startTime) {
-            setStartTime(Date.now());
-        }
-        let pressedKey = event.key.toLowerCase();
-        if (layoutMappings[userKeyboardLayout] && layoutMappings[userKeyboardLayout][userLearningLayout]) {
-            const conversionMap = layoutMappings[userKeyboardLayout][userLearningLayout];
-            
-            
-        }
-        setKeysTyped(prev => prev + 1);
-        // Update the pressedKey state to the corresponding key ID
-        setPressedKey(pressedKey);
-        // convert pressed key to the key in the learning layout
-        // pressedKey = keyIdTo['qwerty'][pressedKey] ;
-        // console.log('First Conversion pressedKey:', pressedKey);
-        // pressedKey = userKeyboardLayouts['colemak'][pressedKey];
-        // console.log('Second Conversion pressedKey:', pressedKey);
-        
-        if (pressedKey === displayText[cursorIndex] || (pressedKey === ' ' && displayText[cursorIndex] === ' ')) {
-            setIsWrongKey(false);
-            setCursorIndex(prevIndex => {
-                if (prevIndex + 1 >= displayText.length) {
-                    setLessonEnded(true);
-                    clearInterval(timerRef.current);
-                    return prevIndex;
-                }
-                if (displayText[prevIndex] === ' ') {
-                    setWordsTyped(prev => prev + 1);
-                }
-                return prevIndex + 1;
-            });
-        } else {
-            setIsWrongKey(true);
-            setErrorCount(prev => prev + 1);
-            setWrongKeysPressedCount(prev => ({
-                ...prev,
-                [displayText[cursorIndex]]: (prev[displayText[cursorIndex]] || 0) + 1
-            }));
-        }
+      if (!startTime) {
+        setStartTime(Date.now());
+      }
+  
+      let pressedKey = event.key.toLowerCase();
+      console.log('Pressed Key:', pressedKey);
+    
+      // Ignore special keys except space
+      if (event.key.length > 1 && event.key !== ' ') {
+        return;
+      }
+  
+      // Step 1: Map the pressed key to the key ID in the user's keyboard layout
+      let keyId = ToKeyId[userKeyboardLayout]?.[pressedKey];
+      console.log('Key ID:', keyId);
+  
+      if (!keyId) {
+        console.warn(`Key '${pressedKey}' not found in ToKeyId mapping for layout '${userKeyboardLayout}'.`);
+        return;
+      }
+  
+      // Step 2: Map the key ID to the character in the learning layout
+      let learningKey = FromKeyId[userLearningLayout]?.[keyId];
+      console.log('Learning Key:', learningKey);
+  
+      if (!learningKey) {
+        console.warn(`Key ID '${keyId}' not found in FromKeyId mapping for layout '${userLearningLayout}'.`);
+        return;
+      }
+  
+      setKeysTyped((prev) => prev + 1);
+  
+      // Now use the learningKey for your comparison
+      if (
+        learningKey === displayText[cursorIndex] ||
+        (learningKey === ' ' && displayText[cursorIndex] === ' ')
+      ) {
+        setIsWrongKey(false);
+        setCursorIndex((prevIndex) => {
+          if (prevIndex + 1 >= displayText.length) {
+            setLessonEnded(true);
+            clearInterval(timerRef.current);
+            return prevIndex;
+          }
+          if (displayText[prevIndex] === ' ') {
+            setWordsTyped((prev) => prev + 1);
+          }
+          return prevIndex + 1;
+        });
+      } else {
+        setIsWrongKey(true);
+        setErrorCount((prev) => prev + 1);
+        setWrongKeysPressedCount((prev) => ({
+          ...prev,
+          [displayText[cursorIndex]]: (prev[displayText[cursorIndex]] || 0) + 1,
+        }));
+      }
+  
+      // Update the pressedKey state for keyboard visualization
+      setPressedKey(keyId);
     };
+  
     const handleKeyUp = () => {
-        // Reset the pressedKey state when the key is released
-        setPressedKey(null);
+      setPressedKey(null);
     };
-
+  
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
-    
-    
-
+  
     return () => {
-        window.removeEventListener('keydown', handleKeyDown);
-        window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
     };
-}, [cursorIndex, displayText, userKeyboardLayout, userLearningLayout, startTime]);
+  }, [cursorIndex, displayText, userKeyboardLayout, userLearningLayout, startTime]);
+  
 
 
   const calculateStats = () => {
