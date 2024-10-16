@@ -1,38 +1,38 @@
 export const ToKeyId = {
     qwerty: {
         '`': 'keyGrave', '1': 'key1', '2': 'key2', '3': 'key3', '4': 'key4', '5': 'key5', '6': 'key6', '7': 'key7', '8': 'key8', '9': 'key9', '0': 'key0', 
-        '-': 'keyMinus', '=': 'keyEqual', 'Q': 'keyQ', 'W': 'keyW', 'E': 'keyE', 'R': 'keyR', 'T': 'keyT', 'Y': 'keyY', 'U': 'keyU', 'I': 'keyI', 'O': 'keyO', 
-        'P': 'keyP', '[': 'keyBracketLeft', ']': 'keyBracketRight', '\\': 'keyBackslash', 'A': 'keyA', 'S': 'keyS', 'D': 'keyD', 'F': 'keyF', 'G': 'keyG', 
-        'H': 'keyH', 'J': 'keyJ', 'K': 'keyK', 'L': 'keyL', ';': 'keySemicolon', "'": 'keyQuote', 'Z': 'keyZ', 'X': 'keyX', 'C': 'keyC', 'V': 'keyV', 'B': 'keyB', 
-        'N': 'keyN', 'M': 'keyM', ',': 'keyComma', '.': 'keyPeriod', '/': 'keySlash', 'Tab': 'keyTab', 'CapsLock': 'keyCapsLock', 'Enter': 'keyEnter', 
-        'Shift': 'keyShiftLeft', 'Ctrl': 'keyCtrlLeft', 'Alt': 'keyAltLeft', 'Space': 'keySpace', 'AltRight': 'keyAltRight', 'CtrlRight': 'keyCtrlRight', 
-        'Backspace': 'keyBackspace'
+        '-': 'keyMinus', '=': 'keyEqual', 'q': 'keyQ', 'w': 'keyW', 'e': 'keyE', 'r': 'keyR', 't': 'keyT', 'y': 'keyY', 'u': 'keyU', 'i': 'keyI', 'o': 'keyO', 
+        'p': 'keyP', '[': 'keyBracketLeft', ']': 'keyBracketRight', '\\': 'keyBackslash', 'a': 'keyA', 's': 'keyS', 'd': 'keyD', 'f': 'keyF', 'g': 'keyG', 
+        'h': 'keyH', 'j': 'keyJ', 'k': 'keyK', 'l': 'keyL', ';': 'keySemicolon', "'": 'keyQuote', 'z': 'keyZ', 'x': 'keyX', 'c': 'keyC', 'v': 'keyV', 'b': 'keyB', 
+        'n': 'keyN', 'm': 'keyM', ',': 'keyComma', '.': 'keyPeriod', '/': 'keySlash', 'tab': 'keyTab', 'capslock': 'keyCapsLock', 'enter': 'keyEnter', 
+        'shift': 'keyShiftLeft', 'ctrl': 'keyCtrlLeft', 'alt': 'keyAltLeft', ' ': 'keySpace', 'altright': 'keyAltRight', 'ctrlright': 'keyCtrlRight', 
+        'backspace': 'keyBackspace'
     },
     colemak: {
         '`': 'keyGrave', '1': 'key1', '2': 'key2', '3': 'key3', '4': 'key4', '5': 'key5', '6': 'key6', '7': 'key7', '8': 'key8', '9': 'key9', '0': 'key0', 
-        '-': 'keyMinus', '=': 'keyEqual', 'Q': 'keyQ', 'W': 'keyW', 'F': 'keyE', 'P': 'keyR', 'G': 'keyT', 'J': 'keyY', 'L': 'keyU', 'U': 'keyI', 'Y': 'keyO', 
-        ';': 'keyP', '[': 'keyBracketLeft', ']': 'keyBracketRight', '\\': 'keyBackslash', 'A': 'keyA', 'R': 'keyS', 'S': 'keyD', 'T': 'keyF', 'D': 'keyG', 
-        'H': 'keyH', 'N': 'keyJ', 'E': 'keyK', 'I': 'keyL', 'O': 'keySemicolon', "'": 'keyQuote', 'Z': 'keyZ', 'X': 'keyX', 'C': 'keyC', 'V': 'keyV', 'B': 'keyB', 
-        'K': 'keyN', 'M': 'keyM', ',': 'keyComma', '.': 'keyPeriod', '/': 'keySlash', 'Tab': 'keyTab', 'CapsLock': 'keyCapsLock', 'Enter': 'keyEnter', 
-        'Shift': 'keyShiftLeft', 'Ctrl': 'keyCtrlLeft', 'Alt': 'keyAltLeft', 'Space': 'keySpace', 'AltRight': 'keyAltRight', 'CtrlRight': 'keyCtrlRight', 
-        'Backspace': 'keyBackspace'
+        '-': 'keyMinus', '=': 'keyEqual', 'q': 'keyQ', 'w': 'keyW', 'f': 'keyE', 'p': 'keyR', 'g': 'keyT', 'j': 'keyY', 'l': 'keyU', 'u': 'keyI', 'y': 'keyO', 
+        ';': 'keyP', '[': 'keyBracketLeft', ']': 'keyBracketRight', '\\': 'keyBackslash', 'a': 'keyA', 'r': 'keyS', 's': 'keyD', 't': 'keyF', 'd': 'keyG', 
+        'h': 'keyH', 'n': 'keyJ', 'e': 'keyK', 'i': 'keyL', 'o': 'keySemicolon', "'": 'keyQuote', 'z': 'keyZ', 'x': 'keyX', 'c': 'keyC', 'v': 'keyV', 'b': 'keyB', 
+        'k': 'keyN', 'm': 'keyM', ',': 'keyComma', '.': 'keyPeriod', '/': 'keySlash', 'tab': 'keyTab', 'capslock': 'keyCapsLock', 'enter': 'keyEnter', 
+        'shift': 'keyShiftLeft', 'ctrl': 'keyCtrlLeft', 'alt': 'keyAltLeft', ' ': 'keySpace', 'altright': 'keyAltRight', 'ctrlright': 'keyCtrlRight', 
+        'backspace': 'keyBackspace'
     },
     dvorak: {
         '`': 'keyGrave', '1': 'key1', '2': 'key2', '3': 'key3', '4': 'key4', '5': 'key5', '6': 'key6', '7': 'key7', '8': 'key8', '9': 'key9', '0': 'key0', 
-        '[': 'keyMinus', ']': 'keyEqual', "'": 'keyQ', ',': 'keyW', '.': 'keyE', 'P': 'keyR', 'Y': 'keyT', 'F': 'keyY', 'G': 'keyU', 'C': 'keyI', 'R': 'keyO', 
-        'L': 'keyP', '/': 'keyBracketLeft', '=': 'keyBracketRight', '\\': 'keyBackslash', 'A': 'keyA', 'O': 'keyS', 'E': 'keyD', 'U': 'keyF', 'I': 'keyG', 
-        'D': 'keyH', 'H': 'keyJ', 'T': 'keyK', 'N': 'keyL', 'S': 'keySemicolon', '-': 'keyQuote', ';': 'keyZ', 'Q': 'keyX', 'J': 'keyC', 'K': 'keyV', 'X': 'keyB', 
-        'B': 'keyN', 'M': 'keyM', 'W': 'keyComma', 'V': 'keyPeriod', 'Z': 'keySlash', 'Tab': 'keyTab', 'CapsLock': 'keyCapsLock', 'Enter': 'keyEnter', 
-        'Shift': 'keyShiftLeft', 'Ctrl': 'keyCtrlLeft', 'Alt': 'keyAltLeft', 'Space': 'keySpace', 'AltRight': 'keyAltRight', 'CtrlRight': 'keyCtrlRight', 
-        'Backspace': 'keyBackspace'
+        '[': 'keyMinus', ']': 'keyEqual', "'": 'keyQ', ',': 'keyW', '.': 'keyE', 'p': 'keyR', 'y': 'keyT', 'f': 'keyY', 'g': 'keyU', 'c': 'keyI', 'r': 'keyO', 
+        'l': 'keyP', '/': 'keyBracketLeft', '=': 'keyBracketRight', '\\': 'keyBackslash', 'a': 'keyA', 'o': 'keyS', 'e': 'keyD', 'u': 'keyF', 'i': 'keyG', 
+        'd': 'keyH', 'h': 'keyJ', 't': 'keyK', 'n': 'keyL', 's': 'keySemicolon', '-': 'keyQuote', ';': 'keyZ', 'q': 'keyX', 'j': 'keyC', 'k': 'keyV', 'x': 'keyB', 
+        'b': 'keyN', 'm': 'keyM', 'w': 'keyComma', 'v': 'keyPeriod', 'z': 'keySlash', 'tab': 'keyTab', 'capslock': 'keyCapsLock', 'enter': 'keyEnter', 
+        'shift': 'keyShiftLeft', 'ctrl': 'keyCtrlLeft', 'alt': 'keyAltLeft', ' ': 'keySpace', 'altright': 'keyAltRight', 'ctrlright': 'keyCtrlRight', 
+        'backspace': 'keyBackspace'
     },
     workman: {
         '`': 'keyGrave', '1': 'key1', '2': 'key2', '3': 'key3', '4': 'key4', '5': 'key5', '6': 'key6', '7': 'key7', '8': 'key8', '9': 'key9', '0': 'key0', 
-        '-': 'keyMinus', '=': 'keyEqual', 'Q': 'keyQ', 'D': 'keyW', 'R': 'keyE', 'W': 'keyR', 'B': 'keyT', 'J': 'keyY', 'F': 'keyU', 'U': 'keyI', 'P': 'keyO', 
-        ';': 'keyP', '[': 'keyBracketLeft', ']': 'keyBracketRight', '\\': 'keyBackslash', 'A': 'keyA', 'S': 'keyS', 'H': 'keyD', 'T': 'keyF', 'G': 'keyG', 
-        'Y': 'keyH', 'N': 'keyJ', 'E': 'keyK', 'O': 'keyL', 'I': 'keySemicolon', "'": 'keyQuote', 'Z': 'keyZ', 'X': 'keyX', 'M': 'keyC', 'C': 'keyV', 'V': 'keyB', 
-        'K': 'keyN', 'L': 'keyM', ',': 'keyComma', '.': 'keyPeriod', '/': 'keySlash', 'Tab': 'keyTab', 'CapsLock': 'keyCapsLock', 'Enter': 'keyEnter', 
-        'Shift': 'keyShiftLeft', 'Ctrl': 'keyCtrlLeft', 'Alt': 'keyAltLeft', 'Space': 'keySpace', 'AltRight': 'keyAltRight', 'CtrlRight': 'keyCtrlRight', 
-        'Backspace': 'keyBackspace'
+        '-': 'keyMinus', '=': 'keyEqual', 'q': 'keyQ', 'd': 'keyW', 'r': 'keyE', 'w': 'keyR', 'b': 'keyT', 'j': 'keyY', 'f': 'keyU', 'u': 'keyI', 'p': 'keyO', 
+        ';': 'keyP', '[': 'keyBracketLeft', ']': 'keyBracketRight', '\\': 'keyBackslash', 'a': 'keyA', 's': 'keyS', 'h': 'keyD', 't': 'keyF', 'g': 'keyG', 
+        'y': 'keyH', 'n': 'keyJ', 'e': 'keyK', 'o': 'keyL', 'i': 'keySemicolon', "'": 'keyQuote', 'z': 'keyZ', 'x': 'keyX', 'm': 'keyC', 'c': 'keyV', 'v': 'keyB', 
+        'k': 'keyN', 'l': 'keyM', ',': 'keyComma', '.': 'keyPeriod', '/': 'keySlash', 'tab': 'keyTab', 'capslock': 'keyCapsLock', 'enter': 'keyEnter', 
+        'shift': 'keyShiftLeft', 'ctrl': 'keyCtrlLeft', 'alt': 'keyAltLeft', ' ': 'keySpace', 'altright': 'keyAltRight', 'ctrlright': 'keyCtrlRight', 
+        'backspace': 'keyBackspace'
     }
 };

@@ -69,7 +69,7 @@ const SingleKeyboard = ({ pressedKey,userKeyboardLayout,userLearningLayout }) =>
                 {drawKey('key0', 560, 10, 50, 50, '0', fingerColorMap.rightRing)}
                 {drawKey('keyMinus', 615, 10, 50, 50, '-', fingerColorMap.rightPinky)}
                 {drawKey('keyEqual', 670, 10, 50, 50, '=', fingerColorMap.rightPinky)}
-                {drawKey('keyBackspace', 725, 10, 110, 50, 'Backspace', fingerColorMap.rightPinky, 'Backspace')}
+                {drawKey('keyBackspace', 725, 10, 110, 50, 'backspace', fingerColorMap.rightPinky, 'Backspace')}
 
                 {/* Row 2: QWERTY */}
                 {drawKey('keyTab', 10, 70, 80, 50, 'Tab', fingerColorMap.leftPinky, 'Tab')}
