@@ -1,28 +1,33 @@
 :root {
   /* Color Palette */
   --primary-color: #00ADB5; /* Teal */
+  --primary-shade-color: #008A90; /* Darker Teal for hover/active states */
   --secondary-color: #FF6F61; /* Coral */
+  --secondary-shade-color: #E65D54; /* Darker Coral for hover/active states */
   --tertiary-color: #2E2E2E; /* Dark Slate Grey */
   --background-color: #1C1C1C; /* Charcoal Black */
-  --background-gradient: linear-gradient(to bottom, #1C1C1C, #2E2E2E); /* Gradient from Charcoal Black to Dark Slate Grey */
+  --background-gradient: linear-gradient(to bottom, #1C1C1C, #2E2E2E); /* Gradient background */
 
+  /* Text Colors */
   --text-color: #FFFFFF; /* White */
   --text-dim-color: #B0B0B0; /* Light Grey */
   --text-background-color: #f8f9fa;
-  --accent-color: #000000;
-  --error-color: #dc3545;
-  --success-color: #28a745;
-  --primary-shade-color: #008A90; /* Darker Teal */
-  --secondary-shade-color: #E65D54; /* Darker Coral */
-  --primary-gradient: linear-gradient(45deg, #00ADB5, #FF6F61);
 
-  /* Button and Border Colors */
+  /* Accent Colors */
+  --accent-color: #000000; /* Black */
+  --error-color: #dc3545; /* Crimson Red */
+  --success-color: #28a745; /* Green */
+
+  /* Gradient */
+  --primary-gradient: linear-gradient(45deg, #00ADB5, #FF6F61); /* Teal to Coral */
+
+  /* Button and Border */
   --button-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   --button-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   --button-hover-lift: -2px;
   --button-radius: 8px;
 
-  /* Font Styles */
+  /* Fonts */
   --primary-font: "Ubuntu Mono", monospace;
   --header-font: "Ubuntu", sans-serif;
   --secondary-font: "Arial", sans-serif;
@@ -31,14 +36,10 @@
   --padding-button: 0.5rem 1.5rem;
   --padding-card: 1.5rem;
   --padding-container: 2rem;
-  --margin-top-large: 5rem;
-  --margin-bottom-large: 5rem;
-  --margin-side-large: 5rem;
 
   /* Transition */
   --transition-ease: all 0.3s ease;
 }
-
 #root {
   min-height: 100vh; /* Full viewport height */
   max-width: 100vw;
@@ -152,6 +153,16 @@ footer p {
 .main-content {
   flex-grow: 1; /* Ensure content grows to fill available space */
   padding-bottom: 2rem; /* Add empty space below the content */
+}
+
+a {
+  color: var(--primary-color); /* Teal */
+  text-decoration: none;
+  transition: var(--transition-ease);
+}
+
+a:hover {
+  color: var(--primary-shade-color); /* Darker Teal */
 }
 
 /* Text Display */

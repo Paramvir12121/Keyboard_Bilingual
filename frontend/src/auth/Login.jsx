@@ -87,9 +87,10 @@ const Login = () => {
                             <Button type="submit" variant="primary" className="w-100 mb-3">
                                 Login
                             </Button>
-                            
-                            <Link to={ROUTES.FORGOT_PASSWORD}>Forgot Password?<br />    
-                            </Link>Don't have an account? <Link to={ROUTES.SIGNUP}>Signup</Link> here!
+                            <div className="text-center ">
+                            <Link to={ROUTES.FORGOT_PASSWORD}>Forgot Password?</Link><br />    
+                            Don't have an account? <Link to={ROUTES.SIGNUP}>Signup</Link> here!
+                            </div>
                             
                         </Form>
                     </Card.Body>
