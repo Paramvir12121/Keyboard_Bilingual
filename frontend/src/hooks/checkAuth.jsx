@@ -1,7 +1,7 @@
 import baseApi from '../api/baseApi'
 import { useEffect } from 'react'
 
-console.log(import.meta.env.VITE_API_URL)
+// console.log(import.meta.env.VITE_API_URL)
 
 const checkAuth = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)

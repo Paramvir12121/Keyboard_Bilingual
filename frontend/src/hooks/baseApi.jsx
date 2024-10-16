@@ -9,6 +9,7 @@ const baseApi = () => {
             'Accept': 'application/json',
         }
     });
+    console.log("VITE API URL",import.meta.env.VITE_API_URL);
 
     return api;
 }
