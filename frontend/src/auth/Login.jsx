@@ -41,7 +41,7 @@ const Login = () => {
                 fetchSettings();
                 setTimeout(() => {
                     navigate(ROUTES.DASHBOARD);
-                }, 2000);
+                }, 500);
             }
         } catch (error) {
             setError(error.response?.data?.message || "An unexpected error occurred");

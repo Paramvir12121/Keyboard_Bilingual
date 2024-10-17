@@ -192,6 +192,7 @@ a:hover {
 .character.cursor {
   background-color: #007bff;
   color: white;
+  transition: all 0.1s ease-in-out;
 }
 
 .character.cursor.wrong {
