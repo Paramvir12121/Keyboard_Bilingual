@@ -24,6 +24,7 @@ const TypingViewer = ({ words, lessonId }) => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [wrongKeysPressedCount, setWrongKeysPressedCount] = useState({});
   const [pressedKey, setPressedKey] = useState(null);
+  const [pressedKeyOrignal, setPressedKeyOrignal] = useState(null);
   const [results, setResults] = useState(null);
   const timerRef = useRef(null);
   const generateNewText = useCallback(() => {
@@ -79,7 +80,11 @@ const TypingViewer = ({ words, lessonId }) => {
       }
   
       let pressedKey = event.key.toLowerCase();
-      console.log('Pressed Key:', pressedKey);
+
+      // I want to keep the original key for visualization
+      // pressedKeyOrignal is not a pointer to pressedKey
+      setPressedKeyOrignal(event.key);
+
     
       // Ignore special keys except space
       if (event.key.length > 1 && event.key !== ' ') {
@@ -182,7 +187,7 @@ const TypingViewer = ({ words, lessonId }) => {
         : 
         <>
         <TextDisplay displayText={displayText} cursorIndex={cursorIndex} isWrongKey={isWrongKey} />
-        <KeyboardSelection userLearningLayout={userLearningLayout} userKeyboardLayout={userKeyboardLayout} showKeyboard={showKeyboard} pressedKey={pressedKey}/>
+        <KeyboardSelection userLearningLayout={userLearningLayout} userKeyboardLayout={userKeyboardLayout} showKeyboard={showKeyboard} pressedKey={pressedKeyOrignal}/>
           
         </>
       }

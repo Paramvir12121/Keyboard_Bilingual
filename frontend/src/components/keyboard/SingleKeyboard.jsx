@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {ToKeyId} from './ToKeyId';
+import {FromKeyId} from './FromKeyId';
 import {userKeyboardLayouts} from './userKeyboardLayouts';
 
 
@@ -23,11 +24,16 @@ const SingleKeyboard = ({ pressedKey,userKeyboardLayout,userLearningLayout }) =>
 
     useEffect(() => {
         if (pressedKey) {
-            console.log('Pressed key:', pressedKey);
-            const upperKey = pressedKey.toUpperCase();
-            const keyId = ToKeyId[userKeyboardLayout][upperKey];
+            
+            const lowerKey = pressedKey.toLowerCase();
+            console.log('Lowercase pressed key:', lowerKey);
+            
+            let keyId = ToKeyId[userKeyboardLayout][lowerKey];
+            console.log('Lowercase pressed key:', lowerKey);
+            // console.log('ToKeyId[userKeyboardLayout]:', ToKeyId[userKeyboardLayout]);
             setPressedKeyId(keyId);
-
+            
+            
             // Set a timeout to clear the highlight after 0.25 seconds
             const timer = setTimeout(() => {
                 setPressedKeyId(''); // Reset pressedKeyId
@@ -51,9 +57,7 @@ const SingleKeyboard = ({ pressedKey,userKeyboardLayout,userLearningLayout }) =>
     );
 
     return (
-        <div style={{ width: '100%', height: 'auto' }}>
-            Pressed Key: {pressedKey} <br />
-            Predded Key Id: {pressedKeyId}
+        
             <svg width="100%" height="auto" viewBox="0 0 1300 400" preserveAspectRatio="xMidYMid meet">
                 {/* Row 1: Numbers and symbols */}
                 {drawKey('keyGrave', 10, 10, 50, 50, '`', fingerColorMap.leftPinky)}
@@ -123,7 +127,7 @@ const SingleKeyboard = ({ pressedKey,userKeyboardLayout,userLearningLayout }) =>
                 {drawKey('keyAltRight', 525, 250, 75, 50, 'Alt', fingerColorMap.rightPinky, 'Alt')}
                 {drawKey('keyCtrlRight', 605, 250, 75, 50, 'Ctrl', fingerColorMap.rightPinky, 'Ctrl')}
             </svg>
-        </div>
+        
     );
 };
 
