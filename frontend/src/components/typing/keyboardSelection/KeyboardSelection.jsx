@@ -7,9 +7,10 @@ const KeyboardSelection = ({ userLearningLayout, userKeyboardLayout, showKeyboar
     }
 
     return (
-        <div className='container-lg'>
-            {/* <KeyboardComponent pressedKey={pressedKey} /> */}
+        <div className='container-fluid'>
+            <div className='keyboard-container'>
             <SingleKeyboard pressedKey={pressedKey} userKeyboardLayout={userKeyboardLayout} userLearningLayout={userLearningLayout}/>
+        </div>
         </div>
     );
 };

@@ -180,22 +180,36 @@ a:hover {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
+
 .character {
   display: inline-block;
   padding: 0 .5px;
   border-radius: 2px;
-  transition: all 0.1s ease-in-out;
+  transition: color 0.2s ease;
   color: var(--text-color)
 }
 
-/* .character.cursor {
-  color: rgb(17, 0, 255);
+
+.current-character {
+  color: rgba(119, 205, 255, 1); /* Light blue for current character */
 }
 
-.character.cursor.wrong {
-  background-color: #dc3545;
-  color: white;
-} */
+.current-character.wrong {
+  color: rgba(198, 46, 46, 1); /* Red for wrong key */
+}
+
+.cursor {
+  position: absolute;
+  height: 2px; /* Thickness of the underscore */
+  background-color: rgba(119, 205, 255, 1); /* Default cursor color */
+  pointer-events: none;
+  transition: left 0.1s ease, top 0.1s ease, background-color 0.2s ease;
+}
+
+.cursor.wrong {
+  background-color: rgba(198, 46, 46, 1); /* Cursor color for wrong key */
+}
 
 
 /* Card Components */
@@ -853,3 +867,22 @@ a {
 }
 
 /* / Landing Page */
+
+
+
+/* <<<<<<<<<<<<<<<<<<Keyboard Container>>>>>>>>>>>>>>>>>>>> */
+/* KeyboardSelection.css */
+
+.keyboard-container {
+  max-width: 840px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 1440px) {
+  .keyboard-container {
+      max-width: 60%;
+  }
+}
+
+/* <<<<<<<<<<<<<<<<<<Keyboard Container>>>>>>>>>>>>>>>>>>>> */

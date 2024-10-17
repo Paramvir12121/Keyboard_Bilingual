@@ -57,8 +57,8 @@ const SingleKeyboard = ({ pressedKey,userKeyboardLayout,userLearningLayout }) =>
     );
 
     return (
-        
-            <svg width="100%" height="auto" viewBox="0 0 1300 400" preserveAspectRatio="xMidYMid meet">
+        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <svg width="100%" height="auto" viewBox="0 0 840 400" preserveAspectRatio="xMidYMid meet">
                 {/* Row 1: Numbers and symbols */}
                 {drawKey('keyGrave', 10, 10, 50, 50, '`', fingerColorMap.leftPinky)}
                 {drawKey('key1', 65, 10, 50, 50, '1', fingerColorMap.leftPinky)}
@@ -127,7 +127,7 @@ const SingleKeyboard = ({ pressedKey,userKeyboardLayout,userLearningLayout }) =>
                 {drawKey('keyAltRight', 525, 250, 75, 50, 'Alt', fingerColorMap.rightPinky, 'Alt')}
                 {drawKey('keyCtrlRight', 605, 250, 75, 50, 'Ctrl', fingerColorMap.rightPinky, 'Ctrl')}
             </svg>
-        
+        </div>
     );
 };
 
