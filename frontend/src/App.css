@@ -46,9 +46,9 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   background: var(--background-gradient);
 }
+
 
 
 html, body {
@@ -125,11 +125,19 @@ footer p {
   margin: 0;
 }
 
+.content-wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+
 .app-outlet{
   margin-left: 5%; /* 5% of the viewport width */
   margin-right: 5%; /* 5% of the viewport width */
   flex-grow: 1; /* Takes up all available space */
-  padding-bottom: 2rem; /* Add some space before the footer */
+  /* padding-bottom: 2rem;  */
 }
 
 /* Navbar */
@@ -829,11 +837,16 @@ a {
 }
 
 /* Footer */
-.footer {
-  background: var(--tertiary-color);
+footer {
+  background-color: #b0b0b000;
   color: var(--text-color);
-  padding: 2rem 0;
+  /* padding: 1rem; */
   text-align: center;
+  font-size: 0.9rem;
+  width: 100%;
+  margin-top: auto; /* Pushes the footer to the bottom */
+  position: relative; /* Keeps it at the bottom */
+  padding-bottom: 1rem; /* Optional padding for extra space */
 }
 
 .footer p {
