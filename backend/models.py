@@ -39,12 +39,15 @@ class Lesson(db.Model):
     topic = db.Column(db.String(100), nullable=False)
     subtopic = db.Column(db.String(100), nullable=False)
     keyboard_type = db.Column(db.String(50), nullable=False)  # Keyboard type (e.g., qwerty, dvorak)
+    #lesson_number = db.Column(db.Integer, nullable=False)  # Lesson number in the course
+    # course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), nullable=False)
     description = db.Column(db.Text)
     keys = db.Column(db.String(50), nullable=False)  # Keys to be practiced (e.g., 'a s d')
     words = db.Column(db.Text, nullable=False)  # Words or phrases using the keys
     difficulty = db.Column(db.String(20), nullable=False, default='easy')  # Difficulty level
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    # final_lesson = db.Column(db.Boolean, default=False)  # Final lesson in the course
 
     def __repr__(self):
         return f"<Lesson {self.title} >"

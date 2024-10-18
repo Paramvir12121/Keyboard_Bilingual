@@ -120,12 +120,15 @@ class LessonList(Resource):
     @handle_errors
     def get(self):
         """Get all lessons"""
-        # user_id = session.get("user_id")
-        # if not user_id:
-        #     print("User Id: ",user_id)
-        #     return {"message":"Unauthorized"},401
-        # else:
-        # print(user_id)
+        user_id = session.get('user_id')
+        if not user_id:
+            return {"message": "Unauthorized"}, 401
+        
+        user_lessons = UserLesson.query.filter_by(user_id=user_id).all()
+        completed_lessons = [user_lesson.lesson_id for user_lesson in user_lessons if user_lesson.completed]
+        #remove repeated lessons
+        completed_lessons = list(set(completed_lessons))
+        print("Completed Lessons",completed_lessons)
         lessons = Lesson.query.all()
         return lessons
 
