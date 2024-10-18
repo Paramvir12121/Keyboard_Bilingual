@@ -4,8 +4,6 @@ import TextDisplay from './display/TextDisplay';
 import Results from './results/Results';
 import ResultNavbar from './results/ResultNavbar';
 import KeyboardSelection from './keyboardSelection/KeyboardSelection';
-import { layoutMappings } from './layoutMapping/LayoutMapping';
-import { userKeyboardLayouts } from '../keyboard/userKeyboardLayouts';
 import { ToKeyId } from '../keyboard/ToKeyId';
 import { FromKeyId } from '../keyboard/FromKeyId';
 
@@ -181,7 +179,7 @@ const TypingViewer = ({ words, lessonId }) => {
       {timerRef.current && <p>Time Elapsed: {elapsedTime} seconds</p>}
       {lessonEnded ? 
         <>
-        <Results stats={results} lessonId={lessonId} /> 
+        <Results stats={results} lessonId={lessonId}  /> 
         <ResultNavbar lessonId={lessonId} />
         </>
         : 

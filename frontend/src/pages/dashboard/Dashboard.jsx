@@ -16,7 +16,7 @@ const Dashboard = () => {
             {/* <Goal /> */}
             {/* Add dashboard components here */}
             <Graphs />
-            <StripeHostedPages />
+            {/* <StripeHostedPages /> */}
             <div className='lesson-list-div'>
             <LessonLists />
             </div>

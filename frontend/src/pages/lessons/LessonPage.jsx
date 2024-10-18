@@ -42,7 +42,7 @@ const LessonPage = () => {
       <h1>{lesson.title}</h1>
       <p>{lesson.description}</p>
       {/* Add more lesson content here */}
-      <TypingViewer words={words} lessonId={id} />
+      <TypingViewer words={words} lessonId={id} lessonTitle={lesson.title} lessonTopic />
     </div>
   );
 };
