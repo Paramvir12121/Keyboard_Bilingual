@@ -34,14 +34,21 @@ const TextDisplay = ({ displayText, cursorIndex, isWrongKey }) => {
     pointerEvents: 'none',
   };
 
-  return (
-    <Card className="text-display-card">
-      <Card.Body>
-        <div style={{ position: 'relative', fontFamily: 'monospace' }}>
-          <div ref={textRef} style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {displayText.split('').map((char, index) => (
+  let charIndex = 0; // Keeps track of the global character index
+
+  // Split the text into words and spaces
+  const textArray = displayText.split(/(\s+)/);
+
+  const renderedText = textArray.map((textItem, idx) => {
+    if (/\s+/.test(textItem)) {
+      // It's spaces
+      return (
+        <span key={`space-${idx}`} className="space">
+          {textItem.split('').map((char) => {
+            const index = charIndex++;
+            return (
               <span
-                key={index}
+                key={`char-${index}`}
                 className={`character ${
                   index === cursorIndex
                     ? isWrongKey
@@ -52,7 +59,42 @@ const TextDisplay = ({ displayText, cursorIndex, isWrongKey }) => {
               >
                 {char === ' ' ? '\u00A0' : char}
               </span>
-            ))}
+            );
+          })}
+        </span>
+      );
+    } else {
+      // It's a word
+      return (
+        <span key={`word-${idx}`} className="word">
+          {textItem.split('').map((char) => {
+            const index = charIndex++;
+            return (
+              <span
+                key={`char-${index}`}
+                className={`character ${
+                  index === cursorIndex
+                    ? isWrongKey
+                      ? 'current-character wrong'
+                      : 'current-character'
+                    : ''
+                }`}
+              >
+                {char}
+              </span>
+            );
+          })}
+        </span>
+      );
+    }
+  });
+
+  return (
+    <Card className="text-display-card">
+      <Card.Body>
+        <div style={{ position: 'relative', fontFamily: 'monospace' }}>
+          <div ref={textRef} style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {renderedText}
           </div>
           <div className="cursor" style={cursorStyle}></div>
         </div>

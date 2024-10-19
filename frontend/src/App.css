@@ -39,7 +39,13 @@
 
   /* Transition */
   --transition-ease: all 0.3s ease;
+
+  --large-border-radius: 12px;
+  --std-border-radius: 8px;
+  --minor-border-radius: 4px;
+  --std-percent-border-radius: 50%; 
 }
+
 #root {
   min-height: 100vh; /* Full viewport height */
   max-width: 100vw;
@@ -74,7 +80,7 @@ button, .btn {
   color: var(--text-color);
   padding: var(--padding-button);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--std-border-radius);
   cursor: pointer;
   transition: var(--transition-ease);
   box-shadow: var(--button-shadow);
@@ -104,7 +110,7 @@ header {
   font-family: var(--header-font);
   font-weight: bold;
   text-transform: uppercase;
-  border-radius: 12px;
+  border-radius: var(--large-border-radius);
   box-shadow: var(--button-shadow);
 }
 
@@ -178,10 +184,16 @@ a:hover {
   color: var(--primary-color); /* Teal */
 }
 
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+
 .text-display-card {
   background-color: var(--tertiary-color); /* Dark Slate Grey */
   color: var(--text-color); /* White */
-  border-radius: 8px;
+  border-radius: var(--std-border-radius);
   font-size: 1.5rem;
   box-shadow: var(--button-shadow);
   /* padding: var(--padding-card); */
@@ -224,7 +236,7 @@ a:hover {
 .card {
   background-color: var(--tertiary-color); /* Dark Slate Grey */
   color: var(--text-color); /* White */
-  border-radius: 8px;
+  border-radius: var(--std-border-radius);
   box-shadow: var(--button-shadow);
   transition: var(--transition-ease);
 }
@@ -246,7 +258,7 @@ a:hover {
 /* Graph Card Styling */
 .graph-card {
   background-color: var(--tertiary-color); /* Dark Slate Grey */
-  border-radius: 10px;
+  border-radius: var(--std-border-radius);
   padding: var(--padding-card);
   box-shadow: var(--button-shadow);
   border: 2px solid var(--primary-color); /* Teal border */
@@ -275,7 +287,7 @@ a:hover {
 
 .lesson-card {
   margin-top: 0.5rem;
-  border-radius: 8px;
+  border-radius: var(--std-border-radius);
   background-color: var(--tertiary-color); /* Dark Slate Grey */
   color: var(--text-color); /* White */
   transition: var(--transition-ease);
@@ -327,7 +339,7 @@ a:hover {
   background-color: var(--tertiary-color); /* Dark Slate Grey */
   padding: 1rem;
   border: 2px solid var(--primary-color); /* Teal border */
-  border-radius: 0.5rem;
+  border-radius: var(--std-border-radius);
   box-shadow: var(--button-shadow);
 }
 
@@ -366,7 +378,7 @@ a:hover {
   color: var(--text-color); /* White */
   padding: var(--padding-container);
   text-align: center;
-  border-radius: 12px;
+  border-radius: var(--large-border-radius);
   transition: var(--transition-ease);
 }
 
@@ -516,7 +528,7 @@ a:hover {
   margin-right: 3rem;
   text-decoration: none; /* Remove underline */
   border: none; /* Remove borders */
-  border-radius: 8px; /* Rounded corners */
+  border-radius: var(--std-border-radius); /* Rounded corners */
   cursor: pointer;
   transition: var(--transition-ease); /* Smooth transitions */
   box-shadow: var(--button-shadow); /* Subtle shadow for depth */
@@ -558,7 +570,7 @@ a:hover {
   background-color: rgba(44, 44, 44, 0.8); 
   padding: 1rem;
   /* border: 1px solid var(--primary-color);  */
-  border-radius: 8px; /* Slightly rounded corners */
+  border-radius: var(--std-border-radius); /* Slightly rounded corners */
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  */
   height: calc(100vh - 3rem); /* Make the sidebar fill most of the screen height */
   overflow-y: auto; /* Enable scrolling for long lists */
@@ -576,7 +588,7 @@ a:hover {
   background-color: var(--secondary-color); 
   color: var(--text-color); /* Text color should contrast the background */
   border: none;
-  border-radius: 4px; /* Slightly rounded corners */
+  border-radius: var(--minor-border-radius); /* Slightly rounded corners */
   transition: var(--transition-ease); /* Smooth transition */
   text-align: left; /* Align text to the left for a more button-like appearance */
   cursor: pointer;
@@ -603,7 +615,7 @@ a:hover {
   margin-top: 3rem;
   background-color: rgba(30, 30, 30, 0); /* A darker, semi-transparent background */
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: var(--std-border-radius);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow */
   transition: var(--transition-ease);
   /* border: 1px solid var(--primary-color);  */
@@ -624,7 +636,7 @@ a:hover {
   margin-bottom: 0.5rem;
   background-color: var(--tertiary-color); 
   border: 1px solid var(--primary-color); 
-  border-radius: 4px;
+  border-radius: var(--minor-border-radius);
   transition: var(--transition-ease);
 } */
 
@@ -636,7 +648,7 @@ a:hover {
 
 .nav-column::-webkit-scrollbar-thumb {
   background-color: var(--primary-color); 
-  border-radius: 4px;
+  border-radius: var(--minor-border-radius);
 }
 
 
@@ -758,7 +770,7 @@ a {
 .feature-card {
   background: var(--tertiary-color);
   padding: var(--padding-card);
-  border-radius: 8px;
+  border-radius: var(--std-border-radius);
   text-align: center;
   transition: transform 0.3s;
   position: relative;
@@ -807,7 +819,7 @@ a {
 .testimonial-card {
   background: var(--background-color);
   padding: var(--padding-card);
-  border-radius: 8px;
+  border-radius: var(--std-border-radius);
   text-align: center;
   transition: transform 0.3s;
 }
