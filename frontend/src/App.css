@@ -326,7 +326,7 @@ a:hover {
 .stats-bar {
   background-color: var(--tertiary-color); /* Dark Slate Grey */
   padding: 1rem;
-  border: 1px solid var(--primary-color); /* Teal border */
+  border: 2px solid var(--primary-color); /* Teal border */
   border-radius: 0.5rem;
   box-shadow: var(--button-shadow);
 }
