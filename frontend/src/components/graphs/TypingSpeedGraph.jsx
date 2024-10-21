@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, ReferenceLine } from 'recharts';
+import { ResponsiveLine } from '@nivo/line';
 import Cookies from 'js-cookie';
 import Card from 'react-bootstrap/Card';
 
-const TypingSpeedGraph = ({ userTypingData = [] }) => {
+const TypingSpeedGraph = ({ userTypingData }) => {
   const [typingData, setTypingData] = useState([]);
   const [speedGoal, setSpeedGoal] = useState(10);
   const [maxScore, setMaxScore] = useState(50);
 
   useEffect(() => {
     const fetchTypingData = async () => {
-      if (userTypingData.length > 0) {
+      if (userTypingData && userTypingData.length > 0) {
         // Find the maximum score in the data
         let max = 0;
         userTypingData.forEach((element) => {
@@ -19,7 +19,18 @@ const TypingSpeedGraph = ({ userTypingData = [] }) => {
           }
         });
 
-        setTypingData(userTypingData);
+        // Transform userTypingData to match Nivo's expected format
+        const transformedData = [
+          {
+            id: 'Typing Score',
+            data: userTypingData.map((element, index) => ({
+              x: `Reading ${index + 1}`,
+              y: element.score,
+            })),
+          },
+        ];
+
+        setTypingData(transformedData);
 
         // Set maxScore based on the maximum score found
         if (max < 50) {
@@ -52,22 +63,48 @@ const TypingSpeedGraph = ({ userTypingData = [] }) => {
     fetchSettings();
   }, [userTypingData]);
 
-  // Handle the case where no data is available
-  if (typingData.length === 0) {
-    return <p>No typing data available.</p>; // Show a message when data is not available
-  }
-
   return (
     <Card className="graph-card">
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={typingData}>
-          <XAxis dataKey="lesson_name" /> {/* Make sure the key matches your data */}
-          <YAxis domain={[0, maxScore]} />
-          <Tooltip />
-          <Line type="monotone" dataKey="score" stroke="#8884d8" strokeWidth={2} />
-          <ReferenceLine y={speedGoal} stroke="red" label="Your Speed Goal" />
-        </LineChart>
-      </ResponsiveContainer>
+      <div style={{ height: 300 }}>
+        <ResponsiveLine
+          data={typingData}
+          margin={{ top: 20, right: 20, bottom: 50, left: 60 }}
+          xScale={{ type: 'point' }}
+          yScale={{ type: 'linear', min: 0, max: maxScore, stacked: false, reverse: false }}
+          axisBottom={{
+            orient: 'bottom',
+            legend: 'Reading',
+            legendOffset: 36,
+            legendPosition: 'middle',
+          }}
+          axisLeft={{
+            orient: 'left',
+            legend: 'Score',
+            legendOffset: -40,
+            legendPosition: 'middle',
+          }}
+          axisTop={null}
+          axisRight={null}
+          enableGridX={false}
+          enableGridY={false}
+          // colors={{ scheme: 'category10' }}
+          lineWidth={2}
+          pointSize={6}
+          pointBorderWidth={2}
+          pointLabelYOffset={-12}
+          useMesh={true}
+          legends={[]}
+          markers={[
+            {
+              axis: 'y',
+              value: speedGoal,
+              lineStyle: { stroke: 'red', strokeWidth: 2 },
+              legend: 'Your Speed Goal',
+              legendPosition: 'top-left',
+            },
+          ]}
+        />
+      </div>
     </Card>
   );
 };
