@@ -2,15 +2,12 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "~> 2.0"
+      version = "3.0.2"
     }
   }
 }
 
 provider "docker" {
-  # for linux machines use the following host
-  host = "unix:///var/run/docker.sock" 
-
-  # for windows machines use the following host
-  #  host = "tcp://localhost:2375"
+  host = "npipe:////./pipe/docker_engine"
 }
+

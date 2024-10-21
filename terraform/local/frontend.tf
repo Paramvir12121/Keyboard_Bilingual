@@ -29,6 +29,9 @@ resource "docker_container" "frontend_container" {
   networks_advanced {
     name = docker_network.my_app_network.name
   }
+  
+   # Dynamically load environment variables from .env.local
+  env = [for line in split("\n", data.local_file.env_file_frontend.content) : line if line != "" && can(regex("^\\w+=.*$", line))]
   ports {
     internal = 80
     external = 80
