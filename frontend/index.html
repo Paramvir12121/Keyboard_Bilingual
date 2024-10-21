@@ -26,7 +26,20 @@
       </p>
     </noscript>
     <div id="root"></div>
-    <script src="/env-config.js"></script>
+    <script>
+      // Dynamically load env-config.js if it exists
+      fetch('/env-config.js')
+        .then((response) => {
+          if (response.ok) {
+            const script = document.createElement('script');
+            script.src = '/env-config.js';
+            document.head.appendChild(script);
+          }
+        })
+        .catch((error) => {
+          console.error('Error loading env-config.js:', error);
+        });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import TypingSpeedGraph from '../../../components/graphs/TypingSpeedGraph';
 import AccuracyGraph from '../../../components/graphs/AccuracyGraph';
-import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { getUserLesonData } from '../../../hooks/getUserStats';
-import StatsBar from '../../../components/layout/StatsBar';
+import StatsBar from './StatsBar';
 import useFetchSettings from '../../../hooks/useFetchSettings';
 
 const Graphs = () => {
   const [userTypingData, setUserTypingData] = useState([]);
-  const [userSettingsData, setUserSettingsData] = useState({});
+  const { settings: userSettingsData, error } = useFetchSettings(); // Access settings directly
 
   useEffect(() => {
     const fetchTypingData = async () => {
@@ -27,20 +26,19 @@ const Graphs = () => {
       }
     };
 
-    const fetchSettings = async () => {
-      const { fetchSettings } = useFetchSettings();
-      const userSettingsData = await fetchSettings();
-      setUserSettingsData(userSettingsData);
-      console.log("Settings fetched:", userSettingsData);
-    } 
-
-    fetchSettings();
-
-    fetchTypingData();
+    fetchTypingData(); // Only fetch typing data, no need to call fetchSettings again
   }, []);
 
+  if (error) {
+    return <div>Error fetching settings: {error.message}</div>;
+  }
+
+  if (!userSettingsData) {
+    return <div>Loading...</div>; // Show a loading state if settings are not yet loaded
+  }
+
   return (
-      <>
+    <>
       <StatsBar userTypingData={userTypingData} userSettingsData={userSettingsData}/>
       <Row>
         <Col lg={6} className="mb-3">
@@ -50,8 +48,7 @@ const Graphs = () => {
         <AccuracyGraph userTypingData={userTypingData}/>
         </Col>
       </Row>
-      </>
-    
+    </>
   );
 }
 

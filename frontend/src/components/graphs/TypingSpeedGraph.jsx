@@ -3,14 +3,14 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, Re
 import Cookies from 'js-cookie';
 import Card from 'react-bootstrap/Card';
 
-const TypingSpeedGraph = ({ userTypingData }) => {
+const TypingSpeedGraph = ({ userTypingData = [] }) => {
   const [typingData, setTypingData] = useState([]);
   const [speedGoal, setSpeedGoal] = useState(10);
   const [maxScore, setMaxScore] = useState(50);
 
   useEffect(() => {
     const fetchTypingData = async () => {
-      if (userTypingData && userTypingData.length > 0) {
+      if (userTypingData.length > 0) {
         // Find the maximum score in the data
         let max = 0;
         userTypingData.forEach((element) => {
@@ -52,19 +52,24 @@ const TypingSpeedGraph = ({ userTypingData }) => {
     fetchSettings();
   }, [userTypingData]);
 
+  // Handle the case where no data is available
+  if (typingData.length === 0) {
+    return <p>No typing data available.</p>; // Show a message when data is not available
+  }
+
   return (
     <Card className="graph-card">
-    <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={typingData}>
-        <XAxis dataKey="lesson_name" /> {/* Make sure the key matches your data */}
-        <YAxis domain={[0, maxScore]} />
-        <Tooltip />
-        <Line type="monotone" dataKey="score" stroke="#8884d8" strokeWidth={2} />
-        <ReferenceLine y={speedGoal} stroke="red" label="Your Speed Goal" />
-      </LineChart>
-    </ResponsiveContainer>
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart data={typingData}>
+          <XAxis dataKey="lesson_name" /> {/* Make sure the key matches your data */}
+          <YAxis domain={[0, maxScore]} />
+          <Tooltip />
+          <Line type="monotone" dataKey="score" stroke="#8884d8" strokeWidth={2} />
+          <ReferenceLine y={speedGoal} stroke="red" label="Your Speed Goal" />
+        </LineChart>
+      </ResponsiveContainer>
     </Card>
   );
-}
+};
 
 export default TypingSpeedGraph;
