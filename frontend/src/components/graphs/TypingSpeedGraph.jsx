@@ -68,7 +68,7 @@ const TypingSpeedGraph = ({ userTypingData }) => {
       <div style={{ height: 300 }}>
         <ResponsiveLine
           data={typingData}
-          margin={{ top: 20, right: 20, bottom: 50, left: 60 }}
+          margin={{ top: 5, right: 5, bottom: 10, left: 10 }}
           xScale={{ type: 'point' }}
           yScale={{ type: 'linear', min: 0, max: maxScore, stacked: false, reverse: false }}
           axisBottom={{
@@ -80,16 +80,20 @@ const TypingSpeedGraph = ({ userTypingData }) => {
           axisLeft={{
             orient: 'left',
             legend: 'Score',
-            legendOffset: -40,
             legendPosition: 'middle',
           }}
           axisTop={null}
           axisRight={null}
+          
           enableGridX={false}
           enableGridY={false}
-          // colors={{ scheme: 'category10' }}
+          // show grid y values
+          
+          enablePoints={true}
           lineWidth={2}
+          // colors={{ scheme: 'category10' }}
           pointSize={6}
+          
           pointBorderWidth={2}
           pointLabelYOffset={-12}
           useMesh={true}
@@ -99,8 +103,8 @@ const TypingSpeedGraph = ({ userTypingData }) => {
               axis: 'y',
               value: speedGoal,
               lineStyle: { stroke: 'red', strokeWidth: 2 },
-              legend: 'Your Speed Goal',
-              legendPosition: 'top-left',
+              // legend: 'Your Speed Goal',
+              // legendPosition: 'top-left',
             },
           ]}
         />
