@@ -1,53 +1,76 @@
-// ResultNavbar.js
-
+import React, { useState, useEffect, useCallback } from 'react';
 import ROUTES from '../../../Routes';
 import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
-const ResultNavbar = ({ lessonId, totalLessons }) => {
+const ResultNavbar = ({ lessonId, totalLessons, specialPages = {} }) => {
+  const [userLearningLayout, setUserLearningLayout] = useState('qwerty');
+
+  useEffect(() => {
+    const settings = Cookies.get('settings');
+    if (settings) {
+      try {
+        const parsedSettings = JSON.parse(settings);
+        setUserLearningLayout(parsedSettings.user_learning_layout);
+        console.log("user Learning Layout: ", parsedSettings.user_learning_layout);
+      } catch (error) {
+        console.error('Error parsing settings from cookies:', error);
+      }
+    }
+  }, []);
+
   const navigate = useNavigate();
-  lessonId = parseInt(lessonId);
+  const lessonIdNumber = parseInt(lessonId, 10);
 
-  // Mapping of special pages
-  const specialPages = {
+  if (isNaN(lessonIdNumber)) {
+    console.error('Invalid lessonId:', lessonId);
+    return null;
+  }
+
+  const isFirstLesson = lessonIdNumber <= 1;
+  const isLastLesson = lessonIdNumber >= totalLessons;
+
+  // Default special pages if not provided
+  const defaultSpecialPages = {
     2: ROUTES.INSTRUCTIONS_PAGE,
     5: ROUTES.MOTIVATION_PAGE,
-    // Add more mappings as needed
+    // ... other mappings
   };
 
-  const handleRetakeLesson = () => {
-    navigate(0); // Force page reload
-  };
+  const combinedSpecialPages = { ...defaultSpecialPages, ...specialPages };
 
-  const handlePreviousLesson = () => {
-    if (lessonId > 1) {
-      const prevLessonId = lessonId - 1;
-      navigateToLessonOrSpecialPage(prevLessonId);
+  const navigateToLessonOrSpecialPage = useCallback(
+    (id) => {
+      const route = combinedSpecialPages[id] || ROUTES.LESSON_PAGE(id);
+      navigate(route);
+    },
+    [navigate, combinedSpecialPages]
+  );
+
+  const handleRetakeLesson = useCallback(() => {
+    window.location.reload();
+  }, []);
+
+  const handlePreviousLesson = useCallback(() => {
+    if (!isFirstLesson) {
+      navigateToLessonOrSpecialPage(lessonIdNumber - 1);
     }
-  };
+  }, [isFirstLesson, navigateToLessonOrSpecialPage, lessonIdNumber]);
 
-  const handleNextLesson = () => {
-    const nextLessonId = lessonId + 1;
-    if (nextLessonId <= totalLessons) {
-      navigateToLessonOrSpecialPage(nextLessonId);
+  const handleNextLesson = useCallback(() => {
+    if (!isLastLesson) {
+      navigateToLessonOrSpecialPage(lessonIdNumber + 1);
     } else {
-      navigate(ROUTES.FINISHED_PAGE); // Navigate to "You are finished" page
+      navigate(ROUTES.FINISHED_PAGE);
     }
-  };
-
-  const navigateToLessonOrSpecialPage = (id) => {
-    if (specialPages[id]) {
-      navigate(specialPages[id]);
-    } else {
-      navigate(ROUTES.LESSON_PAGE(id));
-    }
-  };
+  }, [isLastLesson, navigateToLessonOrSpecialPage, lessonIdNumber, navigate]);
 
   return (
     <nav className="result-navbar">
       <button
         onClick={handlePreviousLesson}
         className="nav-link"
-        disabled={lessonId <= 1}
+        disabled={isFirstLesson}
       >
         Previous Lesson
       </button>
@@ -63,6 +86,7 @@ const ResultNavbar = ({ lessonId, totalLessons }) => {
       <button
         onClick={handleNextLesson}
         className="nav-link"
+        disabled={isLastLesson}
       >
         Next Lesson
       </button>

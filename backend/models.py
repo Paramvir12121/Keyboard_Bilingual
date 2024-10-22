@@ -14,7 +14,13 @@ class User(db.Model):
     refresh_token = db.Column(db.String)
     has_paid = db.Column(db.Boolean, default=False)  # New field to track payment status
     # role = db.Column(db.String(50), default='user')
-  
+    # known_layout = db.Column(db.String(200), default='qwerty')  # Keyboard layouts known by the user
+    # learning_layout = db.Column(db.String(50))  # Keyboard layout being learned by the user
+    # learning_progress = db.Column(db.Integer, default=0)  # Learning progress in percentage
+    # average_speed = db.Column(db.Float)  # Average typing speed in words per minute
+    # problem_keys = db.Column(db.String(200))  # Problematic keys
+    # average_accuracy = db.Column(db.Float)  # Average accuracy percentage
+    # error_rate = db.Column(db.Float)  # Error rate in percentage
 
 
     def __repr__(self):

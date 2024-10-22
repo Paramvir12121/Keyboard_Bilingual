@@ -16,9 +16,9 @@ const baseApi = () => {
         },
     });
 
-    console.log('VITE_API_URL from import.meta.env:', import.meta.env.VITE_API_URL);
-    console.log('VITE_API_URL from window._env_:', window._env_ ? window._env_.VITE_API_URL : 'undefined');
-    console.log('Final baseURL:', baseURL);
+    // console.log('VITE_API_URL from import.meta.env:', import.meta.env.VITE_API_URL);
+    // console.log('VITE_API_URL from window._env_:', window._env_ ? window._env_.VITE_API_URL : 'undefined');
+    // console.log('Final baseURL:', baseURL);
 
     return api;
 };
