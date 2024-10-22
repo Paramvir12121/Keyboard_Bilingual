@@ -45,6 +45,20 @@ lesson_completion_model = lessons_ns.model('LessonCompletion', {
     'errors': fields.Integer(required=True),
     'error_keys': fields.Raw(required=True)  # Assuming error_keys is a dictionary
 })
+def lesson_to_dict(lesson):
+    return {
+        'id': lesson.id,
+        'title': lesson.title,
+        'description': lesson.description,
+        'topic': lesson.topic,
+        'subtopic': lesson.subtopic,
+        'keyboard_type': lesson.keyboard_type,
+        'keys': lesson.keys,
+        'words': lesson.words,
+        'difficulty': lesson.difficulty,
+        # 'average_time': lesson.average_time,
+        # 'success_rate': lesson.success_rate
+    }
 
 
 ########################### Functions ################################
@@ -116,7 +130,7 @@ class Dashboard(Resource):
 @lessons_ns.route('/all')
 class LessonList(Resource):
     @login_required
-    @lessons_ns.marshal_list_with(lesson_model)
+    # @lessons_ns.marshal_list_with(lesson_model)
     @handle_errors
     def get(self):
         """Get all lessons filtered by the user's keyboard layout and return the list of completed lessons."""
@@ -148,8 +162,10 @@ class LessonList(Resource):
         # completed_lessons = list(set(completed_lessons))
 
         # You can return the lessons and completed lessons as needed
-        data = {"lessons": lessons, "completed_lessons": [1,2,3,4]}
-        return lessons, 200
+        lessons_data = [lesson_to_dict(lesson) for lesson in lessons]
+        data = {"lessons": lessons_data, "completed_lessons": [1,2,3,4]}
+        # data = jsonify(data)
+        return data, 200
 
 
 @lessons_ns.route('/<int:id>')
