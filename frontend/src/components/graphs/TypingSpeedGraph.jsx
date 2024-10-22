@@ -87,11 +87,27 @@ const TypingSpeedGraph = ({ userTypingData }) => {
           enableGridX={false}
           enableGridY={false}
           enablePoints={true}
+          // enableCrosshair={false}
           lineWidth={2}
           pointSize={6}
           pointBorderWidth={2}
           pointLabelYOffset={-12}
           useMesh={true}
+          crosshairType="y"
+          tooltip={({ point }) => (
+            <div
+              style={{
+                // make background transparent
+                background: 'rgba(0,0,0,0.3)',
+                color: 'var(--text-color)',
+                padding: '5px',
+                borderRadius: 'var(--minor-border-radius)',
+                // border: '1px solid #ccc',
+              }}
+            >
+               {point.data.yFormatted} wpm
+            </div>
+          )}
           colors={['var(--primary-color)']}
           theme={{
             axis: {
@@ -115,6 +131,13 @@ const TypingSpeedGraph = ({ userTypingData }) => {
                 stroke: 'var(--grid-line-color)',
               },
             },
+            crosshair: {
+              line: {
+                stroke: 'var(--secondary-color)', // Custom color for crosshairs
+                strokeWidth: 1,                  // Crosshair line width
+                strokeDasharray: '.5 .5',          // Dashed line style for crosshairs
+              },
+            },
           }}
           legends={[]}
           markers={[
@@ -128,6 +151,9 @@ const TypingSpeedGraph = ({ userTypingData }) => {
               legendOffsetX: -10,
               legendOrientation: 'horizontal',
             }
+            
+           
+            
           ]}
         />
       </div>
