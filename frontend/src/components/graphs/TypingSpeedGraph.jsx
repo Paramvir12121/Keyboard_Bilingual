@@ -127,17 +127,7 @@ const TypingSpeedGraph = ({ userTypingData }) => {
               legendOffsetY: -10,
               legendOffsetX: -10,
               legendOrientation: 'horizontal',
-            },
-            {
-              axis: 'y',
-              value: maxScore,
-              lineStyle: { stroke: 'green', strokeWidth: 2 },
-              legend: `Max Score (${maxScore})`,
-              legendPosition: 'top-left',
-              legendOffsetY: 10,
-              legendOffsetX: -10,
-              legendOrientation: 'horizontal',
-            },
+            }
           ]}
         />
       </div>

@@ -29,13 +29,15 @@ const AccuracyGraph = ({ userTypingData }) => {
           data={typingData}
           margin={{ top: 5, right: 5, bottom: 5, left: 45 }}
           xScale={{ type: 'point' }}
-          yScale={{ type: 'linear', min: 75, max: 100, stacked: false, reverse: false }}
+          yScale={{ type: 'linear',  min: 70, max: 100, stacked: false, reverse: false }}
           axisLeft={{
             orient: 'left',
             legend: 'Accuracy (%)',
             legendOffset: -35,
             legendPosition: 'middle',
-            tickValues: [75, 80, 85, 90, 95, 100],
+            // Custom tick values from 0 to 100, in increments of 5 percen
+            tickValues: [70,75, 80, 85, 90, 95, 100],
+            // tickValues: [0, 5, 10,75, 80, 85, 90, 95, 100],
             tickLabelComponent: (props) => (
               <text {...props} className="graph-axis-labels" />
             ),
@@ -80,7 +82,7 @@ const AccuracyGraph = ({ userTypingData }) => {
               axis: 'y',
               value: 100,
               lineStyle: { stroke: 'green', strokeWidth: 2 },
-              legend: '100% Accuracy',
+              // legend: '100% Accuracy',
               legendPosition: 'top-left',
               legendOffsetY: -10,
               legendOffsetX: -10,
@@ -90,7 +92,7 @@ const AccuracyGraph = ({ userTypingData }) => {
               axis: 'y',
               value: 95,
               lineStyle: { stroke: 'yellow', strokeWidth: 2 },
-              legend: '95% Accuracy',
+              // legend: '95% Accuracy',
               legendPosition: 'top-left',
               legendOffsetY: 10,
               legendOffsetX: -10,
@@ -100,7 +102,7 @@ const AccuracyGraph = ({ userTypingData }) => {
               axis: 'y',
               value: 90,
               lineStyle: { stroke: 'red', strokeWidth: 2 },
-              legend: '90% Accuracy',
+              // legend: '90% Accuracy',
               legendPosition: 'top-left',
               legendOffsetY: 30,
               legendOffsetX: -10,
