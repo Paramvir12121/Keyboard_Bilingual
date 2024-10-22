@@ -1,3 +1,5 @@
+// Graphs.jsx
+
 import React, { useEffect, useState } from 'react';
 import TypingSpeedGraph from '../../../components/graphs/TypingSpeedGraph';
 import AccuracyGraph from '../../../components/graphs/AccuracyGraph';
@@ -8,7 +10,7 @@ import StatsBar from './StatsBar';
 import useFetchSettings from '../../../hooks/useFetchSettings';
 
 const Graphs = () => {
-  const [userTypingData, setUserTypingData] = useState([]);
+  const [userTypingData, setUserTypingData] = useState(null);
   const { settings: userSettingsData, error } = useFetchSettings(); // Access settings directly
 
   useEffect(() => {
@@ -26,15 +28,15 @@ const Graphs = () => {
       }
     };
 
-    fetchTypingData(); // Only fetch typing data, no need to call fetchSettings again
+    fetchTypingData();
   }, []);
 
   if (error) {
     return <div>Error fetching settings: {error.message}</div>;
   }
 
-  if (!userSettingsData) {
-    return <div>Loading...</div>; // Show a loading state if settings are not yet loaded
+  if (!userSettingsData || !userTypingData) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -42,14 +44,14 @@ const Graphs = () => {
       <StatsBar userTypingData={userTypingData} userSettingsData={userSettingsData}/>
       <Row>
         <Col lg={6} className="mb-3">
-            <TypingSpeedGraph userTypingData={userTypingData}/>
+          <TypingSpeedGraph userTypingData={userTypingData}/>
         </Col>
         <Col lg={6} className="mb-3">
-        <AccuracyGraph userTypingData={userTypingData}/>
+          <AccuracyGraph userTypingData={userTypingData}/>
         </Col>
       </Row>
     </>
   );
-}
+};
 
 export default Graphs;

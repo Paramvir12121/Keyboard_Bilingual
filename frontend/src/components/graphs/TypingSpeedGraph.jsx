@@ -68,43 +68,75 @@ const TypingSpeedGraph = ({ userTypingData }) => {
       <div style={{ height: 300 }}>
         <ResponsiveLine
           data={typingData}
-          margin={{ top: 5, right: 5, bottom: 10, left: 10 }}
+          margin={{ top: 5, right: 5, bottom: 5, left: 45 }}
           xScale={{ type: 'point' }}
           yScale={{ type: 'linear', min: 0, max: maxScore, stacked: false, reverse: false }}
-          axisBottom={{
-            orient: 'bottom',
-            legend: 'Reading',
-            legendOffset: 36,
-            legendPosition: 'middle',
-          }}
+          axisBottom={null}
           axisLeft={{
             orient: 'left',
             legend: 'Score',
+            legendOffset: -30,
             legendPosition: 'middle',
+            tickValues: Array.from({ length: Math.ceil(maxScore / 25) + 1 }, (_, i) => i * 25),
+            tickLabelComponent: (props) => (
+              <text {...props} className="graph-axis-labels" />
+            ),
           }}
           axisTop={null}
           axisRight={null}
-          
           enableGridX={false}
           enableGridY={false}
-          // show grid y values
-          
           enablePoints={true}
           lineWidth={2}
-          // colors={{ scheme: 'category10' }}
           pointSize={6}
-          
           pointBorderWidth={2}
           pointLabelYOffset={-12}
           useMesh={true}
+          colors={['var(--primary-color)']}
+          theme={{
+            axis: {
+              domain: {},
+              ticks: {
+                line: {
+                  stroke: 'var(--primary-color)',
+                },
+                text: {
+                  fill: 'var(--text-dim-color)',
+                },
+              },
+              legend: {
+                text: {
+                  fill: 'var(--text-dim-color)',
+                },
+              },
+            },
+            grid: {
+              line: {
+                stroke: 'var(--grid-line-color)',
+              },
+            },
+          }}
           legends={[]}
           markers={[
             {
               axis: 'y',
               value: speedGoal,
-              lineStyle: { stroke: 'red', strokeWidth: 2 },
-              // legend: 'Your Speed Goal',
-              // legendPosition: 'top-left',
+              lineStyle: { stroke: 'var(--secondary-color)', strokeWidth: 2 },
+              legend: `Speed Goal (${speedGoal})`,
+              legendPosition: 'top-left',
+              legendOffsetY: -10,
+              legendOffsetX: -10,
+              legendOrientation: 'horizontal',
+            },
+            {
+              axis: 'y',
+              value: maxScore,
+              lineStyle: { stroke: 'green', strokeWidth: 2 },
+              legend: `Max Score (${maxScore})`,
+              legendPosition: 'top-left',
+              legendOffsetY: 10,
+              legendOffsetX: -10,
+              legendOrientation: 'horizontal',
             },
           ]}
         />
