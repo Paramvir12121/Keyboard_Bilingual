@@ -119,18 +119,38 @@ class LessonList(Resource):
     @lessons_ns.marshal_list_with(lesson_model)
     @handle_errors
     def get(self):
-        """Get all lessons"""
+        """Get all lessons filtered by the user's keyboard layout and return the list of completed lessons."""
         user_id = session.get('user_id')
         if not user_id:
             return {"message": "Unauthorized"}, 401
-        
+
+        # Get the user's learning layout
+        user_settings = Setting.query.filter_by(user_id=user_id).first()
+        user_learning_layout = user_settings.user_learning_layout
+
+        # Get all lessons for the user's learning layout or for 'all'
+        lessons = Lesson.query.filter(
+            (Lesson.keyboard_type == user_learning_layout) | 
+            (Lesson.keyboard_type == 'all')
+        ).all()
+
+        # Get all completed lessons for the user
         user_lessons = UserLesson.query.filter_by(user_id=user_id).all()
-        completed_lessons = [user_lesson.lesson_id for user_lesson in user_lessons if user_lesson.completed]
-        #remove repeated lessons
-        completed_lessons = list(set(completed_lessons))
-        print("Completed Lessons",completed_lessons)
-        lessons = Lesson.query.all()
-        return lessons
+
+        # Create a list of lesson IDs that the user has completed
+        # completed_lessons = [
+        #     user_lesson.lesson_id for user_lesson in user_lessons 
+        #     if user_lesson.completed and 
+        #     (user_lesson.lesson.keyboard_type == user_learning_layout or user_lesson.lesson.keyboard_type == 'all')
+        # ]
+
+        # # Remove duplicates in case of multiple completions
+        # completed_lessons = list(set(completed_lessons))
+
+        # You can return the lessons and completed lessons as needed
+        data = {"lessons": lessons, "completed_lessons": [1,2,3,4]}
+        return lessons, 200
+
 
 @lessons_ns.route('/<int:id>')
 class LessonDetail(Resource):

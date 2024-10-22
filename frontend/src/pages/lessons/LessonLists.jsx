@@ -15,7 +15,11 @@ const LessonLists = () => {
         const fetchLessons = async () => {
             try {
                 const response = await api.get('/lessons/all', { withCredentials: true });
+                console.log('Response:', response);
+                console.log('Data response:', response.data);
                 const lessons = response.data;
+                const completedLessons = response.data.completed_lessons;
+                
                 
                 const grouped = lessons.reduce((acc, lesson) => {
                     const topic = lesson.topic || 'Uncategorized';
