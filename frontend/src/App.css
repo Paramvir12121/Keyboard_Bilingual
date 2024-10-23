@@ -306,9 +306,17 @@ a:hover {
 .completed-lesson {
   background-color: var(--tertiary-alt-color);
   color: var(--text-color);
-  text-decoration: line-through;
-  /*  make text decoration one px wide */
-  text-decoration-thickness: 1px;
+  /* text-decoration: line-through; */
+  /* text-decoration-thickness: 1px; */
+}
+.card-body-right {
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: right;
+}
+
+.card-body-right card-text {
+  margin-right: 1rem;
 }
 
 /* Keyboard Styling */
