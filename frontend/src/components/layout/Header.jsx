@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button, Dropdown } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 import { Context } from "../../App";
 import Cookies from 'js-cookie';
-import ROUTES from '../../Routes'; // Importing ROUTES
+import ROUTES from '../../Routes';
 import LogoutButton from '../../auth/LogoutButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons'; // Settings icon
+import { faCog, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
     const [signedIn, setSignedIn] = useContext(Context);
@@ -27,7 +27,7 @@ const Header = () => {
     return (
         <Navbar expand="sm" className="mb-3 shadow-sm">
             <Container>
-                <Navbar.Brand as={Link} to={ROUTES.DASHBOARD} className="">
+                <Navbar.Brand as={Link} to={ROUTES.DASHBOARD}>
                     Keyboard Bilingual
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -36,25 +36,34 @@ const Header = () => {
                         {signedIn && (
                             <>
                                 <Nav.Link as={Link} to={ROUTES.DASHBOARD} className="fw-semibold">Dashboard</Nav.Link>
-                                {/* <Nav.Link as={Link} to={ROUTES.LESSON_LIST} className="fw-semibold">Lessons</Nav.Link>
-                                <Nav.Link as={Link} to={ROUTES.SPEED_TEST} className="fw-semibold">Speed Tests</Nav.Link> */}
                             </>
                         )}
                     </Nav>
                     <Nav className="align-items-center">
                         {signedIn ? (
-                            <>
-                                <Navbar.Text className="me-3 user-header">
-                                    <Link to={ROUTES.USER_PROFILE} className="me-2 px-3 text-decoration-none">
-                                    {username}
-                                    </Link>
-                                </Navbar.Text>
-                                <Link to={ROUTES.SETTINGS} className="me-2 px-3 text-decoration-none">
-                                <FontAwesomeIcon className='primary' icon={faCog} size="lg" />
-                                </Link>
-
-                                <LogoutButton />
-                            </>
+                            <Dropdown align="end">
+                                <Dropdown.Toggle as={Nav.Link} id="user-dropdown" className="me-2">
+                                    <FontAwesomeIcon icon={faUserCircle} size="lg" />
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu className='custom-dropdown-menu'>
+                                    <Dropdown.ItemText>Username: {username}</Dropdown.ItemText>
+                                    <Dropdown.ItemText>Email: {Cookies.get('email')}</Dropdown.ItemText>
+                                    <Dropdown.Divider />
+                                    
+                                    <Dropdown.Item as={Link} to={ROUTES.PROFILE} className="text-dark">
+                                    <FontAwesomeIcon icon={faUserCircle} size="lg" className="me-2"/>
+                                        Profile
+                                    </Dropdown.Item>
+                                    <Dropdown.Item as={Link} to={ROUTES.SETTINGS} className="text-dark">
+                                        <FontAwesomeIcon icon={faCog} className="me-2" />
+                                        Settings
+                                    </Dropdown.Item>
+                                    <Dropdown.Divider />
+                                    <div className="d-flex justify-content-center">
+                                    <LogoutButton />
+                                    </div>
+                                </Dropdown.Menu>
+                            </Dropdown>
                         ) : (
                             <>
                                 <Button

@@ -197,6 +197,25 @@ footer p {
   color: var(--primary-color); /* Teal */
 }
 
+.custom-dropdown-menu {
+  background-color: rgba(46, 46, 46, 0.9); /* Dark Slate Grey with 80% opacity */
+  border-radius: var(--std-border-radius); /* Apply rounded corners */
+  border: none; /* Remove border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  color: var(--text-color); /* White text color */
+}
+
+.custom-dropdown-menu .dropdown-item, 
+.custom-dropdown-menu .dropdown-item-text {
+  color: var(--text-color) !important; /* Ensure text color is white */
+}
+
+.custom-dropdown-menu .dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter hover effect */
+}
+
+
+
 button.small-logout-btn {
   padding: 0.25rem 0.5rem; 
   font-size: 0.9rem; 
