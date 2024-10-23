@@ -152,19 +152,19 @@ class LessonList(Resource):
         user_lessons = UserLesson.query.filter_by(user_id=user_id).all()
 
         # Create a list of lesson IDs that the user has completed
-        # completed_lessons = [
-        #     user_lesson.lesson_id for user_lesson in user_lessons 
-        #     if user_lesson.completed and 
-        #     (user_lesson.lesson.keyboard_type == user_learning_layout or user_lesson.lesson.keyboard_type == 'all')
-        # ]
-
+        completed_lessons = [
+            user_lesson.lesson_id for user_lesson in user_lessons 
+            if user_lesson.completed and 
+            (user_lesson.lesson.keyboard_type == user_learning_layout or user_lesson.lesson.keyboard_type == 'all')
+        ]
+        #remove deplicates
+        completed_lessons = list(set(completed_lessons)) 
+        # sort the completed lessons
+        completed_lessons.sort()
         # # Remove duplicates in case of multiple completions
-        # completed_lessons = list(set(completed_lessons))
-
         # You can return the lessons and completed lessons as needed
         lessons_data = [lesson_to_dict(lesson) for lesson in lessons]
-        data = {"lessons": lessons_data, "completed_lessons": [1,2,3,4]}
-        # data = jsonify(data)
+        data = {"lessons": lessons_data, "completed_lessons": completed_lessons}
         return data, 200
 
 
@@ -233,9 +233,10 @@ class UserLessonTypingSpeed(Resource):
         
         user_lessons = UserLesson.query.filter_by(user_id=user_id).all()
         typing_speed_list = []
+        # A
 
-        user_settings = Setting.query.filter_by(user_id=user_id).first()
-        typing_speed_goal = user_settings.typing_speed_goal
+        # user_settings = Setting.query.filter_by(user_id=user_id).first()
+        # typing_speed_goal = user_settings.typing_speed_goal
         
         
         for user_lesson in user_lessons:
@@ -246,11 +247,13 @@ class UserLessonTypingSpeed(Resource):
                 user_error_keys = user_lesson.error_keys.split(',')
                 user_lesson_name = user_lesson.lesson.title
                 user_completion_time = user_lesson.completion_time
+                lesson_id = user_lesson.lesson_id
                 
                 typing_data = {"score": user_lesson_score, 
                                "accuracy": user_lesson_accuracy,
                                "error_keys": user_error_keys,
                                "lesson": user_lesson_name,
+                               "lesson_id": lesson_id,
                                "completion_time": user_completion_time}
                 typing_speed_list.append(typing_data)
 
@@ -260,9 +263,11 @@ class UserLessonTypingSpeed(Resource):
                 user_lesson_accuracy = user_lesson.accuracy
                 user_error_keys = user_lesson.error_keys.split(',')
                 user_lesson_name = user_lesson.lesson.title
+                lesson_id = user_lesson.lesson_id
                 user_completion_time = user_lesson.completion_time
                 typing_data = {"score": user_lesson_score, 
                                "accuracy": user_lesson_accuracy,
+                               "lesson_id": lesson_id,
                                "error_keys": user_error_keys,
                                "lesson": user_lesson_name,
                                }

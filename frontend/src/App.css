@@ -5,12 +5,13 @@
   --secondary-color: #FF6F61; /* Coral */
   --secondary-shade-color: #E65D54; /* Darker Coral for hover/active states */
   --tertiary-color: #2E2E2E; /* Dark Slate Grey */
+  --tertiary-alt-color: #272727; /* Darker Slate Grey */
   --background-color: #1C1C1C; /* Charcoal Black */
   --background-gradient: linear-gradient(to bottom, #1C1C1C, #2E2E2E); /* Gradient background */
 
   /* Text Colors */
   --text-color: #FFFFFF; /* White */
-  --text-dim-color: #B0B0B0; /* Light Grey */
+  --text-dim-color: #cccccc; /* Light Grey */
   --text-background-color: #f8f9fa;
 
   /* Accent Colors */
@@ -300,6 +301,14 @@ a:hover {
 .lesson-card:hover {
   transform: translateY(var(--button-hover-lift));
   box-shadow: var(--button-hover-shadow);
+}
+
+.completed-lesson {
+  background-color: var(--tertiary-alt-color);
+  color: var(--text-color);
+  text-decoration: line-through;
+  /*  make text decoration one px wide */
+  text-decoration-thickness: 1px;
 }
 
 /* Keyboard Styling */
