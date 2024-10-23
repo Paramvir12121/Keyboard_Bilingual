@@ -12,6 +12,7 @@ import useFetchSettings from '../../hooks/useFetchSettings';
 
 
 
+
 const Dashboard = () => {
   const [userTypingData, setUserTypingData] = useState(null);
   const { settings: userSettingsData, error } = useFetchSettings(); // Access settings directly
@@ -39,7 +40,7 @@ const Dashboard = () => {
   }
 
   if (!userSettingsData || !userTypingData) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
     return (
        <>
@@ -47,7 +48,7 @@ const Dashboard = () => {
            
             {/* <Goal /> */}
             {/* Add dashboard components here */}
-            <Graphs />
+            <Graphs userTypingData={userTypingData}/>
             {/* <StripeHostedPages /> */}
             <div className='lesson-list-div'>
             <LessonLists userTypingData={userTypingData}/>

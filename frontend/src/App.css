@@ -146,6 +146,39 @@ footer p {
   flex-grow: 1; /* Takes up all available space */
   /* padding-bottom: 2rem;  */
 }
+/* Navbar Styling */
+.navbar {
+  background-color: rgba(44, 44, 44, 0.8); /* Semi-transparent */
+  padding: 0.25rem 1rem;
+  box-shadow: none;
+  border-bottom: none;
+}
+
+.navbar-brand {
+  font-size: 1.2rem;
+  padding: 0;
+}
+
+.nav-link, .navbar-text {
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.navbar-toggler {
+  padding: 0.25rem 0.75rem;
+}
+
+.btn, button {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: var(--minor-border-radius);
+}
+
+.btn:hover, button:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 
 /* Navbar */
 .navbar {
@@ -162,6 +195,12 @@ footer p {
 
 .navbar a:hover {
   color: var(--primary-color); /* Teal */
+}
+
+button.small-logout-btn {
+  padding: 0.25rem 0.5rem; 
+  font-size: 0.9rem; 
+  border-radius: var(--minor-border-radius); 
 }
 
 /* Main Content Area */
@@ -188,6 +227,12 @@ a:hover {
 .word {
   display: inline-block;
   white-space: nowrap;
+}
+
+.user-header{
+  font-size: 1rem;
+  font-weight: bold;
+  
 }
 
 

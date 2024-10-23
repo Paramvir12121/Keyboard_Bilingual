@@ -27,7 +27,7 @@ const Header = () => {
     return (
         <Navbar expand="sm" className="mb-3 shadow-sm">
             <Container>
-                <Navbar.Brand as={Link} to={ROUTES.DASHBOARD} className="fw fs-5">
+                <Navbar.Brand as={Link} to={ROUTES.DASHBOARD} className="">
                     Keyboard Bilingual
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -44,8 +44,10 @@ const Header = () => {
                     <Nav className="align-items-center">
                         {signedIn ? (
                             <>
-                                <Navbar.Text className="me-3">
-                                    Welcome, <span className="fw-bold">{username}</span>!
+                                <Navbar.Text className="me-3 user-header">
+                                    <Link to={ROUTES.USER_PROFILE} className="me-2 px-3 text-decoration-none">
+                                    {username}
+                                    </Link>
                                 </Navbar.Text>
                                 <Link to={ROUTES.SETTINGS} className="me-2 px-3 text-decoration-none">
                                 <FontAwesomeIcon className='primary' icon={faCog} size="lg" />

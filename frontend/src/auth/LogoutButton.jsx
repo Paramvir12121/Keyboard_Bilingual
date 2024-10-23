@@ -27,7 +27,7 @@ const LogoutButton = () => {
 
     return (
         <Button variant="outline-primary"
-        className="me-2 px-3" onClick={handleLogout}>Logout</Button>
+        className="me-2 px-3 small-logout-btn" onClick={handleLogout}>Logout</Button>
     );
 };
 

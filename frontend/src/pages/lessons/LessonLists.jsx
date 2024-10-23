@@ -62,7 +62,7 @@ const LessonLists = ({userTypingData}) => {
         <Container fluid>
             <Row>
                 {/* Vertical Navbar for topics */}
-                <Col xs={4} md={3}>
+                <Col xs={4} md={3} xl={2} >
                     <div className="nav-column">
                         {Object.keys(groupedLessons).map(topic => (
                             <Button 
@@ -78,7 +78,7 @@ const LessonLists = ({userTypingData}) => {
                 </Col>
 
                 {/* Lessons list on the right */}
-                <Col xs={8} md={9} className='lesson-list-column'>
+                <Col xs={8} md={9} xl={10} className='lesson-list-column'>
                     {selectedTopic && groupedLessons[selectedTopic] && (
                         <>
                             <h2>{selectedTopic}</h2>
