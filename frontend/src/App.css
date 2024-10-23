@@ -17,7 +17,7 @@
   /* Accent Colors */
   --accent-color: #000000; /* Black */
   --error-color: #dc3545; /* Crimson Red */
-  --success-color: #28a745; /* Green */
+  --success-color: #0a661fb6; /* Green */
 
   /* Gradient */
   --primary-gradient: linear-gradient(45deg, #00ADB5, #FF6F61); /* Teal to Coral */
@@ -290,12 +290,17 @@ a:hover {
   margin-bottom: var(--margin-bottom-large);
 }
 
+/* General card styling */
 .lesson-card {
-  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
   border-radius: var(--std-border-radius);
   background-color: var(--tertiary-color); /* Dark Slate Grey */
   color: var(--text-color); /* White */
+  margin-bottom: 20px;
+  cursor: pointer;
   transition: var(--transition-ease);
+  overflow: hidden; /* Ensure the card's content doesn't overflow */
 }
 
 .lesson-card:hover {
@@ -303,21 +308,34 @@ a:hover {
   box-shadow: var(--button-hover-shadow);
 }
 
-.completed-lesson {
-  background-color: var(--tertiary-alt-color);
-  color: var(--text-color);
-  /* text-decoration: line-through; */
-  /* text-decoration-thickness: 1px; */
-}
-.card-body-right {
-  /* display: flex; */
-  justify-content: space-between;
-  align-items: right;
+/* Lesson content styling */
+.lesson-content {
+  display: flex;
+  width: 100%;
 }
 
-.card-body-right card-text {
-  margin-right: 1rem;
+/* Left side of the card for lesson info (3/4 width) */
+.lesson-info {
+  width: 75%; /* 3/4th width */
+  padding: 15px;
 }
+
+/* Right side of the card for completed lesson info (1/4 width) */
+.completed-lesson-right {
+  width: 25%; /* 1/4th width */
+  background-color: var(--primary-color); /* Green background */
+  color: var(--text-color); /* White text on green background */
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the content vertically */
+  align-items: flex-start; /* Align text to the left */
+  text-align: left;
+  border-left: 2px solid white; /* Add vertical line */
+}
+
+
+
 
 /* Keyboard Styling */
 .key {
