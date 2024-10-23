@@ -36,8 +36,8 @@ const Header = () => {
                         {signedIn && (
                             <>
                                 <Nav.Link as={Link} to={ROUTES.DASHBOARD} className="fw-semibold">Dashboard</Nav.Link>
-                                <Nav.Link as={Link} to={ROUTES.LESSON_LIST} className="fw-semibold">Lessons</Nav.Link>
-                                <Nav.Link as={Link} to={ROUTES.SPEED_TEST} className="fw-semibold">Speed Tests</Nav.Link>
+                                {/* <Nav.Link as={Link} to={ROUTES.LESSON_LIST} className="fw-semibold">Lessons</Nav.Link>
+                                <Nav.Link as={Link} to={ROUTES.SPEED_TEST} className="fw-semibold">Speed Tests</Nav.Link> */}
                             </>
                         )}
                     </Nav>

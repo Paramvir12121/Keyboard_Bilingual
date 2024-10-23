@@ -29,15 +29,13 @@ const AccuracyGraph = ({ userTypingData }) => {
           data={typingData}
           margin={{ top: 5, right: 5, bottom: 5, left: 45 }}
           xScale={{ type: 'point' }}
-          yScale={{ type: 'linear',  min: 70, max: 100, stacked: false, reverse: false }}
+          yScale={{ type: 'linear', min: 70, max: 100, stacked: false, reverse: false }}
           axisLeft={{
             orient: 'left',
             legend: 'Accuracy (%)',
             legendOffset: -35,
             legendPosition: 'middle',
-            // Custom tick values from 0 to 100, in increments of 5 percen
-            tickValues: [70,75, 80, 85, 90, 95, 100],
-            // tickValues: [0, 5, 10,75, 80, 85, 90, 95, 100],
+            tickValues: [70, 75, 80, 85, 90, 95, 100],
             tickLabelComponent: (props) => (
               <text {...props} className="graph-axis-labels" />
             ),
@@ -54,6 +52,7 @@ const AccuracyGraph = ({ userTypingData }) => {
           useMesh={true}
           lineWidth={2}
           colors={['var(--primary-color)']}
+          crosshairType="y" // This ensures only the horizontal crosshair appears
           theme={{
             axis: {
               ticks: {
@@ -75,6 +74,13 @@ const AccuracyGraph = ({ userTypingData }) => {
                 stroke: 'var(--grid-line-color)',
               },
             },
+            crosshair: {
+              line: {
+                stroke: 'var(--secondary-color)',
+                strokeWidth: 1,
+                strokeDasharray: '.5 .5',
+              },
+            },
           }}
           legends={[]}
           markers={[
@@ -82,7 +88,6 @@ const AccuracyGraph = ({ userTypingData }) => {
               axis: 'y',
               value: 100,
               lineStyle: { stroke: 'green', strokeWidth: 2 },
-              // legend: '100% Accuracy',
               legendPosition: 'top-left',
               legendOffsetY: -10,
               legendOffsetX: -10,
@@ -92,7 +97,6 @@ const AccuracyGraph = ({ userTypingData }) => {
               axis: 'y',
               value: 95,
               lineStyle: { stroke: 'yellow', strokeWidth: 2 },
-              // legend: '95% Accuracy',
               legendPosition: 'top-left',
               legendOffsetY: 10,
               legendOffsetX: -10,
@@ -102,7 +106,6 @@ const AccuracyGraph = ({ userTypingData }) => {
               axis: 'y',
               value: 90,
               lineStyle: { stroke: 'red', strokeWidth: 2 },
-              // legend: '90% Accuracy',
               legendPosition: 'top-left',
               legendOffsetY: 30,
               legendOffsetX: -10,
@@ -112,12 +115,13 @@ const AccuracyGraph = ({ userTypingData }) => {
           tooltip={({ point }) => (
             <div
               style={{
-                background: 'white',
+                background: 'rgba(0,0,0,0.3)',
+                color: 'var(--text-color)',
                 padding: '5px',
-                border: '1px solid #ccc',
+                borderRadius: 'var(--minor-border-radius)',
               }}
             >
-              <strong>{point.data.xFormatted}</strong>: {point.data.yFormatted}% accuracy
+              {point.data.yFormatted}% accuracy
             </div>
           )}
         />

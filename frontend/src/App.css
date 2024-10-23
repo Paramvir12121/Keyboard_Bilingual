@@ -331,7 +331,7 @@ a:hover {
   justify-content: center; /* Center the content vertically */
   align-items: flex-start; /* Align text to the left */
   text-align: left;
-  border-left: 2px solid white; /* Add vertical line */
+  border-left: 2px solid var(--text-color); /* Add vertical line */
 }
 
 
