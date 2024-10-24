@@ -7,9 +7,7 @@ import ROUTES from '../../Routes';
 import LogoutButton from '../../auth/LogoutButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faUserCircle } from '@fortawesome/free-solid-svg-icons';
-//import email icon from fortawsome
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-//import user icon from fortawsome
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import logo from '/logo1.png';
 
@@ -55,7 +53,7 @@ const Header = () => {
                                     <FontAwesomeIcon icon={faUserCircle} size="lg" />
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className='custom-dropdown-menu'>
-                                    <Dropdown.ItemText><FontAwesomeIcon icon="faUser" className="me-2"/> {username}</Dropdown.ItemText>
+                                    <Dropdown.ItemText><FontAwesomeIcon icon={faUser} className="me-2"/> {username}</Dropdown.ItemText>
                                     <Dropdown.ItemText> <FontAwesomeIcon icon={faEnvelope} className="me-2" /> {Cookies.get('email')}</Dropdown.ItemText>
                                     <Dropdown.Divider />
                                     

@@ -1,7 +1,7 @@
-# admin.py
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
-from werkzeug.security import check_password_hash
-from exts import db
+import boto3
+from models import db
+from flask import current_app
 from models import User, Lesson, UserLesson, Setting, Payment
 from functools import wraps
 
@@ -15,6 +15,25 @@ def admin_login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+def get_cognito_client():
+    return boto3.client('cognito-idp', region_name=current_app.config['COGNITO_REGION'])
+
+# Function to check if user is in the admin group
+def is_user_in_admin_group(username):
+    client = get_cognito_client()
+    try:
+        response = client.admin_list_groups_for_user(
+            UserPoolId=current_app.config['COGNITO_USERPOOL_ID'],
+            Username=username
+        )
+        groups = [group['GroupName'] for group in response['Groups']]
+        return 'admin' in groups  # Check if 'admin' group exists in the user's groups
+    except client.exceptions.ClientError as e:
+        print(f"Error checking user groups: {str(e)}")
+        return False
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return False
 
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
@@ -24,43 +43,77 @@ def admin_login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        print(f"Attempting login for user: {username}")
         
-        # Authenticate admin user
-        user = User.query.filter_by(username=username).first()
-        if user and user.role == 'admin' and user.check_password(password):
-            # Successful login
-            session['admin_logged_in'] = True
-            session['admin_user_id'] = user.id
-            flash('You have successfully logged in as admin.', 'success')
+        # Authenticate with Cognito
+        client = get_cognito_client()
+        try:
+            response = client.admin_initiate_auth(
+                UserPoolId=current_app.config['COGNITO_USER_POOL_ID'],
+                ClientId=current_app.config['COGNITO_CLIENT_ID'],
+                AuthFlow='ADMIN_NO_SRP_AUTH',
+                AuthParameters={
+                    'USERNAME': username,
+                    'PASSWORD': password
+                }
+            )
+            print(f"Cognito authentication successful for user: {username}")
+            
+            access_token = response['AuthenticationResult']['AccessToken']
+            id_token = response['AuthenticationResult']['IdToken']
+            
+            # Check if user is in the admin group
+            # if is_user_in_admin_group(username):
+            #     print(f"User {username} is in the admin group.")
+            #     session['admin_logged_in'] = True
+            #     session['admin_user_id'] = username  # Use Cognito username as the user ID in session
+            #     session['admin_access_token'] = access_token  # Store access token for future API calls if needed
+            #     flash('You have successfully logged in as admin.', 'success')
+            #     return redirect(url_for('admin.admin_index'))
+            # else:
+            #     print(f"User {username} is not in the admin group.")
+            #     flash('You are not authorized to access the admin panel.', 'danger')
+            #     return redirect(url_for('admin.admin_login'))
             return redirect(url_for('admin.admin_index'))
-        else:
-            # Failed login
+                
+        except client.exceptions.NotAuthorizedException:
+            print(f"NotAuthorizedException: Invalid username or password for {username}.")
             flash('Invalid username or password.', 'danger')
-            return redirect(url_for('admin.admin_login'))
+        except client.exceptions.UserNotFoundException:
+            print(f"UserNotFoundException: User {username} does not exist.")
+            flash('User does not exist.', 'danger')
+        except Exception as e:
+            print(f"An unexpected error occurred during login: {str(e)}")
+            flash(f"An error occurred: {str(e)}", 'danger')
+        
+        return redirect(url_for('admin.admin_login'))
+    
     return render_template('admin/login.html')
 
+
 @admin_bp.route('/')
+# @admin_login_required
 def admin_index():
-    return render_template('admin/index.html')
+    users_count = User.query.count()
+    lessons_count = Lesson.query.count()
+    recent_users = User.query.order_by(User.created_at.desc()).limit(5).all()  # Example to show the 5 most recent users
+    
+    return render_template('admin/index.html', users_count=users_count, lessons_count=lessons_count, recent_users=recent_users)
+
 
 @admin_bp.route('/users')
+# @admin_login_required
 def view_users():
     users = User.query.all()
     return render_template('admin/users.html', users=users)
 
 @admin_bp.route('/add_user', methods=['GET', 'POST'])
+# @admin_login_required
 def add_user():
-    # if request.method == 'POST':
-    #     username = request.form['username']
-    #     email = request.form['email']
-    #     user = User(username=username, email=email)
-    #     db.session.add(user)
-    #     db.session.commit()
-    #     return redirect(url_for('admin.view_users'))
-    # return render_template('admin/add_user.html')
     pass
 
 @admin_bp.route('/edit_user/<int:user_id>', methods=['GET', 'POST'])
+# @admin_login_required
 def edit_user(user_id):
     user = User.query.get_or_404(user_id)
     if request.method == 'POST':
@@ -71,6 +124,7 @@ def edit_user(user_id):
     return render_template('admin/edit_user.html', user=user)
 
 @admin_bp.route('/delete_user/<int:user_id>', methods=['POST'])
+# @admin_login_required
 def delete_user(user_id):
     user = User.query.get(user_id)
     if user:
@@ -78,14 +132,14 @@ def delete_user(user_id):
         db.session.commit()
     return redirect(url_for('admin.view_users'))
 
-
 @admin_bp.route('/lessons')
+# @admin_login_required
 def view_lessons():
     lessons = Lesson.query.all()
     return render_template('admin/lessons.html', lessons=lessons)
 
-# Add a new lesson
 @admin_bp.route('/add_lesson', methods=['GET', 'POST'])
+# @admin_login_required
 def add_lesson():
     if request.method == 'POST':
         title = request.form['title']
@@ -93,8 +147,6 @@ def add_lesson():
         keys = request.form['keys']
         words = request.form['words']
         difficulty = request.form['difficulty']
-        # average_time = request.form.get('average_time', 0.0)
-        # success_rate = request.form.get('success_rate', 0.0)
 
         new_lesson = Lesson(
             title=title,
@@ -102,8 +154,6 @@ def add_lesson():
             keys=keys,
             words=words,
             difficulty=difficulty,
-            # average_time=average_time,
-            # success_rate=success_rate
         )
         db.session.add(new_lesson)
         db.session.commit()
@@ -111,16 +161,16 @@ def add_lesson():
 
     return render_template('admin/add_lesson.html')
 
-# Delete a lesson
 @admin_bp.route('/delete_lesson/<int:lesson_id>', methods=['POST'])
+# @admin_login_required
 def delete_lesson(lesson_id):
     lesson = Lesson.query.get_or_404(lesson_id)
     db.session.delete(lesson)
     db.session.commit()
     return redirect(url_for('admin.view_lessons'))
 
-
 @admin_bp.route('/update_lesson/<int:lesson_id>', methods=['GET', 'POST'])
+# @admin_login_required
 def update_lesson(lesson_id):
     lesson = Lesson.query.get_or_404(lesson_id)
     if request.method == 'POST':

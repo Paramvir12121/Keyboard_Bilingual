@@ -1,13 +1,53 @@
-<!-- templates/admin/index.html -->
 {% extends 'layout.html' %}
 {% block title %}Admin Dashboard{% endblock %}
 
 {% block content %}
-<section class="section">
-    <div class="container">
-        <h1 class="title">Admin Dashboard</h1>
-        <p class="subtitle">Welcome to the Admin Dashboard</p>
-        <!-- Add more admin content -->
+<div class="container mt-5">
+    <h1 class="mb-4">Admin Dashboard</h1>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Users</div>
+                <div class="card-body">
+                    <h5 class="card-title">Manage Users</h5>
+                    <p class="card-text">View, add, edit, or delete users.</p>
+                    <a href="{{ url_for('admin.view_users') }}" class="btn btn-light">Go to Users</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Lessons</div>
+                <div class="card-body">
+                    <h5 class="card-title">Manage Lessons</h5>
+                    <p class="card-text">View, add, edit, or delete lessons.</p>
+                    <a href="{{ url_for('admin.view_lessons') }}" class="btn btn-light">Go to Lessons</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Settings</div>
+                <div class="card-body">
+                    <h5 class="card-title">App Settings</h5>
+                    <p class="card-text">Manage application settings.</p>
+                    <a href="#" class="btn btn-light">Go to Settings</a>
+                </div>
+            </div>
+        </div>
     </div>
-</section>
+    
+    <!-- Add more sections as needed -->
+    
+    <div class="row">
+        <div class="col-md-12 mt-4">
+            <h3>Recent Activities</h3>
+            <p>Display recent admin actions, logins, or other activity here.</p>
+            <!-- Add logic to display recent admin activity or site statistics -->
+        </div>
+    </div>
+</div>
 {% endblock %}
