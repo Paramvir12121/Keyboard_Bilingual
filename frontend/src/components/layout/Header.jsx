@@ -7,6 +7,7 @@ import ROUTES from '../../Routes';
 import LogoutButton from '../../auth/LogoutButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import logo from '../../../public/logo1.png';
 
 const Header = () => {
     const [signedIn, setSignedIn] = useContext(Context);
@@ -28,14 +29,18 @@ const Header = () => {
         <Navbar expand="sm" className="mb-3 shadow-sm">
             <Container>
                 <Navbar.Brand as={Link} to={ROUTES.DASHBOARD}>
-                    Keyboard Bilingual
+                <img
+                        src={logo}
+                        alt="Keyboard Bilingual"
+                        style={{ width: '45px', height: '45px' }} // Adjust the size as needed
+                    />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         {signedIn && (
                             <>
-                                <Nav.Link as={Link} to={ROUTES.DASHBOARD} className="fw-semibold">Dashboard</Nav.Link>
+                                {/* <Nav.Link as={Link} to={ROUTES.DASHBOARD} className="fw-semibold">Dashboard</Nav.Link> */}
                             </>
                         )}
                     </Nav>

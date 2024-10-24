@@ -75,8 +75,8 @@ const ResultNavbar = ({ lessonId, totalLessons, specialPages = {} }) => {
         Previous Lesson
       </button>
 
-      <Link to={ROUTES.LESSON_LIST} className="btn btn-outline-secondary">
-        Back to Lesson List
+      <Link to={ROUTES.DASHBOARD} className="btn btn-outline-secondary">
+        Back to Dashboard
       </Link>
 
       <button onClick={handleRetakeLesson} className="nav-link">
