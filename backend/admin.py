@@ -49,7 +49,7 @@ def admin_login():
         client = get_cognito_client()
         try:
             response = client.admin_initiate_auth(
-                UserPoolId=current_app.config['COGNITO_USER_POOL_ID'],
+                UserPoolId=current_app.config['COGNITO_USERPOOL_ID'],
                 ClientId=current_app.config['COGNITO_CLIENT_ID'],
                 AuthFlow='ADMIN_NO_SRP_AUTH',
                 AuthParameters={
@@ -59,21 +59,16 @@ def admin_login():
             )
             print(f"Cognito authentication successful for user: {username}")
             
+            # Store tokens in session
             access_token = response['AuthenticationResult']['AccessToken']
             id_token = response['AuthenticationResult']['IdToken']
             
-            # Check if user is in the admin group
-            # if is_user_in_admin_group(username):
-            #     print(f"User {username} is in the admin group.")
-            #     session['admin_logged_in'] = True
-            #     session['admin_user_id'] = username  # Use Cognito username as the user ID in session
-            #     session['admin_access_token'] = access_token  # Store access token for future API calls if needed
-            #     flash('You have successfully logged in as admin.', 'success')
-            #     return redirect(url_for('admin.admin_index'))
-            # else:
-            #     print(f"User {username} is not in the admin group.")
-            #     flash('You are not authorized to access the admin panel.', 'danger')
-            #     return redirect(url_for('admin.admin_login'))
+            # Set session variables for logged-in user
+            session['admin_logged_in'] = True
+            session['admin_user_id'] = username  # Use Cognito username as the user ID in session
+            session['admin_access_token'] = access_token  # Store access token for future API calls if needed
+            
+            flash('You have successfully logged in.', 'success')
             return redirect(url_for('admin.admin_index'))
                 
         except client.exceptions.NotAuthorizedException:
@@ -89,6 +84,8 @@ def admin_login():
         return redirect(url_for('admin.admin_login'))
     
     return render_template('admin/login.html')
+
+
 
 
 @admin_bp.route('/')
