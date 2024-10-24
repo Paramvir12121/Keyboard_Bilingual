@@ -7,7 +7,11 @@ import ROUTES from '../../Routes';
 import LogoutButton from '../../auth/LogoutButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import logo from '../../../public/logo1.png';
+//import email icon from fortawsome
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+//import user icon from fortawsome
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import logo from '/logo1.png';
 
 const Header = () => {
     const [signedIn, setSignedIn] = useContext(Context);
@@ -51,8 +55,8 @@ const Header = () => {
                                     <FontAwesomeIcon icon={faUserCircle} size="lg" />
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className='custom-dropdown-menu'>
-                                    <Dropdown.ItemText>Username: {username}</Dropdown.ItemText>
-                                    <Dropdown.ItemText>Email: {Cookies.get('email')}</Dropdown.ItemText>
+                                    <Dropdown.ItemText><FontAwesomeIcon icon="faUser" className="me-2"/> {username}</Dropdown.ItemText>
+                                    <Dropdown.ItemText> <FontAwesomeIcon icon={faEnvelope} className="me-2" /> {Cookies.get('email')}</Dropdown.ItemText>
                                     <Dropdown.Divider />
                                     
                                     <Dropdown.Item as={Link} to={ROUTES.PROFILE} className="text-dark">

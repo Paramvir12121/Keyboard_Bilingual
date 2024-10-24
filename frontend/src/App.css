@@ -201,8 +201,11 @@ footer p {
   background-color: var(--tertiary-color); /* Dark Slate Grey with 80% opacity */
   border-radius: var(--std-border-radius); /* Apply rounded corners */
   border: none; /* Remove border */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  box-shadow: 0 4px 12px var(--button-hover-shadow); /* Add subtle shadow */
   color: var(--text-color); /* White text color */
+  text-wrap: nowrap;
+  /* text size to .7rem */
+  font-size: 0.9rem;
 }
 
 .custom-dropdown-menu .dropdown-item, 
