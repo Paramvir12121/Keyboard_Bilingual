@@ -48,6 +48,7 @@ def admin_login():
         # Authenticate with Cognito
         client = get_cognito_client()
         try:
+            # AdminInitiateAuth for username and password authentication
             response = client.admin_initiate_auth(
                 UserPoolId=current_app.config['COGNITO_USERPOOL_ID'],
                 ClientId=current_app.config['COGNITO_CLIENT_ID'],
@@ -59,14 +60,14 @@ def admin_login():
             )
             print(f"Cognito authentication successful for user: {username}")
             
-            # Store tokens in session
+            # Retrieve tokens
             access_token = response['AuthenticationResult']['AccessToken']
             id_token = response['AuthenticationResult']['IdToken']
             
-            # Set session variables for logged-in user
+            # Store session data
             session['admin_logged_in'] = True
-            session['admin_user_id'] = username  # Use Cognito username as the user ID in session
-            session['admin_access_token'] = access_token  # Store access token for future API calls if needed
+            session['admin_user_id'] = username  # Store username
+            session['admin_access_token'] = access_token  # Store access token
             
             flash('You have successfully logged in.', 'success')
             return redirect(url_for('admin.admin_index'))
