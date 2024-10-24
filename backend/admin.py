@@ -1,10 +1,43 @@
 # admin.py
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash
+from werkzeug.security import check_password_hash
 from exts import db
 from models import User, Lesson, UserLesson, Setting, Payment
+from functools import wraps
+
+
+def admin_login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('admin_logged_in'):
+            flash('Please log in as admin to access this page.', 'warning')
+            return redirect(url_for('admin.admin_login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
+
+@admin_bp.route('/login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        # Authenticate admin user
+        user = User.query.filter_by(username=username).first()
+        if user and user.role == 'admin' and user.check_password(password):
+            # Successful login
+            session['admin_logged_in'] = True
+            session['admin_user_id'] = user.id
+            flash('You have successfully logged in as admin.', 'success')
+            return redirect(url_for('admin.admin_index'))
+        else:
+            # Failed login
+            flash('Invalid username or password.', 'danger')
+            return redirect(url_for('admin.admin_login'))
+    return render_template('admin/login.html')
 
 @admin_bp.route('/')
 def admin_index():
