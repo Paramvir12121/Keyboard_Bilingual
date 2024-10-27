@@ -159,12 +159,14 @@ class SignUp(Resource):
     @auth_ns.expect(signup_model)
     def post(self):
         data = request.get_json()
+        print("Singup request for data: ",data.get('username'))
         if not data:
             return jsonify({"error": "No data provided"}), 400
         password = str(data.get('password'))
         email = str(data.get('email'))
         username = data.get('username')
         existing_user_by_email = User.query.filter_by(email=email).first()
+        print("existing user by email: ",existing_user_by_email)
         existing_user_by_username = User.query.filter_by(username=username).first()
         if existing_user_by_email:
             return {'message': 'Email already exists.'}, 400

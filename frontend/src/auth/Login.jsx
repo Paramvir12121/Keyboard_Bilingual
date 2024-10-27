@@ -85,7 +85,12 @@ const Login = () => {
                             {message && <SuccessMessage message={message} />}
                             <br />
                             <Button type="submit" variant="primary" className="w-100 mb-3">
-                                Login
+                            {loading ? (
+                                <>
+                                    <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                                    {' '}Loading...
+                                </>
+                            ) : 'Login'}
                             </Button>
                             <div className="text-center ">
                             <Link to={ROUTES.FORGOT_PASSWORD}>Forgot Password?</Link><br />    

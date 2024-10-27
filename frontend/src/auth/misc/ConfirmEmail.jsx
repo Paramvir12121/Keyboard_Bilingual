@@ -5,6 +5,8 @@ import ErrorMessage from '../../components/common/ErrorMessage';
 import baseApi from '../../hooks/baseApi';
 import Cookies from 'js-cookie';
 import ROUTES from '../../Routes'; // Importing ROUTES for navigation
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 const ConfirmEmail = () => {
     const [error, setError] = useState(''); // Error state
@@ -44,7 +46,8 @@ const ConfirmEmail = () => {
     };
 
     return (
-        <div>
+        <>
+        <Card className="shadow p-4">
             <h1>Confirm Email</h1>
             <input 
                 type="text" 
@@ -53,10 +56,15 @@ const ConfirmEmail = () => {
                 placeholder="Enter verification code" 
             />
             <br />  
-            <button onClick={handleConfirmEmail}>Confirm</button>
-            <button onClick={handleResendCode}>Resend Code</button>
+            
+            <div className="d-flex justify-content-start gap-2 mt-3">
+        <Button onClick={handleConfirmEmail} size="sm" className="w-auto">Confirm</Button>
+        <Button onClick={handleResendCode} size="sm" className="w-auto">Resend Code</Button>
+    </div>
+            
             {error && <ErrorMessage message={error} />}
-        </div>
+            </Card>
+        </>
     );
 };
 
