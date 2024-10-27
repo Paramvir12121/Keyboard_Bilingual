@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import ErrorMessage from "../../components/common/ErrorMessage";
 import SuccessMessage from "../../components/common/SuccessMessage";
 import baseApi from '../../hooks/baseApi';
+import Cookies from 'js-cookie';    
 
 const ForgotPassword = () => {
     const [username, setUsername] = useState('');
@@ -13,6 +14,7 @@ const ForgotPassword = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
+        Cookies.set('forgot_password_username', username);
         e.preventDefault();
         setError(null);
         setMessage(null);
@@ -21,7 +23,7 @@ const ForgotPassword = () => {
             const response = await api.post('/auth/reset_forgotten_password_request', { username: username }, { withCredentials: true });
             if (response.status === 201) {
                 setMessage(response.data.message);
-                setTimeout(() => navigate('/reset-password-confirm'), 500);
+                setTimeout(() => navigate('/login'), 500);
             }
         } catch (error) {
             console.log("Error all: ", error.response);

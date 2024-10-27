@@ -373,8 +373,10 @@ class ResetForgottenPasswordConfirmation(Resource):
         data = request.get_json()
         print("data for reset password confirmation",data)
         username = data.get('username')
+        email = data.get('email')
         password = data.get('password')
-        verification_code = str(data.get('verification_code'))
+        verification_code = str(data.get('verificationCode'))
+        print("verification code: ",verification_code)  
         client = get_cognito_client()
         client_id = current_app.config['COGNITO_CLIENT_ID']
         client_secret = current_app.config['COGNITO_CLIENT_SECRET']

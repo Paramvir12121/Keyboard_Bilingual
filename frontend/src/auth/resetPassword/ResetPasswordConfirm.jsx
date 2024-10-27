@@ -12,13 +12,17 @@ const ResetPasswordConfirm = () => {
     const [code, setCode] = useState('');
     const [error, setError] = useState(null);
     const [message, setMessage] = useState(null);
+    const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
+        // check if username and email are stored in cookies
+        const username = Cookies.get('forgot_password_username');
+        const email = Cookies.get('forgot_password_email');
         e.preventDefault();
         try {
             const api = baseApi();
-            const response = await api.post('/auth/reset_forgotten_password_confirmation', { code }, { withCredentials: true });
+            const response = await api.post('/auth/reset_forgotten_password_confirmation', { "verificationCode":code, "username": username, "email": email,"password":password }, { withCredentials: true });
             console.log("data: ", response);
             if (response.status === 201) {
                 console.log("data: ", response.data);
@@ -47,6 +51,14 @@ const ResetPasswordConfirm = () => {
                             maxLength={6}
                             autoComplete="one-time-code" 
                             onChange={(e) => setCode(e.target.value)} 
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="Password">
+                        <Form.Control 
+                            placeholder="Enter new password" 
+                            type="password" 
+                            autoComplete="new-password" 
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </Form.Group>
                     <Card.Footer>

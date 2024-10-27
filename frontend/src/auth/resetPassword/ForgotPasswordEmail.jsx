@@ -7,6 +7,7 @@ import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../../components/common/ErrorMessage";
 import SucessMessage from "../../components/common/SuccessMessage";
+// import Cookies from 'js-cookie';
 
 const ForgotPasswordEmail = () => {
     const [email, setEmail] = useState('');
@@ -16,6 +17,7 @@ const ForgotPasswordEmail = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        Cookies.set('forgot_password_email', email);
         try {
             const api = baseApi();
             const response = await api.post('/auth/reset_forgotten_password_request', {email: email}, {withCredentials: true});
