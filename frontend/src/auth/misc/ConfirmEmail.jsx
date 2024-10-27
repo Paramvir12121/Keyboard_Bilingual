@@ -31,12 +31,15 @@ const ConfirmEmail = () => {
         try {
             const api = baseApi();
             const email = Cookies.get('signup_email');
+            const username = Cookies.get('signup_username');
             console.log('Email:', email);
             console.log('Verification Code:', verificationCode);
-            const response = await api.post('/auth/signup_confirm_email', { email, verificationCode });
+            const response = await api.post('/auth/signup_confirmation', { email, verificationCode, username });
+
 
             if (response.status === 200) {
                 Cookies.remove('signup_email');
+                Cookies.remove('signup_username');
                 navigate(ROUTES.LOGIN); // Navigate using ROUTES
             }
         } catch (error) {

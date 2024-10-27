@@ -74,6 +74,7 @@ const Signup = () => {
             const response = await api.post('/auth/signup', formData, { withCredentials: true });
             if (response.data) {
                 Cookies.set('signup_email', formData.email, { expires: 1 });
+                Cookies.set('signup_username', formData.username, { expires: 1 });
                 setMessage('Signup successful, please confirm your email!');
                 setTimeout(() => {
                     navigate(ROUTES.CONFIRM_EMAIL);

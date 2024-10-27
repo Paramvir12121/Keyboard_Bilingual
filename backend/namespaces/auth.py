@@ -131,6 +131,7 @@ signup_confirmation_model = auth_ns.model('Signup_Confirmation', {
     'email': fields.String(required=True, description='The user email'),
     'verification_code': fields.String(description='The verification string'),
 })
+
 auth_model = auth_ns.model('Auth', {
     'username': fields.String(required=True, description='The user username'),
     'email': fields.String(required=True, description='The user email'),
@@ -225,27 +226,30 @@ class SignupConfirmation(Resource):
     @auth_ns.expect(signup_confirmation_model)
     def post(self):
         data = request.get_json()
+        print("data for signup confirmation",data)
         if not data:
             return jsonify({"error": "No data provided"}), 400
         print("data",data)
         username = data.get('username')
         email = data.get('email')
-        verification_code = str(data.get('verification_code'))
+        verification_code = data.get('verificationCode')
         client = get_cognito_client()
         client_id = current_app.config['COGNITO_CLIENT_ID']
         client_secret = current_app.config['COGNITO_CLIENT_SECRET']
         secret_hash = get_secret_hash(username, client_id, client_secret)
         try:
-            client.confirm_sign_up(
+            response = client.confirm_sign_up(
                 ClientId=current_app.config['COGNITO_CLIENT_ID'],
                 Username=username,
                 SecretHash=secret_hash,
                 ConfirmationCode=verification_code,
             )
-
+            print("response: ",response)
             user = User(username=username, email=email)
             user.save()
             return {'message': 'Email confirmed and user saved.'}, 200
+        except client.exceptions.CodeMismatchException:
+            return {'message': 'Invalid verification code provided'}, 400
         except client.exceptions.ClientError as error:
             print("Signup confirmation Error: ",error)
             return handle_cognito_error(error)
@@ -333,6 +337,7 @@ class ResetForgottenPasswordRequest(Resource):
     @auth_ns.expect(reset_password_request_model)
     def post(self):
         data = request.get_json()
+        print("data for reset password request",data)
         username = data.get('username')
         if not username:
             email = data.get('email')
@@ -366,6 +371,7 @@ class ResetForgottenPasswordConfirmation(Resource):
     @auth_ns.expect(reset_password_confirmation_model)
     def post(self):
         data = request.get_json()
+        print("data for reset password confirmation",data)
         username = data.get('username')
         password = data.get('password')
         verification_code = str(data.get('verification_code'))
