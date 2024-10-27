@@ -4,7 +4,7 @@
 set -e
 
 # Variables
-PROJECT_ID="419919"  # Replace with your project ID
+PROJECT_ID="apis-419919"  # Replace with your project ID
 ARTIFACT_REPO="keyboard-bilingul"
 REGION="northamerica-northeast2"
 

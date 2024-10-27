@@ -1,6 +1,13 @@
+# Fetch Secret Manager Secret
 data "google_secret_manager_secret" "my_secret" {
   secret_id = var.secret_name
   project   = var.project_id
+}
+
+# Fetch specific version of the secret (e.g., "latest")
+data "google_secret_manager_secret_version" "my_secret_version" {
+  secret  = data.google_secret_manager_secret.my_secret.name
+  version = "latest" # or specify a specific version if not "latest"
 }
 
 # Backend Cloud Run Service 
@@ -29,7 +36,7 @@ resource "google_cloud_run_service" "backend_service" {
         }
       }
 
-      # Add the volumes block here
+      # Define volumes block for secret mount
       volumes {
         name = var.secret_volume_name
 
@@ -37,9 +44,9 @@ resource "google_cloud_run_service" "backend_service" {
           secret_name = data.google_secret_manager_secret.my_secret.secret_id
 
           items {
-            key  = "latest"     # Secret version (e.g., 'latest' or a specific version number)
-            path = "secret_key" # File name inside the mount path
-            mode = 0444         # File permissions (optional)
+            key  = data.google_secret_manager_secret_version.my_secret_version.version
+            path = "secret_key" # Name of the file inside the mount path
+            mode = "0444"       # File permissions (optional)
           }
         }
       }
@@ -58,4 +65,11 @@ resource "google_cloud_run_service_iam_member" "backend_service_invoker" {
   location = google_cloud_run_service.backend_service.location
   role     = "roles/run.invoker"
   member   = "allUsers"
+}
+
+# Grant Secret Manager access to the Cloud Run service account# Grant Secret Manager access to the Compute Engine default service account
+resource "google_project_iam_member" "cloud_run_secret_accessor" {
+  project = var.project_id
+  role    = "roles/secretmanager.secretAccessor"
+  member  = var.service_account_member # Directly specify the service account
 }

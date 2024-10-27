@@ -7,7 +7,7 @@ from functools import wraps
 import hmac
 import hashlib
 import base64
-
+import jwt 
 
 def admin_login_required(f):
     @wraps(f)
@@ -29,22 +29,18 @@ def get_secret_hash(username, client_id, client_secret):
 
 
 # Function to check if user is in the admin group
-def is_user_in_admin_group(username):
-    client = get_cognito_client()
+def is_user_in_admin_group(id_token):
     try:
-        response = client.admin_list_groups_for_user(
-            UserPoolId=current_app.config['COGNITO_USERPOOL_ID'],
-            Username=username
-        )
-        groups = [group['GroupName'] for group in response['Groups']]
-        return 'admin' in groups  # Check if 'admin' group exists in the user's groups
-    except client.exceptions.ClientError as e:
-        print(f"Error checking user groups: {str(e)}")
-        return False
+        # Decode the id_token (without verifying signature for this example)
+        decoded_token = jwt.decode(id_token, options={"verify_signature": False})
+        groups = decoded_token.get('cognito:groups', [])
+        print(f"User groups from token: {groups}")
+        
+        # Check for the 'Administrator' group
+        return 'Administrator' in groups
     except Exception as e:
-        print(f"Unexpected error: {str(e)}")
+        print(f"Error decoding token or checking group: {str(e)}")
         return False
-
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -72,12 +68,18 @@ def admin_login():
                     'SECRET_HASH': secret_hash
                 }
             )
-            print(f"Authentication response: {response}")
+            # print(f"Authentication response: {response}")
             print(f"Cognito authentication successful for user: {username}")
             
             # Retrieve tokens
             access_token = response['AuthenticationResult']['AccessToken']
             id_token = response['AuthenticationResult']['IdToken']
+
+            # Check if user is in the admin group
+            if not is_user_in_admin_group(id_token):
+                print(f"User {username} is not in the admin group.")
+                flash('You do not have permission to access the admin panel.', 'danger')
+                return redirect(url_for('admin.admin_login'))
             
             # Store session data
             session['admin_logged_in'] = True
@@ -108,47 +110,7 @@ def admin_logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('admin.admin_login'))
 
-@admin_bp.route('/sync_cognito_users', methods=['POST'])
-def sync_cognito_users():
-    client = get_cognito_client()
 
-    try:
-        # Fetch all users from Cognito
-        users_list = []
-        response = client.list_users(UserPoolId=current_app.config['COGNITO_USERPOOL_ID'])
-
-        while 'PaginationToken' in response:
-            users_list.extend(response['Users'])
-            response = client.list_users(
-                UserPoolId=current_app.config['COGNITO_USERPOOL_ID'],
-                PaginationToken=response['PaginationToken']
-            )
-        users_list.extend(response['Users'])
-
-        # Add users to the database
-        for cognito_user in users_list:
-            username = cognito_user['Username']
-            email = next(attr['Value'] for attr in cognito_user['Attributes'] if attr['Name'] == 'email')
-            
-            # Check if the user already exists in the database
-            db_user = User.query.filter_by(username=username).first()
-
-            if not db_user:
-                # Add user to the database if it doesn't already exist
-                new_user = User(
-                    username=username,
-                    email=email,
-                    cognito_id=username
-                )
-                db.session.add(new_user)
-                db.session.commit()
-
-        flash(f"Successfully synced {len(users_list)} users from Cognito.", "success")
-    except client.exceptions.ClientError as error:
-        print(f"Error fetching users from Cognito: {error}")
-        flash(f"Failed to sync users: {error.response['Error']['Message']}", "danger")
-
-    return redirect(url_for('admin.view_users'))
 
 
 
