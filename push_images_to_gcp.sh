@@ -6,7 +6,7 @@ set -e
 # Variables
 PROJECT_ID="apis-419919"  # Replace with your project ID
 ARTIFACT_REPO="keyboard-bilingul"
-REGION="northamerica-northeast2"
+REGION="us-east1"
 
 # Image names
 BACKEND_IMAGE_NAME="backend_image"

@@ -71,5 +71,5 @@ resource "google_cloud_run_service_iam_member" "backend_service_invoker" {
 resource "google_project_iam_member" "cloud_run_secret_accessor" {
   project = var.project_id
   role    = "roles/secretmanager.secretAccessor"
-  member  = var.service_account_member # Directly specify the service account
+  member  = "serviceAccount:${var.project_number}-compute@developer.gserviceaccount.com"
 }
