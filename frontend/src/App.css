@@ -323,6 +323,10 @@ a:hover {
   color: var(--text-dim-color); /* Light Grey for body text */
 }
 
+.card-footer {
+  font-size: 0.8rem; /* Adjust the size as needed */
+}
+
 /* Graph Card Styling */
 .graph-card {
   background-color: var(--tertiary-color); /* Dark Slate Grey */
@@ -420,25 +424,51 @@ a:hover {
   font-size: 0.8rem;
   color: var(--text-dim-color); /* Light Grey */
 }
-/* Loading Spinner */
+
+
+
+/*<<<<<<<<<<<<<< Loading Spinner >>>>>>>>>>>>>>>>>>>>*/
 .loader {
-  margin: auto;
-  border: 10px solid rgba(0, 0, 0, 0.1); /* Light border */
-  border-top: 10px solid var(--primary-color); /* Teal for top part */
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  animation: loader_spinner 1s linear infinite;
+  width: 8px;
+  height: 40px;
+  border-radius: 4px;
+  display: block;
+  margin: 20px auto;
+  position: relative;
+  background: currentColor;
+  color: #FFF;
+  box-sizing: border-box;
+  animation: animloader 0.3s 0.3s linear infinite alternate;
 }
 
-@keyframes loader_spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.loader::after, .loader::before {
+  content: '';
+  width: 8px;
+  height: 40px;
+  border-radius: 4px;
+  background: currentColor;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 20px;
+  box-sizing: border-box;
+  animation: animloader 0.3s  0.45s  linear infinite alternate;
 }
+.loader::before {
+  left: -20px;
+  animation-delay: 0s;
+}
+
+@keyframes animloader {
+  0%   { height: 48px} 
+  100% { height: 4px}
+}
+
+
+
+/*<<<<<<<<<<<<<< Loading Spinner >>>>>>>>>>>>>>>>>>>>*/
+    
+
 
 /* StatsBar Component */
 .stats-bar {
@@ -594,23 +624,6 @@ a:hover {
 }
 
 /* The loader animation */
-.loader {
-  border: 8px solid rgba(0, 0, 0, 0.1); /* Light border */
-  border-top: 8px solid var(--primary-color); /* Teal for top part */
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: spin 1s linear infinite; /* Animation effect */
-}
-
-@keyframes spin {
-  0% {
-      transform: rotate(0deg);
-  }
-  100% {
-      transform: rotate(360deg);
-  }
-}
 
 
 /* <<<<<<<<<<<<<<RESULT NAVBAR>>>>>>>>>>> */

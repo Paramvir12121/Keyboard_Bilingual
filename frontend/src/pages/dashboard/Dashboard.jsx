@@ -1,37 +1,23 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Cookie from 'js-cookie';
+import React, { useEffect, useState } from 'react';
 import Graphs from './components/Graphs';
-import Goal from '../../components/common/Goal';
 import LessonLists from '../lessons/LessonLists';
-import ROUTES from '../../Routes';  // Import the routes
 import Loading from '../../components/common/Loading';
-import StripeHostedPages from '../stripe/StripeHostedPages';
 import { getUserLesonData } from '../../hooks/getUserStats';
 import useFetchSettings from '../../hooks/useFetchSettings';
 
-
-
-
 const Dashboard = () => {
   const [userTypingData, setUserTypingData] = useState(null);
-  const { settings: userSettingsData, error } = useFetchSettings(); // Access settings directly
+  const { settings: userSettingsData, error } = useFetchSettings();
 
   useEffect(() => {
     const fetchTypingData = async () => {
       try {
         const data = await getUserLesonData();
-        if (data && Array.isArray(data)) {
-          setUserTypingData(data);
-          console.log("Typing data:", data);
-        } else {
-          console.error("No valid typing data available.");
-        }
+        setUserTypingData(data);
       } catch (error) {
         console.error("Error fetching typing data:", error);
       }
     };
-
     fetchTypingData();
   }, []);
 
@@ -42,20 +28,15 @@ const Dashboard = () => {
   if (!userSettingsData || !userTypingData) {
     return <Loading />;
   }
-    return (
-       <>
-         <div>
-           
-            {/* <Goal /> */}
-            {/* Add dashboard components here */}
-            <Graphs userTypingData={userTypingData}/>
-            {/* <StripeHostedPages /> */}
-            <div className='lesson-list-div'>
-            <LessonLists userTypingData={userTypingData}/>
-            </div>
-         </div>
-       </>
-    );
+
+  return (
+    <div>
+      <Graphs userTypingData={userTypingData} userSettingsData={userSettingsData} />
+      <div className='lesson-list-div'>
+        <LessonLists userTypingData={userTypingData} />
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;

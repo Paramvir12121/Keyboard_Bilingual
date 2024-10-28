@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 import ErrorMessage from "../../components/common/ErrorMessage";
 import SuccessMessage from "../../components/common/SuccessMessage";
 import baseApi from '../../hooks/baseApi';
-import Cookies from 'js-cookie';    
+import Cookies from 'js-cookie';  
 
 const ForgotPassword = () => {
     const [username, setUsername] = useState('');
@@ -23,7 +23,7 @@ const ForgotPassword = () => {
             const response = await api.post('/auth/reset_forgotten_password_request', { username: username }, { withCredentials: true });
             if (response.status === 201) {
                 setMessage(response.data.message);
-                setTimeout(() => navigate('/login'), 500);
+                setTimeout(() => navigate('/reset-password-confirm'), 500);
             }
         } catch (error) {
             console.log("Error all: ", error.response);
@@ -35,9 +35,15 @@ const ForgotPassword = () => {
 
     return (
         <>
-            <div className="row mb-3 text-center">
+        <Card className="shadow p-4">
+            <div className='text-center'>
+            <h3>Forgot Password? Recover Your Account with Username</h3>
+            </div>
+           
+            <div className="row mb-3 text-center">  
                 <div className="col-4"></div>
                 <Form className="col-4" onSubmit={handleSubmit}>
+               
                     <Form.Group controlId="Username">
                         <Form.Control
                             placeholder="Enter your username"
@@ -48,7 +54,7 @@ const ForgotPassword = () => {
                         />
                     </Form.Group>
                     <Card.Footer>
-                        <Link to="/forgot-password-email">Can't Remember your Username? </Link>
+                        <Link to="/forgot-password-email">Can't Remember your Username? Try Your Email Here</Link>
                     </Card.Footer>
                     <Card.Footer>
                         Don't have an account? <Link to="/signup">Signup</Link> here!
@@ -59,6 +65,7 @@ const ForgotPassword = () => {
                 </Form>
                 <div className="col-4"></div>
             </div>
+        </Card>
         </>
     );
 }

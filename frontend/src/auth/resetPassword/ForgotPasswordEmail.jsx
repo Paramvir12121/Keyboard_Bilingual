@@ -35,6 +35,10 @@ const ForgotPasswordEmail = () => {
 }
   return (
     <>
+    <Card className="shadow p-4">
+        <div className='text-center'>
+            <h3>Forgot Password? Recover Your Account with Email</h3>
+        </div>
             <div className="row mb-3 text-center">
             <div className="col-4"></div>
             <Form className="col-4" onSubmit={handleSubmit}>
@@ -49,6 +53,7 @@ const ForgotPasswordEmail = () => {
               </Form>
               <div className="col-4"></div>
               </div>
+                </Card>
               </>
   )
 }

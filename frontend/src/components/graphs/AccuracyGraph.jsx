@@ -6,18 +6,17 @@ const AccuracyGraph = ({ userTypingData }) => {
   const [typingData, setTypingData] = useState([]);
 
   useEffect(() => {
-    if (userTypingData && userTypingData.length > 0) {
-      // Transform the data to the format Nivo expects
+    if (userTypingData && Array.isArray(userTypingData)) {
+      const validData = userTypingData.filter((entry) => entry && typeof entry.accuracy === 'number');
       const transformedData = [
         {
           id: 'Accuracy',
-          data: userTypingData.map((entry, index) => ({
-            x: `Lesson ${index + 1}`, // Assuming each entry represents a lesson
-            y: entry.accuracy, // Accuracy data from userTypingData
+          data: validData.map((entry, index) => ({
+            x: `Lesson ${index + 1}`,
+            y: entry.accuracy,
           })),
         },
       ];
-
       setTypingData(transformedData);
     }
   }, [userTypingData]);

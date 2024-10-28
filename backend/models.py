@@ -90,7 +90,7 @@ class Setting(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user_learning_layout = db.Column(db.String(50), default='qwerty')
-    keyboard_layout = db.Column(db.String(50), default='colemak')
+    keyboard_layout = db.Column(db.String(50), default='qwerty')
     font_size = db.Column(db.String(50), default='medium')
     show_keyboard = db.Column(db.Boolean, default=True)
     

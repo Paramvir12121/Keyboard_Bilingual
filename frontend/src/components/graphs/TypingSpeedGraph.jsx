@@ -9,41 +9,38 @@ const TypingSpeedGraph = ({ userTypingData }) => {
   const [maxScore, setMaxScore] = useState(50);
 
   useEffect(() => {
-    const fetchTypingData = async () => {
-      if (userTypingData && userTypingData.length > 0) {
-        // Find the maximum score in the data
-        let max = 0;
-        userTypingData.forEach((element) => {
-          if (element.score > max) {
-            max = element.score;
-          }
-        });
+    const fetchTypingData = () => {
+      if (userTypingData && Array.isArray(userTypingData) && userTypingData.length > 0) {
+        const validData = userTypingData.filter(
+          (entry) => entry && typeof entry.score === 'number'
+        );
 
-        // Transform userTypingData to match Nivo's expected format
         const transformedData = [
           {
             id: 'Typing Score',
-            data: userTypingData.map((element, index) => ({
+            data: validData.map((element, index) => ({
               x: `Reading ${index + 1}`,
               y: element.score,
             })),
           },
         ];
 
+        // Debugging log to inspect transformed data
+        console.log("Transformed Data:", transformedData);
+
         setTypingData(transformedData);
 
-        // Set maxScore based on the maximum score found
-        if (max < 50) {
-          setMaxScore(50);
-        } else if (max < 100) {
-          setMaxScore(100);
-        } else if (max < 150) {
-          setMaxScore(150);
-        } else {
-          setMaxScore(max + 10);
-        }
+        // Calculate maxScore based on valid data
+        const max = Math.max(50, ...validData.map((element) => element.score));
+        setMaxScore(max < 50 ? 50 : max + 10);
       } else {
-        console.error("No typing data available.");
+        console.error("No valid typing data available.");
+        setTypingData([
+          {
+            id: 'Typing Score',
+            data: [{ x: 'No Data', y: 0 }],
+          },
+        ]); // Set a fallback data structure
       }
     };
 
@@ -54,7 +51,7 @@ const TypingSpeedGraph = ({ userTypingData }) => {
           const parseSettings = JSON.parse(settings);
           setSpeedGoal(parseSettings.typing_speed_goal || 10);
         } catch (error) {
-          console.error("Error parsing settings from cookies:", error);
+          console.error("Invalid JSON format in settings cookie:", error);
         }
       }
     };
@@ -87,7 +84,6 @@ const TypingSpeedGraph = ({ userTypingData }) => {
           enableGridX={false}
           enableGridY={false}
           enablePoints={true}
-          // enableCrosshair={false}
           lineWidth={2}
           pointSize={6}
           pointBorderWidth={2}
@@ -97,45 +93,34 @@ const TypingSpeedGraph = ({ userTypingData }) => {
           tooltip={({ point }) => (
             <div
               style={{
-                // make background transparent
                 background: 'rgba(0,0,0,0.3)',
                 color: 'var(--text-color)',
                 padding: '5px',
                 borderRadius: 'var(--minor-border-radius)',
-                // border: '1px solid #ccc',
               }}
             >
-               {point.data.yFormatted} wpm
+              {point.data.yFormatted} wpm
             </div>
           )}
           colors={['var(--primary-color)']}
           theme={{
             axis: {
-              domain: {},
               ticks: {
-                line: {
-                  stroke: 'var(--primary-color)',
-                },
-                text: {
-                  fill: 'var(--text-dim-color)',
-                },
+                line: { stroke: 'var(--primary-color)' },
+                text: { fill: 'var(--text-dim-color)' },
               },
               legend: {
-                text: {
-                  fill: 'var(--text-dim-color)',
-                },
+                text: { fill: 'var(--text-dim-color)' },
               },
             },
             grid: {
-              line: {
-                stroke: 'var(--grid-line-color)',
-              },
+              line: { stroke: 'var(--grid-line-color)' },
             },
             crosshair: {
               line: {
-                stroke: 'var(--secondary-color)', // Custom color for crosshairs
-                strokeWidth: 1,                  // Crosshair line width
-                strokeDasharray: '.5 .5',          // Dashed line style for crosshairs
+                stroke: 'var(--secondary-color)',
+                strokeWidth: 1,
+                strokeDasharray: '.5 .5',
               },
             },
           }}
@@ -150,10 +135,7 @@ const TypingSpeedGraph = ({ userTypingData }) => {
               legendOffsetY: -10,
               legendOffsetX: -10,
               legendOrientation: 'horizontal',
-            }
-            
-           
-            
+            },
           ]}
         />
       </div>

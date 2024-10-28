@@ -39,10 +39,13 @@ const ResetPasswordConfirm = () => {
 
     return (
         <>
-            <div>Reset Password Confirmation</div>
+        <Card className="shadow p-4">
+            <div className='text-center'>
+            <h3>Reset Password Confirmation</h3>
+            </div>
             <div className="row mb-3 text-center">
-                <div className="col-4"></div>
-                <Form className="col-4" onSubmit={handleSubmit}>
+                <div className="col-3"></div>
+                <Form className="col-6" onSubmit={handleSubmit}>
                     <Form.Group controlId="VerificationCode">
                         <Form.Control 
                             placeholder="Enter Verification Code" 
@@ -53,6 +56,7 @@ const ResetPasswordConfirm = () => {
                             onChange={(e) => setCode(e.target.value)} 
                         />
                     </Form.Group>
+                    <br />
                     <Form.Group controlId="Password">
                         <Form.Control 
                             placeholder="Enter new password" 
@@ -67,8 +71,9 @@ const ResetPasswordConfirm = () => {
                     <button type="submit">Submit Code</button>
                     {error ? <ErrorMessage message={error} /> : message && <SuccessMessage message={message} />}
                 </Form>
-                <div className="col-4"></div>
+                <div className="col-3"></div>
             </div>
+            </Card>
         </>
     )
 }

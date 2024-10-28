@@ -110,7 +110,7 @@ const Settings = () => {
                             </Col>
                         </Form.Group>
                         
-                        <Form.Group as={Row} className="mb-3">
+                        {/* <Form.Group as={Row} className="mb-3">
                             <Form.Label column sm={3}>Font Size</Form.Label>
                             <Col sm={9}>
                                 <Form.Control
@@ -123,7 +123,7 @@ const Settings = () => {
                                     <option value="large">Large</option>
                                 </Form.Control>
                             </Col>
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group as={Row} className="mb-3">
                             <Form.Label column sm={3}>Show Keyboard</Form.Label>
                             <Col sm={9}>
@@ -137,7 +137,7 @@ const Settings = () => {
                     </Card.Body>
                 </Card>
 
-                {/* Audio Feedback Settings */}
+                {/* Audio Feedback Settings
                 <Card className="mb-4">
                     <Card.Header>Audio Feedback</Card.Header>
                     <Card.Body>
@@ -205,7 +205,7 @@ const Settings = () => {
                             </Col>
                         </Form.Group>
                     </Card.Body>
-                </Card>
+                </Card> */}
 
                 {/* Feedback Settings */}
                 <Card className="mb-4">
@@ -321,11 +321,12 @@ const Settings = () => {
                                 />
                             </Col>
                             {/* below button is too large, limit its size */}
-                            <Button variant="primary"  onClick={handleSubmit} className=" m-3 btn-sm">
-                                Save Settings
-                            </Button>
+                           
                         </Form.Group>
                     </Card.Body>
+                    <Button variant="primary"  onClick={handleSubmit} className=" m-3 btn-sm">
+                                Save Settings
+                            </Button>
                 </Card>
             </Form>
         </Container>

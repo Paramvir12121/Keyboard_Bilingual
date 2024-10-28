@@ -37,6 +37,7 @@ import FirstPage from './pages/introPages/FirstPage';
 import SecondPage from './pages/introPages/SecondPage';
 import ThirdPage from './pages/introPages/ThirdPage';
 import LandingPage from './pages/introPages/LandingPage';
+import SetupPage from './pages/introPages/SetupPage';
 
 
 
@@ -74,6 +75,7 @@ const router = createBrowserRouter([
           { path: ROUTES.TEST1, element: <Test1 /> },
           { path: ROUTES.SETTINGS, element: <Settings /> },
           { path: ROUTES.STATS, element: <StatsPage /> },
+          {path: ROUTES.SETUP_PAGE, element: <SetupPage />},
           // Add other protected routes here
         ],
         errorElement: <NotFoundPage />,

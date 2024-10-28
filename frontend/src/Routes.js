@@ -27,6 +27,7 @@ const ROUTES = {
     SECOND_PAGE: '/second',
     THIRD_PAGE: '/third',
     LANDING_PAGE: '',
+    SETUP_PAGE: '/intsetup',
   };
   
   export default ROUTES;
