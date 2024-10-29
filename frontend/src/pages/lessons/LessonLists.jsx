@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import LessonList from './LessonList';
 import baseApi from '../../hooks/baseApi';
-import { Container, Row, Col, Nav } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import Cookies from 'js-cookie';
-import Button from 'react-bootstrap/Button';
 
-const LessonLists = ({userTypingData}) => {
+const LessonLists = ({ userTypingData }) => {
     const api = baseApi();
     const [groupedLessons, setGroupedLessons] = useState({});
     const [keyboardLayout, setKeyboardLayout] = useState('qwerty');
-    const [selectedTopic, setSelectedTopic] = useState(''); 
-    const [completedLessons, setCompletedLessons] = useState([]); 
-    
+    const [selectedTopic, setSelectedTopic] = useState('');
+    const [completedLessons, setCompletedLessons] = useState([]);
+
     useEffect(() => {
         const fetchLessons = async () => {
             try {
                 const response = await api.get('/lessons/all', { withCredentials: true });
                 const lessons = response.data.lessons;
                 setCompletedLessons(response.data.completed_lessons);
-                
+
                 const grouped = lessons.reduce((acc, lesson) => {
                     const topic = lesson.topic || 'Uncategorized';
                     if (!acc[topic]) {
@@ -49,24 +48,20 @@ const LessonLists = ({userTypingData}) => {
             }
         };
 
-
-      
         fetchSettings();
         fetchLessons();
     }, []);
     console.log("user lessons on list", userTypingData);
 
-    
-
     return (
         <Container fluid>
-            <Row>
+            <Row className="align-items-start">
                 {/* Vertical Navbar for topics */}
-                <Col xs={12} md={3} xl={2} >
+                <Col xs={12} md={3} xl={2}>
                     <div className="nav-column">
                         {Object.keys(groupedLessons).map(topic => (
-                            <Button 
-                                active={topic === selectedTopic} 
+                            <Button
+                                active={topic === selectedTopic}
                                 onClick={() => setSelectedTopic(topic)}
                                 className='topic-button'
                                 key={topic}

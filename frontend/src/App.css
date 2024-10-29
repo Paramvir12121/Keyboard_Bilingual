@@ -688,10 +688,11 @@ a:hover {
   margin-top: 3rem;
   background-color: rgba(44, 44, 44, 0.8); 
   padding: 1rem;
+  padding-bottom: 10rem;
   /* border: 1px solid var(--primary-color);  */
   border-radius: var(--std-border-radius); /* Slightly rounded corners */
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  */
-  height: calc(100vh - 3rem); /* Make the sidebar fill most of the screen height */
+  /* height: calc(100vh - 3rem);  */
   overflow-y: auto; /* Enable scrolling for long lists */
   position: sticky;
   top: 3rem;
