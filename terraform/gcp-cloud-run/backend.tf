@@ -35,6 +35,11 @@ resource "google_cloud_run_service" "backend_service" {
           name       = var.secret_volume_name # Must match the volume name
         }
       }
+      # Define environment variables
+      env {
+        name  = "SUPABASE_URI_SECONDARY"
+        value = var.database_uri 
+      }
 
       # Define volumes block for secret mount
       volumes {
