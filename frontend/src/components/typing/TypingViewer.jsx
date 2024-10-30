@@ -6,6 +6,7 @@ import ResultNavbar from './results/ResultNavbar';
 import KeyboardSelection from './keyboardSelection/KeyboardSelection';
 import { ToKeyId } from '../keyboard/ToKeyId';
 import { FromKeyId } from '../keyboard/FromKeyId';
+import { Card } from 'react-bootstrap';
 
 const TypingViewer = ({ words, lessonId }) => {
   const [displayText, setDisplayText] = useState('');
@@ -176,7 +177,16 @@ const TypingViewer = ({ words, lessonId }) => {
 
   return (
     <>      
-      {timerRef.current && <p>Time Elapsed: {elapsedTime} seconds</p>}
+       {/* Timer Card Component */}
+       
+       <Card className="timer-card">
+        <Card.Body>
+          <Card.Text>
+          Session: {elapsedTime} sec
+          </Card.Text>
+        </Card.Body>
+      </Card>
+      
       {lessonEnded ? 
         <>
         <Results stats={results} lessonId={lessonId}  /> 

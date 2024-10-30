@@ -269,6 +269,19 @@ a:hover {
   margin-bottom: 1rem;
 }
 
+.timer-card {
+  background-color: var(--tertiary-color); /* Dark Slate Grey */
+  color: var(--text-color); /* White */
+  border-radius: var(--std-border-radius);
+  font-size: 1rem;
+  text-wrap: nowrap;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-bottom: 1rem;
+  display: inline-block; /* Makes the card size fit its content */
+  margin-left: 0; /* Aligns the card to the left */
+}
+
 
 .character {
   display: inline-block;

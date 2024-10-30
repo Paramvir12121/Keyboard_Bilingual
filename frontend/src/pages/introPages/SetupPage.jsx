@@ -3,6 +3,8 @@ import Card from 'react-bootstrap/Card';
 import useFetchSettings from '../../hooks/useFetchSettings';
 import { useNavigate } from 'react-router-dom';
 import baseApi from '../../hooks/baseApi';
+import ROUTES from '../../Routes'; 
+import Cookies from 'js-cookie';
 
 const keyboardLayouts = [
   { name: "QWERTY", code: "qwerty", description: "Standard layout commonly used worldwide." },
@@ -36,31 +38,46 @@ const SetupPage = () => {
       alert("Please select both the layout you want to learn and your current keyboard layout.");
       return;
     }
-
+  
     const newSettings = {
       user_learning_layout: learningLayout,
       keyboard_layout: currentLayout,
       typing_speed_goal: parseInt(speedGoal, 10),
-      // Include other default settings as needed
+      show_keyboard: true, // Ensure this matches your intended default
+      font_size: 'medium',
+      key_press_sound: true,
+      completion_sound: true,
+      error_sound: true,
+      background_music_enabled: true,
+      background_music_volume: 0.5,
+      show_success_rate: true,
+      show_average_time: true,
+      enable_error_heatmap: true,
+      accuracy_goal: 90,
+      custom_lessons: [],
+      email_notifications: true,
+      app_notifications: true,
+      reminders_enabled: true,
+      reminders_time: '18:00'
     };
-
+  
     try {
       await updateSettings(newSettings);
-      console.log("Settings updated successfully");
-
+      Cookies.set('settings', JSON.stringify(newSettings), { expires: 365 });
+      console.log("Settings updated and cookie set successfully");
+  
       // Fetch lessons after updating settings
       const response = await api.get('/lessons/all', { withCredentials: true });
       const lessons = response.data.lessons;
-
+  
       if (lessons && lessons.length > 0) {
-        // Filter lessons based on the selected learning layout
         const filteredLessons = lessons.filter(
           lesson => lesson.keyboard_type === learningLayout || lesson.keyboard_type === 'all'
         );
-
+  
         if (filteredLessons.length > 0) {
           const firstLessonId = filteredLessons[0].id;
-          navigate(`/lesson/${firstLessonId}`); // Use the correct path
+          navigate(ROUTES.LESSON_PAGE(firstLessonId));
         } else {
           alert("No lessons found for the selected keyboard layout.");
         }
