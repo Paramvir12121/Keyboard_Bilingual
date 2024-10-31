@@ -1044,3 +1044,18 @@ footer {
 }
 
 /* <<<<<<<<<<<<<<<<<<Keyboard Container>>>>>>>>>>>>>>>>>>>> */
+
+
+/* Custom modal styling */
+.custom-modal .modal-dialog {
+  max-width: 80%; /* Adjust the percentage to control modal width */
+  margin: auto;
+}
+
+.custom-modal .modal-content {
+  border-radius: 10px;
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
+}

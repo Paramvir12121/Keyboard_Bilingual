@@ -1,19 +1,20 @@
+// SetupPage.jsx
 import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import useFetchSettings from '../../hooks/useFetchSettings';
 import { useNavigate } from 'react-router-dom';
 import baseApi from '../../hooks/baseApi';
-import ROUTES from '../../Routes'; 
+import ROUTES from '../../Routes';
 import Cookies from 'js-cookie';
 
 const keyboardLayouts = [
-  { name: "QWERTY", code: "qwerty", description: "Standard layout commonly used worldwide." },
-  { name: "Colemak", code: "colemak", description: "Optimized for comfort, reducing finger movement." },
-  { name: "Dvorak", code: "dvorak", description: "Optimized for speed and typing efficiency." },
-  { name: "Workman", code: "workman", description: "Designed to minimize finger travel distance." }
+  { name: 'QWERTY', code: 'qwerty', description: 'Standard layout commonly used worldwide.' },
+  { name: 'Colemak', code: 'colemak', description: 'Optimized for comfort, reducing finger movement.' },
+  { name: 'Dvorak', code: 'dvorak', description: 'Optimized for speed and typing efficiency.' },
+  { name: 'Workman', code: 'workman', description: 'Designed to minimize finger travel distance.' },
 ];
 
-const SetupPage = () => {
+const SetupPage = ({ closeOverlay }) => {
   const navigate = useNavigate();
   const { updateSettings } = useFetchSettings(false);
   const api = baseApi();
@@ -35,10 +36,10 @@ const SetupPage = () => {
 
   const handleSubmit = async () => {
     if (!currentLayout || !learningLayout) {
-      alert("Please select both the layout you want to learn and your current keyboard layout.");
+      alert('Please select both the layout you want to learn and your current keyboard layout.');
       return;
     }
-  
+
     const newSettings = {
       user_learning_layout: learningLayout,
       keyboard_layout: currentLayout,
@@ -60,32 +61,37 @@ const SetupPage = () => {
       reminders_enabled: true,
       reminders_time: '18:00'
     };
-  
+
     try {
       await updateSettings(newSettings);
       Cookies.set('settings', JSON.stringify(newSettings), { expires: 365 });
-      console.log("Settings updated and cookie set successfully");
-  
-      // Fetch lessons after updating settings
+      console.log('Settings updated and cookie set successfully');
+
+      // Close the overlay
+      if (closeOverlay) {
+        closeOverlay();
+      }
+
+      // Navigate to the first lesson
       const response = await api.get('/lessons/all', { withCredentials: true });
       const lessons = response.data.lessons;
-  
+
       if (lessons && lessons.length > 0) {
         const filteredLessons = lessons.filter(
-          lesson => lesson.keyboard_type === learningLayout || lesson.keyboard_type === 'all'
+          (lesson) => lesson.keyboard_type === learningLayout || lesson.keyboard_type === 'all'
         );
-  
+
         if (filteredLessons.length > 0) {
           const firstLessonId = filteredLessons[0].id;
           navigate(ROUTES.LESSON_PAGE(firstLessonId));
         } else {
-          alert("No lessons found for the selected keyboard layout.");
+          alert('No lessons found for the selected keyboard layout.');
         }
       } else {
-        alert("No lessons found.");
+        alert('No lessons found.');
       }
     } catch (error) {
-      console.error("Error updating settings or fetching lessons:", error);
+      console.error('Error updating settings or fetching lessons:', error);
     }
   };
 
@@ -95,7 +101,15 @@ const SetupPage = () => {
 
       {/* Step 1: Select Layout to Learn */}
       <h3>Select the Layout You Want to Learn</h3>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '20px' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          gap: '20px',
+          marginBottom: '20px',
+        }}
+      >
         {keyboardLayouts.map((layout) => (
           <Card
             key={layout.name}
@@ -105,7 +119,7 @@ const SetupPage = () => {
               padding: '20px',
               width: '200px',
               cursor: 'pointer',
-              borderRadius: '8px'
+              borderRadius: '8px',
             }}
           >
             <h4>{layout.name}</h4>
@@ -119,7 +133,15 @@ const SetupPage = () => {
       {learningLayout && (
         <>
           <h3>Select Layout of Keyboard You Are Currently Using</h3>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '20px' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              gap: '20px',
+              marginBottom: '20px',
+            }}
+          >
             {keyboardLayouts.map((layout) => (
               <Card
                 key={layout.name}
@@ -129,7 +151,7 @@ const SetupPage = () => {
                   padding: '20px',
                   width: '200px',
                   cursor: 'pointer',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
                 }}
               >
                 <h4>{layout.name}</h4>
@@ -144,7 +166,15 @@ const SetupPage = () => {
       {learningLayout && currentLayout && (
         <>
           <h3>Set Your Typing Speed Goal (WPM)</h3>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '20px' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '10px',
+              marginBottom: '20px',
+            }}
+          >
             <span>30</span>
             <input
               type="range"
@@ -162,7 +192,10 @@ const SetupPage = () => {
 
       {/* Submit Button */}
       {learningLayout && currentLayout && (
-        <button onClick={handleSubmit} style={{ padding: '10px 20px', fontSize: '16px' }}>
+        <button
+          onClick={handleSubmit}
+          style={{ padding: '10px 20px', fontSize: '16px' }}
+        >
           Start your first lesson
         </button>
       )}
