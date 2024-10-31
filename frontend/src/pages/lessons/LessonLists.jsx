@@ -16,6 +16,10 @@ const LessonLists = ({ userTypingData }) => {
             try {
                 const response = await api.get('/lessons/all', { withCredentials: true });
                 const lessons = response.data.lessons;
+                const completedLessons = response.data.completed_lessons;
+                const completePercetnage = response.data.completion_percentage;
+                console.log("completePercetnage", completePercetnage);
+                Cookies.set('completePercentage', completePercetnage);
                 setCompletedLessons(response.data.completed_lessons);
 
                 const grouped = lessons.reduce((acc, lesson) => {

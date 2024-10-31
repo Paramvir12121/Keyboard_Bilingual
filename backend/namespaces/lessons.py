@@ -60,7 +60,6 @@ def lesson_to_dict(lesson):
         # 'success_rate': lesson.success_rate
     }
 
-
 ########################### Functions ################################
 
 def payment_required(f):
@@ -161,10 +160,16 @@ class LessonList(Resource):
         completed_lessons = list(set(completed_lessons)) 
         # sort the completed lessons
         completed_lessons.sort()
+        # Calculate the completion percentage
+        total_lessons = len(lessons)
+        completed_count = len(completed_lessons)
+        complete_percent = (completed_count / total_lessons) * 100 if total_lessons > 0 else 0
+        complete_percent = int(round(complete_percent, 2))
+
         # # Remove duplicates in case of multiple completions
         # You can return the lessons and completed lessons as needed
         lessons_data = [lesson_to_dict(lesson) for lesson in lessons]
-        data = {"lessons": lessons_data, "completed_lessons": completed_lessons}
+        data = {"lessons": lessons_data, "completed_lessons": completed_lessons, "completion_percentage": complete_percent}
         return data, 200
 
 

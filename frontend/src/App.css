@@ -1135,3 +1135,97 @@ footer {
   background: #ddd;
   border-radius: 5px;
 }
+
+
+/* <<<<<<<<<<< USER PROFILE STYLING >>>>>>>>>>>>> */
+
+/* User Profile Component Styling */
+
+.user-profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: var(--padding-container);
+ 
+}
+
+.profile-title {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  font-family: var(--header-font);
+  text-align: center;
+}
+
+.profile-card {
+  max-width: 500px;
+  width: 100%;
+  padding: var(--padding-card);
+  background-color: var(--tertiary-color);
+  color: var(--text-color);
+  border-radius: var(--std-border-radius);
+  box-shadow: var(--button-shadow);
+  text-align: center;
+}
+
+.profile-header {
+  font-size: 1.75rem;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.profile-details {
+  font-size: 1rem;
+  color: var(--text-dim-color);
+  margin: 10px 0;
+}
+
+.error-message {
+  color: var(--error-color);
+  text-align: center;
+}
+
+.loading-message {
+  color: var(--text-dim-color);
+  text-align: center;
+}
+
+/* Delete Profile Button */
+.delete-profile-btn {
+  background-color: var(--error-color);
+  color: var(--text-color);
+  padding: var(--padding-button);
+  border: none;
+  border-radius: var(--button-radius);
+  transition: var(--transition-ease);
+  box-shadow: var(--button-shadow);
+}
+
+.delete-profile-btn:hover {
+  background-color: #c82333; /* Slightly darker shade for hover effect */
+  box-shadow: var(--button-hover-shadow);
+  transform: translateY(var(--button-hover-lift));
+}
+
+
+/* <<<<<<<<<<< USER PROFILE STYLING >>>>>>>>>>>>> */
+
+/* Stripe Payment Modal */
+.profile-card {
+  background-color: var(--tertiary-color);
+  color: var(--text-color);
+  border-radius: var(--std-border-radius);
+  padding: var(--padding-card);
+  text-align: center;
+}
+
+.product .description h3 {
+  color: var(--primary-color);
+}
+
+.product .description p {
+  color: var(--text-dim-color);
+}
+

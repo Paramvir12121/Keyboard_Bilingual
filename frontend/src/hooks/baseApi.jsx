@@ -55,19 +55,19 @@
 import axios from 'axios';
 
 const baseApi = () => {
-     const baseURL =
-        window._env_ && window._env_.VITE_API_URL
-            ? window._env_.VITE_API_URL
-            : 'https://backend-service-4r3uedulzq-ue.a.run.app';
+    //  const baseURL =
+    //     window._env_ && window._env_.VITE_API_URL
+    //         ? window._env_.VITE_API_URL
+    //         : 'https://backend-service-4r3uedulzq-ue.a.run.app';
 
 
     // for local testing use the following
-    // const baseURL =
-    //     typeof window._env_ !== 'undefined' &&
-    //     window._env_.VITE_API_URL &&
-    //     window._env_.VITE_API_URL !== '%VITE_API_URL%'
-    //         ? window._env_.VITE_API_URL
-    //         : import.meta.env.VITE_API_URL || 'https://backend-service-743073512588.us-east1.run.app';
+    const baseURL =
+        typeof window._env_ !== 'undefined' &&
+        window._env_.VITE_API_URL &&
+        window._env_.VITE_API_URL !== '%VITE_API_URL%'
+            ? window._env_.VITE_API_URL
+            : import.meta.env.VITE_API_URL || 'https://backend-service-743073512588.us-east1.run.app';
 
     const maxRetries = 3;
 
@@ -82,9 +82,9 @@ const baseApi = () => {
     });
 
  
-    console.log('VITE_API_URL from import.meta.env:', import.meta.env.VITE_API_URL);
-    console.log('VITE_API_URL from window._env_:', window._env_ ? window._env_.VITE_API_URL : 'undefined');
-    console.log('Final baseURL:', baseURL);
+    // console.log('VITE_API_URL from import.meta.env:', import.meta.env.VITE_API_URL);
+    // console.log('VITE_API_URL from window._env_:', window._env_ ? window._env_.VITE_API_URL : 'undefined');
+    // console.log('Final baseURL:', baseURL);
 
     return api;
 };
