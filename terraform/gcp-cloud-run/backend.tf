@@ -14,20 +14,30 @@ data "google_secret_manager_secret_version" "my_secret_version" {
 resource "google_cloud_run_service" "backend_service" {
   name     = "backend-service"
   location = var.region
+  
 
   template {
     spec {
       containers {
         image = "${var.region}-docker.pkg.dev/${var.project_id}/${var.artifact_repo}/backend_image:latest"
+        # Define environment variables
+        env {
+        name  = "SUPABASE_URI_SECONDARY"
+        value = var.database_uri 
+      }
         ports {
           container_port = 5000
         }
+        
         resources {
           limits = {
             cpu    = "1"
             memory = "256Mi"
           }
+          
         }
+        
+        
 
         # Mount the secret as a volume
         volume_mounts {
@@ -35,11 +45,7 @@ resource "google_cloud_run_service" "backend_service" {
           name       = var.secret_volume_name # Must match the volume name
         }
       }
-      # Define environment variables
-      env {
-        name  = "SUPABASE_URI_SECONDARY"
-        value = var.database_uri 
-      }
+      
 
       # Define volumes block for secret mount
       volumes {
