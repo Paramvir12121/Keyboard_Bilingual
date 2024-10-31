@@ -1,14 +1,15 @@
 // Dashboard.jsx
 import React, { useEffect, useState } from 'react';
-import Graphs from "./components/Graphs";
+import Graphs from './components/Graphs';
 import LessonLists from '../lessons/LessonLists';
 import Loading from '../../components/common/Loading';
 import FirstLoginMessage from '../../components/firstLogin/FirstLoginMessage';
 import SetupPage from '../introPages/SetupPage';
 import { getUserLesonData } from '../../hooks/getUserStats';
 import useFetchSettings from '../../hooks/useFetchSettings';
+import FirstLoginModal from './components/FirstLoginModal';
 
-import Modal from 'react-bootstrap/Modal'; // Import Modal
+
 
 const Dashboard = () => {
   const [userTypingData, setUserTypingData] = useState(null);
@@ -21,23 +22,25 @@ const Dashboard = () => {
       try {
         const data = await getUserLesonData();
         setUserTypingData(data);
+
+        // Show the FirstLoginMessage modal only if userTypingData is empty
+        if (!data || data.length === 0) {
+          setShowFirstLoginModal(true);
+        } else {
+          setShowFirstLoginModal(false);
+        }
       } catch (error) {
         console.error('Error fetching typing data:', error);
       }
     };
     fetchTypingData();
-
-    // Show FirstLoginMessage if user hasn't completed setup
-    if (userSettingsData && !userSettingsData.setupComplete) {
-      setShowFirstLoginModal(true);
-    }
-  }, [userSettingsData]);
+  }, []);
 
   if (error) {
     return <div>Error fetching settings: {error.message}</div>;
   }
 
-  if (!userSettingsData || !userTypingData) {
+  if (!userSettingsData || userTypingData === null) {
     return <Loading />;
   }
 
@@ -49,39 +52,7 @@ const Dashboard = () => {
       </div>
 
       {/* FirstLoginMessage Modal */}
-      <Modal
-        show={showFirstLoginModal}
-        onHide={() => setShowFirstLoginModal(false)}
-        centered
-        backdrop="static"
-        keyboard={false}
-        dialogClassName="custom-modal"
-      >
-        <Modal.Body>
-          <FirstLoginMessage
-            closeOverlay={() => setShowFirstLoginModal(false)}
-            startSetup={() => {
-              setShowFirstLoginModal(false);
-              setShowSetupModal(true);
-            }}
-          />
-        </Modal.Body>
-      </Modal>
-
-      {/* SetupPage Modal */}
-      <Modal
-        show={showSetupModal}
-        onHide={() => setShowSetupModal(false)}
-        centered
-        backdrop="static"
-        keyboard={false}
-        size="lg"
-        dialogClassName="custom-modal"
-      >
-        <Modal.Body>
-          <SetupPage closeOverlay={() => setShowSetupModal(false)} />
-        </Modal.Body>
-      </Modal>
+      <FirstLoginModal showFirstLoginModal={showFirstLoginModal} setShowFirstLoginModal={setShowFirstLoginModal} showSetupModal={showSetupModal} setShowSetupModal={setShowSetupModal} />
     </div>
   );
 };
