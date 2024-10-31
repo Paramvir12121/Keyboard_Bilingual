@@ -115,7 +115,7 @@ const SetupPage = ({ closeOverlay }) => {
             key={layout.name}
             onClick={() => handleLearningLayoutSelection(layout.code)}
             style={{
-              border: learningLayout === layout.code ? '2px solid green' : '1px solid #ddd',
+              border: learningLayout === layout.code ? '3px solid var(--primary-color)' : '1px solid #ddd',
               padding: '20px',
               width: '200px',
               cursor: 'pointer',
@@ -147,7 +147,7 @@ const SetupPage = ({ closeOverlay }) => {
                 key={layout.name}
                 onClick={() => handleCurrentLayoutSelection(layout.code)}
                 style={{
-                  border: currentLayout === layout.code ? '2px solid blue' : '1px solid #ddd',
+                  border: currentLayout === layout.code ? '3px solid var(--primary-color)' : '1px solid #ddd',
                   padding: '20px',
                   width: '200px',
                   cursor: 'pointer',
@@ -177,12 +177,17 @@ const SetupPage = ({ closeOverlay }) => {
           >
             <span>30</span>
             <input
+            className="primary-slider"
               type="range"
               min="30"
               max="100"
               value={speedGoal}
+              step="5"
+              // I want the slider color to be the primary color
+              // so I added the following style attribute
+              style={{ width: '350px'}}
               onChange={handleSpeedGoalChange}
-              style={{ width: '200px' }}
+              
             />
             <span>100</span>
           </div>

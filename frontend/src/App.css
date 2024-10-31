@@ -1059,3 +1059,79 @@ footer {
 .modal-backdrop {
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
 }
+
+/* Define the slider track and thumb with consistent shape and size */
+.primary-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px; /* Adjust the height of the slider track */
+  background: #ddd; /* Background color for the track */
+  border-radius: 5px;
+  outline: none;
+}
+
+/* WebKit Browsers (e.g., Chrome, Safari) */
+.primary-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px; /* Adjust width of thumb */
+  height: 16px; /* Adjust height of thumb */
+  background: var(--primary-color); /* Use primary color */
+  border-radius: 50%; /* Make the thumb circular */
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); /* Optional shadow for a 3D effect */
+  margin-top: -4px; /* Align thumb vertically to the center of the track */
+}
+
+.primary-slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  background: var(--primary-color); /* Track color */
+  border-radius: 5px;
+}
+
+/* Mozilla Browsers (e.g., Firefox) */
+.primary-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none; /* Remove default border in Firefox */
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  margin-top: -4px; /* Align thumb vertically to the center of the track */
+}
+
+.primary-slider::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  background: #ddd; /* Background color for the track */
+  border-radius: 5px;
+}
+
+/* Microsoft Edge and IE */
+.primary-slider::-ms-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: 0px; /* Adjust as needed for vertical alignment */
+}
+
+.primary-slider::-ms-track {
+  width: 100%;
+  height: 8px;
+  background: #ddd;
+  border-color: transparent;
+  color: transparent;
+}
+
+.primary-slider::-ms-fill-lower {
+  background: var(--primary-color);
+  border-radius: 5px;
+}
+
+.primary-slider::-ms-fill-upper {
+  background: #ddd;
+  border-radius: 5px;
+}
