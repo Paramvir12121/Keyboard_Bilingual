@@ -103,7 +103,6 @@ const LandingPage = () => {
       {/* Footer Section */}
       <footer id="footer" className="footer">
         <Container>
-          <p>&copy; 2024 Keyboard Bilingual. All rights reserved.</p>
           <Link to="/signup" className="btn btn-primary cta-button">
             Try It Free
           </Link>
@@ -117,15 +116,15 @@ const features = [
   { title: 'Dual Proficiency', description: 'Master a new keyboard layout without forgetting the old one.' },
   { title: 'Flexible Learning', description: 'Practice any keyboard style on your existing hardware.' },
   { title: 'Seamless Transition', description: 'Switch between layouts effortlessly as you become more comfortable.' },
-  { title: 'Customizable Lessons', description: 'Tailor your learning experience with personalized lessons.' },
+  { title: 'Tailored Lessons', description: 'Tailor your learning experience with lessons best tailored to learinig each format.' },
   { title: 'Interactive Exercises', description: 'Engage with fun and challenging exercises to build muscle memory.' },
-  { title: 'Progress Tracking', description: 'Monitor your improvement with detailed statistics and milestones.' },
+  { title: 'Progress Tracking', description: 'Monitor your improvement with statistics and milestones.' },
 ];
 
 const testimonials = [
-  { text: 'Keyboard Bilingual helped me master Colemak in weeks!', author: 'John D.' },
-  { text: 'The customizable lessons are a game changer.', author: 'Sarah P.' },
-  { text: 'My typing speed and accuracy improved significantly.', author: 'Emily R.' },
+  { text: 'Simple and Amazing! It is a joy to work with and best thing, I can check my porgress on mobile too.', author: 'Anjali Anjali' },
+  { text: 'The customizable lessons are a game changer.', author: 'Sarah' },
+  { text: 'My typing speed and accuracy improved significantly.', author: 'Emily' },
 ];
 
 export default LandingPage;

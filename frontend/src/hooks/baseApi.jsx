@@ -62,12 +62,14 @@ const baseApi = () => {
 
 
     // for local testing use the following
-    const baseURL =
-        typeof window._env_ !== 'undefined' &&
-        window._env_.VITE_API_URL &&
-        window._env_.VITE_API_URL !== '%VITE_API_URL%'
-            ? window._env_.VITE_API_URL
-            : import.meta.env.VITE_API_URL || 'https://backend-service-743073512588.us-east1.run.app';
+    // const baseURL =
+    //     typeof window._env_ !== 'undefined' &&
+    //     window._env_.VITE_API_URL &&
+    //     window._env_.VITE_API_URL !== '%VITE_API_URL%'
+    //         ? window._env_.VITE_API_URL
+    //         : import.meta.env.VITE_API_URL || 'https://backend-service-743073512588.us-east1.run.app';
+
+    const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
     const maxRetries = 3;
 

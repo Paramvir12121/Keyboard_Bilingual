@@ -11,10 +11,32 @@ import Button from 'react-bootstrap/Button';
 const ConfirmEmail = () => {
     const [error, setError] = useState(''); // Error state
     const [verificationCode, setVerificationCode] = useState('');
+    const [username, setUsername] = useState('');
     const navigate = useNavigate();
 
     const handleVerificationCodeChange = (e) => {
         setVerificationCode(e.target.value);
+    };
+
+    const handleUsernameChange = (e) => {
+        // first get username from cookie  
+        Cookies.get('signup_username');
+        if (Cookies.get('signup_username')) {
+            // set the username in the input field
+            setUsername(Cookies.get('signup_username'));
+        }else
+        {
+            setUsername(e.target.value);
+        } 
+    };
+    
+    const handleUsernamePlaceholder = () => {
+        if (Cookies.get('signup_username')) {
+            return Cookies.get('signup_username');
+        }else
+        {
+            return 'Enter username';
+        }
     };
 
     const handleResendCode = async (e) => {
@@ -51,7 +73,13 @@ const ConfirmEmail = () => {
     return (
         <>
         <Card className="shadow p-4">
+            
             <h1>Confirm Email</h1>
+            <input 
+                type="text" 
+                value={handleUsernameChange} 
+                placeholder={handleUsernamePlaceholder}
+            />
             <input 
                 type="text" 
                 value={verificationCode} 
