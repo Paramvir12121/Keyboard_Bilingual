@@ -160,29 +160,37 @@ class SignUp(Resource):
     @auth_ns.expect(signup_model)
     def post(self):
         data = request.get_json()
-        print("Singup request for data: ",data.get('username'))
+        print("Signup request for data: ", data.get('username'))
+        
         if not data:
             return jsonify({"error": "No data provided"}), 400
+
         password = str(data.get('password'))
         email = str(data.get('email'))
         username = data.get('username')
+        
         existing_user_by_email = User.query.filter_by(email=email).first()
-        print("existing user by email: ",existing_user_by_email)
         existing_user_by_username = User.query.filter_by(username=username).first()
+        
         if existing_user_by_email:
-            return {'message': 'Email already exists.'}, 400
+            print("Email already exists")
+            return {'message': 'Email already exists.'}, 409
         if existing_user_by_username:
-            return {'message': 'Username already exists.'}, 400
+            print("Username already exists")
+
+            return {'message': 'Username already exists.'}, 409
+        
         client = get_cognito_client()
         client_id = current_app.config['COGNITO_CLIENT_ID']
         client_secret = current_app.config['COGNITO_CLIENT_SECRET']
         secret_hash = get_secret_hash(username, client_id, client_secret)
-        
+
         try:
+            # Attempt to sign up the user
             response = client.sign_up(
-                ClientId=current_app.config['COGNITO_CLIENT_ID'],
+                ClientId=client_id,
                 SecretHash=secret_hash,
-                Username=username,  # Using email as the username
+                Username=username,
                 Password=password,
                 UserAttributes=[
                     {'Name': 'email', 'Value': email},
@@ -190,11 +198,33 @@ class SignUp(Resource):
                 ],
             )
             
-            print(response)
+            print("singup succesful for ", username)
+            print("response: ",response)
             return response, 200
+
+        except client.exceptions.UsernameExistsException:
+            print("ClientError: Username already exists",  client.exceptions)
+            # User already exists, send a resend confirmation code instead\
+            print("User already exists. Resending confirmation code.")
+            try:
+                resend_response = client.resend_confirmation_code(
+                    ClientId=client_id,
+                    SecretHash=secret_hash,
+                    Username=username,
+                )
+                print("resend_response: ",resend_response)
+                return {'message': 'User already exists. Confirmation code resent.'}, 200
+            except client.exceptions.ClientError as resend_error:
+                print("Error resending confirmation code:", resend_error)
+                return handle_cognito_error(resend_error)
+        
         except client.exceptions.ClientError as error:
-            print(error)
+            print("Signup Error:", error)
             return handle_cognito_error(error)
+        except client.exceptions.TooManyRequestsException:
+            # Handle rate-limiting error
+            return {'message': 'Too many requests. Please try again later.'}, 429
+
 
 @auth_ns.route('/signup_resend_code')
 class SignupResendCode(Resource):

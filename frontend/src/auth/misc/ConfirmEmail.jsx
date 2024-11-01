@@ -7,36 +7,15 @@ import Cookies from 'js-cookie';
 import ROUTES from '../../Routes'; // Importing ROUTES for navigation
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const ConfirmEmail = () => {
     const [error, setError] = useState(''); // Error state
     const [verificationCode, setVerificationCode] = useState('');
-    const [username, setUsername] = useState('');
     const navigate = useNavigate();
 
     const handleVerificationCodeChange = (e) => {
         setVerificationCode(e.target.value);
-    };
-
-    const handleUsernameChange = (e) => {
-        // first get username from cookie  
-        Cookies.get('signup_username');
-        if (Cookies.get('signup_username')) {
-            // set the username in the input field
-            setUsername(Cookies.get('signup_username'));
-        }else
-        {
-            setUsername(e.target.value);
-        } 
-    };
-    
-    const handleUsernamePlaceholder = () => {
-        if (Cookies.get('signup_username')) {
-            return Cookies.get('signup_username');
-        }else
-        {
-            return 'Enter username';
-        }
     };
 
     const handleResendCode = async (e) => {
@@ -58,7 +37,6 @@ const ConfirmEmail = () => {
             console.log('Verification Code:', verificationCode);
             const response = await api.post('/auth/signup_confirmation', { email, verificationCode, username });
 
-
             if (response.status === 200) {
                 Cookies.remove('signup_email');
                 Cookies.remove('signup_username');
@@ -71,31 +49,31 @@ const ConfirmEmail = () => {
     };
 
     return (
-        <>
-        <Card className="shadow p-4">
-            
-            <h1>Confirm Email</h1>
-            <input 
-                type="text" 
-                value={handleUsernameChange} 
-                placeholder={handleUsernamePlaceholder}
-            />
-            <input 
-                type="text" 
-                value={verificationCode} 
-                onChange={handleVerificationCodeChange} 
-                placeholder="Enter verification code" 
-            />
-            <br />  
-            
-            <div className="d-flex justify-content-start gap-2 mt-3">
-        <Button onClick={handleConfirmEmail} size="sm" className="w-auto">Confirm</Button>
-        <Button onClick={handleResendCode} size="sm" className="w-auto">Resend Code</Button>
-    </div>
-            
-            {error && <ErrorMessage message={error} />}
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
+            <Card className="shadow p-4" style={{ maxWidth: '500px', width: '100%' }}>
+                <Card.Body>
+                    <h2 className="text-center mb-4">Confirm Email</h2>
+                    <Form>
+                        <Form.Group controlId="verificationCode" className="mb-3">
+                            <Form.Label>Verification Code</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter verification code"
+                                value={verificationCode}
+                                onChange={handleVerificationCodeChange}
+                            />
+                        </Form.Group>
+
+                        <div className="d-flex justify-content-center gap-2 mt-3">
+                            <Button onClick={handleConfirmEmail} size="sm" className="w-auto">Confirm</Button>
+                            <Button onClick={handleResendCode} size="sm" variant="secondary" className="w-auto">Resend Code</Button>
+                        </div>
+                        
+                        {error && <ErrorMessage message={error} />}
+                    </Form>
+                </Card.Body>
             </Card>
-        </>
+        </div>
     );
 };
 

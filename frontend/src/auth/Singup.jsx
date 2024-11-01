@@ -82,7 +82,27 @@ const Signup = () => {
             }
         } catch (error) {
             console.error('Error during signup:', error);
-            setErrorMessage(error.response?.data?.message || 'An error occurred during signup.');
+            
+            // Determine error message based on HTTP status code
+            let errorResponseMessage = 'An error occurred during signup.';
+            switch (error.response?.status) {
+                case 400:
+                    errorResponseMessage = error.response?.data?.message || 'Invalid signup data provided.';
+                    break;
+                case 409:
+                    errorResponseMessage = 'User already exists. Please confirm your email or use a different account.';
+                    break;
+                case 429:
+                    errorResponseMessage = 'Too many requests. Please try again later.';
+                    break;
+                case 500:
+                    errorResponseMessage = 'Internal server error. Please try again later.';
+                    break;
+                default:
+                    errorResponseMessage = error.response?.data?.message || errorResponseMessage;
+                    break;
+            }
+            setErrorMessage(errorResponseMessage);
         } finally {
             setLoading(false);
         }
