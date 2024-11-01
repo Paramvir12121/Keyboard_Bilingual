@@ -469,4 +469,5 @@ class GetUserProfile(Resource):
         if not user:
             return {"message": "User not found"}, 404
         print("profile seen")
+        
         return {"username": user.username, "email": user.email,"subscriber": user.has_paid }, 200

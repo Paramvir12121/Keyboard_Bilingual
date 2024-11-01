@@ -42,14 +42,14 @@ const Header = () => {
                                 <FontAwesomeIcon icon={faUserCircle} size="lg" />
                             </Dropdown.Toggle>
                             <Dropdown.Menu className='custom-dropdown-menu'>
-                                <Dropdown.ItemText>
+                                <Dropdown.ItemText >
                                     <FontAwesomeIcon icon={faUser} className="me-2" /> {username}
                                 </Dropdown.ItemText>
                                 <Dropdown.ItemText>
                                     <FontAwesomeIcon icon={faEnvelope} className="me-2" /> {Cookies.get('email')}
                                 </Dropdown.ItemText>
                                 <Dropdown.Divider />
-                                <Dropdown.Item as={Link} to={ROUTES.PROFILE} className="text-dark">
+                                <Dropdown.Item as={Link} to={ROUTES.USER_PROFILE} className="text-dark">
                                     <FontAwesomeIcon icon={faUserCircle} size="lg" className="me-2" />
                                     Profile
                                 </Dropdown.Item>
