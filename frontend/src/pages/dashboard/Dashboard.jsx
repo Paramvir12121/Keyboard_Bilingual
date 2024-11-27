@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Graphs from './components/Graphs';
 import LessonLists from '../lessons/LessonLists';
 import Loading from '../../components/common/Loading';
-import FirstLoginMessage from '../../components/firstLogin/FirstLoginMessage';
-import SetupPage from '../introPages/SetupPage';
 import { getUserLesonData } from '../../hooks/getUserStats';
 import useFetchSettings from '../../hooks/useFetchSettings';
 import FirstLoginModal from './components/FirstLoginModal';
