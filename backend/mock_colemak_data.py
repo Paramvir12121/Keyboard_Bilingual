@@ -535,340 +535,340 @@ def add_colemak_lessons():
             "updated_at": datetime.utcnow()
         },
         # Number Row - Left Four Keys (1 2 3 4)
-        {
-            "title": "Number Row Left Four Keys Lesson 1",
-            "topic": "Number Row",
-            "subtopic": "Left Side",
-            "keyboard_type": "colemak",
-            "description": "Learn the basics of the number row left four keys (1-4) on the Colemak keyboard.",
-            "keys": "1 2 3 4",
-            "words": [
-                "123", "132", "231", "124", "134", "234", "312", "241", "341", "213",
-                "321", "342", "143", "421", "431", "2413", "3142", "4123", "1342", "3241",
-                "4321", "1243", "1324", "1423", "2134", "3214", "2412", "3124", "4231", "3412",
-                "2143", "1341", "4312", "2131", "2314", "3143", "4213", "2341", "4124", "3242"
-            ],
-            "difficulty": "easy",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Number Row Left Four Keys Lesson 2",
-            "topic": "Number Row",
-            "subtopic": "Left Side",
-            "keyboard_type": "colemak",
-            "description": "Practice using the number row left four keys with more complex combinations (1-4).",
-            "keys": "1 2 3 4",
-            "words": [
-                "1324", "3241", "2314", "3412", "1243", "4213", "1342", "2143", "3421", "2413",
-                "2134", "3214", "4321", "3142", "1241", "1321", "4123", "1432", "3413", "4231",
-                "2412", "2341", "3124", "4312", "3141", "3213", "1234", "1341", "2131", "4212",
-                "2414", "3243", "4313", "2141", "3422", "3144", "1322", "3414", "4322", "2142"
-            ],
-            "difficulty": "medium",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Number Row Left Four Keys Lesson 3",
-            "topic": "Number Row",
-            "subtopic": "Left Side",
-            "keyboard_type": "colemak",
-            "description": "Master the number row left four keys with challenging combinations (1-4).",
-            "keys": "1 2 3 4",
-            "words": [
-                "2413", "1243", "4312", "1324", "3412", "2134", "3142", "3214", "2412", "1231",
-                "2143", "4321", "4123", "1342", "3124", "3414", "2341", "4231", "4213", "3413",
-                "2411", "1323", "3144", "4322", "3243", "4313", "4124", "2131", "3421", "4312",
-                "1242", "3142", "1321", "2141", "2314", "4323", "3413", "3121", "4214", "3422"
-            ],
-            "difficulty": "hard",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
+        # {
+        #     "title": "Number Row Left Four Keys Lesson 1",
+        #     "topic": "Number Row",
+        #     "subtopic": "Left Side",
+        #     "keyboard_type": "colemak",
+        #     "description": "Learn the basics of the number row left four keys (1-4) on the Colemak keyboard.",
+        #     "keys": "1 2 3 4",
+        #     "words": [
+        #         "123", "132", "231", "124", "134", "234", "312", "241", "341", "213",
+        #         "321", "342", "143", "421", "431", "2413", "3142", "4123", "1342", "3241",
+        #         "4321", "1243", "1324", "1423", "2134", "3214", "2412", "3124", "4231", "3412",
+        #         "2143", "1341", "4312", "2131", "2314", "3143", "4213", "2341", "4124", "3242"
+        #     ],
+        #     "difficulty": "easy",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Number Row Left Four Keys Lesson 2",
+        #     "topic": "Number Row",
+        #     "subtopic": "Left Side",
+        #     "keyboard_type": "colemak",
+        #     "description": "Practice using the number row left four keys with more complex combinations (1-4).",
+        #     "keys": "1 2 3 4",
+        #     "words": [
+        #         "1324", "3241", "2314", "3412", "1243", "4213", "1342", "2143", "3421", "2413",
+        #         "2134", "3214", "4321", "3142", "1241", "1321", "4123", "1432", "3413", "4231",
+        #         "2412", "2341", "3124", "4312", "3141", "3213", "1234", "1341", "2131", "4212",
+        #         "2414", "3243", "4313", "2141", "3422", "3144", "1322", "3414", "4322", "2142"
+        #     ],
+        #     "difficulty": "medium",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Number Row Left Four Keys Lesson 3",
+        #     "topic": "Number Row",
+        #     "subtopic": "Left Side",
+        #     "keyboard_type": "colemak",
+        #     "description": "Master the number row left four keys with challenging combinations (1-4).",
+        #     "keys": "1 2 3 4",
+        #     "words": [
+        #         "2413", "1243", "4312", "1324", "3412", "2134", "3142", "3214", "2412", "1231",
+        #         "2143", "4321", "4123", "1342", "3124", "3414", "2341", "4231", "4213", "3413",
+        #         "2411", "1323", "3144", "4322", "3243", "4313", "4124", "2131", "3421", "4312",
+        #         "1242", "3142", "1321", "2141", "2314", "4323", "3413", "3121", "4214", "3422"
+        #     ],
+        #     "difficulty": "hard",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
 
-        # Number Row - Right Four Keys (5 6 7 8)
-        {
-            "title": "Number Row Right Four Keys Lesson 1",
-            "topic": "Number Row",
-            "subtopic": "Right Side",
-            "keyboard_type": "colemak",
-            "description": "Learn the basics of the number row right four keys (5-8) on the Colemak keyboard.",
-            "keys": "5 6 7 8",
-            "words": [
-                "567", "576", "758", "687", "568", "678", "758", "875", "586", "675",
-                "876", "785", "867", "6758", "8576", "7685", "5678", "8765", "6757", "7865",
-                "8578", "7568", "8767", "6756", "8657", "5676", "7586", "8768", "7687", "8576",
-                "8765", "8678", "5768", "7587", "6758", "8675", "7586", "5677", "6876", "7688"
-            ],
-            "difficulty": "easy",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Number Row Right Four Keys Lesson 2",
-            "topic": "Number Row",
-            "subtopic": "Right Side",
-            "keyboard_type": "colemak",
-            "description": "Practice using the number row right four keys with more complex combinations (5-8).",
-            "keys": "5 6 7 8",
-            "words": [
-                "7685", "8678", "7856", "5768", "6758", "8576", "6785", "8765", "7586", "5678",
-                "8675", "8768", "5677", "5765", "6756", "8677", "5768", "7865", "8578", "7658",
-                "8678", "7587", "6757", "5678", "7856", "8767", "8568", "7585", "6756", "8675",
-                "8765", "5676", "7685", "7867", "5675", "8677", "7858", "8765", "7686", "8768"
-            ],
-            "difficulty": "medium",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Number Row Right Four Keys Lesson 3",
-            "topic": "Number Row",
-            "subtopic": "Right Side",
-            "keyboard_type": "colemak",
-            "description": "Master the number row right four keys with challenging combinations (5-8).",
-            "keys": "5 6 7 8",
-            "words": [
-                "8675", "7586", "6758", "8765", "7856", "5768", "5677", "7685", "8768", "6578",
-                "7865", "7587", "8576", "7687", "8678", "6756", "5678", "7867", "6757", "8578",
-                "8765", "7658", "7585", "6578", "8677", "5765", "6758", "5768", "7587", "8675",
-                "7687", "6756", "7857", "8678", "7685", "8767", "6756", "7858", "8765", "8768"
-            ],
-            "difficulty": "hard",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
+        # # Number Row - Right Four Keys (5 6 7 8)
+        # {
+        #     "title": "Number Row Right Four Keys Lesson 1",
+        #     "topic": "Number Row",
+        #     "subtopic": "Right Side",
+        #     "keyboard_type": "colemak",
+        #     "description": "Learn the basics of the number row right four keys (5-8) on the Colemak keyboard.",
+        #     "keys": "5 6 7 8",
+        #     "words": [
+        #         "567", "576", "758", "687", "568", "678", "758", "875", "586", "675",
+        #         "876", "785", "867", "6758", "8576", "7685", "5678", "8765", "6757", "7865",
+        #         "8578", "7568", "8767", "6756", "8657", "5676", "7586", "8768", "7687", "8576",
+        #         "8765", "8678", "5768", "7587", "6758", "8675", "7586", "5677", "6876", "7688"
+        #     ],
+        #     "difficulty": "easy",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Number Row Right Four Keys Lesson 2",
+        #     "topic": "Number Row",
+        #     "subtopic": "Right Side",
+        #     "keyboard_type": "colemak",
+        #     "description": "Practice using the number row right four keys with more complex combinations (5-8).",
+        #     "keys": "5 6 7 8",
+        #     "words": [
+        #         "7685", "8678", "7856", "5768", "6758", "8576", "6785", "8765", "7586", "5678",
+        #         "8675", "8768", "5677", "5765", "6756", "8677", "5768", "7865", "8578", "7658",
+        #         "8678", "7587", "6757", "5678", "7856", "8767", "8568", "7585", "6756", "8675",
+        #         "8765", "5676", "7685", "7867", "5675", "8677", "7858", "8765", "7686", "8768"
+        #     ],
+        #     "difficulty": "medium",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Number Row Right Four Keys Lesson 3",
+        #     "topic": "Number Row",
+        #     "subtopic": "Right Side",
+        #     "keyboard_type": "colemak",
+        #     "description": "Master the number row right four keys with challenging combinations (5-8).",
+        #     "keys": "5 6 7 8",
+        #     "words": [
+        #         "8675", "7586", "6758", "8765", "7856", "5768", "5677", "7685", "8768", "6578",
+        #         "7865", "7587", "8576", "7687", "8678", "6756", "5678", "7867", "6757", "8578",
+        #         "8765", "7658", "7585", "6578", "8677", "5765", "6758", "5768", "7587", "8675",
+        #         "7687", "6756", "7857", "8678", "7685", "8767", "6756", "7858", "8765", "8768"
+        #     ],
+        #     "difficulty": "hard",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
 
-        # Number Row - Middle Four Keys (9 0 - =)
-        {
-            "title": "Number Row Middle Four Keys Lesson 1",
-            "topic": "Number Row",
-            "subtopic": "Middle",
-            "keyboard_type": "colemak",
-            "description": "Learn the basics of the number row middle four keys (9 0 - =) on the Colemak keyboard.",
-            "keys": "9 0 - =",
-            "words": [
-                "90-", "9-0", "=0-", "=-9", "0=-", "90=", "0=9", "9-=", "=90", "=-0",
-                "0=-", "-09", "90-", "0=9", "=09", "=-0", "90=", "0-9", "=-9", "-90",
-                "09=", "=09", "9-0", "=90", "-90", "0=-", "=0-9", "90-", "=-9", "-09",
-                "0=-", "=-9", "90=", "=09", "-0=", "09-", "9-=", "90-0", "=90", "-90", "09="
-            ],
-            "difficulty": "easy",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Number Row Middle Four Keys Lesson 2",
-            "topic": "Number Row",
-            "subtopic": "Middle",
-            "keyboard_type": "colemak",
-            "description": "Practice using the number row middle four keys with more complex combinations (9 0 - =).",
-            "keys": "9 0 - =",
-            "words": [
-                "=0-9", "90=", "=-9", "09=", "90-0", "=90-", "=-0", "-09", "9-0=", "=09",
-                "=-90", "0-9", "=09", "-09", "90=", "=-90", "-90=", "09=", "=-9", "0=-",
-                "=90", "09-0", "-90", "90=", "=-0", "=09", "0-9", "=-90", "9-=", "-09",
-                "=0-9", "=-9", "90-", "=90", "=-09", "-0=", "90=", "=-90", "=0-", "09-"
-            ],
-            "difficulty": "medium",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Number Row Middle Four Keys Lesson 3",
-            "topic": "Number Row",
-            "subtopic": "Middle",
-            "keyboard_type": "colemak",
-            "description": "Master the number row middle four keys with challenging combinations (9 0 - =).",
-            "keys": "9 0 - =",
-            "words": [
-                "=0-9", "90-=", "=90", "-09=", "=09-", "90=", "=-09", "0=-", "=09", "-90",
-                "0=9-", "=90", "-0=9", "09-", "=09=", "9-0=", "=-09", "-90", "90-=", "09-",
-                "=90=", "-90=", "0-=", "=09-", "9-0", "=09", "=-09", "-0=", "90-", "=90-0",
-                "=-90", "=09=", "-09", "90-=", "=90", "09-0", "=90=", "=-09", "-09", "90="
-            ],
-            "difficulty": "hard",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        # Symbols Row - Left Four Keys (` ~ ! @)
-        {
-            "title": "Symbols Row Left Four Keys Lesson 1",
-            "topic": "Symbols Row",
-            "subtopic": "Left Side",
-            "keyboard_type": "colemak",
-            "description": "Learn the basics of the symbols row left four keys (` ~ ! @) on the Colemak keyboard.",
-            "keys": "` ~ ! @",
-            "words": [
-                "`~!@", "@!~`", "~@!`", "`!~@", "~`@!", "@~!`", "!@~`", "`~@!", "~!`@", "`~!@",
-                "~@`!", "`@!~", "!~@`", "`~@!", "~!`@", "!@~`", "~`@!", "`~!@", "!~`@", "~!@`",
-                "`@!~", "~@!`", "@`~!", "`@~!", "`~@!", "!~`@", "`!@~", "@!`~", "~`@!", "!@~`",
-                "~`@!", "`~@!", "`!@~", "@`~!", "!@~`", "`!~@", "~!@`", "`@~!", "`~!@", "!@~`"
-            ],
-            "difficulty": "easy",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Symbols Row Left Four Keys Lesson 2",
-            "topic": "Symbols Row",
-            "subtopic": "Left Side",
-            "keyboard_type": "colemak",
-            "description": "Practice using the symbols row left four keys with more complex combinations (` ~ ! @).",
-            "keys": "` ~ ! @",
-            "words": [
-                "~@`!", "`~@!", "@~!`", "`!~@", "~!@`", "`~!@", "`~@!", "!@~`", "~!`@", "`@!~",
-                "!~@`", "~@!`", "`~!@", "!@~`", "`~@!", "~!`@", "`@!~", "!~`@", "@`~!", "~`@!",
-                "!~`@", "`@!~", "~!@`", "`~@!", "!@~`", "`~!@", "~@!`", "`!@~", "`~@!", "!~`@",
-                "~`@!", "`@~!", "!~@`", "@~!`", "`~@!", "!@~`", "~`@!", "@!`~", "`!~@", "~!`@"
-            ],
-            "difficulty": "medium",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Symbols Row Left Four Keys Lesson 3",
-            "topic": "Symbols Row",
-            "subtopic": "Left Side",
-            "keyboard_type": "colemak",
-            "description": "Master the symbols row left four keys with challenging combinations (` ~ ! @).",
-            "keys": "` ~ ! @",
-            "words": [
-                "!@~`", "`!~@", "~`@!", "`~!@", "!~@`", "`~@!", "~@`!", "`@!~", "~!`@", "!~`@",
-                "`@~!", "`~!@", "!@~`", "~`@!", "`!@~", "@~!`", "`~@!", "!~@`", "~!@`", "`@!~",
-                "!~@`", "`@~!", "~!`@", "`!~@", "`~!@", "~!@`", "`@!~", "!~@`", "`~@!", "!~`@",
-                "~`@!", "`~!@", "@~!`", "`!@~", "!@~`", "~@!`", "`~@!", "`~!@", "!~@`", "`@!~"
-            ],
-            "difficulty": "hard",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
+        # # Number Row - Middle Four Keys (9 0 - =)
+        # {
+        #     "title": "Number Row Middle Four Keys Lesson 1",
+        #     "topic": "Number Row",
+        #     "subtopic": "Middle",
+        #     "keyboard_type": "colemak",
+        #     "description": "Learn the basics of the number row middle four keys (9 0 - =) on the Colemak keyboard.",
+        #     "keys": "9 0 - =",
+        #     "words": [
+        #         "90-", "9-0", "=0-", "=-9", "0=-", "90=", "0=9", "9-=", "=90", "=-0",
+        #         "0=-", "-09", "90-", "0=9", "=09", "=-0", "90=", "0-9", "=-9", "-90",
+        #         "09=", "=09", "9-0", "=90", "-90", "0=-", "=0-9", "90-", "=-9", "-09",
+        #         "0=-", "=-9", "90=", "=09", "-0=", "09-", "9-=", "90-0", "=90", "-90", "09="
+        #     ],
+        #     "difficulty": "easy",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Number Row Middle Four Keys Lesson 2",
+        #     "topic": "Number Row",
+        #     "subtopic": "Middle",
+        #     "keyboard_type": "colemak",
+        #     "description": "Practice using the number row middle four keys with more complex combinations (9 0 - =).",
+        #     "keys": "9 0 - =",
+        #     "words": [
+        #         "=0-9", "90=", "=-9", "09=", "90-0", "=90-", "=-0", "-09", "9-0=", "=09",
+        #         "=-90", "0-9", "=09", "-09", "90=", "=-90", "-90=", "09=", "=-9", "0=-",
+        #         "=90", "09-0", "-90", "90=", "=-0", "=09", "0-9", "=-90", "9-=", "-09",
+        #         "=0-9", "=-9", "90-", "=90", "=-09", "-0=", "90=", "=-90", "=0-", "09-"
+        #     ],
+        #     "difficulty": "medium",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Number Row Middle Four Keys Lesson 3",
+        #     "topic": "Number Row",
+        #     "subtopic": "Middle",
+        #     "keyboard_type": "colemak",
+        #     "description": "Master the number row middle four keys with challenging combinations (9 0 - =).",
+        #     "keys": "9 0 - =",
+        #     "words": [
+        #         "=0-9", "90-=", "=90", "-09=", "=09-", "90=", "=-09", "0=-", "=09", "-90",
+        #         "0=9-", "=90", "-0=9", "09-", "=09=", "9-0=", "=-09", "-90", "90-=", "09-",
+        #         "=90=", "-90=", "0-=", "=09-", "9-0", "=09", "=-09", "-0=", "90-", "=90-0",
+        #         "=-90", "=09=", "-09", "90-=", "=90", "09-0", "=90=", "=-09", "-09", "90="
+        #     ],
+        #     "difficulty": "hard",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # # Symbols Row - Left Four Keys (` ~ ! @)
+        # {
+        #     "title": "Symbols Row Left Four Keys Lesson 1",
+        #     "topic": "Symbols Row",
+        #     "subtopic": "Left Side",
+        #     "keyboard_type": "colemak",
+        #     "description": "Learn the basics of the symbols row left four keys (` ~ ! @) on the Colemak keyboard.",
+        #     "keys": "` ~ ! @",
+        #     "words": [
+        #         "`~!@", "@!~`", "~@!`", "`!~@", "~`@!", "@~!`", "!@~`", "`~@!", "~!`@", "`~!@",
+        #         "~@`!", "`@!~", "!~@`", "`~@!", "~!`@", "!@~`", "~`@!", "`~!@", "!~`@", "~!@`",
+        #         "`@!~", "~@!`", "@`~!", "`@~!", "`~@!", "!~`@", "`!@~", "@!`~", "~`@!", "!@~`",
+        #         "~`@!", "`~@!", "`!@~", "@`~!", "!@~`", "`!~@", "~!@`", "`@~!", "`~!@", "!@~`"
+        #     ],
+        #     "difficulty": "easy",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Symbols Row Left Four Keys Lesson 2",
+        #     "topic": "Symbols Row",
+        #     "subtopic": "Left Side",
+        #     "keyboard_type": "colemak",
+        #     "description": "Practice using the symbols row left four keys with more complex combinations (` ~ ! @).",
+        #     "keys": "` ~ ! @",
+        #     "words": [
+        #         "~@`!", "`~@!", "@~!`", "`!~@", "~!@`", "`~!@", "`~@!", "!@~`", "~!`@", "`@!~",
+        #         "!~@`", "~@!`", "`~!@", "!@~`", "`~@!", "~!`@", "`@!~", "!~`@", "@`~!", "~`@!",
+        #         "!~`@", "`@!~", "~!@`", "`~@!", "!@~`", "`~!@", "~@!`", "`!@~", "`~@!", "!~`@",
+        #         "~`@!", "`@~!", "!~@`", "@~!`", "`~@!", "!@~`", "~`@!", "@!`~", "`!~@", "~!`@"
+        #     ],
+        #     "difficulty": "medium",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Symbols Row Left Four Keys Lesson 3",
+        #     "topic": "Symbols Row",
+        #     "subtopic": "Left Side",
+        #     "keyboard_type": "colemak",
+        #     "description": "Master the symbols row left four keys with challenging combinations (` ~ ! @).",
+        #     "keys": "` ~ ! @",
+        #     "words": [
+        #         "!@~`", "`!~@", "~`@!", "`~!@", "!~@`", "`~@!", "~@`!", "`@!~", "~!`@", "!~`@",
+        #         "`@~!", "`~!@", "!@~`", "~`@!", "`!@~", "@~!`", "`~@!", "!~@`", "~!@`", "`@!~",
+        #         "!~@`", "`@~!", "~!`@", "`!~@", "`~!@", "~!@`", "`@!~", "!~@`", "`~@!", "!~`@",
+        #         "~`@!", "`~!@", "@~!`", "`!@~", "!@~`", "~@!`", "`~@!", "`~!@", "!~@`", "`@!~"
+        #     ],
+        #     "difficulty": "hard",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
 
-        # Symbols Row - Right Four Keys (# $ % ^)
-        {
-            "title": "Symbols Row Right Four Keys Lesson 1",
-            "topic": "Symbols Row",
-            "subtopic": "Right Side",
-            "keyboard_type": "colemak",
-            "description": "Learn the basics of the symbols row right four keys (# $ % ^) on the Colemak keyboard.",
-            "keys": "# $ % ^",
-            "words": [
-                "#$%^", "$%^#", "^%$#", "%$^#", "#%^$", "#$^%", "$%^#", "%^#$", "#%^$", "^$%#",
-                "$#%^", "^%$#", "#$%^", "%^$#", "^#%$", "$#%^", "^$#%", "%^#$", "#$^%", "^%$#",
-                "#%^$", "$%^#", "%$#^", "#$%^", "^%$#", "#%^$", "^$%#", "$#%^", "#$^%", "%^#$",
-                "^#%$", "$%^#", "#%^$", "$^%#", "^$#%", "%^#$", "$#%^", "^%$#", "#$%^", "^#%$"
-            ],
-            "difficulty": "easy",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Symbols Row Right Four Keys Lesson 2",
-            "topic": "Symbols Row",
-            "subtopic": "Right Side",
-            "keyboard_type": "colemak",
-            "description": "Practice using the symbols row right four keys with more complex combinations (# $ % ^).",
-            "keys": "# $ % ^",
-            "words": [
-                "$#%^", "^%$#", "#%^$", "$^#%", "%$^#", "#$%^", "^$%#", "#$^%", "^%#$", "%^#$",
-                "#$%^", "%$#^", "#%^$", "^%$#", "$%^#", "%^#$", "#$%^", "^$#%", "%$^#", "$%^#",
-                "#%^$", "^#%$", "%$#^", "$#%^", "^%#$", "#$^%", "^$%#", "#%^$", "^%$#", "$#%^",
-                "%^#$", "#$^%", "$%^#", "^#%$", "%$^#", "^$%#", "#%^$", "$#%^", "^%#$", "%^#$"
-            ],
-            "difficulty": "medium",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Symbols Row Right Four Keys Lesson 3",
-            "topic": "Symbols Row",
-            "subtopic": "Right Side",
-            "keyboard_type": "colemak",
-            "description": "Master the symbols row right four keys with challenging combinations (# $ % ^).",
-            "keys": "# $ % ^",
-            "words": [
-                "^%$#", "#%^$", "$#%^", "%^#$", "^$#%", "%$^#", "#$%^", "^#%$", "$%^#", "%$^#",
-                "#$%^", "^$%#", "%#^$", "$%^#", "#%^$", "%^#$", "#$^%", "^%$#", "%$^#", "$#%^",
-                "#$%^", "%^#$", "^$#%", "#%^$", "^$%#", "$#%^", "%$^#", "^%#$", "#%^$", "$%^#",
-                "%^#$", "#%^$", "^$%#", "%$^#", "#$%^", "^%#$", "$%^#", "^$%#", "#%^$", "$^%#"
-            ],
-            "difficulty": "hard",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
+        # # Symbols Row - Right Four Keys (# $ % ^)
+        # {
+        #     "title": "Symbols Row Right Four Keys Lesson 1",
+        #     "topic": "Symbols Row",
+        #     "subtopic": "Right Side",
+        #     "keyboard_type": "colemak",
+        #     "description": "Learn the basics of the symbols row right four keys (# $ % ^) on the Colemak keyboard.",
+        #     "keys": "# $ % ^",
+        #     "words": [
+        #         "#$%^", "$%^#", "^%$#", "%$^#", "#%^$", "#$^%", "$%^#", "%^#$", "#%^$", "^$%#",
+        #         "$#%^", "^%$#", "#$%^", "%^$#", "^#%$", "$#%^", "^$#%", "%^#$", "#$^%", "^%$#",
+        #         "#%^$", "$%^#", "%$#^", "#$%^", "^%$#", "#%^$", "^$%#", "$#%^", "#$^%", "%^#$",
+        #         "^#%$", "$%^#", "#%^$", "$^%#", "^$#%", "%^#$", "$#%^", "^%$#", "#$%^", "^#%$"
+        #     ],
+        #     "difficulty": "easy",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Symbols Row Right Four Keys Lesson 2",
+        #     "topic": "Symbols Row",
+        #     "subtopic": "Right Side",
+        #     "keyboard_type": "colemak",
+        #     "description": "Practice using the symbols row right four keys with more complex combinations (# $ % ^).",
+        #     "keys": "# $ % ^",
+        #     "words": [
+        #         "$#%^", "^%$#", "#%^$", "$^#%", "%$^#", "#$%^", "^$%#", "#$^%", "^%#$", "%^#$",
+        #         "#$%^", "%$#^", "#%^$", "^%$#", "$%^#", "%^#$", "#$%^", "^$#%", "%$^#", "$%^#",
+        #         "#%^$", "^#%$", "%$#^", "$#%^", "^%#$", "#$^%", "^$%#", "#%^$", "^%$#", "$#%^",
+        #         "%^#$", "#$^%", "$%^#", "^#%$", "%$^#", "^$%#", "#%^$", "$#%^", "^%#$", "%^#$"
+        #     ],
+        #     "difficulty": "medium",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Symbols Row Right Four Keys Lesson 3",
+        #     "topic": "Symbols Row",
+        #     "subtopic": "Right Side",
+        #     "keyboard_type": "colemak",
+        #     "description": "Master the symbols row right four keys with challenging combinations (# $ % ^).",
+        #     "keys": "# $ % ^",
+        #     "words": [
+        #         "^%$#", "#%^$", "$#%^", "%^#$", "^$#%", "%$^#", "#$%^", "^#%$", "$%^#", "%$^#",
+        #         "#$%^", "^$%#", "%#^$", "$%^#", "#%^$", "%^#$", "#$^%", "^%$#", "%$^#", "$#%^",
+        #         "#$%^", "%^#$", "^$#%", "#%^$", "^$%#", "$#%^", "%$^#", "^%#$", "#%^$", "$%^#",
+        #         "%^#$", "#%^$", "^$%#", "%$^#", "#$%^", "^%#$", "$%^#", "^$%#", "#%^$", "$^%#"
+        #     ],
+        #     "difficulty": "hard",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
 
-        # Symbols Row - Middle Four Keys (& * ( ))
-        {
-            "title": "Symbols Row Middle Four Keys Lesson 1",
-            "topic": "Symbols Row",
-            "subtopic": "Middle",
-            "keyboard_type": "colemak",
-            "description": "Learn the basics of the symbols row middle four keys (& * ( )) on the Colemak keyboard.",
-            "keys": "& * ( )",
-            "words": [
-                "&*()", "*&()", "(*)&", "(*&)", "&(*)", "&()*", "*()&", "(*)&", "&(*)", "&()*",
-                "(*)&", "&(*)", "*&()", "()*&", "&*()", "(*&)", "&()*", "(*&)", "&(*)", "*()&",
-                "(*)&", "&()*", "*&()", "&(*)", "(*)&", "()*&", "&(*)", "&*()", "*&()", "(*)&",
-                "&(*)", "&()*", "*()&", "(*)&", "&*()", "(*&)", "&()*", "&()*", "()*&", "&*()"
-            ],
-            "difficulty": "easy",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Symbols Row Middle Four Keys Lesson 2",
-            "topic": "Symbols Row",
-            "subtopic": "Middle",
-            "keyboard_type": "colemak",
-            "description": "Practice using the symbols row middle four keys with more complex combinations (& * ( )).",
-            "keys": "& * ( )",
-            "words": [
-                "&()*", "(*)&", "*&()", "(*&)", "&(*)", "&*()", "*()&", "(*)&", "&()*", "&(*)",
-                "(*&)", "&()*", "*()&", "(*)&", "&(*)", "&()*", "*&()", "()*&", "&*()", "(*&)",
-                "&()*", "(*&)", "&(*)", "*&()", "()*&", "&()*", "(*)&", "&(*)", "*()&", "&*()",
-                "(*&)", "&()*", "&(*)", "()*&", "&*()", "*()&", "(*)&", "&(*)", "&()*", "*&()"
-            ],
-            "difficulty": "medium",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Symbols Row Middle Four Keys Lesson 3",
-            "topic": "Symbols Row",
-            "subtopic": "Middle",
-            "keyboard_type": "colemak",
-            "description": "Master the symbols row middle four keys with challenging combinations (& * ( )).",
-            "keys": "& * ( )",
-            "words": [
-                "(*)&", "&*()", "*&()", "()*&", "&()*", "(*&)", "&()*", "*()&", "(*)&", "&(*)",
-                "&()*", "(*)&", "&(*)", "*&()", "()*&", "&*()", "(*)&", "&()*", "*()&", "&(*)",
-                "&()*", "(*&)", "&*()", "*()&", "&()*", "(*)&", "&()*", "*&()", "()*&", "&(*)",
-                "(*)&", "&()*", "&(*)", "(*&)", "&*()", "()*&", "&(*)", "*()&", "&*()", "&()*"
-            ],
-            "difficulty": "hard",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
+        # # Symbols Row - Middle Four Keys (& * ( ))
+        # {
+        #     "title": "Symbols Row Middle Four Keys Lesson 1",
+        #     "topic": "Symbols Row",
+        #     "subtopic": "Middle",
+        #     "keyboard_type": "colemak",
+        #     "description": "Learn the basics of the symbols row middle four keys (& * ( )) on the Colemak keyboard.",
+        #     "keys": "& * ( )",
+        #     "words": [
+        #         "&*()", "*&()", "(*)&", "(*&)", "&(*)", "&()*", "*()&", "(*)&", "&(*)", "&()*",
+        #         "(*)&", "&(*)", "*&()", "()*&", "&*()", "(*&)", "&()*", "(*&)", "&(*)", "*()&",
+        #         "(*)&", "&()*", "*&()", "&(*)", "(*)&", "()*&", "&(*)", "&*()", "*&()", "(*)&",
+        #         "&(*)", "&()*", "*()&", "(*)&", "&*()", "(*&)", "&()*", "&()*", "()*&", "&*()"
+        #     ],
+        #     "difficulty": "easy",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Symbols Row Middle Four Keys Lesson 2",
+        #     "topic": "Symbols Row",
+        #     "subtopic": "Middle",
+        #     "keyboard_type": "colemak",
+        #     "description": "Practice using the symbols row middle four keys with more complex combinations (& * ( )).",
+        #     "keys": "& * ( )",
+        #     "words": [
+        #         "&()*", "(*)&", "*&()", "(*&)", "&(*)", "&*()", "*()&", "(*)&", "&()*", "&(*)",
+        #         "(*&)", "&()*", "*()&", "(*)&", "&(*)", "&()*", "*&()", "()*&", "&*()", "(*&)",
+        #         "&()*", "(*&)", "&(*)", "*&()", "()*&", "&()*", "(*)&", "&(*)", "*()&", "&*()",
+        #         "(*&)", "&()*", "&(*)", "()*&", "&*()", "*()&", "(*)&", "&(*)", "&()*", "*&()"
+        #     ],
+        #     "difficulty": "medium",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Symbols Row Middle Four Keys Lesson 3",
+        #     "topic": "Symbols Row",
+        #     "subtopic": "Middle",
+        #     "keyboard_type": "colemak",
+        #     "description": "Master the symbols row middle four keys with challenging combinations (& * ( )).",
+        #     "keys": "& * ( )",
+        #     "words": [
+        #         "(*)&", "&*()", "*&()", "()*&", "&()*", "(*&)", "&()*", "*()&", "(*)&", "&(*)",
+        #         "&()*", "(*)&", "&(*)", "*&()", "()*&", "&*()", "(*)&", "&()*", "*()&", "&(*)",
+        #         "&()*", "(*&)", "&*()", "*()&", "&()*", "(*)&", "&()*", "*&()", "()*&", "&(*)",
+        #         "(*)&", "&()*", "&(*)", "(*&)", "&*()", "()*&", "&(*)", "*()&", "&*()", "&()*"
+        #     ],
+        #     "difficulty": "hard",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
 
-        # Symbols Row - Complete (& * ( ) ! @ # $ % ^ ` ~)
-        {
-            "title": "Complete Symbols Row Lesson 1",
-            "topic": "Symbols Row",
-            "subtopic": "Complete",
-            "keyboard_type": "colemak",
-            "description": "Master all keys on the symbols row of the Colemak keyboard.",
-            "keys": "& * ( ) ! @ # $ % ^ ` ~",
-            "words": [
-                "&!~#", "#$%^", "@*!&", "(^&%)", "`~!@", "!@#^", "&(*)", "$^%#", "(*@!)", "`!~#",
-                "%^@#", "$!@~", "#%^&", "(*#%)", "&@^$", "!~`#", "(*^%)", "&^%@#", "`~@!", "#^$%",
-                "%^@#", "*&@!$", "`#^&@", "&*#^", "!^%@&", "`!~#@", "&%@#$", "`~!@", "*&!^@", "$%^@",
-                "#!@~$", "&@%!*", "(*^$)", "#%@`~", "!~@#", "`~!@", "#^$%&", "!@~#^", "&%@^", "%^@#"
-            ],
-            "difficulty": "medium",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        }
+        # # Symbols Row - Complete (& * ( ) ! @ # $ % ^ ` ~)
+        # {
+        #     "title": "Complete Symbols Row Lesson 1",
+        #     "topic": "Symbols Row",
+        #     "subtopic": "Complete",
+        #     "keyboard_type": "colemak",
+        #     "description": "Master all keys on the symbols row of the Colemak keyboard.",
+        #     "keys": "& * ( ) ! @ # $ % ^ ` ~",
+        #     "words": [
+        #         "&!~#", "#$%^", "@*!&", "(^&%)", "`~!@", "!@#^", "&(*)", "$^%#", "(*@!)", "`!~#",
+        #         "%^@#", "$!@~", "#%^&", "(*#%)", "&@^$", "!~`#", "(*^%)", "&^%@#", "`~@!", "#^$%",
+        #         "%^@#", "*&@!$", "`#^&@", "&*#^", "!^%@&", "`!~#@", "&%@#$", "`~!@", "*&!^@", "$%^@",
+        #         "#!@~$", "&@%!*", "(*^$)", "#%@`~", "!~@#", "`~!@", "#^$%&", "!@~#^", "&%@^", "%^@#"
+        #     ],
+        #     "difficulty": "medium",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # }
     ]
 
     for lesson in colemak_lessons:

@@ -534,182 +534,182 @@ def add_qwerty_lessons():
             "updated_at": datetime.utcnow()
         },
          # Number Keys (1-4)
-        {
-            "title": "Number Keys 1-4 Lesson 1",
-            "topic": "Numbers",
-            "subtopic": "Left Side",
-            "keyboard_type": "qwerty",
-            "description": "Learn the basics of the number keys 1 to 4.",
-            "keys": "1 2 3 4",
-            "words": [
-                "123", "321", "124", "234", "341", "432", "213", "412", "134", "231",
-                "3214", "1423", "3142", "4213", "2431", "3412", "1243", "2134", "4312", "3241",
-                "1234", "2143", "4321", "1342", "2413", "3124", "1432", "4231", "3124", "1342",
-                "1231", "4321", "1423", "3142", "2134", "3412", "2143", "1243", "2413", "3241"
-            ],
-            "difficulty": "easy",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Number Keys 1-4 Lesson 2",
-            "topic": "Numbers",
-            "subtopic": "Left Side",
-            "keyboard_type": "qwerty",
-            "description": "Practice the number keys 1 to 4 with longer combinations.",
-            "keys": "1 2 3 4",
-            "words": [
-                "4321", "1342", "2143", "1243", "1432", "3124", "4231", "3412", "1243", "3124",
-                "4312", "2143", "3412", "4321", "1243", "1342", "3412", "1432", "2341", "3124",
-                "2413", "2143", "4321", "1342", "2431", "3412", "4321", "1342", "1234", "2413",
-                "1243", "2134", "3412", "4231", "1432", "1243", "2431", "2134", "4312", "3241"
-            ],
-            "difficulty": "medium",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Number Keys 1-4 Lesson 3",
-            "topic": "Numbers",
-            "subtopic": "Left Side",
-            "keyboard_type": "qwerty",
-            "description": "Master the number keys 1 to 4 with complex combinations.",
-            "keys": "1 2 3 4",
-            "words": [
-                "1342", "3412", "1243", "4321", "2134", "3412", "4321", "1234", "2143", "1432",
-                "2341", "4312", "2134", "1234", "4321", "2413", "3412", "1342", "4321", "3124",
-                "4231", "2134", "1342", "2413", "1243", "1432", "4321", "3412", "1243", "2134",
-                "1342", "1234", "3412", "2143", "4312", "1243", "2431", "3412", "2134", "1342"
-            ],
-            "difficulty": "hard",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
+        # {
+        #     "title": "Number Keys 1-4 Lesson 1",
+        #     "topic": "Numbers",
+        #     "subtopic": "Left Side",
+        #     "keyboard_type": "qwerty",
+        #     "description": "Learn the basics of the number keys 1 to 4.",
+        #     "keys": "1 2 3 4",
+        #     "words": [
+        #         "123", "321", "124", "234", "341", "432", "213", "412", "134", "231",
+        #         "3214", "1423", "3142", "4213", "2431", "3412", "1243", "2134", "4312", "3241",
+        #         "1234", "2143", "4321", "1342", "2413", "3124", "1432", "4231", "3124", "1342",
+        #         "1231", "4321", "1423", "3142", "2134", "3412", "2143", "1243", "2413", "3241"
+        #     ],
+        #     "difficulty": "easy",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Number Keys 1-4 Lesson 2",
+        #     "topic": "Numbers",
+        #     "subtopic": "Left Side",
+        #     "keyboard_type": "qwerty",
+        #     "description": "Practice the number keys 1 to 4 with longer combinations.",
+        #     "keys": "1 2 3 4",
+        #     "words": [
+        #         "4321", "1342", "2143", "1243", "1432", "3124", "4231", "3412", "1243", "3124",
+        #         "4312", "2143", "3412", "4321", "1243", "1342", "3412", "1432", "2341", "3124",
+        #         "2413", "2143", "4321", "1342", "2431", "3412", "4321", "1342", "1234", "2413",
+        #         "1243", "2134", "3412", "4231", "1432", "1243", "2431", "2134", "4312", "3241"
+        #     ],
+        #     "difficulty": "medium",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Number Keys 1-4 Lesson 3",
+        #     "topic": "Numbers",
+        #     "subtopic": "Left Side",
+        #     "keyboard_type": "qwerty",
+        #     "description": "Master the number keys 1 to 4 with complex combinations.",
+        #     "keys": "1 2 3 4",
+        #     "words": [
+        #         "1342", "3412", "1243", "4321", "2134", "3412", "4321", "1234", "2143", "1432",
+        #         "2341", "4312", "2134", "1234", "4321", "2413", "3412", "1342", "4321", "3124",
+        #         "4231", "2134", "1342", "2413", "1243", "1432", "4321", "3412", "1243", "2134",
+        #         "1342", "1234", "3412", "2143", "4312", "1243", "2431", "3412", "2134", "1342"
+        #     ],
+        #     "difficulty": "hard",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
 
-        # Number Keys (5-0)
-        {
-            "title": "Number Keys 5-0 Lesson 1",
-            "topic": "Numbers",
-            "subtopic": "Right Side",
-            "keyboard_type": "qwerty",
-            "description": "Learn the basics of the number keys 5 to 0.",
-            "keys": "5 6 7 8 9 0",
-            "words": [
-                "567", "678", "890", "876", "980", "765", "098", "509", "670", "856",
-                "768", "905", "678", "507", "690", "758", "896", "506", "670", "785",
-                "876", "590", "987", "760", "890", "980", "670", "576", "690", "876",
-                "098", "760", "587", "670", "890", "876", "960", "509", "785", "876"
-            ],
-            "difficulty": "easy",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Number Keys 5-0 Lesson 2",
-            "topic": "Numbers",
-            "subtopic": "Right Side",
-            "keyboard_type": "qwerty",
-            "description": "Practice the number keys 5 to 0 with longer combinations.",
-            "keys": "5 6 7 8 9 0",
-            "words": [
-                "8765", "5908", "5098", "6709", "8765", "7805", "6908", "7856", "9765", "9870",
-                "8769", "9058", "6785", "6097", "5098", "7560", "9867", "5897", "9076", "7659",
-                "5678", "9806", "7590", "8907", "9870", "5769", "8760", "9075", "6987", "8765",
-                "6789", "5096", "9760", "8709", "5098", "7658", "9780", "6705", "8709", "9768"
-            ],
-            "difficulty": "medium",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Number Keys 5-0 Lesson 3",
-            "topic": "Numbers",
-            "subtopic": "Right Side",
-            "keyboard_type": "qwerty",
-            "description": "Master the number keys 5 to 0 with complex combinations.",
-            "keys": "5 6 7 8 9 0",
-            "words": [
-                "9807", "5678", "5096", "8765", "6798", "5769", "8760", "9075", "5678", "8907",
-                "8709", "5098", "8765", "9076", "9867", "7590", "9780", "6705", "9870", "7658",
-                "9806", "5097", "6785", "9876", "5098", "7609", "8709", "8765", "6789", "8760",
-                "9870", "5097", "6785", "9876", "5098", "7609", "6785", "5097", "8709", "7659"
-            ],
-            "difficulty": "hard",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
+        # # Number Keys (5-0)
+        # {
+        #     "title": "Number Keys 5-0 Lesson 1",
+        #     "topic": "Numbers",
+        #     "subtopic": "Right Side",
+        #     "keyboard_type": "qwerty",
+        #     "description": "Learn the basics of the number keys 5 to 0.",
+        #     "keys": "5 6 7 8 9 0",
+        #     "words": [
+        #         "567", "678", "890", "876", "980", "765", "098", "509", "670", "856",
+        #         "768", "905", "678", "507", "690", "758", "896", "506", "670", "785",
+        #         "876", "590", "987", "760", "890", "980", "670", "576", "690", "876",
+        #         "098", "760", "587", "670", "890", "876", "960", "509", "785", "876"
+        #     ],
+        #     "difficulty": "easy",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Number Keys 5-0 Lesson 2",
+        #     "topic": "Numbers",
+        #     "subtopic": "Right Side",
+        #     "keyboard_type": "qwerty",
+        #     "description": "Practice the number keys 5 to 0 with longer combinations.",
+        #     "keys": "5 6 7 8 9 0",
+        #     "words": [
+        #         "8765", "5908", "5098", "6709", "8765", "7805", "6908", "7856", "9765", "9870",
+        #         "8769", "9058", "6785", "6097", "5098", "7560", "9867", "5897", "9076", "7659",
+        #         "5678", "9806", "7590", "8907", "9870", "5769", "8760", "9075", "6987", "8765",
+        #         "6789", "5096", "9760", "8709", "5098", "7658", "9780", "6705", "8709", "9768"
+        #     ],
+        #     "difficulty": "medium",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Number Keys 5-0 Lesson 3",
+        #     "topic": "Numbers",
+        #     "subtopic": "Right Side",
+        #     "keyboard_type": "qwerty",
+        #     "description": "Master the number keys 5 to 0 with complex combinations.",
+        #     "keys": "5 6 7 8 9 0",
+        #     "words": [
+        #         "9807", "5678", "5096", "8765", "6798", "5769", "8760", "9075", "5678", "8907",
+        #         "8709", "5098", "8765", "9076", "9867", "7590", "9780", "6705", "9870", "7658",
+        #         "9806", "5097", "6785", "9876", "5098", "7609", "8709", "8765", "6789", "8760",
+        #         "9870", "5097", "6785", "9876", "5098", "7609", "6785", "5097", "8709", "7659"
+        #     ],
+        #     "difficulty": "hard",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
 
-        # Symbol Keys (Shift + Number)
-        {
-            "title": "Symbol Keys 1-4 Lesson 1",
-            "topic": "Symbols",
-            "subtopic": "Left Side",
-            "keyboard_type": "qwerty",
-            "description": "Learn the basics of the symbol keys 1 to 4.",
-            "keys": "! @ # $",
-            "words": [
-                "!@#", "#@!", "$#@", "#!!", "@##", "@!", "#$", "!$", "@!#", "$!@", 
-                "!#@", "$#!", "@!$", "$#", "@$", "#$!", "!$@", "$#", "@!#", "#!@", "$!#",
-                "!#", "#@", "$#", "!$", "@#", "!$", "#$", "$#", "@!#", "!#", "$#@", "!$#",
-                "$@#", "@!#", "$#@", "#$", "@#", "!$", "@#", "#$@", "@!$", "!#", "$@!"
-            ],
-            "difficulty": "easy",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Symbol Keys 1-4 Lesson 2",
-            "topic": "Symbols",
-            "subtopic": "Left Side",
-            "keyboard_type": "qwerty",
-            "description": "Practice the symbol keys 1 to 4 with longer combinations.",
-            "keys": "! @ # $",
-            "words": [
-                "#@$!", "!#@", "$!@", "!##", "#@!", "$!#", "#@$", "!@$", "#!!", "$##",
-                "@!!", "$#@", "@##", "#@!", "$!#", "!@#", "@$", "#!!", "!$#", "@!!", "#$!",
-                "!$#", "$@#", "#@!", "!#$", "$!@", "@#!!", "#!$", "$#!", "!$@", "#@!", "$!@",
-                "#$@", "$!#", "@#!", "!##", "@!$", "$@#", "#$@", "$!#", "@#$", "!@$"
-            ],
-            "difficulty": "medium",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "title": "Symbol Keys 1-4 Lesson 3",
-            "topic": "Symbols",
-            "subtopic": "Left Side",
-            "keyboard_type": "qwerty",
-            "description": "Master the symbol keys 1 to 4 with complex combinations.",
-            "keys": "! @ # $",
-            "words": [
-                "$!#", "!#@", "@#$", "!@#", "#!$", "!$@", "@!#", "$#@", "#!!", "@!#",
-                "$!@", "#$@", "!#$", "@!#", "$#!", "!$@", "#@!", "$##", "@#!!", "!#$", 
-                "@#!", "!#$", "#@$", "!$#", "$##", "@##", "#!!", "@!$", "$#!", "@!#",
-                "#$@", "!$#", "@#!!", "#$@", "!@#", "$!@", "@#$", "#!!", "@#!!", "$#!", "!@#"
-            ],
-            "difficulty": "hard",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
+        # # Symbol Keys (Shift + Number)
+        # {
+        #     "title": "Symbol Keys 1-4 Lesson 1",
+        #     "topic": "Symbols",
+        #     "subtopic": "Left Side",
+        #     "keyboard_type": "qwerty",
+        #     "description": "Learn the basics of the symbol keys 1 to 4.",
+        #     "keys": "! @ # $",
+        #     "words": [
+        #         "!@#", "#@!", "$#@", "#!!", "@##", "@!", "#$", "!$", "@!#", "$!@", 
+        #         "!#@", "$#!", "@!$", "$#", "@$", "#$!", "!$@", "$#", "@!#", "#!@", "$!#",
+        #         "!#", "#@", "$#", "!$", "@#", "!$", "#$", "$#", "@!#", "!#", "$#@", "!$#",
+        #         "$@#", "@!#", "$#@", "#$", "@#", "!$", "@#", "#$@", "@!$", "!#", "$@!"
+        #     ],
+        #     "difficulty": "easy",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Symbol Keys 1-4 Lesson 2",
+        #     "topic": "Symbols",
+        #     "subtopic": "Left Side",
+        #     "keyboard_type": "qwerty",
+        #     "description": "Practice the symbol keys 1 to 4 with longer combinations.",
+        #     "keys": "! @ # $",
+        #     "words": [
+        #         "#@$!", "!#@", "$!@", "!##", "#@!", "$!#", "#@$", "!@$", "#!!", "$##",
+        #         "@!!", "$#@", "@##", "#@!", "$!#", "!@#", "@$", "#!!", "!$#", "@!!", "#$!",
+        #         "!$#", "$@#", "#@!", "!#$", "$!@", "@#!!", "#!$", "$#!", "!$@", "#@!", "$!@",
+        #         "#$@", "$!#", "@#!", "!##", "@!$", "$@#", "#$@", "$!#", "@#$", "!@$"
+        #     ],
+        #     "difficulty": "medium",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
+        # {
+        #     "title": "Symbol Keys 1-4 Lesson 3",
+        #     "topic": "Symbols",
+        #     "subtopic": "Left Side",
+        #     "keyboard_type": "qwerty",
+        #     "description": "Master the symbol keys 1 to 4 with complex combinations.",
+        #     "keys": "! @ # $",
+        #     "words": [
+        #         "$!#", "!#@", "@#$", "!@#", "#!$", "!$@", "@!#", "$#@", "#!!", "@!#",
+        #         "$!@", "#$@", "!#$", "@!#", "$#!", "!$@", "#@!", "$##", "@#!!", "!#$", 
+        #         "@#!", "!#$", "#@$", "!$#", "$##", "@##", "#!!", "@!$", "$#!", "@!#",
+        #         "#$@", "!$#", "@#!!", "#$@", "!@#", "$!@", "@#$", "#!!", "@#!!", "$#!", "!@#"
+        #     ],
+        #     "difficulty": "hard",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
 
-        # Symbol Keys (Shift + Number 5-0)
-        {
-            "title": "Symbol Keys 5-0 Lesson 1",
-            "topic": "Symbols",
-            "subtopic": "Right Side",
-            "keyboard_type": "qwerty",
-            "description": "Learn the basics of the symbol keys 5 to 0.",
-            "keys": "% ^ & * ( )",
-            "words": [
-                "%&*", "(%&", "^*&", "&(*)", "*(%", "&*(^", "())", "^^&", "&&%", "%*&", 
-                "*^)", "^^%", "^&*", "%()(", "&&*", "*(&", "()*", "^^%", "((%)", "&^)(", 
-                "^*(%", "&(*^", "*(&)", "%^*)", "&&*", "^*%", "^^^", "&())", "%()*", "&**", "%*(^",
-                "&()^", "*()%", "%^^", "&&*", "%(*", "^^*", "&*(%", "^^&", "()(*", "*&^^"
-            ],
-            "difficulty": "easy",
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
+        # # Symbol Keys (Shift + Number 5-0)
+        # {
+        #     "title": "Symbol Keys 5-0 Lesson 1",
+        #     "topic": "Symbols",
+        #     "subtopic": "Right Side",
+        #     "keyboard_type": "qwerty",
+        #     "description": "Learn the basics of the symbol keys 5 to 0.",
+        #     "keys": "% ^ & * ( )",
+        #     "words": [
+        #         "%&*", "(%&", "^*&", "&(*)", "*(%", "&*(^", "())", "^^&", "&&%", "%*&", 
+        #         "*^)", "^^%", "^&*", "%()(", "&&*", "*(&", "()*", "^^%", "((%)", "&^)(", 
+        #         "^*(%", "&(*^", "*(&)", "%^*)", "&&*", "^*%", "^^^", "&())", "%()*", "&**", "%*(^",
+        #         "&()^", "*()%", "%^^", "&&*", "%(*", "^^*", "&*(%", "^^&", "()(*", "*&^^"
+        #     ],
+        #     "difficulty": "easy",
+        #     "created_at": datetime.utcnow(),
+        #     "updated_at": datetime.utcnow()
+        # },
         # {
         #     "title": "Common Shortcuts Ctrl + Key Lesson 1",
         #     "topic": "Common Shortcuts",

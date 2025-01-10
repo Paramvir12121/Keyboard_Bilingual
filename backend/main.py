@@ -44,8 +44,6 @@ def init_rollbar(app,config_to_use):
 def create_app(config_to_use):
 
     app = Flask(__name__)
-
-
     app.config.from_object(config_to_use)
 
     CORS(app, supports_credentials=True, origins="*")
@@ -67,10 +65,15 @@ def create_app(config_to_use):
     # def raise_error():
     #     raise Exception('Rollbar test 1')
 
+    # to create the tables
+    # with app.app_context():
+    #     db.create_all()
+
     cognito = CognitoAuth(app)
     cognito_client = boto3.client('cognito-idp', region_name=config_to_use.COGNITO_REGION)
     @app.shell_context_processor
     def make_shell_context():
+        
         return {
             "db": db,
             "User": User,
