@@ -1,5 +1,5 @@
-# Alt_keyboard_styles
-This is repository for Learn colemak (name not finalized) web app that uses react as frontend and flask as backend with sql db database. It uses cognito as authentication service.
+# Keyboard Bilingual
+This is repository for Keyboard Bilingual web app that uses react as frontend and flask as backend with sql db database. It uses cognito as authentication service.
 
 ## Alt Style offered
 
@@ -44,18 +44,7 @@ Frontend
 
 - Use https://huemint.com/ to test
 
-## Business Plan
-Access Market Research at [Market Research](./Market_research_and_analysis.md)
-- Design content and practice around making users keyboard bilingual.
-    - Set the learning language to what user wants to learn or if the user is learning keyboard for first time
-    - use keyboardbilingual.com as domain
-    - Setup pages to guide through selecting layout
-    - Setup articles to help users understand which language is for them, and why not to use qwerty
-    - Setup total timer
-    - Also show approx time to master on startup
 
-
-      
 thisorthat.com
 
 ## Improvement SEO
