@@ -8,7 +8,7 @@
 
 Keyboard Bilingual is an interactive web application designed to help users learn and practice alternative keyboard layouts. Whether you're looking to increase typing speed, reduce finger strain, or simply explore more ergonomic typing methods, this platform provides a comprehensive learning experience.
 
-**Live Demo:** [https://keyboardbilingual.com](keyboardbilingual.com)
+**Live Demo:** ([keyboardbilingual.com](https://keyboardbilingual.com/))
 
 ## ✨ Features
 
