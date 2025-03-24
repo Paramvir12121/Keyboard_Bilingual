@@ -35,20 +35,6 @@ https://github.com/gautamop01/KeyboardConqueror-React-Typing-Practice.git
 https://itnext.io/how-to-serve-your-backends-with-nginx-a-comprehensive-guide-c8a74955c6ed
 
 
-Frontend 
-- use https://www.creative-tim.com/product/argon-design-system-react as react template
-
-- use https://coolors.co/  & http://colormind.io/ to get more colors
-
-- use https://mycolor.space/  & https://colors.muz.li/ to get color pallets
-
-- Use https://huemint.com/ to test
-
 
 thisorthat.com
 
-## Improvement SEO
-
-
-## Launch on https://www.producthunt.com/
-- https://www.producthunt.com/
