@@ -118,20 +118,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Paramvir - [GitHub Profile](https://github.com/Paramvir12121)
 
 Project Link: [https://github.com/Paramvir12121/Keyboard_Bilingual](https://github.com/Paramvir12121/Keyboard_Bilingual)
-## Application Design of hybrid Deployment
-![app_diagram](app_diagram.png)
 
-## Database Design:
-
-![db_design](db.png)
-
-
-Refrenced:
-https://github.com/gautamop01/KeyboardConqueror-React-Typing-Practice.git
-
-https://itnext.io/how-to-serve-your-backends-with-nginx-a-comprehensive-guide-c8a74955c6ed
-
-
-
-thisorthat.com
 
