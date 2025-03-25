@@ -16,7 +16,8 @@ from namespaces.auth import auth_ns
 from namespaces.lessons import lessons_ns
 from namespaces.payment import payment_ns
 from namespaces.settings import settings_ns
-from admin import admin_bp
+# admin support WIP
+# from admin import admin_bp
 
 
 import rollbar
@@ -56,7 +57,7 @@ def create_app(config_to_use):
     api.add_namespace(lessons_ns)
     api.add_namespace(payment_ns)
     api.add_namespace(settings_ns)
-    app.register_blueprint(admin_bp)
+    # app.register_blueprint(admin_bp)
     migrate = Migrate(app,db)
     JWTManager(app)
 
