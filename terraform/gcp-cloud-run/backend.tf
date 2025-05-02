@@ -25,6 +25,20 @@ resource "google_cloud_run_service" "backend_service" {
         name  = "SUPABASE_URI_SECONDARY"
         value = var.database_uri 
       }
+
+       Add environment variable for API domain
+        env {
+          name  = "API_DOMAIN"
+          value = var.api_domain_name
+        }
+        
+        # Add environment variable to force HTTPS
+        env {
+          name  = "PREFERRED_URL_SCHEME"
+          value = "https"
+        }
+
+
         ports {
           container_port = 5000
         }
@@ -38,7 +52,6 @@ resource "google_cloud_run_service" "backend_service" {
         }
         
         
-
         # Mount the secret as a volume
         volume_mounts {
           mount_path = "/secrets/my-secret"   # Path inside the container
@@ -83,4 +96,34 @@ resource "google_project_iam_member" "cloud_run_secret_accessor" {
   project = var.project_id
   role    = "roles/secretmanager.secretAccessor"
   member  = "serviceAccount:${var.project_number}-compute@developer.gserviceaccount.com"
+}
+
+
+
+# Backend domain mapping
+resource "google_cloud_run_domain_mapping" "backend_domain_mapping" {
+  location = var.region
+  name     = var.api_domain_name
+  
+  metadata {
+    namespace = var.project_id
+  }
+  
+  spec {
+    route_name = google_cloud_run_service.backend_service.name
+  }
+}
+
+# Frontend domain mapping
+resource "google_cloud_run_domain_mapping" "frontend_domain_mapping" {
+  location = var.region
+  name     = var.frontend_domain_name
+  
+  metadata {
+    namespace = var.project_id
+  }
+  
+  spec {
+    route_name = google_cloud_run_service.frontend_service.name
+  }
 }

@@ -23,7 +23,7 @@ resource "google_cloud_run_service" "frontend_service" {
 
         env {
           name  = "VITE_API_URL"
-          value = google_cloud_run_service.backend_service.status[0].url
+          value = var.api_domain_name != "" ? "https://${var.api_domain_name}" : google_cloud_run_service.backend_service.status[0].url
         }
 
 
@@ -50,5 +50,7 @@ resource "google_cloud_run_service_iam_member" "frontend_service_invoker" {
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
+
+
 
 
