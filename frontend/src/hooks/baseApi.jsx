@@ -55,10 +55,10 @@
 import axios from 'axios';
 
 const baseApi = () => {
-     const baseURL =
-        window._env_ && window._env_.VITE_API_URL
-            ? window._env_.VITE_API_URL
-            : 'https://backend-service-4r3uedulzq-ue.a.run.app';
+    //  const baseURL =
+    //     window._env_ && window._env_.VITE_API_URL
+    //         ? window._env_.VITE_API_URL
+    //         : 'https://backend-service-4r3uedulzq-ue.a.run.app';
 
 
     // for local testing use the following
@@ -69,7 +69,7 @@ const baseApi = () => {
     //         ? window._env_.VITE_API_URL
     //         : import.meta.env.VITE_API_URL || 'https://backend-service-743073512588.us-east1.run.app';
 
-    // const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
     
 

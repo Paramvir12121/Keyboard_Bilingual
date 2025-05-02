@@ -8,6 +8,10 @@ resource "google_cloud_run_service" "frontend_service" {
   name     = "frontend-service"
   location = var.region
 
+  metadata {
+    namespace = var.project_id
+  }
+
   template {
     spec {
       containers {
