@@ -5,6 +5,12 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'dist',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        // Remove console.log in production builds
+        drop_console: true,
+      },
+    },
   },
 })
