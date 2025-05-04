@@ -7,27 +7,33 @@ data "google_secret_manager_secret" "my_secret" {
 # Fetch specific version of the secret (e.g., "latest")
 data "google_secret_manager_secret_version" "my_secret_version" {
   secret  = data.google_secret_manager_secret.my_secret.name
-  version = "latest" # or specify a specific version if not "latest"
+  version = "1" # Changed from "latest" to "1" to match the version being accessed
 }
 
 # Backend Cloud Run Service 
 resource "google_cloud_run_service" "backend_service" {
+  depends_on = [
+    # Depend on the new secret-level IAM binding
+    google_secret_manager_secret_iam_member.secret_accessor_binding
+  ]
+  
   name     = "backend-service"
   location = var.region
 
-
-
   template {
     spec {
+      # Explicitly specify the service account to use
+      service_account_name = "${var.project_number}-compute@developer.gserviceaccount.com"
+      
       containers {
         image = "${var.region}-docker.pkg.dev/${var.project_id}/${var.artifact_repo}/backend_image:latest"
         # Define environment variables
         env {
-        name  = "SUPABASE_URI_SECONDARY"
-        value = var.database_uri 
-      }
+          name  = "SUPABASE_URI_SECONDARY"
+          value = var.database_uri 
+        }
 
-      #  Add environment variable for API domain
+        # Add environment variable for API domain
         env {
           name  = "API_DOMAIN"
           value = var.api_domain_name
@@ -39,7 +45,6 @@ resource "google_cloud_run_service" "backend_service" {
           value = "https"
         }
 
-
         ports {
           container_port = 5000
         }
@@ -49,9 +54,7 @@ resource "google_cloud_run_service" "backend_service" {
             cpu    = "1"
             memory = "256Mi"
           }
-          
         }
-        
         
         # Mount the secret as a volume
         volume_mounts {
@@ -60,7 +63,6 @@ resource "google_cloud_run_service" "backend_service" {
         }
       }
       
-
       # Define volumes block for secret mount
       volumes {
         name = var.secret_volume_name
@@ -92,14 +94,13 @@ resource "google_cloud_run_service_iam_member" "backend_service_invoker" {
   member   = "allUsers"
 }
 
-# Grant Secret Manager access to the Cloud Run service account# Grant Secret Manager access to the Compute Engine default service account
-resource "google_project_iam_member" "cloud_run_secret_accessor" {
-  project = var.project_id
-  role    = "roles/secretmanager.secretAccessor"
-  member  = "serviceAccount:${var.project_number}-compute@developer.gserviceaccount.com"
+# ADD secret-level IAM binding
+resource "google_secret_manager_secret_iam_member" "secret_accessor_binding" {
+  project   = data.google_secret_manager_secret.my_secret.project
+  secret_id = data.google_secret_manager_secret.my_secret.secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${var.project_number}-compute@developer.gserviceaccount.com"
 }
-
-
 
 # # Backend domain mapping
 # resource "google_cloud_run_domain_mapping" "backend_domain_mapping" {
