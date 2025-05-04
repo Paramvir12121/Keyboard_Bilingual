@@ -14,7 +14,8 @@ data "google_secret_manager_secret_version" "my_secret_version" {
 resource "google_cloud_run_service" "backend_service" {
   name     = "backend-service"
   location = var.region
-  
+
+
 
   template {
     spec {
@@ -26,7 +27,7 @@ resource "google_cloud_run_service" "backend_service" {
         value = var.database_uri 
       }
 
-       Add environment variable for API domain
+      #  Add environment variable for API domain
         env {
           name  = "API_DOMAIN"
           value = var.api_domain_name
@@ -100,30 +101,38 @@ resource "google_project_iam_member" "cloud_run_secret_accessor" {
 
 
 
-# Backend domain mapping
-resource "google_cloud_run_domain_mapping" "backend_domain_mapping" {
-  location = var.region
-  name     = var.api_domain_name
+# # Backend domain mapping
+# resource "google_cloud_run_domain_mapping" "backend_domain_mapping" {
+#   depends_on = [
+#     google_cloud_run_service.backend_service,
+#     google_certificate_manager_certificate.default
+#   ]
+#   location = var.region
+#   name     = var.api_domain_name
   
-  metadata {
-    namespace = var.project_id
-  }
+#   metadata {
+#     namespace = var.project_id
+#   }
   
-  spec {
-    route_name = google_cloud_run_service.backend_service.name
-  }
-}
+#   spec {
+#     route_name = google_cloud_run_service.backend_service.name
+#   }
+# }
 
-# Frontend domain mapping
-resource "google_cloud_run_domain_mapping" "frontend_domain_mapping" {
-  location = var.region
-  name     = var.frontend_domain_name
+# # Frontend domain mapping
+# resource "google_cloud_run_domain_mapping" "frontend_domain_mapping" {
+#   depends_on = [
+#     google_cloud_run_service.frontend_service,
+#     google_certificate_manager_certificate.default
+#   ]
+#   location = var.region
+#   name     = var.frontend_domain_name
   
-  metadata {
-    namespace = var.project_id
-  }
+#   metadata {
+#     namespace = var.project_id
+#   }
   
-  spec {
-    route_name = google_cloud_run_service.frontend_service.name
-  }
-}
+#   spec {
+#     route_name = google_cloud_run_service.frontend_service.name
+#   }
+# }

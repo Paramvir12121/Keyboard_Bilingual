@@ -23,7 +23,8 @@ resource "google_cloud_run_service" "frontend_service" {
 
         env {
           name  = "VITE_API_URL"
-          value = var.api_domain_name != "" ? "https://${var.api_domain_name}" : google_cloud_run_service.backend_service.status[0].url
+          value = google_cloud_run_service.backend_service.status[0].url
+          # value = var.api_domain_name != "" ? "https://${var.api_domain_name}" : google_cloud_run_service.backend_service.status[0].url
         }
 
 

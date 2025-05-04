@@ -14,6 +14,6 @@ output "backend_domain" {
   value = var.api_domain_name != "" ? "https://${var.api_domain_name}" : null
 }
 
-output "certificate_map_id" {
-  value = google_certificate_manager_certificate_map.default.id
-}
+# output "certificate_map_id" {
+#   value = google_certificate_manager_certificate_map.default.id
+# }
