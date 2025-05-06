@@ -47,7 +47,18 @@ def create_app(config_to_use):
     app = Flask(__name__)
     app.config.from_object(config_to_use)
 
-    CORS(app, supports_credentials=True, origins="*")
+    allowed_origins = [
+        'http://localhost:3000',  # React app running on localhost
+        config_to_use.ALLOWED_ORIGIN_PROD,  # Production domain    
+        # Add more allowed origins as needed
+    ]
+
+    CORS(app, 
+         supports_credentials=True, 
+         origins=allowed_origins,
+         allow_headers=["Content-Type", "Authorization"],
+         methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+         )
     db.init_app(app)
     Session(app)
     init_rollbar(app,config_to_use)

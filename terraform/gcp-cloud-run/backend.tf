@@ -39,6 +39,8 @@ resource "google_cloud_run_service" "backend_service" {
           value = var.api_domain_name
         }
         
+        
+        
         # Add environment variable to force HTTPS
         env {
           name  = "PREFERRED_URL_SCHEME"
@@ -101,6 +103,106 @@ resource "google_secret_manager_secret_iam_member" "secret_accessor_binding" {
   role      = "roles/secretmanager.secretAccessor"
   member    = "serviceAccount:${var.project_number}-compute@developer.gserviceaccount.com"
 }
+
+
+# This two-step deployment process is necessary to avoid a dependency cycle:
+# 1. Deploy backend without CORS config
+# 2. Deploy frontend (which needs backend URL)
+# 3. Update backend with CORS config pointing to frontend URL
+
+resource "google_cloud_run_service_revision" "backend_revision" {
+  depends_on = [google_cloud_run_service.frontend_service]
+  
+  service = google_cloud_run_service.backend_service.name
+  
+  metadata {
+    name = "${google_cloud_run_service.backend_service.name}-revision-${substr(md5(google_cloud_run_service.frontend_service.status[0].url), 0, 8)}"
+  }
+  
+  template {
+    spec {
+      # Explicitly specify the service account to use
+      service_account_name = "${var.project_number}-compute@developer.gserviceaccount.com"
+      
+      containers {
+        image = "${var.region}-docker.pkg.dev/${var.project_id}/${var.artifact_repo}/backend_image:latest"
+        # Define environment variables
+
+         # Add the environment variable here
+        env {
+          name  = "ALLOWED_ORIGIN_PROD"
+          value = google_cloud_run_service.frontend_service.status[0].url
+        }
+
+        env {
+          name  = "SUPABASE_URI_SECONDARY"
+          value = var.database_uri 
+        }
+
+        # Add environment variable for API domain
+        env {
+          name  = "API_DOMAIN"
+          value = var.api_domain_name
+        }
+
+        # Add environment variable to force HTTPS
+        env {
+          name  = "PREFERRED_URL_SCHEME"
+          value = "https"
+        }
+
+
+        ports {
+          container_port = 5000
+        }
+        
+        resources {
+          limits = {
+            cpu    = "1"
+            memory = "256Mi"
+          }
+        }
+        
+
+
+        # Mount the secret as a volume
+        volume_mounts {
+          mount_path = "/secrets/my-secret"   # Path inside the container
+          name       = var.secret_volume_name # Must match the volume name
+        }
+      }
+      
+
+      # Define volumes block for secret mount
+      volumes {
+        name = var.secret_volume_name
+
+        secret {
+          secret_name = data.google_secret_manager_secret.my_secret.secret_id
+
+          items {
+            key  = data.google_secret_manager_secret_version.my_secret_version.version
+            path = "secret_key" # Name of the file inside the mount path
+            mode = "0444"       # File permissions (optional)
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # # Backend domain mapping
 # resource "google_cloud_run_domain_mapping" "backend_domain_mapping" {

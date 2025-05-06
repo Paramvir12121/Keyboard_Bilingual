@@ -16,6 +16,8 @@ class Config:
     STRIPE_API_KEY = config('STRIPE_API_KEY')
     PORT=config('PORT', cast=int, default=5000)
     ROLLBAR_TOKEN = config('ROLLBAR_TOKEN')
+    ALLOWED_ORIGIN_LOCAL = config('ALLOWED_ORIGIN_LOCAL', default='http://localhost:3000')
+    ALLOWED_ORIGIN_PROD = config('ALLOWED_ORIGIN_PROD', default='https://your-production-url.com')
     
 
 class DevConfig(Config):
