@@ -8,7 +8,35 @@
 
 Keyboard Bilingual is an interactive web application designed to help users learn and practice alternative keyboard layouts. Whether you're looking to increase typing speed, reduce finger strain, or simply explore more ergonomic typing methods, this platform provides a comprehensive learning experience.
 
+The application offers structured lessons, real-time feedback, and progress tracking to make the transition to a new keyboard layout as smooth as possible. Users can create accounts to save their progress and practice across multiple devices.
+
 **Live Demo:** ([keyboardbilingual.com](https://keyboardbilingual.com/))
+
+## 🏗️ Architecture
+
+### Frontend
+- React-based single-page application
+- Vite for fast development and optimized production builds
+- State management with React Context API and hooks
+- Interactive typing interface with real-time feedback
+- User authentication and profile management
+- Responsive design for desktop and mobile devices
+
+### Backend
+- Flask RESTful API with Flask-RESTX for documentation
+- AWS Cognito for secure user authentication
+- PostgreSQL database (hosted on Supabase)
+- Session management via Flask-Session
+- Stripe integration for payment processing
+
+### Database Schema
+The application uses a relational database with the following key models:
+
+- **User**: Stores user information and authentication details
+- **Lesson**: Contains typing lessons with associated metadata
+- **UserLesson**: Tracks user progress on specific lessons
+- **Setting**: Stores user preferences and application settings
+- **Payment**: Records user payment transactions
 
 ## ✨ Features
 
@@ -17,6 +45,9 @@ Keyboard Bilingual is an interactive web application designed to help users lear
 - **Progress Tracking** - Monitor your improvement over time with detailed statistics
 - **User Accounts** - Save your progress and continue your learning journey across devices
 - **Multiple Layout Options** - Choose from several alternative keyboard layouts to learn
+- **Customizable Settings** - Adjust the learning experience to match your preferences
+- **Audio Feedback** - Optional sound effects for keystrokes, errors, and lesson completion
+- **Error Analysis** - Identify problematic keys and receive targeted practice
 
 ## ⌨️ Supported Keyboard Layouts
 
@@ -25,98 +56,100 @@ Keyboard Bilingual is an interactive web application designed to help users lear
 - Available in two-handed and single-handed variants
 - Optimized for English language typing efficiency
 
-### Colemak
-- A modern alternative that improves upon both QWERTY and Dvorak
-- Maintains familiar shortcut positions (Ctrl+C, Ctrl+V, etc.) from QWERTY
-- 35 times less finger motion than QWERTY with only 17 changed key positions
+### Colemak Keyboard Layout
+- Modern alternative to QWERTY that's easier to learn than Dvorak
+- Keeps many common shortcut keys in the same position as QWERTY
+- Designed for efficient and comfortable typing experience
+- Places 74% of keystrokes on the home row
 
-### Workman
-- Focused on reducing finger travel distance and promoting ergonomic movements
-- Designed to address certain shortcomings in Colemak layout
-- Optimized for common English language patterns
+## 🚀 Deployment
 
-### Colemak-DH (Colemak Mod-DH)
-- An enhanced variant of Colemak with optimized D and H key positions
-- Further reduces lateral finger movements and increases comfort
-- Particularly beneficial for matrix or split keyboards
+### Infrastructure as Code with Terraform
+This project uses Terraform to provision and manage cloud infrastructure on Google Cloud Platform (GCP). The infrastructure code is found in the `/terraform/gcp-cloud-run` directory.
 
-## 🏗️ Architecture
+Key components:
+- **Cloud Run services** for containerized frontend and backend
+- **Artifact Registry** for Docker image storage
+- **Cloud DNS** for custom domain configuration
+- **SSL certificates** for secure HTTPS connections
 
-Keyboard Bilingual employs a modern tech stack with a hybrid deployment model:
+### Deployment Architecture
+The application is deployed with the following architecture:
+1. **Frontend**: Containerized React application served via Cloud Run
+2. **Backend**: Containerized Flask API deployed on Cloud Run
+3. **Database**: PostgreSQL database hosted on Supabase
+4. **Authentication**: AWS Cognito for user management
+5. **CORS Configuration**: Secure cross-origin resource sharing between services
 
-![Application Architecture](app_diagram.png)
+### Managing Dependencies
+The deployment uses a two-step process to handle the circular dependency between frontend and backend services:
+1. Deploy backend service initially without CORS configuration
+2. Deploy frontend service that references backend URL
+3. Update backend with a new revision that includes CORS settings with the frontend URL
 
-### Frontend
-- Built with React and Vite for optimal performance
-- Responsive design for seamless use across devices
-- Deployed on Vercel for reliable global access
-
-### Backend
-- Flask API handling user data and authentication
-- SQL database for secure and efficient data storage
-- AWS Cognito integration for reliable user authentication
-
-## 📊 Database Design
-
-The application uses a relational database structure to effectively track user progress:
-
-![Database Schema](db.png)
-
-## 🚀 Getting Started
+## 🛠️ Local Development
 
 ### Prerequisites
-- Node.js (v16+)
-- Python (v3.8+)
-- SQL database (MySQL or PostgreSQL)
-- AWS account (for Cognito setup)
+- Node.js (v18+)
+- Python 3.10+
+- Docker and Docker Compose (optional)
 
-### Installation
+### Backend Setup
+```bash
+# Navigate to backend directory
+cd backend
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Paramvir12121/Keyboard_Bilingual.git
-   cd Keyboard_Bilingual
-   ```
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-2. Set up the frontend:
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
+# Install dependencies
+pip install -r requirements.txt
 
-3. Set up the backend:
-   ```bash
-   cd ../backend
-   pip install -r requirements.txt
-   flask run
-   ```
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your configuration
 
-4. Configure your environment variables for database and AWS connections.
+# Run development server
+python run.py
+```
+
+### Frontend Setup
+```bash
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+### Docker Setup
+```bash
+# Run both frontend and backend
+docker-compose up
+
+# Run only backend
+docker-compose up backend
+
+# Run only frontend
+docker-compose up frontend
+```
 
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Commit your changes: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin feature-name`
-5. Open a pull request
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature-amazing-feature`)
+5. Open a Pull Request
 
-## 🙏 Acknowledgements
-
-- [KeyboardConqueror-React-Typing-Practice](https://github.com/gautamop01/KeyboardConqueror-React-Typing-Practice) - For inspiration and reference
-- [Nginx Configuration Guide](https://itnext.io/how-to-serve-your-backends-with-nginx-a-comprehensive-guide-c8a74955c6ed) - For deployment architecture 
-
-## 📄 License
+## 📝 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 📬 Contact
-
-Paramvir - [GitHub Profile](https://github.com/Paramvir12121)
-
-Project Link: [https://github.com/Paramvir12121/Keyboard_Bilingual](https://github.com/Paramvir12121/Keyboard_Bilingual)
 
 
