@@ -11,7 +11,7 @@ import FirstLoginModal from './components/FirstLoginModal';
 
 const Dashboard = () => {
   const [userTypingData, setUserTypingData] = useState(null);
-  const { settings: userSettingsData, error } = useFetchSettings();
+  const { settings: userSettingsData, error, fetchSettings } = useFetchSettings();
   const [showFirstLoginModal, setShowFirstLoginModal] = useState(false);
   const [showSetupModal, setShowSetupModal] = useState(false);
 
@@ -32,11 +32,14 @@ const Dashboard = () => {
       }
     };
     fetchTypingData();
+    fetchSettings();
   }, []);
 
   if (error) {
-    return <div>Error fetching settings: {error.message}</div>;
+    console.error('Error fetching settings:', error);
   }
+
+
 
   if (!userSettingsData || userTypingData === null) {
     return <Loading />;

@@ -9,6 +9,7 @@ const useFetchSettings = (shouldFetchOnMount = true) => {
   const [error, setError] = useState(null);
 
   const api = baseApi();
+  
 
   const fetchSettings = async () => {
     try {
@@ -24,6 +25,7 @@ const useFetchSettings = (shouldFetchOnMount = true) => {
     }
   };
 
+  
   useEffect(() => {
     if (shouldFetchOnMount) {
       fetchSettings();

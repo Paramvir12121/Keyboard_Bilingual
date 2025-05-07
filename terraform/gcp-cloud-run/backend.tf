@@ -39,6 +39,10 @@ resource "google_cloud_run_service" "backend_service" {
           value = var.api_domain_name
         }
 
+        env {
+          name  = "ALLOWED_ORIGIN_LOCAL"
+          value = "http://localhost:5173"
+        }
 
 
         # Add environment variable to force HTTPS

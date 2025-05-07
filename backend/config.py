@@ -16,8 +16,8 @@ class Config:
     STRIPE_API_KEY = config('STRIPE_API_KEY')
     PORT=config('PORT', cast=int, default=5000)
     ROLLBAR_TOKEN = config('ROLLBAR_TOKEN')
-    ALLOWED_ORIGIN_LOCAL = config('ALLOWED_ORIGIN_LOCAL')
-    ALLOWED_ORIGIN_PROD = config('ALLOWED_ORIGIN_PROD')
+    ALLOWED_ORIGIN_LOCAL = config('ALLOWED_ORIGIN_LOCAL', default='http://localhost:5173')
+    ALLOWED_ORIGIN_PROD = config('ALLOWED_ORIGIN_PROD', default='https://frontend-service-743073512588.us-east1.run.app')
     WEBSITE_URL = config('WEBSITE_URL',default= "https://keyboardbilingual.com",)
     
 

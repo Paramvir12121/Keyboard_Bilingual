@@ -108,6 +108,8 @@ def login_required(f):
         print("user_id: ",session.get('user_id'))
         print("username: ",session.get('username'))
         print("session",session.sid)
+        if not 'user_id':
+            return {"message": "Authentication required"}, 401
         if 'user_id' not in session:
             print("User Unauthorized")
             return {"message": "Unauthorized"}, 401
@@ -339,12 +341,14 @@ class Login(Resource):
                 db_user = User(username=username,email=email)
                 db_user.save()
              # Save session data in SQLAlchemy session
+            session.clear()
             session['username'] = username
             session['user_id']=db_user.id
             session['email']=email
             session['refresh_token']=refresh_token
             session['access_token'] = access_token
             session['id_token'] = id_token
+            session.permanent = True
             # print("session",session)
             resp = jsonify({'message': 'Login successful', 'user_id': db_user.id, 'username': username, 'email': email})
             # print("current app session: ",session['_id'])

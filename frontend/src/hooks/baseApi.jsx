@@ -31,31 +31,31 @@ const baseApi = () => {
         },
     });
 
-    api.interceptors.response.use(
-        (response) => response,
-        async (error) => {
-            const originalRequest = error.config;
+    // api.interceptors.response.use(
+    //     (response) => response,
+    //     async (error) => {
+    //         const originalRequest = error.config;
             
-            // If error is 401 and we haven't tried refreshing yet
-            if (error.response.status === 401 && !originalRequest._retry) {
-                originalRequest._retry = true;
+    //         // If error is 401 and we haven't tried refreshing yet
+    //         if (error.response.status === 401 && !originalRequest._retry) {
+    //             originalRequest._retry = true;
                 
-                try {
-                    // Call your token refresh endpoint
-                    const response = await axios.post('/auth/refresh-token', {}, { withCredentials: true });
+    //             try {
+    //                 // Call your token refresh endpoint
+    //                 const response = await axios.post('/auth/refresh-token', {}, { withCredentials: true });
                     
-                    // Retry the original request
-                    return api(originalRequest);
-                } catch (refreshError) {
-                    // If refresh fails, redirect to login
-                    window.location.href = '/login';
-                    return Promise.reject(refreshError);
-                }
-            }
+    //                 // Retry the original request
+    //                 return api(originalRequest);
+    //             } catch (refreshError) {
+    //                 // If refresh fails, redirect to login
+    //                 window.location.href = '/login';
+    //                 return Promise.reject(refreshError);
+    //             }
+    //         }
             
-            return Promise.reject(error);
-        }
-    );
+    //         return Promise.reject(error);
+    //     }
+    // );
 
  
     // console.log('VITE_API_URL from import.meta.env:', import.meta.env.VITE_API_URL);
