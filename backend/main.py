@@ -48,8 +48,8 @@ def create_app(config_to_use):
     app.config.from_object(config_to_use)
 
     # Critical: Update session config for cross-domain
-    app.config['SESSION_COOKIE_SECURE'] = True
-    app.config['SESSION_COOKIE_HTTPONLY'] = True
+    app.config['SESSION_COOKIE_SECURE'] = False # Set to True in production
+    app.config['SESSION_COOKIE_HTTPONLY'] = False # Set to True in production
     app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # Required for cross-domain
     app.config['PERMANENT_SESSION_LIFETIME'] = 3600 * 24 * 30  # 30 days
 
@@ -71,6 +71,7 @@ def create_app(config_to_use):
     
     db.init_app(app)
     Session(app)
+    app.config['SESSION_TYPE'] = config_to_use.SESSION_TYPE
     init_rollbar(app,config_to_use)
 
     api = Api(app, doc='/docs')
@@ -100,6 +101,7 @@ def create_app(config_to_use):
             "db": db,
             "User": User,
             "lessons": Lesson,
+           
         }
     return app
 
