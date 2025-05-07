@@ -47,6 +47,12 @@ def create_app(config_to_use):
     app = Flask(__name__)
     app.config.from_object(config_to_use)
 
+    # Critical: Update session config for cross-domain
+    app.config['SESSION_COOKIE_SECURE'] = True
+    app.config['SESSION_COOKIE_HTTPONLY'] = True
+    app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # Required for cross-domain
+    app.config['PERMANENT_SESSION_LIFETIME'] = 3600 * 24 * 30  # 30 days
+
     allowed_origins = [
         config_to_use.WEBSITE_URL,  # Website URL
         config_to_use.ALLOWED_ORIGIN_PROD,  # Production domain    

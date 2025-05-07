@@ -134,7 +134,7 @@ resource "null_resource" "update_backend_cors" {
   }
 
   provisioner "local-exec" {
-    command = "gcloud run services update backend-service --project=${var.project_id} --region=${var.region}  --set-env-vars=ALLOWED_ORIGIN_PROD=${google_cloud_run_service.frontend_service.status[0].url}"
+    command = "gcloud run services update backend-service --project=apis-419919 --region=us-east1 --set-env-vars=ALLOWED_ORIGIN_PROD=https://keyboardbilingual.com,SESSION_COOKIE_DOMAIN=.a.run.app"
   }
 }
 
