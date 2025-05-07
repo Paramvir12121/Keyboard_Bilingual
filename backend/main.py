@@ -48,7 +48,7 @@ def create_app(config_to_use):
     app.config.from_object(config_to_use)
 
     allowed_origins = [
-        'http://localhost:3000',  # React app running on localhost
+        config_to_use.WEBSITE_URL,  # Website URL
         config_to_use.ALLOWED_ORIGIN_PROD,  # Production domain    
         # Add more allowed origins as needed
     ]
