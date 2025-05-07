@@ -59,6 +59,7 @@ def create_app(config_to_use):
          allow_headers=["Content-Type", "Authorization"],
          methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
          )
+    
     db.init_app(app)
     Session(app)
     init_rollbar(app,config_to_use)
