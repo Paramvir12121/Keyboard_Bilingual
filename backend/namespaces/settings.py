@@ -72,6 +72,10 @@ class Settings(Resource):
         user_id = session.get('user_id')
         username = session.get('username')
         email = session.get('email')
+
+        # Log for debugging
+        print(f"Session check - token: {session_token}, user_id: {user_id}")
+        
         if not user_id:
             return {"message": "Invalid session token. Not logged in."}, 401
         #search for user settings with user id in db

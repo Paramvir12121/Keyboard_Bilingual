@@ -40,7 +40,7 @@ const Login = () => {
                 Cookies.set('email', response.data.email);
                 setSignedIn(true);
                 setMessage('Login successful');
-                fetchSettings();
+                // fetchSettings();
                 // setTimeout(() => {
                     navigate(ROUTES.DASHBOARD);
                 // }, 5); // Slight delay to show success message

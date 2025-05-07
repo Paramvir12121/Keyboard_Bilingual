@@ -1,10 +1,10 @@
 # # Managed SSL Certificate
 # resource "google_certificate_manager_certificate" "default" {
 #   depends_on = [google_project_service.certificate_manager_api]
-  
+
 #   name        = "my-certificate"
 #   description = "SSL certificate for my application"
-  
+
 #   managed {
 #     domains = [var.domain_name]
 #   }
@@ -13,7 +13,7 @@
 # # Create a certificate map
 # resource "google_certificate_manager_certificate_map" "default" {
 #   depends_on = [google_project_service.certificate_manager_api]
-  
+
 #   name        = "certificate-map"
 #   description = "Certificate map for my domain"
 # }
@@ -24,7 +24,7 @@
 #     google_certificate_manager_certificate_map.default,
 #     google_certificate_manager_certificate.default
 #   ]
-  
+
 #   name        = "certificate-map-entry"
 #   description = "Certificate map entry for my domain"
 #   map         = google_certificate_manager_certificate_map.default.name
