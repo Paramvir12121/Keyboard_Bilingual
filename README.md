@@ -138,6 +138,9 @@ docker-compose up backend
 docker-compose up frontend
 ```
 
+## Known Issues
+- CORS configuration error, backend and frontend not able to communicate in production.
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
