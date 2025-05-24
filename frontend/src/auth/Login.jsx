@@ -36,7 +36,7 @@ const Login = () => {
             const response = await api.post('/auth/login', { username, password }, { withCredentials: true });
             if (response.data) {
                 // response.set_cookie('session', session.sid, samesite='None')
-                Cookies.set('session', response.data.session, { sameSite: 'None', secure: true });
+                // Cookies.set('session', response.data.session, { sameSite: 'None', secure: true });
                 Cookies.set('signedIn', 'true');
                 Cookies.set('username', response.data.username);
                 Cookies.set('email', response.data.email);

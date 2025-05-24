@@ -108,7 +108,13 @@ def handle_errors(f):
             return {"message": e.description}, e.code
         except Exception as e:
             print(f"Unexpected error: {str(e)}")
-            return {"message": "An unexpected error occurred: " + str(e)}, 500
+            # THIS IS WHAT'S HAPPENING:
+            # It catches the (dict, int) tuple from the "if not user_id:" block
+            # if @login_required doesn't stop it first.
+            # Then it tries to return it, but Flask-RESTX expects a JSON serializable object
+            # or a Flask Response object from the main function body, not from an exception handler
+            # that's trying to re-return what the function already tried to return.
+            return {"message": "An unexpected error occurred: " + str(e)}, 500 # This is fine
     return decorated_function
 
 

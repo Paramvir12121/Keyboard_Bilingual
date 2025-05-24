@@ -104,15 +104,11 @@ def payment_required(f):
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        print("User checked")
-        print("user_id: ",session.get('user_id'))
-        print("username: ",session.get('username'))
-        print("session",session.sid)
-        if not 'user_id':
-            return {"message": "Authentication required"}, 401
-        if 'user_id' not in session:
-            print("User Unauthorized")
-            return {"message": "Unauthorized"}, 401
+        if session.get('user_id') is None:
+            print(f"DEBUG: @login_required access denied. Current session: {dict(session)}")
+            # Return a full Response object
+            return make_response(jsonify({"message": "Authentication Required"}), 401)
+        print(f"DEBUG: @login_required access granted for user_id: {session.get('user_id')}")
         return f(*args, **kwargs)
     return decorated_function
 
@@ -351,8 +347,11 @@ class Login(Resource):
             session.permanent = True
             # print("session",session)
             resp = jsonify({'message': 'Login successful', 'user_id': db_user.id, 'username': username, 'email': email})
+             # Log successful session creation
+            print(f"DEBUG: Login successful. Session created for user_id: {db_user.id}. Session data: {dict(session)}")
             # print("current app session: ",session['_id'])
             resp.set_cookie('session', session.sid, httponly=True, secure=True, samesite='None')
+            # resp.set_cookie('session', session.sid)
             print("current id of session: ",session.sid)
             return resp
         except client.exceptions.ClientError as error:

@@ -48,16 +48,26 @@ def create_app(config_to_use):
     app.config.from_object(config_to_use)
 
     # Critical: Update session config for cross-domain
-    app.config['SESSION_COOKIE_SECURE'] = False # Set to True in production
-    app.config['SESSION_COOKIE_HTTPONLY'] = False # Set to True in production
-    app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # Required for cross-domain
-    app.config['PERMANENT_SESSION_LIFETIME'] = 3600 * 24 * 30  # 30 days
+    app.config.update(
+        SESSION_COOKIE_NAME     = "session",
+        SESSION_COOKIE_SECURE   = True,
+        SESSION_COOKIE_HTTPONLY = True,
+        SESSION_COOKIE_SAMESITE = "None",
+        SESSION_COOKIE_DOMAIN   = ".keyboard-learner.com",  # <-- key change
+        SESSION_PERMANENT       = True,
+        PERMANENT_SESSION_LIFETIME = 3600 * 24 * 30,
+        SESSION_TYPE            = config_to_use.SESSION_TYPE  # redis, dynamodb, …
+    )
+
+    
+
 
     allowed_origins = [
         config_to_use.WEBSITE_URL,  # Website URL
         config_to_use.ALLOWED_ORIGIN_PROD,  # Production domain    
         # Add more allowed origins as needed
     ]
+
 
     CORS(app, 
          supports_credentials=True, 
